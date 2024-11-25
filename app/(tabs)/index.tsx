@@ -1,9 +1,15 @@
 import React from "react";
-import { Text, View, TextInput } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { 
+  Text, 
+  View, 
+  TextInput,
+} from "react-native";
+import Searchbar from "@/components/Searchbar";
+import FilterButton from "@/components/FilterButton";
 
 export default function Index() {
-  const [text, onChangeText] = React.useState<string>('');
 
   return (
     <SafeAreaProvider>
@@ -15,19 +21,15 @@ export default function Index() {
           backgroundColor: "#fff"
         }}
       >
-        <TextInput
+        <View
           style={{
-            height: 40,
-            margin: 12,
-            width: 190,
-            borderWidth: 1,
-            padding:10,
+            flexDirection: 'row',
+            alignItems: "center"
           }}
-          placeholder="Search"
-          value={text}
-          onChangeText={onChangeText}
-        />
-        
+        >
+          <Searchbar placeholder="Search"/>
+          <FilterButton color="#2B32B2"/>
+        </View>
       </SafeAreaView>
     </SafeAreaProvider>
   );
