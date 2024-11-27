@@ -10,13 +10,6 @@ const {width} = Dimensions.get('screen');
 
 export default function BookedCard({ items }: Props) {
     return (
-        <View
-            style={{
-                width: width,
-                alignItems: "center",
-                paddingHorizontal: 20
-            }}
-        >
             <View
                 style={{
                     flexDirection: 'row',
@@ -24,9 +17,8 @@ export default function BookedCard({ items }: Props) {
                     backgroundColor: '#2B32B2',
                     borderRadius: 10,
                     gap: 20,
-                    height: 130,
-                    width: '100%',
-                    paddingInline: 15
+                    width: 300,
+                    paddingHorizontal: 15,
                 }}
             >
                 <Image 
@@ -42,6 +34,5 @@ export default function BookedCard({ items }: Props) {
                     </Text>
                 </View>
             </View>
-        </View>
     )
 }

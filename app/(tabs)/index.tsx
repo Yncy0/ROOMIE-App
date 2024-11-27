@@ -11,9 +11,8 @@ import {
 import Searchbar from "@/components/Searchbar";
 import FilterButton from "@/components/FilterButton";
 import BookedCard from "@/components/BookedCard";
+import RooomCardIndex from "@/components/RoomCardIndex";
 
-
-const {width} = Dimensions.get('screen');
 
 export default function Index() {
   const DATA = [
@@ -63,8 +62,8 @@ export default function Index() {
     <SafeAreaProvider>
       <SafeAreaView
         style={{
-          flexDirection: 'column',
-          gap: 25,
+          flex: 1,
+          gap: 20,
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#fff",
@@ -83,6 +82,7 @@ export default function Index() {
           <Searchbar placeholder="Search"/>
           <FilterButton color="#2B32B2"/>
         </View>
+
         <View 
           style={{
             width: '100%', 
@@ -96,14 +96,41 @@ export default function Index() {
             <Text>{"See all"}</Text>
           </Pressable>
         </View>
+
         <FlatList
           horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
+          // pagingEnabled
+          // showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: 20, paddingHorizontal: 20}}
           initialNumToRender={7}
           data={DATA}
           renderItem={({item, index}) => <BookedCard items={item} key={index}/>}
         />
+
+        <View 
+          style={{
+            width: '100%', 
+            flexDirection: "row", 
+            justifyContent:"space-between", 
+            paddingHorizontal: 20,
+            paddingTop: 10,
+          }}
+        >
+          <Text>{"Available Rooms"}</Text>
+          <Pressable>
+            <Text>{"See more"}</Text>
+          </Pressable>
+        </View>
+
+        <FlatList
+          data={DATA}
+          renderItem={({item, index}) => <RooomCardIndex key={index} items={item}/>}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          initialNumToRender={15}
+        />
+
       </SafeAreaView>
     </SafeAreaProvider>
   );
