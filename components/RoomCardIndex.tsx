@@ -13,6 +13,7 @@ export default function RooomCardIndex({ items }: Props) {
         <View 
             style={{
                 width: width,
+                height: 290,
                 alignItems: 'center',
                 justifyContent: 'center'
             }}
