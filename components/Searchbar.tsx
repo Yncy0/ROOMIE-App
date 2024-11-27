@@ -16,7 +16,7 @@ export default function Searchbar({ placeholder }: Props) {
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 2,
-                height: 50,
+                height: 40,
                 margin: 12,
                 width: 250,
                 backgroundColor: "#F1F1F1",
