@@ -1,14 +1,16 @@
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { Image, type ImageSource } from "expo-image";
+
 
 type Props = {
-    image: string,
+    imageSource: string,
     room_name: string
 }
 
-export default function BookedCard({ image, room_name }: Props) {
+export default function BookedCard({ imageSource, room_name }: Props) {
     return (
         <View>
-            <Image source={{uri: image}}/>
+            <Image source={imageSource}/>
             <View>
                 <Text>
                     {room_name}

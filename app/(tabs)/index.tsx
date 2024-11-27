@@ -10,6 +10,7 @@ import Searchbar from "@/components/Searchbar";
 import FilterButton from "@/components/FilterButton";
 import BookedCard from "@/components/BookedCard";
 
+
 export default function Index() {
   const DATA = [
     {
@@ -18,7 +19,7 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Lecture Room",
       "room_capacity": 30,
-      "room_image": "assets/images/_dummy-img.png"
+      "room_image": "@/assets/images/_dummy-img.png"
     },
     {
       "id": 2,
@@ -26,7 +27,7 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Lecture Room",
       "room_capacity": 30,
-      "room_image": "assets/images/_dummy-img.png"
+      "room_image": "@/assets/images/_dummy-img.png"
     },
     {
       "id": 3,
@@ -34,7 +35,7 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Lecture Room",
       "room_capacity": 30,
-      "room_image": "assets/images/_dummy-img.png"
+      "room_image": "@/assets/images/_dummy-img.png"
     },
     {
       "id": 4,
@@ -42,7 +43,7 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Computer Laboratory",
       "room_capacity": 30,
-      "room_image": "assets/images/_dummy-img.png"
+      "room_image": "@/assets/images/_dummy-img.png"
     },
     {
       "id": 5,
@@ -50,7 +51,7 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Lecture Room",
       "room_capacity": 30,
-      "room_image": "assets/images/_dummy-img.png"
+      "room_image": "@/assets/images/_dummy-img.png"
     },
 ];
 
@@ -75,7 +76,7 @@ export default function Index() {
         </View>
         <FlatList
           data={DATA}
-          renderItem={({item}) => <BookedCard image={item.room_image} room_name={item.room_name}/>}
+          renderItem={({item}) => <BookedCard imageSource={item.room_image} room_name={item.room_name}/>}
         />
       </SafeAreaView>
     </SafeAreaProvider>
