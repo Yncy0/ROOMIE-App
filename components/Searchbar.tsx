@@ -13,15 +13,16 @@ export default function Searchbar({ placeholder }: Props) {
     return (
         <View
             style={{
+                // borderWidth: 2,
+                // borderColor: "#ff0000",
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 2,
                 height: 40,
-                margin: 12,
-                width: 250,
+                width: 270,
                 backgroundColor: "#F1F1F1",
                 paddingHorizontal: 12,
-                borderRadius: 25,
+                borderRadius: 10,
             }}
         >
         <Ionicons 

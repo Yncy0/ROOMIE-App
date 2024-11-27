@@ -1,20 +1,46 @@
-import { Text, View } from "react-native";
+import { Dimensions, Text, View } from "react-native";
 import { Image, type ImageSource } from "expo-image";
 
 
 type Props = {
-    imageSource: string,
-    room_name: string
+    items: any,
 }
 
-export default function BookedCard({ imageSource, room_name }: Props) {
+const {width} = Dimensions.get('screen');
+
+export default function BookedCard({ items }: Props) {
     return (
-        <View>
-            <Image source={imageSource}/>
-            <View>
-                <Text>
-                    {room_name}
-                </Text>
+        <View
+            style={{
+                width: width,
+                alignItems: "center",
+                paddingHorizontal: 20
+            }}
+        >
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    backgroundColor: '#2B32B2',
+                    borderRadius: 10,
+                    gap: 20,
+                    height: 130,
+                    width: '100%',
+                    paddingInline: 15
+                }}
+            >
+                <Image 
+                    source={items.room_image}
+                    style={{
+                        width: 100,
+                        height: 100,
+                    }}
+                />
+                <View>
+                    <Text style={{color: '#fff'}}>
+                        {items.room_name}
+                    </Text>
+                </View>
             </View>
         </View>
     )
