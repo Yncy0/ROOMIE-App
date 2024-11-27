@@ -22,7 +22,10 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Lecture Room",
       "room_capacity": 30,
-      "room_image": require("@/assets/images/_dummy-img.png")
+      "room_image": require("@/assets/images/_dummy-img.png"),
+      "subject": "Computer Networking",
+      "section": "BSIT 3",
+      "schedule": "7:30-12:30"
     },
     {
       "id": 2,
@@ -30,7 +33,10 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Lecture Room",
       "room_capacity": 30,
-      "room_image": require("@/assets/images/_dummy-img.png")
+      "room_image": require("@/assets/images/_dummy-img.png"),
+      "subject": "Computer Networking",
+      "section": "BSIT 3",
+      "schedule": "7:30-12:30"
     },
     {
       "id": 3,
@@ -38,7 +44,10 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Lecture Room",
       "room_capacity": 30,
-      "room_image": require("@/assets/images/_dummy-img.png")
+      "room_image": require("@/assets/images/_dummy-img.png"),
+      "subject": "Computer Networking",
+      "section": "BSIT 3",
+      "schedule": "7:30-12:30"
     },
     {
       "id": 4,
@@ -46,7 +55,10 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Computer Laboratory",
       "room_capacity": 30,
-      "room_image": require("@/assets/images/_dummy-img.png")
+      "room_image": require("@/assets/images/_dummy-img.png"),
+      "subject": "Computer Networking",
+      "section": "BSIT 3",
+      "schedule": "7:30-12:30"
     },
     {
       "id": 5,
@@ -54,7 +66,10 @@ export default function Index() {
       "room_location": "St. Augustine Bldg",
       "room_description": "Lecture Room",
       "room_capacity": 30,
-      "room_image": require("@/assets/images/_dummy-img.png")
+      "room_image": require("@/assets/images/_dummy-img.png"),
+      "subject": "Computer Networking",
+      "section": "BSIT 3",
+      "schedule": "7:30-12:30"
     },
 ];
 
