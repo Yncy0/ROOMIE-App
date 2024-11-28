@@ -107,15 +107,15 @@ export default function Index() {
           }}
         >
           <Text>{"My Booking"}</Text>
-          <Pressable>
-            <Text>{"See all"}</Text>
-          </Pressable>
+            <Pressable>
+              <Text>{"See all"}</Text>
+            </Pressable>
         </View>
 
         <FlatList
           horizontal
           // pagingEnabled
-          // showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
           contentContainerStyle={{gap: 20, paddingHorizontal: 20}}
           initialNumToRender={7}
           data={DATA}
@@ -132,9 +132,9 @@ export default function Index() {
           }}
         >
           <Text>{"Available Rooms"}</Text>
-          <Pressable>
-            <Text>{"See more"}</Text>
-          </Pressable>
+            <Pressable>
+              <Text>{"See more"}</Text>
+            </Pressable>
         </View>
 
         <FlatList
