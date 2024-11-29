@@ -16,7 +16,7 @@ export default function BookedCard({ items }: Props) {
                 style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    backgroundColor: '#2B32B2',
+                    backgroundColor: '#81A4D8',
                     borderRadius: 10,
                     gap: 20,
                     paddingHorizontal: 15,
