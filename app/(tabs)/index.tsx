@@ -142,7 +142,8 @@ export default function Index() {
           renderItem={({item, index}) => <RooomCardIndex key={index} items={item}/>}
           horizontal
           showsHorizontalScrollIndicator={false}
-          pagingEnabled
+          contentContainerStyle={{gap: 20, paddingHorizontal: 20}}
+          // pagingEnabled
           initialNumToRender={15}
         />
 
