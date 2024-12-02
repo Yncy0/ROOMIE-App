@@ -43,7 +43,7 @@ export default function Schedule() {
             }}
           >
             <HistoryStatus status="Incoming" color="#FFDB5E"/>
-            <HistoryStatus status="Completed" color="#81A4D8"/>
+            <HistoryStatus status="Completed" color="#2B32B2"/>
             <HistoryStatus status="Cancelled" color="#FF5C5C"/>
           </View>
           <Text style={{width: '100%', paddingHorizontal: 20, paddingBottom: 20}}>My Schedule</Text>

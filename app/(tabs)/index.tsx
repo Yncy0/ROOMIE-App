@@ -37,7 +37,7 @@ export default function Index() {
             }}
           >
             <Searchbar placeholder="Search"/>
-            <FilterButton color="#81A4D8"/>
+            <FilterButton color="#2B32B2"/>
           </View>
           <View 
             style={{
