@@ -20,6 +20,7 @@ export default function BookedCard({ items }: Props) {
                     borderRadius: 10,
                     gap: 20,
                     paddingHorizontal: 15,
+                    height: 150,
                 }}
             >
                 <Image 

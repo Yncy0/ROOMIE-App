@@ -6,7 +6,8 @@ import {
   TextInput,
   FlatList,
   Pressable,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from "react-native";
 import Searchbar from "@/components/Searchbar";
 import FilterButton from "@/components/FilterButton";
@@ -22,75 +23,69 @@ export default function Index() {
       <SafeAreaView
         style={{
           flex: 1,
-          gap: 20,
-          justifyContent: "center",
-          alignItems: "center",
           backgroundColor: "#fff",
         }}
       >
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: "center",
-            width: '100%',
-            paddingTop: 20,
-            paddingHorizontal: 20
-          }}
-        >
-          <Searchbar placeholder="Search"/>
-          <FilterButton color="#81A4D8"/>
-        </View>
-
-        <View 
-          style={{
-            width: '100%', 
-            flexDirection: "row", 
-            justifyContent:"space-between", 
-            paddingHorizontal: 20
-          }}
-        >
-          <Text>{"My Booking"}</Text>
-            <Pressable>
-              <Text>{"See all"}</Text>
-            </Pressable>
-        </View>
-
-        <FlatList
-          horizontal
-          // pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{gap: 20, paddingHorizontal: 20}}
-          initialNumToRender={7}
-          data={DATA}
-          renderItem={({item, index}) => <BookedCard items={item} key={index}/>}
-        />
-
-        <View 
-          style={{
-            width: '100%', 
-            flexDirection: "row", 
-            justifyContent:"space-between", 
-            paddingHorizontal: 20,
-            paddingTop: 10,
-          }}
-        >
-          <Text>{"Available Rooms"}</Text>
-            <Pressable>
-              <Text>{"See more"}</Text>
-            </Pressable>
-        </View>
-
-        <FlatList
-          data={DATA}
-          renderItem={({item, index}) => <RooomCardIndex key={index} items={item}/>}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{gap: 20, paddingHorizontal: 20}}
-          // pagingEnabled
-          initialNumToRender={15}
-        />
-
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: "center",
+              width: '100%',
+              padding: 20
+            }}
+          >
+            <Searchbar placeholder="Search"/>
+            <FilterButton color="#81A4D8"/>
+          </View>
+          <View 
+            style={{
+              width: '100%', 
+              flexDirection: "row", 
+              justifyContent:"space-between", 
+              paddingHorizontal: 20,
+              paddingBottom: 20
+            }}
+          >
+            <Text>{"My Booking"}</Text>
+              <Pressable>
+                <Text>{"See all"}</Text>
+              </Pressable>
+          </View>
+          <FlatList
+            horizontal
+            // pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{gap: 20, paddingHorizontal: 20, paddingBottom: 20}}
+            initialNumToRender={7}
+            data={DATA}
+            renderItem={({item, index}) => <BookedCard items={item} key={index}/>}
+          />
+          <View 
+            style={{
+              width: '100%', 
+              flexDirection: "row", 
+              justifyContent:"space-between", 
+              paddingHorizontal: 20,
+              paddingBottom: 20
+            }}
+          >
+            <Text>{"Available Rooms"}</Text>
+              <Pressable>
+                <Text>{"See more"}</Text>
+              </Pressable>
+          </View>
+          <FlatList
+            data={DATA}
+            renderItem={({item, index}) => <RooomCardIndex key={index} items={item}/>}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{gap: 20, paddingHorizontal: 20}}
+            // pagingEnabled
+            initialNumToRender={15}
+          />
+        </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
   );
