@@ -1,16 +1,41 @@
-import { Text, View } from "react-native";
+import PressableText from "@/components/PressableText";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { ScrollView, Text, View } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function Profile() {
+  const [profilePic, hasProfilePic] = React.useState<boolean>(false);
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#fff"
-      }}
-    >
-      <Text>Profile</Text>
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: "#fff",
+        }}
+      >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {!profilePic && (
+            <View 
+              style={{
+                flex: 1, 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                gap: 7,
+                width: '100%',
+                paddingVertical: 50
+              }}>
+              <Ionicons name={'person-circle-sharp'} size={80}/>
+              <Text>Hello User!</Text>
+            </View>
+          )}
+          <PressableText text="User Information"/>
+          <PressableText text="Privacy and Security"/>
+          <PressableText text="Settings"/>
+          <PressableText text="Logout"/>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
