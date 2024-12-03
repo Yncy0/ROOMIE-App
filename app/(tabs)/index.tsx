@@ -12,7 +12,7 @@ import {
 import Searchbar from "@/components/Searchbar";
 import FilterButton from "@/components/FilterButton";
 import BookedCard from "@/components/BookedCard";
-import RooomCardIndex from "@/components/RoomCardIndex";
+import RooomCardIndex from "@/components/RoomCard";
 import { DATA } from "@/data/DATA";
 
 
