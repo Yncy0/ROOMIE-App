@@ -9,7 +9,7 @@ type Props = {
 
 const {width} = Dimensions.get('screen');
 
-export default function RooomCard({ items, onPress }: Props) {
+export default function RoomCard({ items, onPress }: Props) {
     return (
         <Pressable onPress={onPress}>
             <ImageBackground 
