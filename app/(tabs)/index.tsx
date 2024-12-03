@@ -19,6 +19,8 @@ import { DATA } from "@/data/DATA";
 
 export default function Index() {
 
+
+
   return (
     <SafeAreaProvider>
       <SafeAreaView
@@ -79,7 +81,22 @@ export default function Index() {
           </View>
           <FlatList
             data={DATA}
-            renderItem={({item, index}) => <RoomCard key={index} items={item} onPress={() => router.push('../screens/roomPreview')}/>}
+            renderItem={({item, index}) => 
+              <RoomCard 
+                key={index} 
+                items={item} 
+                onPress={() => 
+                  router.push({
+                    pathname: '../screens/[roomPreview]',
+                    params: {
+                      roomPreview: index, 
+                      roomName: item.room_name,
+                      roomCategory: item.room_category,
+                      roomImage: item.room_image
+                    }
+                  })}
+              />
+            }
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{gap: 20, paddingHorizontal: 20}}

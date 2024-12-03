@@ -1,5 +1,6 @@
 //import { Image } from "expo-image";
-import { View, Dimensions, Text, ImageBackground, Pressable } from "react-native";
+import { View, Dimensions, Text, Pressable } from "react-native";
+import { ImageBackground } from "expo-image";
 
 
 type Props = {
@@ -37,7 +38,7 @@ export default function RoomCard({ items, onPress }: Props) {
                         bottom:0, 
                         left:0,
                         fontSize: 16
-                    }}>{items.room_description}
+                    }}>{items.room_category}
                 </Text>
             </ImageBackground>
         </Pressable>
