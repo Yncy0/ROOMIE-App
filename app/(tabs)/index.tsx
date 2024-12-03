@@ -79,7 +79,7 @@ export default function Index() {
           </View>
           <FlatList
             data={DATA}
-            renderItem={({item, index}) => <RoomCard key={index} items={item} onPress={() => router.replace('/../screen/roomPreview')}/>}
+            renderItem={({item, index}) => <RoomCard key={index} items={item} onPress={() => router.push('../screens/roomPreview')}/>}
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{gap: 20, paddingHorizontal: 20}}
