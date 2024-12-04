@@ -89,7 +89,6 @@ export default function Index() {
                   router.push({
                     pathname: '../screens/[roomPreview]',
                     params: {
-                      roomPreview: index, 
                       roomName: item.room_name,
                       roomCategory: item.room_category,
                       roomImage: item.room_image
