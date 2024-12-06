@@ -36,7 +36,7 @@ export default function BookedCard({ items }: Props) {
                     <Text style={{color:'#fff'}}>{items.room_category}</Text>
                     <IconText icon='albums-outline' text={items.subject}/>
                     <IconText icon='people-outline' text={items.section}/>
-                    <IconText icon='time-outline' text={items.schedule}/>
+                    <IconText icon='time-outline' text={`${items.time_in}-${items.time_out}`}/>
                 </View>
             </View>
     )

@@ -86,7 +86,7 @@ export default function Index() {
                 key={index} 
                 items={item} 
                 onPress={() => 
-                  router.push({
+                  router.replace({
                     pathname: '../screens/[roomPreview]',
                     params: {
                       roomName: item.room_name,

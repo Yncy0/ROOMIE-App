@@ -10,6 +10,8 @@ export const DATA = [
       "room_image": require("@/assets/images/_dummy-img.png"),
       "subject": "Computer Networking",
       "section": "BSIT 3",
+      "time_in": "7:30",
+      "time_out": "12:30",
       "schedule": "7:30-12:30"
     },
     {
@@ -21,6 +23,8 @@ export const DATA = [
       "room_image": require("@/assets/images/_dummy-img.png"),
       "subject": "Computer Networking",
       "section": "BSIT 3",
+      "time_in": "7:30",
+      "time_out": "12:30",
       "schedule": "7:30-12:30"
     },
     {
@@ -32,6 +36,8 @@ export const DATA = [
       "room_image": require("@/assets/images/_dummy-img.png"),
       "subject": "Computer Networking",
       "section": "BSIT 3",
+      "time_in": "7:30",
+      "time_out": "12:30",
       "schedule": "7:30-12:30"
     },
     {
@@ -43,6 +49,8 @@ export const DATA = [
       "room_image": require("@/assets/images/_dummy-img.png"),
       "subject": "Computer Networking",
       "section": "BSIT 3",
+      "time_in": "7:30",
+      "time_out": "12:30",
       "schedule": "7:30-12:30"
     },
     {
@@ -54,6 +62,8 @@ export const DATA = [
       "room_image": require("@/assets/images/_dummy-img.png"),
       "subject": "Computer Networking",
       "section": "BSIT 3",
+      "time_in": "7:30",
+      "time_out": "12:30",
       "schedule": "7:30-12:30"
     },
 ];
