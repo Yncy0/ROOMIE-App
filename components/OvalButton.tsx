@@ -2,10 +2,10 @@ import { Pressable, Text } from "react-native"
 
 
 type Props = {
-    text?: string, 
-    color?: string,
-    height?: number,
-    width?: number,
+    text: string, 
+    color: string,
+    height: number,
+    width: number,
     onPress?: () => void,
 }
 

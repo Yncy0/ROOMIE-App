@@ -3,25 +3,33 @@ import { Modal, Pressable, View } from "react-native";
 import IconTextInput from "./IconTextInput";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet, { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
+import OvalButton from "./OvalButton";
 
 
-type Props = PropsWithChildren<{
-    isVisible?: boolean,
-    onClose?: () => void,
-}>;
-
-export default function BookingBottomSheet({ isVisible, onClose }: Props) {  
-    
-
+export default function BookingBottomSheet() {  
     return (
         <BottomSheetView
             style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'space-between',
                 backgroundColor:'white',
                 width: '100%',
-                height: 425
+                height: 425,
+                paddingHorizontal: 20,
+                paddingTop: 20,
+                paddingBottom: 50
             }}
         >
-            <IconTextInput icon={'accessibility'} placeholder="Subject Name" width={250}/>
+            <View
+                style={{width: '100%', gap: 20}}
+            >
+                <IconTextInput icon={'book'} placeholder="Subject Name"/>
+                <IconTextInput icon={'people-alt'} placeholder="Course & Section"/>
+                <IconTextInput icon={'calendar-today'} placeholder="Date"/>
+                <IconTextInput icon={'schedule'} placeholder="Time"/>  
+            </View>
+            <OvalButton text="Reserve" color="black" height={50} width={250}/>
         </BottomSheetView>
     )
 }

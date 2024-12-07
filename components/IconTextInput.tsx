@@ -6,20 +6,22 @@ import { TextInput, View } from "react-native";
 type Props = {
     icon: any,
     placeholder: string,
-    width: number,
 }
 
-export default function IconTextInput({icon, placeholder, width}: Props) {
+export default function IconTextInput({ icon, placeholder }: Props) {
     const [text, setText] = React.useState<string>("");
 
     return (
         <View
             style={{
-                width: width,
+                width: '100%',
                 flexDirection: 'row',
                 alignItems: 'center',
+                borderWidth: 2,
+                borderColor: 'black',
+                borderRadius: 10,
                 gap: 20,
-                padding: 20
+                padding: 10,
             }}
         >
             <MaterialIcons name={icon} size={24}/>
