@@ -5,6 +5,7 @@ import moment from "moment";
 import { DATA } from "@/data/DATA";
 import DateCard from "@/components/DateCard";
 import BookedCard from "@/components/BookedCard";
+import ScheduleText from "@/components/ScheduleText";
 
 
 const generateDatesForCurrentMonth = () => { 
@@ -67,7 +68,7 @@ export default function Schedule() {
           </Text>
           <View style={{paddingHorizontal: 20, gap: 20}}>
             {DATA.map((item) => (
-              <BookedCard key={item.id} items={item}/>
+              <ScheduleText key={item.id} items={item}/>
             ))}
           </View>
         </ScrollView>
