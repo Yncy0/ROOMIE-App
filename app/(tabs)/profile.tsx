@@ -24,7 +24,7 @@ export default function Profile() {
                 justifyContent: 'center', 
                 gap: 7,
                 width: '100%',
-                paddingVertical: 50
+                paddingBottom: 50
               }}>
               <Ionicons name={'person-circle-sharp'} size={80}/>
               <Text>Hello User!</Text>

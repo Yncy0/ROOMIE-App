@@ -32,14 +32,14 @@ export default function Schedule() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={{width: '100%', padding: 20}}>History</Text>
+          <Text style={{width: '100%', paddingHorizontal: 20, paddingBottom: 20}}>History</Text>
           <View style={{
               flexDirection: 'row', 
               justifyContent:'space-between', 
               alignItems: 'center', 
               width: '100%', 
               paddingHorizontal: 20, 
-              paddingBottom: 20
+              paddingBottom: 40
             }}
           >
             <HistoryStatus status="Incoming" color="#FFDB5E"/>

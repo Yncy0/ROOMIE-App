@@ -19,8 +19,6 @@ import { DATA } from "@/data/DATA";
 
 export default function Index() {
 
-
-
   return (
     <SafeAreaProvider>
       <SafeAreaView
@@ -36,7 +34,8 @@ export default function Index() {
               justifyContent: 'space-between',
               alignItems: "center",
               width: '100%',
-              padding: 20
+              paddingHorizontal: 20,
+              paddingBottom: 20
             }}
           >
             <Searchbar placeholder="Search"/>

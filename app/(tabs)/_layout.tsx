@@ -10,8 +10,8 @@ export default function TabLayout() {
       //   backgroundColor: '#25292e',
       // },
       headerShadowVisible: false,
-      headerTintColor: '#fff',
-      headerShown: false,
+      headerTintColor: 'black',
+      headerShown: true,
       tabBarStyle: {
       backgroundColor: '#fff',
       },
@@ -32,6 +32,17 @@ export default function TabLayout() {
           title: 'Schedule',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'calendar-sharp' : 'calendar-outline'} color={color} size={24}/>
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          title: 'Notifications',
+          headerTitle: 'Notifications',
+          headerTintColor: 'black',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'notifications-sharp' : 'notifications-outline'} color={color} size={24}/>
           )
         }}
       />
