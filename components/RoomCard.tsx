@@ -1,6 +1,7 @@
 //import { Image } from "expo-image";
 import { View, Dimensions, Text, Pressable } from "react-native";
 import { ImageBackground } from "expo-image";
+import { supabase } from "@/utils/supabase";
 
 
 type Props = {
@@ -11,6 +12,13 @@ type Props = {
 const {width} = Dimensions.get('screen');
 
 export default function RoomCard({ items, onPress }: Props) {
+
+    async function fetchData() {
+        let { data: rooms, error } = await supabase
+        .from('rooms')
+        .select(`*`)
+    }
+
     return (
         <Pressable onPress={onPress}>
             <ImageBackground 
