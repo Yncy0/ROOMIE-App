@@ -34,7 +34,7 @@ export default function RoomPreview() {
             <BottomSheetModalProvider>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <ImageBackground  
-                    source={roomImage as ImageSourcePropType}
+                    source={{uri: roomImage}}
                     style={{
                         height: 275, 
                         padding: 20,
