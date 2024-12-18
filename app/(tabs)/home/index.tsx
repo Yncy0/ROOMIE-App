@@ -112,14 +112,15 @@ export default function Index() {
                 key={item.id} 
                 items={item} 
                 onPress={() => 
-                  router.replace({
-                    pathname: '../screens/[roomPreview]',
+                  router.push({
+                    pathname: './home/[roomPreview]',
                     params: {
                       roomName: item.room_name,
                       roomCategory: item.room_type,
                       roomImage: item.room_image
-                    }
-                  })}
+                    },
+                  })
+                }
               />
             }
             horizontal

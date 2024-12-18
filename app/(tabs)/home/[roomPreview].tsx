@@ -20,8 +20,6 @@ export default function RoomPreview() {
         roomImage
     } = useLocalSearchParams<{roomName: string, roomCategory: string, roomImage: string}>();
 
-    const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
-
     const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
     const handlePresentModalPress = React.useCallback(() => {
@@ -41,7 +39,7 @@ export default function RoomPreview() {
                         justifyContent: "space-between",
                     }}
                 >
-                    <BackButton onPress={() => router.replace("/(tabs)")}/>
+                    <BackButton onPress={() => router.back()}/>
                     <View
                         style={{
                             flexDirection: "row", 
