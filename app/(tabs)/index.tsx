@@ -3,13 +3,10 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { 
   Text, 
   View, 
-  TextInput,
   FlatList,
   Pressable,
-  Dimensions,
   ScrollView
 } from "react-native";
-import { Session } from "@supabase/supabase-js";
 import { supabase } from "@/utils/supabase";
 import { router } from "expo-router";
 import Searchbar from "@/components/Searchbar";
@@ -17,34 +14,11 @@ import FilterButton from "@/components/FilterButton";
 import BookedCard from "@/components/BookedCard";
 import RoomCard from "@/components/RoomCard";
 import { DATA } from "@/data/DATA";
-
-type Room = {
-  id: any,
-  room_name: string,
-  room_type: string,
-  room_image: string
-}
+import useFetchRooms from "@/hooks/useFetchRooms";
 
 
 export default function Index() {
-  const [data, setData] = React.useState<Room[]>([]);
-
-  React.useEffect(() => {
-      const fetchData = async () => {
-        let {data: rooms, error} = await supabase
-          .from('rooms')
-          .select('*');
-
-        if (error) {
-          console.log('Data are not fetched', error);
-        }
-
-        if (rooms) {
-          setData(rooms as Room[]);
-        }
-      }
-      fetchData();
-  }, []);
+  const { data } = useFetchRooms();
 
   return (
     <SafeAreaProvider>
