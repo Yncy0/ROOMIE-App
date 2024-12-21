@@ -51,14 +51,12 @@ export default function Auth() {
     <View 
       style={{
         flex: 1,
-        gap: 20,
-        paddingTop: 20,
-        paddingHorizontal: 20,
-        paddingBottom: '50%',
-        justifyContent: 'space-between'
+        backgroundColor: 'white',
+        paddingTop: 50,
+        gap: 75
       }}>
       <Stack.Screen options={{ headerShown: false }}/>
-      <View style={{}}>
+      <View style={{ paddingHorizontal: 10 }}>
         <Image 
           source={require('@/assets/images/login-pana1.png')}
           style={{
@@ -74,6 +72,13 @@ export default function Auth() {
           value={email}
           placeholder="email@address.com"
           autoCapitalize={'none'}
+          inputStyle={{fontSize: 16, }}
+          inputContainerStyle={{
+            borderBottomWidth: 0, 
+            backgroundColor: '#f2f2f2', 
+            paddingHorizontal: 10,
+            borderRadius: 50
+          }}
         />
         <Input
           label="Password"
@@ -83,13 +88,20 @@ export default function Auth() {
           secureTextEntry={true}
           placeholder="Password"
           autoCapitalize={'none'}
+          inputStyle={{fontSize: 16, }}
+          inputContainerStyle={{
+            borderBottomWidth: 0, 
+            backgroundColor: '#f2f2f2', 
+            paddingHorizontal: 10,
+            borderRadius: 50
+          }}
         />
       </View>
       <Button 
         title="Sign in" 
         disabled={loading} 
         onPress={() => signInWithEmail()} 
-        containerStyle={{borderRadius: 50}}
+        containerStyle={{borderRadius: 50, marginHorizontal: 20}}
       />
       {/* <Button 
         title="Sign up" 
