@@ -1,11 +1,11 @@
-import React from "react"
+import React, { PropsWithChildren } from "react"
 import { supabase } from "@/utils/supabase";
 import { Session } from "@supabase/supabase-js";
 import { ActivityIndicator } from "react-native";
 
 const AuthContext = React.createContext({});
 
-export default function AuthProvider({ children }) {
+export default function AuthProvider({ children }: PropsWithChildren) {
     const [session, setSession] = React.useState<Session | null>(null);
     const [isReady, setIsReady] = React.useState(false);
 
