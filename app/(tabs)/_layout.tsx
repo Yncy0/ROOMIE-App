@@ -1,14 +1,16 @@
+import { useAuth } from "@/context/AuthProvider";
 import { Ionicons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 
 export default function TabLayout() {
+  const { isAuthenticated } = useAuth();  
+
+  if (!isAuthenticated) return <Redirect href="/(auth)/login"/>
+
   return (
     <Tabs
       screenOptions={{
       tabBarActiveTintColor: '#2B32B2',
-      // headerStyle: {
-      //   backgroundColor: '#25292e',
-      // },
       headerShadowVisible: false,
       headerTintColor: 'black',
       headerShown: true,
