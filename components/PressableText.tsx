@@ -4,11 +4,13 @@ import { Button, Pressable, Text, View } from "react-native"
 
 type Props = {
     text: string
+    onPress?: () => void
 }
 
-export default function PressableText({ text }: Props) {
+export default function PressableText({ text, onPress }: Props) {
     return (
         <Pressable
+            onPress={onPress}
             style={({pressed}) => [
                 {
                     backgroundColor: pressed ? '#D9D9D9' : 'white',

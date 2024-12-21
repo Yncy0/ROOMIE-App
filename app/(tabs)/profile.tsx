@@ -1,4 +1,5 @@
 import PressableText from "@/components/PressableText";
+import { supabase } from "@/utils/supabase";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
@@ -33,7 +34,7 @@ export default function Profile() {
           <PressableText text="User Information"/>
           <PressableText text="Privacy and Security"/>
           <PressableText text="Settings"/>
-          <PressableText text="Logout"/>
+          <PressableText text="Logout" onPress={() => supabase.auth.signOut()}/>
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
