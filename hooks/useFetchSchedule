@@ -1,0 +1,50 @@
+import React from "react";
+import { supabase } from "../utils/supabase";
+import { useAuth } from "../context/AuthProvider";
+import { Session } from "@supabase/supabase-js";
+
+type Room = {
+    subjectCode: string,
+    course: string,
+    timeSchedule: string,
+}
+
+export default function useFetchSchedule() {
+    const [data, setData] = React.useState<Room[]>();
+
+    const { session } = useAuth(); 
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            let {data: schedule, error} = await supabase
+                .from('schedule')
+                .select(
+                    `*, 
+                    subject(
+                        id, *
+                    ),
+                    course(
+                        id, *
+                    ),
+                    profiles(
+                        id, *
+                    )
+                    `
+                )
+                .eq('profiles(id)', session?.user.id)
+                .single();
+            
+            if (error) {
+                console.log('Data are not fetched', error);
+                }
+        
+            if (schedule) {
+            setData(schedule as Room[]);
+            }
+        }
+
+        fetchData();
+    },[]);
+
+    return {data}
+}

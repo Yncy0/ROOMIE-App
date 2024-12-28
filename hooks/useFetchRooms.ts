@@ -16,7 +16,7 @@ export default function useFetchRooms() {
           const fetchData = async () => {
             let {data: rooms, error} = await supabase
               .from('rooms')
-              .select('*')
+              .select(`*`)
               .order('room_name', {ascending: true});
     
             if (error) {
