@@ -73,11 +73,6 @@ export default function Schedule() {
             {data.map((item) => (
               <ScheduleText key={item.id} items={item}/>
             ))}
-            {/* <FlatList 
-              data={data}
-              renderItem={({ item }) => <ScheduleText items={item}/>}
-              scrollEnabled={false}
-            /> */}
           </View>
         </ScrollView>
       </SafeAreaView>

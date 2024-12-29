@@ -3,12 +3,6 @@ import { supabase } from "@/utils/supabase";
 import { Tables } from "@/database.types";
 
 
-// type Room = {
-//     id: any,
-//     room_name: string,
-//     room_type: string,
-//     room_image: string
-//   }
 
 type Room = Tables<'rooms'>
 

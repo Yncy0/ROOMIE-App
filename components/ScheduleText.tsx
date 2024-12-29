@@ -26,7 +26,7 @@ export default function ScheduleText({ items }: Props) {
                 }}  
             >
                 <Text>{items.subject_code}</Text>
-                <Text>{items.course_name}</Text>
+                <Text>{items.course_id.course_name}</Text>
             </View>
             <Text>{`${items.time_in}-${items.time_out}`}</Text>
         </View>
