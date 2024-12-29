@@ -1,13 +1,16 @@
 import React from "react";
 import { supabase } from "@/utils/supabase";
+import { Tables } from "@/database.types";
 
 
-type Room = {
-    id: any,
-    room_name: string,
-    room_type: string,
-    room_image: string
-  }
+// type Room = {
+//     id: any,
+//     room_name: string,
+//     room_type: string,
+//     room_image: string
+//   }
+
+type Room = Tables<'rooms'>
 
 export default function useFetchRooms() {
     const [data, setData] = React.useState<Room[]>([]);
@@ -24,7 +27,7 @@ export default function useFetchRooms() {
             }
     
             if (rooms) {
-              setData(rooms as Room[]);
+              setData(rooms);
             }
           }
           fetchData();

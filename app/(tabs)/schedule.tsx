@@ -6,6 +6,7 @@ import { DATA } from "@/data/DATA";
 import DateCard from "@/components/DateCard";
 import BookedCard from "@/components/BookedCard";
 import ScheduleText from "@/components/ScheduleText";
+import useFetchSchedule from "@/hooks/useFetchSchedule"
 
 
 const generateDatesForCurrentMonth = () => { 
@@ -23,6 +24,8 @@ const generateDatesForCurrentMonth = () => {
 
 export default function Schedule() {
   const dates = generateDatesForCurrentMonth();
+
+  const { data } = useFetchSchedule();
 
   return (
     <SafeAreaProvider>
@@ -66,10 +69,16 @@ export default function Schedule() {
             }}
             >{moment().format('dddd: DD MMMM YYYY')}
           </Text>
-          <View style={{paddingHorizontal: 20, gap: 20}}>
-            {DATA.map((item) => (
-              <ScheduleText key={item.id} items={item}/>
+          <View style={{paddingHorizontal: 20, gap: 20}}>          
+            {data.map((item) => (
+              <Text>{}</Text>
+              // <ScheduleText key={item.id} items={item}/>
             ))}
+            {/* <FlatList 
+              data={data}
+              renderItem={({ item }) => <ScheduleText items={item}/>}
+              scrollEnabled={false}
+            /> */}
           </View>
         </ScrollView>
       </SafeAreaView>

@@ -25,8 +25,8 @@ export default function ScheduleText({ items }: Props) {
                     gap: 5,
                 }}  
             >
-                <Text>{items.subject}</Text>
-                <Text>{items.section}</Text>
+                <Text>{items.subject_code}</Text>
+                <Text>{items.course_name}</Text>
             </View>
             <Text>{`${items.time_in}-${items.time_out}`}</Text>
         </View>
