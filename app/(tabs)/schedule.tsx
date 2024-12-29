@@ -71,8 +71,7 @@ export default function Schedule() {
           </Text>
           <View style={{paddingHorizontal: 20, gap: 20}}>          
             {data.map((item) => (
-              <Text>{}</Text>
-              // <ScheduleText key={item.id} items={item}/>
+              <ScheduleText key={item.id} items={item}/>
             ))}
             {/* <FlatList 
               data={data}

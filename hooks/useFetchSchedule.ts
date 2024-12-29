@@ -19,7 +19,7 @@ export default function useFetchSchedule() {
             let scheduleWithQuery = supabase
                 .from('schedule')
                 .select(`*, course(*)`)
-                .eq('profile_id', user?.id);
+                .eq('profile_id', 'e461e38c-fd34-42ec-8fae-31c741af6707');
             
             // type ScheduleWithQuery = QueryData<typeof scheduleWithQuery>;
                 
