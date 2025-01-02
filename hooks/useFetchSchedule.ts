@@ -14,9 +14,17 @@ type ScheduleWithForeign = Schedule & {
 
 export default function useFetchSchedule() {
     const [data, setData] = React.useState<ScheduleWithForeign[]>([]);
+    
 
     React.useEffect(() => {
         const fetchData = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            let userId = ''
+            
+            if (user) {
+               userId = user?.id;
+            }
+
             let scheduleWithQuery = supabase
                 .from('schedule')
                 .select(
@@ -25,7 +33,8 @@ export default function useFetchSchedule() {
                     subject(*)
                     `
                 )
-                .eq('profile_id', 'e461e38c-fd34-42ec-8fae-31c741af6707');
+                //USE THIS FOR TESTING PURPOSES: 'e461e38c-fd34-42ec-8fae-31c741af6707'
+                .eq('profile_id', userId);
             
             type ScheduleWithQuery = QueryData<typeof scheduleWithQuery>;
                 
