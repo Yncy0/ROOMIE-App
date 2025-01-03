@@ -1,4 +1,5 @@
 import PressableText from "@/components/PressableText";
+import { useAuth } from "@/context/AuthProvider";
 import { supabase } from "@/utils/supabase";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
@@ -7,6 +8,8 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function Profile() {
   const [profilePic, hasProfilePic] = React.useState<boolean>(false);
+
+  const { session } = useAuth();
 
   return (
     <SafeAreaProvider>
