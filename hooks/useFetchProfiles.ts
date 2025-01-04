@@ -27,9 +27,7 @@ const useFetchProfiles = () => {
             const { data: profiles, error, status } =  await supabase
                 .from('profiles')
                 .select(`id, username, avatar_url`)
-                //USE THIS FOR TESTING PURPOSES: 'e461e38c-fd34-42ec-8fae-31c741af6707'
-                //FIXME: Need to extract session?.user.id
-                .eq('id', 'e461e38c-fd34-42ec-8fae-31c741af6707')
+                .eq('id', session?.user.id)
                 .single()
 
             if (error && status !== 406) throw error;

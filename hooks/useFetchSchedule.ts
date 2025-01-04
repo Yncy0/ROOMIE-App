@@ -8,13 +8,10 @@ type Schedule = Tables<'schedule'>
 type ScheduleWithForeign = Schedule & {
     course: Tables<'course'> | null,
     subject: Tables<'subject'> | null,
-
 }
-
 
 export default function useFetchSchedule() {
     const [data, setData] = React.useState<ScheduleWithForeign[]>([]);
-    
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -33,9 +30,7 @@ export default function useFetchSchedule() {
                     subject(*)
                     `
                 )
-                //USE THIS FOR TESTING PURPOSES: 'e461e38c-fd34-42ec-8fae-31c741af6707'
-                //FIXME: Need to extract session?.user.id
-                .eq('profile_id', 'e461e38c-fd34-42ec-8fae-31c741af6707');
+                .eq('profile_id', userId);
             
             type ScheduleWithQuery = QueryData<typeof scheduleWithQuery>;
                 
