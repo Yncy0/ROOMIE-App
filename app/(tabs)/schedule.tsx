@@ -6,20 +6,19 @@ import { DATA } from "@/data/DATA";
 import DateCard from "@/components/DateCard";
 import BookedCard from "@/components/BookedCard";
 import ScheduleText from "@/components/ScheduleText";
-import useFetchSchedule from "@/hooks/useFetchSchedule"
+import useFetchSchedule from "@/hooks/useFetchSchedule";
 
+const generateDatesForCurrentMonth = () => {
+  const startOfMonth = moment().startOf("month");
+  const endOfMonth = moment().endOf("month");
+  const dates = [];
 
-const generateDatesForCurrentMonth = () => { 
-  const startOfMonth = moment().startOf('month'); 
-  const endOfMonth = moment().endOf('month'); 
-  const dates = []; 
-  
-  let currentDate = startOfMonth; 
-  while (currentDate <= endOfMonth) { 
-      dates.push(currentDate.clone()); 
-      currentDate.add(1, 'day'); 
-    } 
-  return dates; 
+  let currentDate = startOfMonth;
+  while (currentDate <= endOfMonth) {
+    dates.push(currentDate.clone());
+    currentDate.add(1, "day");
+  }
+  return dates;
 };
 
 export default function Schedule() {
@@ -36,42 +35,52 @@ export default function Schedule() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={{width: '100%', paddingHorizontal: 20, paddingBottom: 20}}>History</Text>
-          <View style={{
-              flexDirection: 'row', 
-              justifyContent:'space-between', 
-              alignItems: 'center', 
-              width: '100%', 
-              paddingHorizontal: 20, 
-              paddingBottom: 40
+          <Text
+            style={{ width: "100%", paddingHorizontal: 20, paddingBottom: 20 }}
+          >
+            History
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              paddingHorizontal: 20,
+              paddingBottom: 40,
             }}
           >
-            <HistoryStatus status="Incoming" color="#FFDB5E"/>
-            <HistoryStatus status="Completed" color="#2B32B2"/>
-            <HistoryStatus status="Cancelled" color="#FF5C5C"/>
+            <HistoryStatus status="Incoming" color="#FFDB5E" />
+            <HistoryStatus status="Completed" color="#2B32B2" />
+            <HistoryStatus status="Cancelled" color="#FF5C5C" />
           </View>
-          <Text style={{width: '100%', paddingHorizontal: 20, paddingBottom: 20}}>My Schedule</Text>
-          <FlatList 
-            data={dates} 
-            keyExtractor={(index) => index.toString()} 
-            renderItem={({ item }) => <DateCard date={item} />}  
+          <Text
+            style={{ width: "100%", paddingHorizontal: 20, paddingBottom: 20 }}
+          >
+            My Schedule
+          </Text>
+          <FlatList
+            data={dates}
+            keyExtractor={(index) => index.toString()}
+            renderItem={({ item }) => <DateCard date={item} />}
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{gap: 10, paddingHorizontal: 20}}
+            contentContainerStyle={{ gap: 10, paddingHorizontal: 20 }}
             pagingEnabled
             initialNumToRender={4}
           />
-          <Text 
+          <Text
             style={{
-              width: '100%', 
+              width: "100%",
               padding: 20,
-              fontWeight: '700'
+              fontWeight: "700",
             }}
-            >{moment().format('dddd: DD MMMM YYYY')}
+          >
+            {moment().format("dddd: DD MMMM YYYY")}
           </Text>
-          <View style={{paddingHorizontal: 20, gap: 20}}>          
+          <View style={{ paddingHorizontal: 20, gap: 20 }}>
             {data.map((item) => (
-              <ScheduleText key={item.id} items={item}/>
+              <ScheduleText key={item.id} items={item} />
             ))}
           </View>
         </ScrollView>

@@ -1,5 +1,6 @@
 import PressableText from "@/components/PressableText";
 import { useAuth } from "@/context/AuthProvider";
+import useFetchProfiles from "@/hooks/useFetchProfiles";
 import { supabase } from "@/utils/supabase";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
@@ -10,6 +11,7 @@ export default function Profile() {
   const [profilePic, hasProfilePic] = React.useState<boolean>(false);
 
   const { session } = useAuth();
+  const { username } = useFetchProfiles();
 
   return (
     <SafeAreaProvider>
@@ -21,23 +23,27 @@ export default function Profile() {
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           {!profilePic && (
-            <View 
+            <View
               style={{
-                flex: 1, 
-                alignItems: 'center', 
-                justifyContent: 'center', 
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
                 gap: 7,
-                width: '100%',
-                paddingBottom: 50
-              }}>
-              <Ionicons name={'person-circle-sharp'} size={80}/>
-              <Text>Hello User!</Text>
+                width: "100%",
+                paddingBottom: 50,
+              }}
+            >
+              <Ionicons name={"person-circle-sharp"} size={80} />
+              <Text>{username}</Text>
             </View>
           )}
-          <PressableText text="User Information"/>
-          <PressableText text="Privacy and Security"/>
-          <PressableText text="Settings"/>
-          <PressableText text="Logout" onPress={() => supabase.auth.signOut()}/>
+          <PressableText text="User Information" />
+          <PressableText text="Privacy and Security" />
+          <PressableText text="Settings" />
+          <PressableText
+            text="Logout"
+            onPress={() => supabase.auth.signOut()}
+          />
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>

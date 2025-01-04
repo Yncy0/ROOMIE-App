@@ -10,6 +10,7 @@ type Profiles = Tables<'profiles'>
 
 const useFetchProfiles = () => {
     const [data, setData] = React.useState<Profiles[]>([]);
+    const [username, setUsername] = React.useState<string>('');
     const [loading, setLoading] = React.useState<boolean>(true);
 
     const { session } = useAuth();
@@ -26,11 +27,15 @@ const useFetchProfiles = () => {
             const { data: profiles, error, status } =  await supabase
                 .from('profiles')
                 .select(`id, username, avatar_url`)
+                //USE THIS FOR TESTING PURPOSES: 'e461e38c-fd34-42ec-8fae-31c741af6707'
+                //FIXME: Need to extract session?.user.id
+                .eq('id', 'e461e38c-fd34-42ec-8fae-31c741af6707')
+                .single()
 
             if (error && status !== 406) throw error;
 
             if (profiles) {
-                setData(profiles as Profiles[]);
+                setUsername(profiles.username as string);
             }
 
         } catch (error) {
@@ -39,6 +44,8 @@ const useFetchProfiles = () => {
             setLoading(false);
         }
     }
+
+    return { username };
 }
 
 export default useFetchProfiles
