@@ -40,6 +40,7 @@ const Booking = () => {
                     roomName: item.room_name,
                     roomCategory: item.room_type,
                     roomImage: item.room_image,
+                    customRoute: "/(tabs)/booking",
                   },
                 })
               }

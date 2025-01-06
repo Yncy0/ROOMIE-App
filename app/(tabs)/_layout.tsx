@@ -62,8 +62,6 @@ export default function TabLayout() {
         name="notifications"
         options={{
           title: "Notifications",
-          headerTitle: "Notifications",
-          headerTintColor: "black",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? "notifications-sharp" : "notifications-outline"}
