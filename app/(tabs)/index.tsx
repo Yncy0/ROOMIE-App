@@ -44,14 +44,13 @@ export default function Index() {
               paddingBottom: 20,
             }}
           >
-            <Text>{"My Booking"}</Text>
+            <Text>My Booking</Text>
             <Pressable>
-              <Text>{"See all"}</Text>
+              <Text>See all</Text>
             </Pressable>
           </View>
           <FlatList
             horizontal
-            // pagingEnabled
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
               gap: 20,
@@ -101,7 +100,6 @@ export default function Index() {
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ gap: 20, paddingHorizontal: 20 }}
-            // pagingEnabled
             initialNumToRender={15}
           />
         </ScrollView>

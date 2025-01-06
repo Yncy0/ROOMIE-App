@@ -12,9 +12,6 @@ type Props = {
   onPress?: () => void;
 };
 
-//FIXME: make width snappy snappy in paginationScroll
-const { width } = Dimensions.get("screen");
-
 export default function RoomCard({ items, onPress, width, height }: Props) {
   return (
     <Pressable onPress={onPress}>
