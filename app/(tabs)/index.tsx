@@ -1,8 +1,9 @@
 import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { Text, View, FlatList, Pressable, ScrollView } from "react-native";
-import { supabase } from "@/utils/supabase";
+import { FlatList, Pressable, ScrollView } from "react-native";
 import { router } from "expo-router";
+import { View, Text } from "@tamagui/core";
+
 import Searchbar from "@/components/Searchbar";
 import FilterButton from "@/components/FilterButton";
 import BookedCard from "@/components/BookedCard";
@@ -23,27 +24,17 @@ export default function Index() {
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-              paddingHorizontal: 20,
-              paddingBottom: 20,
-            }}
+            fd={"row"}
+            jc={"space-between"}
+            ai={"center"}
+            miw={"100%"}
+            px={20}
+            pb={10}
           >
             <Searchbar placeholder="Search" />
             <FilterButton color="#2B32B2" />
           </View>
-          <View
-            style={{
-              width: "100%",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 20,
-              paddingBottom: 20,
-            }}
-          >
+          <View miw={"100%"} fd={"row"} jc={"space-between"} px={20} pb={20}>
             <Text>My Booking</Text>
             <Pressable>
               <Text>See all</Text>
@@ -63,15 +54,7 @@ export default function Index() {
               <BookedCard items={item} key={index} />
             )}
           />
-          <View
-            style={{
-              width: "100%",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 20,
-              paddingBottom: 20,
-            }}
-          >
+          <View miw={"100%"} fd={"row"} jc={"space-between"} px={20} pb={20}>
             <Text>{"Available Rooms"}</Text>
             <Pressable>
               <Text>{"See more"}</Text>

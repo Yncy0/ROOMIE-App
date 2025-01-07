@@ -5,6 +5,8 @@ import { setStatusBarStyle } from "expo-status-bar";
 import { TamaguiProvider } from "@tamagui/core";
 import { useFonts } from "expo-font";
 
+import config from "../tamagui.config";
+
 export default function RootLayout() {
   const [loaded] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
@@ -20,13 +22,13 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <AuthProvider>
-      <TamaguiProvider>
+    <TamaguiProvider config={config}>
+      <AuthProvider>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         </Stack>
-      </TamaguiProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </TamaguiProvider>
   );
 }

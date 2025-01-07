@@ -1,9 +1,11 @@
-import { View, Text, ScrollView, FlatList, Dimensions } from "react-native";
 import React from "react";
+import { ScrollView, FlatList, Dimensions } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import useFetchRooms from "@/hooks/useFetchRooms";
-import RoomCard from "@/components/RoomCard";
 import { router } from "expo-router";
+import { Text } from "@tamagui/core";
+
+import RoomCard from "@/components/RoomCard";
+import useFetchRooms from "@/hooks/useFetchRooms";
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -13,15 +15,7 @@ const Booking = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ backgroundColor: "white" }}>
-        <Text
-          style={{
-            paddingHorizontal: 15,
-            paddingTop: 20,
-            paddingBottom: 10,
-            fontSize: 16,
-            fontWeight: "semibold",
-          }}
-        >
+        <Text px={15} pt={20} pb={10} fos={16} fow={"bold"}>
           Available Rooms
         </Text>
         <FlatList

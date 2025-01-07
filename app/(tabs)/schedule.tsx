@@ -1,11 +1,13 @@
 import HistoryStatus from "@/components/HistoryStatus";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import { FlatList, ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import moment from "moment";
-import { DATA } from "@/data/DATA";
+import { View, Text } from "@tamagui/core";
+
 import DateCard from "@/components/DateCard";
 import BookedCard from "@/components/BookedCard";
 import ScheduleText from "@/components/ScheduleText";
+import { DATA } from "@/data/DATA";
 import useFetchSchedule from "@/hooks/useFetchSchedule";
 
 const generateDatesForCurrentMonth = () => {
@@ -35,28 +37,15 @@ export default function Schedule() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text
-            style={{ width: "100%", paddingHorizontal: 20, paddingBottom: 20 }}
-          >
+          <Text miw={"100%"} px={20} pb={20}>
             History
           </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-              paddingHorizontal: 20,
-              paddingBottom: 40,
-            }}
-          >
+          <View fd={"row"} jc={"space-between"} miw={"100%"} px={20} pb={40}>
             <HistoryStatus status="Incoming" color="#FFDB5E" />
             <HistoryStatus status="Completed" color="#2B32B2" />
             <HistoryStatus status="Cancelled" color="#FF5C5C" />
           </View>
-          <Text
-            style={{ width: "100%", paddingHorizontal: 20, paddingBottom: 20 }}
-          >
+          <Text miw={"100%"} px={20} pb={20}>
             My Schedule
           </Text>
           <FlatList
@@ -69,16 +58,10 @@ export default function Schedule() {
             pagingEnabled
             initialNumToRender={4}
           />
-          <Text
-            style={{
-              width: "100%",
-              padding: 20,
-              fontWeight: "700",
-            }}
-          >
+          <Text miw={"100%"} p={20} fow={"700"}>
             {moment().format("dddd: DD MMMM YYYY")}
           </Text>
-          <View style={{ paddingHorizontal: 20, gap: 20 }}>
+          <View px={20} gap={20}>
             {data.map((item) => (
               <ScheduleText key={item.id} items={item} />
             ))}

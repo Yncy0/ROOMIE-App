@@ -1,15 +1,16 @@
-import BackButton from "@/components/BackButton";
-import OvalButton from "@/components/OvalButton";
+import React from "react";
+import { ImageBackground, ScrollView } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import moment from "moment";
-import React from "react";
-import { Text, View, ImageBackground, ScrollView } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { View, Text, Button } from "tamagui";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+
 import BookingBottomSheet from "@/components/BookingBottomSheet";
+import BackButton from "@/components/BackButton";
 
 export default function RoomPreview() {
   const { roomName, roomCategory, roomImage, customRoute } =
@@ -42,33 +43,27 @@ export default function RoomPreview() {
             <BackButton
               onPress={() => router.replace({ pathname: customRoute })}
             />
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
+            <View fd={"row"} jc={"space-between"} ai={"center"}>
               <View>
-                <Text
-                  style={{ color: "white", fontSize: 20, fontWeight: "900" }}
-                >
+                <Text col={"$white1"} fos={20} fow={"bold"}>
                   {roomName}
                 </Text>
-                <Text style={{ color: "white", fontSize: 14 }}>
+                <Text col={"$white1"} fos={14}>
                   {roomCategory}
                 </Text>
               </View>
-              <OvalButton
-                text="Book Now"
-                color="#2B32B2"
-                height={40}
-                width={183}
+              <Button
+                bg={"$blue10"}
+                color={"$white1"}
                 onPress={handlePresentModalPress}
-              />
+                br={"$radius.2"}
+                miw={183}
+              >
+                Book Now
+              </Button>
             </View>
           </ImageBackground>
-          <View style={{ padding: 20, gap: 20 }}>
+          <View p={20} gap={20}>
             <Text>DESCRIPTION</Text>
             <Text
               style={{
@@ -84,13 +79,7 @@ export default function RoomPreview() {
               repellat!
             </Text>
             <Text>Today's Booking</Text>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
+            <View fd={"row"} ai={"center"} jc={"space-between"}>
               <Text>Today</Text>
               <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
             </View>
