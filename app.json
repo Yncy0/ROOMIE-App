@@ -4,7 +4,7 @@
     "slug": "ROOMIE_App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/roomie_logo.png",
+    "icon": "./assets/images/roomie-logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -14,7 +14,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/roomie-logo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.ROOMIE_App"
