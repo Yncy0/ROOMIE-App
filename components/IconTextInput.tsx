@@ -13,7 +13,7 @@ export default function IconTextInput({ icon, placeholder }: Props) {
   return (
     <View
       style={{
-        minWidth: "48%",
+        minWidth: "49%",
         maxWidth: "100%",
         flexDirection: "row",
         alignItems: "center",
@@ -21,7 +21,8 @@ export default function IconTextInput({ icon, placeholder }: Props) {
         borderColor: "black",
         borderRadius: 10,
         gap: 20,
-        padding: 10,
+        paddingHorizontal: 10,
+        minHeight: 50,
       }}
     >
       <MaterialIcons name={icon} size={24} />

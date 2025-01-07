@@ -30,6 +30,7 @@ export default function BookingBottomSheet() {
         <View
           style={{
             flexDirection: "row",
+            flexBasis: "auto",
             width: "100%",
             justifyContent: "space-between",
           }}
