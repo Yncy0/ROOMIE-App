@@ -10,36 +10,36 @@ import OvalButton from "./OvalButton";
 
 export default function BookingBottomSheet() {
   return (
-    <BottomSheetView
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: "white",
-        width: "100%",
-        height: 425,
-        paddingHorizontal: 20,
-        paddingTop: 20,
-        paddingBottom: 50,
-      }}
-    >
-      <View style={{ width: "100%", gap: 20 }}>
-        <IconTextInput icon={"book"} placeholder="Subject Name" />
-        <IconTextInput icon={"people-alt"} placeholder="Course & Section" />
-        <IconTextInput icon={"calendar-today"} placeholder="Date" />
-        <View
-          style={{
-            flexDirection: "row",
-            flexBasis: "auto",
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-        >
-          <IconTextInput icon={"schedule"} placeholder="Time-in" />
-          <IconTextInput icon={"schedule"} placeholder="Time-out" />
-        </View>
+    // <BottomSheetView
+    //   style={{
+    //     flex: 1,
+    //     alignItems: "center",
+    //     justifyContent: "space-between",
+    //     backgroundColor: "white",
+    //     width: "100%",
+    //     height: 425,
+    //     paddingHorizontal: 20,
+    //     paddingTop: 20,
+    //     paddingBottom: 50,
+    //   }}
+    // >
+    <View style={{ width: "100%", gap: 20 }}>
+      <IconTextInput icon={"book"} placeholder="Subject Name" />
+      <IconTextInput icon={"people-alt"} placeholder="Course & Section" />
+      <IconTextInput icon={"calendar-today"} placeholder="Date" />
+      <View
+        style={{
+          flexDirection: "row",
+          flexBasis: "auto",
+          width: "100%",
+          justifyContent: "space-between",
+        }}
+      >
+        <IconTextInput icon={"schedule"} placeholder="Time-in" />
+        <IconTextInput icon={"schedule"} placeholder="Time-out" />
       </View>
-      <OvalButton text="Reserve" color="black" height={50} width={250} />
-    </BottomSheetView>
+    </View>
+    // <OvalButton text="Reserve" color="black" height={50} width={250} />
+    // </BottomSheetView>
   );
 }
