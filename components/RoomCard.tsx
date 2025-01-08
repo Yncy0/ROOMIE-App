@@ -1,9 +1,6 @@
-//import { Image } from "expo-image";
-import { View, Dimensions, Text, Pressable } from "react-native";
-import { ImageBackground } from "expo-image";
-import { supabase } from "@/utils/supabase";
 import React from "react";
-import { Session } from "@supabase/supabase-js";
+import { Text, Pressable } from "react-native";
+import { ImageBackground } from "expo-image";
 
 type Props = {
   items: any;

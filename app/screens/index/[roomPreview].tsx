@@ -1,14 +1,12 @@
-import React, { memo } from "react";
+import React from "react";
 import { ImageBackground, Modal, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import moment from "moment";
-import { View, Text, Button, Sheet } from "tamagui";
+import { View, Text, Button } from "tamagui";
 
 import BookingBottomSheet from "@/components/BookingBottomSheet";
 import BackButton from "@/components/BackButton";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { BottomSheet } from "@rneui/themed";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -27,8 +25,6 @@ export default function RoomPreview() {
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();
   }, []);
-
-  const [isVisible, setIsVisible] = React.useState<boolean>(false);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
