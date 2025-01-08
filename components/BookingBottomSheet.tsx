@@ -1,8 +1,7 @@
-import React, { PropsWithChildren } from "react";
-import { Modal, Pressable, View } from "react-native";
+import React from "react";
 import { XStack, YStack } from "tamagui";
-
 import { BottomSheetView } from "@gorhom/bottom-sheet";
+
 import IconInput from "./IconInput";
 
 export default function BookingBottomSheet() {
