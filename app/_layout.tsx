@@ -2,18 +2,19 @@ import React from "react";
 import AuthProvider from "@/context/AuthProvider";
 import { Stack } from "expo-router";
 import { setStatusBarStyle } from "expo-status-bar";
-import { TamaguiProvider } from "@tamagui/core";
+import { TamaguiProvider } from "tamagui";
+import { PortalProvider } from "tamagui";
 import { useFonts } from "expo-font";
 
 import config from "../tamagui.config";
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
-    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
-    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
-  });
+  // const [loaded] = useFonts({
+  //   Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
+  //   InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
+  // });
 
-  if (!loaded) return null;
+  // if (!loaded) return <></>;
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -23,12 +24,14 @@ export default function RootLayout() {
 
   return (
     <TamaguiProvider config={config}>
-      <AuthProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        </Stack>
-      </AuthProvider>
+      <PortalProvider shouldAddRootHost>
+        <AuthProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          </Stack>
+        </AuthProvider>
+      </PortalProvider>
     </TamaguiProvider>
   );
 }
