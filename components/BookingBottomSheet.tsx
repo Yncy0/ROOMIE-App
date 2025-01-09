@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, XStack, YStack } from "tamagui";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
-import { MaterialIcons } from "@expo/vector-icons";
 import DatePicker from "react-native-date-picker";
 
 import IconInput from "./IconInput";
@@ -36,38 +35,15 @@ export default function BookingBottomSheet() {
         />
         <IconInput icon={"book"} placeholder="Subject Name" />
         <IconInput icon={"people-alt"} placeholder="Course & Section" />
-        <Button
-          icon={<MaterialIcons name={"calendar-today"} size={24} />}
-          alignSelf="flex-start"
-          justifyContent="flex-start"
-          miw={"100%"}
-          mih={50}
+        <IconInput
+          icon={"calendar-today"}
+          placeholder="Date"
           onPress={() => setOpen(true)}
-        >
-          Date
-        </Button>
-
-        {/* <IconInput icon={"calendar-today"} placeholder="Date" /> */}
+          date={date}
+        />
         <XStack gap={20}>
-          <Button
-            icon={<MaterialIcons name={"schedule"} size={24} />}
-            alignSelf="flex-start"
-            justifyContent="flex-start"
-            mih={50}
-            flex={1}
-          >
-            Time-in
-          </Button>
-          <Button
-            alignSelf="flex-start"
-            justifyContent="flex-start"
-            mih={50}
-            flex={1}
-          >
-            Time-out
-          </Button>
-          {/* <IconInput icon={"schedule"} placeholder="Time-in" />
-          <IconInput icon={"schedule"} placeholder="Time-out" /> */}
+          <IconInput icon={"schedule"} placeholder="Time-in" />
+          <IconInput icon={"schedule"} placeholder="Time-out" />
         </XStack>
         <Button miw={"100%"} backgroundColor={"$blue10"} color={"$white1"}>
           Reserve
