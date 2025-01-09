@@ -7,7 +7,8 @@ import IconInput from "./IconInput";
 
 export default function BookingBottomSheet() {
   const [date, setDate] = React.useState(new Date());
-  const [open, setOpen] = React.useState(false);
+  const [openDate, setOpenDate] = React.useState(false);
+  const [openTime, setOpenTime] = React.useState(false);
 
   return (
     <BottomSheetView
@@ -23,14 +24,27 @@ export default function BookingBottomSheet() {
       <YStack miw="100%" alignItems="center" gap={20}>
         <DatePicker
           modal
-          open={open}
+          open={openDate}
           date={date}
           onConfirm={(date) => {
-            setOpen(false);
+            setOpenDate(false);
             setDate(date);
           }}
           onCancel={() => {
-            setOpen(false);
+            setOpenDate(false);
+          }}
+        />
+        <DatePicker
+          modal
+          open={openTime}
+          date={date}
+          mode="time"
+          onConfirm={(date) => {
+            setOpenTime(false);
+            setDate(date);
+          }}
+          onCancel={() => {
+            setOpenTime(false);
           }}
         />
         <IconInput icon={"book"} placeholder="Subject Name" />
@@ -38,12 +52,20 @@ export default function BookingBottomSheet() {
         <IconInput
           icon={"calendar-today"}
           placeholder="Date"
-          onPress={() => setOpen(true)}
+          onPress={() => setOpenDate(true)}
           date={date}
         />
         <XStack gap={20}>
-          <IconInput icon={"schedule"} placeholder="Time-in" />
-          <IconInput icon={"schedule"} placeholder="Time-out" />
+          <IconInput
+            icon={"schedule"}
+            placeholder="Time-in"
+            onPress={() => setOpenTime(true)}
+          />
+          <IconInput
+            icon={"schedule"}
+            placeholder="Time-out"
+            onPress={() => setOpenTime(true)}
+          />
         </XStack>
         <Button miw={"100%"} backgroundColor={"$blue10"} color={"$white1"}>
           Reserve
