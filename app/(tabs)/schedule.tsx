@@ -4,8 +4,8 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import moment from "moment";
 import { View, Text } from "@tamagui/core";
 
-import DateCard from "@/components/DateCard";
-import BookedCard from "@/components/BookedCard";
+import DateCard from "@/components/cards/DateCard";
+import BookedCard from "@/components/cards/BookedCard";
 import ScheduleText from "@/components/ScheduleText";
 import { DATA } from "@/data/DATA";
 import useFetchSchedule from "@/hooks/useFetchSchedule";

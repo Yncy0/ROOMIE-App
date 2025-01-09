@@ -5,9 +5,9 @@ import { router } from "expo-router";
 import { View, Text } from "@tamagui/core";
 
 import Searchbar from "@/components/Searchbar";
-import FilterButton from "@/components/FilterButton";
-import BookedCard from "@/components/BookedCard";
-import RoomCard from "@/components/RoomCard";
+import FilterButton from "@/components/buttons/FilterButton";
+import BookedCard from "@/components/cards/BookedCard";
+import RoomCard from "@/components/cards/RoomCard";
 import { DATA } from "@/data/DATA";
 import useFetchRooms from "@/hooks/useFetchRooms";
 

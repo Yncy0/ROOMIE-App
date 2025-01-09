@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { View, Text } from "@tamagui/core";
 
 import { supabase } from "@/utils/supabase";
-import PressableText from "@/components/PressableText";
+import PressableText from "@/components/buttons/PressableText";
 import useFetchProfiles from "@/hooks/useFetchProfiles";
 
 export default function Profile() {

@@ -4,13 +4,13 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import moment from "moment";
 import { View, Text, Button } from "tamagui";
-
-import BookingBottomSheet from "@/components/BookingBottomSheet";
-import BackButton from "@/components/BackButton";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+
+import BookingBottomSheet from "@/components/BookingBottomSheet";
+import BackButton from "@/components/buttons/BackButton";
 
 export default function RoomPreview() {
   const { roomName, roomCategory, roomImage, customRoute } =

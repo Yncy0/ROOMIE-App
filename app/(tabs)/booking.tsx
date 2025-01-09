@@ -4,7 +4,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Text } from "@tamagui/core";
 
-import RoomCard from "@/components/RoomCard";
+import RoomCard from "@/components/cards/RoomCard";
 import useFetchRooms from "@/hooks/useFetchRooms";
 
 const screenWidth = Dimensions.get("screen").width;
