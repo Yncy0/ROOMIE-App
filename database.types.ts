@@ -11,27 +11,54 @@ export type Database = {
     Tables: {
       booked_rooms: {
         Row: {
+          course_and_section: string | null
           created_at: string
           date: string | null
-          id: number
+          id: string
+          profile_id: string | null
+          room_id: string | null
+          subject_name: string | null
           time_in: string | null
           time_out: string | null
         }
         Insert: {
+          course_and_section?: string | null
           created_at?: string
           date?: string | null
-          id?: number
+          id?: string
+          profile_id?: string | null
+          room_id?: string | null
+          subject_name?: string | null
           time_in?: string | null
           time_out?: string | null
         }
         Update: {
+          course_and_section?: string | null
           created_at?: string
           date?: string | null
-          id?: number
+          id?: string
+          profile_id?: string | null
+          room_id?: string | null
+          subject_name?: string | null
           time_in?: string | null
           time_out?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "booked_rooms_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "booked_rooms_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       building: {
         Row: {

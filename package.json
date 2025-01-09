@@ -51,7 +51,8 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
-    "tamagui": "^1.121.6"
+    "tamagui": "^1.121.6",
+    "uuid": "^11.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
