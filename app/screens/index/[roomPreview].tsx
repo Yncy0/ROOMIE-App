@@ -1,29 +1,34 @@
 import React from "react";
 import { ImageBackground, Modal, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { router, Stack, useLocalSearchParams } from "expo-router";
+import {
+  router,
+  Stack,
+  useGlobalSearchParams,
+  useLocalSearchParams,
+} from "expo-router";
 import moment from "moment";
-import { View, Text, Button } from "tamagui";
+import { View, Text, Button, XStack, YStack } from "tamagui";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 
-import BookingBottomSheet from "@/components/BookingBottomSheet";
 import BackButton from "@/components/buttons/BackButton";
+import { BookingBottomSheet } from "@/components/BookingBottomSheet";
 
 export default function RoomPreview() {
   const { roomName, roomCategory, roomImage, customRoute } =
-    useLocalSearchParams<{
+    useGlobalSearchParams<{
       roomName: string;
       roomCategory: string;
       roomImage: string;
       customRoute: any;
     }>();
-  const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
+  const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = React.useCallback(() => {
-    bottomSheetMoadlRef.current?.present();
+    bottomSheetModalRef.current?.present();
   }, []);
 
   return (
@@ -42,15 +47,15 @@ export default function RoomPreview() {
             <BackButton
               onPress={() => router.replace({ pathname: customRoute })}
             />
-            <View fd={"row"} jc={"space-between"} ai={"center"}>
-              <View>
+            <XStack justifyContent={"space-between"} alignItems={"center"}>
+              <YStack>
                 <Text col={"$white1"} fos={20} fow={"bold"}>
                   {roomName}
                 </Text>
                 <Text col={"$white1"} fos={14}>
                   {roomCategory}
                 </Text>
-              </View>
+              </YStack>
               <Button
                 bg={"$blue10"}
                 color={"$white1"}
@@ -60,7 +65,7 @@ export default function RoomPreview() {
               >
                 Book Now
               </Button>
-            </View>
+            </XStack>
           </ImageBackground>
           <View p={20} gap={20}>
             <Text>DESCRIPTION</Text>
@@ -72,13 +77,13 @@ export default function RoomPreview() {
               repellat!
             </Text>
             <Text>Today's Booking</Text>
-            <View fd={"row"} ai={"center"} jc={"space-between"}>
+            <XStack justifyContent={"space-between"} alignItems={"center"}>
               <Text>Today</Text>
               <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
-            </View>
+            </XStack>
           </View>
         </ScrollView>
-        <BottomSheetModal ref={bottomSheetMoadlRef}>
+        <BottomSheetModal ref={bottomSheetModalRef}>
           <BookingBottomSheet />
         </BottomSheetModal>
       </BottomSheetModalProvider>

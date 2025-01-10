@@ -3,11 +3,12 @@ import moment from "moment";
 import React from "react";
 import { Input, XStack, View } from "tamagui";
 
+//TODO: Make a custome props for each value and onChange in <Input/>
 type Props = {
   icon: any;
   placeholder: string;
-  date?: Date;
-  time?: Date;
+  value: string;
+  onChangeText: (text: string) => void;
   onPress?: () => void;
 };
 
@@ -15,15 +16,9 @@ export default function IconInput({
   icon,
   placeholder,
   onPress,
-  date,
-  time,
+  value,
+  onChangeText,
 }: Props) {
-  const [text, setText] = React.useState<string>("");
-  const dateOrTime: string = "";
-
-  if (date) dateOrTime == moment().format("MMMM DD YYYY");
-  if (time) dateOrTime == moment().format("LT");
-
   return (
     <XStack flex={1} alignItems="center" justifyContent="flex-start" mih={50}>
       <View position="absolute" left={10} zIndex={100}>
@@ -33,8 +28,8 @@ export default function IconInput({
         flex={1}
         placeholder={placeholder}
         //FIXME: Value of Date and Time
-        value={date || time ? dateOrTime : text}
-        onChangeText={setText}
+        value={value}
+        onChangeText={onChangeText}
         pl={40}
         onPress={onPress}
       />

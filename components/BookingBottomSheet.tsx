@@ -2,13 +2,20 @@ import React from "react";
 import { Button, XStack, YStack } from "tamagui";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import DatePicker from "react-native-date-picker";
+import moment from "moment";
 
 import IconInput from "./IconInput";
+import useDatePicker from "@/hooks/useDatePicker";
+import useTimePicker from "@/hooks/useTimePicker";
 
-export default function BookingBottomSheet() {
-  const [date, setDate] = React.useState(new Date());
-  const [openDate, setOpenDate] = React.useState(false);
-  const [openTime, setOpenTime] = React.useState(false);
+export const BookingBottomSheet = React.memo(() => {
+  //TODO: might refactor, too many useState in a single component
+  const [subjectName, setSubjectName] = React.useState<string>("");
+  const [courseAndSection, setCourseAndSection] = React.useState<string>("");
+
+  const datePicker = useDatePicker();
+  const timeInPicker = useTimePicker();
+  const timeOutPicker = useTimePicker();
 
   return (
     <BottomSheetView
@@ -24,47 +31,60 @@ export default function BookingBottomSheet() {
       <YStack miw="100%" alignItems="center" gap={20}>
         <DatePicker
           modal
-          open={openDate}
-          date={date}
-          onConfirm={(date) => {
-            setOpenDate(false);
-            setDate(date);
-          }}
-          onCancel={() => {
-            setOpenDate(false);
-          }}
+          open={datePicker.open}
+          date={datePicker.date}
+          onConfirm={datePicker.onConfirm}
+          onCancel={datePicker.onCancel}
         />
         <DatePicker
           modal
-          open={openTime}
-          date={date}
+          open={timeInPicker.open}
+          date={timeInPicker.time}
           mode="time"
-          onConfirm={(date) => {
-            setOpenTime(false);
-            setDate(date);
-          }}
-          onCancel={() => {
-            setOpenTime(false);
-          }}
+          onConfirm={timeInPicker.onConfirm}
+          onCancel={timeInPicker.onClose}
         />
-        <IconInput icon={"book"} placeholder="Subject Name" />
-        <IconInput icon={"people-alt"} placeholder="Course & Section" />
+        <DatePicker
+          modal
+          open={timeOutPicker.open}
+          date={timeOutPicker.time}
+          mode="time"
+          onConfirm={timeOutPicker.onConfirm}
+          onCancel={timeOutPicker.onClose}
+        />
+        <IconInput
+          icon={"book"}
+          placeholder="Subject Name"
+          value={subjectName}
+          onChangeText={setSubjectName}
+        />
+        <IconInput
+          icon={"people-alt"}
+          placeholder="Course & Section"
+          value={courseAndSection}
+          onChangeText={setCourseAndSection}
+        />
         <IconInput
           icon={"calendar-today"}
           placeholder="Date"
-          onPress={() => setOpenDate(true)}
-          date={date}
+          onPress={() => datePicker.setOpen(true)}
+          value={moment(datePicker.date).format("DD MMMM YYYY")}
+          onChangeText={() => {}}
         />
         <XStack gap={20}>
           <IconInput
             icon={"schedule"}
             placeholder="Time-in"
-            onPress={() => setOpenTime(true)}
+            onPress={() => timeInPicker.setOpen(true)}
+            value={moment(timeInPicker.time).format("LT")}
+            onChangeText={() => {}}
           />
           <IconInput
             icon={"schedule"}
             placeholder="Time-out"
-            onPress={() => setOpenTime(true)}
+            onPress={() => timeOutPicker.setOpen(true)}
+            value={moment(timeOutPicker.time).format("LT")}
+            onChangeText={() => {}}
           />
         </XStack>
         <Button miw={"100%"} backgroundColor={"$blue10"} color={"$white1"}>
@@ -73,4 +93,4 @@ export default function BookingBottomSheet() {
       </YStack>
     </BottomSheetView>
   );
-}
+});
