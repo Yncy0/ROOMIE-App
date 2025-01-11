@@ -1,30 +1,18 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/utils/supabase";
-import { Tables } from "@/database.types";
-
-
-type Room = Tables<'rooms'>
 
 export default function useFetchRooms() {
-  const [data, setData] = React.useState<Room[]>([]);
-
-  React.useEffect(() => {
-    const fetchData = async () => {
-      let {data: rooms, error} = await supabase
-        .from('rooms')
+  return useQuery({
+    queryKey: ["rooms"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("rooms")
         .select(`*, building(id, building_name)`)
-        .order('room_name', {ascending: true});
+        .order("room_name", { ascending: true });
 
-      if (error) {
-        console.log('Data are not fetched', error);
-      }
+      if (error) throw error;
 
-      if (rooms) {
-        setData(rooms);
-      }
-    }
-    fetchData();
-  }, []);
-
-  return { data };
+      return data;
+    },
+  });
 }

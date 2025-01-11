@@ -8,7 +8,7 @@ import IconInput from "./IconInput";
 import useDatePicker from "@/hooks/useDatePicker";
 import useTimePicker from "@/hooks/useTimePicker";
 import useInsertBookedRooms from "@/hooks/useInsertBookedRooms";
-import { useAuth } from "@/context/AuthProvider";
+import { useAuth } from "@/providers/AuthProvider";
 import { Alert } from "react-native";
 
 type Props = {

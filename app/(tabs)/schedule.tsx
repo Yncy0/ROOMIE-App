@@ -5,9 +5,7 @@ import moment from "moment";
 import { View, Text } from "@tamagui/core";
 
 import DateCard from "@/components/cards/DateCard";
-import BookedCard from "@/components/cards/BookedCard";
 import ScheduleText from "@/components/ScheduleText";
-import { DATA } from "@/data/DATA";
 import useFetchSchedule from "@/hooks/useFetchSchedule";
 
 const generateDatesForCurrentMonth = () => {
@@ -62,9 +60,8 @@ export default function Schedule() {
             {moment().format("dddd: DD MMMM YYYY")}
           </Text>
           <View px={20} gap={20}>
-            {data.map((item) => (
-              <ScheduleText key={item.id} items={item} />
-            ))}
+            {data &&
+              data.map((item) => <ScheduleText key={item.id} items={item} />)}
           </View>
         </ScrollView>
       </SafeAreaView>

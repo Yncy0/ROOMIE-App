@@ -1,28 +1,20 @@
-import React from 'react'
-import { Tables } from '@/database.types'
-import { supabase } from '@/utils/supabase';
+import { useQuery } from "@tanstack/react-query";
 
-type Course = Tables<'course'>;
+import { supabase } from "@/utils/supabase";
 
 const useFetchCourse = () => {
-    const [data, setData] = React.useState<Course[]>([]);
-
-    React.useEffect(() => {
-        const fetchData = async () => {
-            const { data: course, error } = await supabase
-            .from('course')
-            .select('*')
+    return useQuery({
+        queryKey: ["course"],
+        queryFn: async () => {
+            const { data, error } = await supabase
+                .from("course")
+                .select("*");
 
             if (error) throw error;
 
-            if (course) {
-                setData(course);
-            }
-        } 
-        fetchData();
-    }, []);
+            return data;
+        },
+    });
+};
 
-  return data;
-}
-
-export default useFetchCourse
+export default useFetchCourse;

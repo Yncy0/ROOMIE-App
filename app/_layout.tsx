@@ -1,8 +1,9 @@
 import React from "react";
-import AuthProvider from "@/context/AuthProvider";
+import AuthProvider from "@/providers/AuthProvider";
 import { Stack } from "expo-router";
 import { setStatusBarStyle } from "expo-status-bar";
 import { PortalProvider, TamaguiProvider } from "tamagui";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import config from "../tamagui.config";
 
@@ -14,6 +15,8 @@ export default function RootLayout() {
 
   // if (!loaded) return <></>;
 
+  const queryCLient = new QueryClient();
+
   React.useEffect(() => {
     setTimeout(() => {
       setStatusBarStyle("dark");
@@ -24,10 +27,12 @@ export default function RootLayout() {
     <TamaguiProvider config={config}>
       <PortalProvider shouldAddRootHost>
         <AuthProvider>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          </Stack>
+          <QueryClientProvider client={queryCLient}>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            </Stack>
+          </QueryClientProvider>
         </AuthProvider>
       </PortalProvider>
     </TamaguiProvider>

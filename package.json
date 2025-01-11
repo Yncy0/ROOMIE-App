@@ -24,6 +24,7 @@
     "@rneui/themed": "^4.0.0-rc.8",
     "@supabase/supabase-js": "^2.47.5",
     "@tamagui/config": "^1.121.6",
+    "@tanstack/react-query": "^5.63.0",
     "expo": "~52.0.20",
     "expo-blur": "~14.0.1",
     "expo-calendar": "~14.0.5",
