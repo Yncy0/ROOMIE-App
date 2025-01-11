@@ -18,8 +18,9 @@ import BackButton from "@/components/buttons/BackButton";
 import { BookingBottomSheet } from "@/components/BookingBottomSheet";
 
 export default function RoomPreview() {
-  const { roomName, roomCategory, roomImage, customRoute } =
+  const { roomId, roomName, roomCategory, roomImage, customRoute } =
     useGlobalSearchParams<{
+      roomId: any;
       roomName: string;
       roomCategory: string;
       roomImage: string;
@@ -84,7 +85,7 @@ export default function RoomPreview() {
           </View>
         </ScrollView>
         <BottomSheetModal ref={bottomSheetModalRef}>
-          <BookingBottomSheet />
+          <BookingBottomSheet roomId={roomId} />
         </BottomSheetModal>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>

@@ -7,15 +7,50 @@ import moment from "moment";
 import IconInput from "./IconInput";
 import useDatePicker from "@/hooks/useDatePicker";
 import useTimePicker from "@/hooks/useTimePicker";
+import useInsertBookedRooms from "@/hooks/useInsertBookedRooms";
+import { useAuth } from "@/context/AuthProvider";
+import { Alert } from "react-native";
 
-export const BookingBottomSheet = React.memo(() => {
-  //TODO: might refactor, too many useState in a single component
+type Props = {
+  roomId: any;
+};
+
+export const BookingBottomSheet = ({ roomId }: Props) => {
   const [subjectName, setSubjectName] = React.useState<string>("");
   const [courseAndSection, setCourseAndSection] = React.useState<string>("");
 
   const datePicker = useDatePicker();
   const timeInPicker = useTimePicker();
   const timeOutPicker = useTimePicker();
+  const { session } = useAuth();
+
+  const handleReserve = async () => {
+    if (
+      subjectName &&
+      courseAndSection &&
+      datePicker.date &&
+      timeInPicker.time &&
+      timeOutPicker.time
+    ) {
+      try {
+        await useInsertBookedRooms(
+          session?.user.id,
+          roomId,
+          moment(datePicker.date).format("DD MMMM YYYY"),
+          subjectName,
+          courseAndSection,
+          moment(timeInPicker.time).format("LT"),
+          moment(timeOutPicker.time).format("LT")
+        );
+        Alert.alert("Success");
+      } catch (error) {
+        //FIXME: error here even the inputs are correct and complete
+        Alert.alert("Error", (error as Error).message);
+      }
+    } else {
+      Alert.alert("Error, cannot reserve!");
+    }
+  };
 
   return (
     <BottomSheetView
@@ -87,10 +122,15 @@ export const BookingBottomSheet = React.memo(() => {
             onChangeText={() => {}}
           />
         </XStack>
-        <Button miw={"100%"} backgroundColor={"$blue10"} color={"$white1"}>
+        <Button
+          miw={"100%"}
+          backgroundColor={"$blue10"}
+          color={"$white1"}
+          onPress={handleReserve}
+        >
           Reserve
         </Button>
       </YStack>
     </BottomSheetView>
   );
-});
+};

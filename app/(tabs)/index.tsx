@@ -72,6 +72,7 @@ export default function Index() {
                   router.replace({
                     pathname: "../screens/[roomPreview]",
                     params: {
+                      roomId: item.id,
                       roomName: item.room_name,
                       roomCategory: item.room_type,
                       roomImage: item.room_image,
