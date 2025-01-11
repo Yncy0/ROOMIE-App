@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const useDatePicker = (initialDate = new Date()) => {
     const [date, setDate] = React.useState(initialDate);
@@ -11,9 +11,9 @@ const useDatePicker = (initialDate = new Date()) => {
 
     const onCancel = () => {
         setOpen(false);
-    }
+    };
 
-  return { date, open, setOpen, onConfirm, onCancel};
-}
+    return { date, open, setOpen, onConfirm, onCancel };
+};
 
-export default useDatePicker
+export default useDatePicker;

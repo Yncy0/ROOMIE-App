@@ -44,11 +44,10 @@ export const BookingBottomSheet = ({ roomId }: Props) => {
         );
         Alert.alert("Success");
       } catch (error) {
-        //FIXME: error here even the inputs are correct and complete
         Alert.alert("Error", (error as Error).message);
       }
     } else {
-      Alert.alert("Error, cannot reserve!");
+      Alert.alert("Please fill all the blanks!");
     }
   };
 
