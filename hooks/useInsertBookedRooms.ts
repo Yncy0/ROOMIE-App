@@ -1,5 +1,4 @@
 import { supabase } from "@/utils/supabase";
-import "react-native-get-random-values";
 
 export default async function useInsertBookedRooms(
   profile_id: any,
