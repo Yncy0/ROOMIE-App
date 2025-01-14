@@ -5,6 +5,7 @@ import DatePicker from "react-native-date-picker";
 import moment from "moment";
 
 import IconInput from "./IconInput";
+import useHandleReserve from "@/hooks/useHandleReserve";
 import useDatePicker from "@/hooks/useDatePicker";
 import useTimePicker from "@/hooks/useTimePicker";
 import useInsertBookedRooms from "@/hooks/useInsertBookedRooms";
@@ -26,66 +27,77 @@ export const BookingBottomSheet = ({
   roomCategory,
   roomImage,
 }: Props) => {
-  const [subjectName, setSubjectName] = React.useState<string>("");
-  const [courseAndSection, setCourseAndSection] = React.useState<string>("");
+  // const [subjectName, setSubjectName] = React.useState<string>("");
+  // const [courseAndSection, setCourseAndSection] = React.useState<string>("");
 
-  const datePicker = useDatePicker();
-  const timeInPicker = useTimePicker();
-  const timeOutPicker = useTimePicker();
+  // const datePicker = useDatePicker();
+  // const timeInPicker = useTimePicker();
+  // const timeOutPicker = useTimePicker();
 
-  const { session } = useAuth();
-  const { data } = useFetchBookedRooms();
+  // const { session } = useAuth();
+  // const { data } = useFetchBookedRooms();
 
-  //FIXME: Too much logic code for the component
-  const handleReserve = async () => {
-    if (
-      subjectName &&
-      courseAndSection &&
-      datePicker.date &&
-      timeInPicker.time &&
-      timeOutPicker.time
-    ) {
-      try {
-        await useInsertBookedRooms(
-          session?.user.id,
-          roomId,
-          moment(datePicker.date).format("DD MMMM YYYY"),
-          subjectName,
-          courseAndSection,
-          moment(timeInPicker.time).format("LT"),
-          moment(timeOutPicker.time).format("LT")
-        );
-        Alert.alert("Success");
-        onSuccess();
-      } catch (error) {
-        Alert.alert("Error", (error as Error).message);
-      }
-    } else {
-      Alert.alert("Please fill all the blanks!");
-    }
-  };
+  // //FIXME: Too much logic code for the component
+  // const handleReserve = async () => {
+  //   if (
+  //     subjectName &&
+  //     courseAndSection &&
+  //     datePicker.date &&
+  //     timeInPicker.time &&
+  //     timeOutPicker.time
+  //   ) {
+  //     try {
+  //       await useInsertBookedRooms(
+  //         session?.user.id,
+  //         roomId,
+  //         moment(datePicker.date).format("DD MMMM YYYY"),
+  //         subjectName,
+  //         courseAndSection,
+  //         moment(timeInPicker.time).format("LT"),
+  //         moment(timeOutPicker.time).format("LT")
+  //       );
+  //       onSuccess();
+  //     } catch (error) {
+  //       Alert.alert("Error", (error as Error).message);
+  //     }
+  //   } else {
+  //     Alert.alert("Please fill all the blanks!");
+  //   }
+  // };
 
-  //FIXME: Too much logic code for the component
-  const onSuccess = () => {
-    if (data && data.id) {
-      router.replace({
-        pathname: "/screens/bookingReceipt/[id]",
-        params: {
-          id: data.id,
-          subjectName: subjectName,
-          courseAndSection: courseAndSection,
-          date: moment(datePicker.date).format("DD MMMM YYYY"),
-          timeIn: moment(timeInPicker.time).format("LT"),
-          timeOut: moment(timeOutPicker.time).format("LT"),
-          roomId: roomId,
-          roomCategory: roomCategory,
-          roomImage: roomImage,
-          roomName: roomName,
-          customRoute: "/(tabs)",
-        },
-      });
-    }
-  };
+  // //FIXME: Too much logic code for the component
+  // const onSuccess = () => {
+  //   if (data?.id) {
+  //     router.replace({
+  //       pathname: "/screens/bookingReceipt/[id]",
+  //       params: {
+  //         id: data.id,
+  //         subjectName: subjectName,
+  //         courseAndSection: courseAndSection,
+  //         date: moment(datePicker.date).format("DD MMMM YYYY"),
+  //         timeIn: moment(timeInPicker.time).format("LT"),
+  //         timeOut: moment(timeOutPicker.time).format("LT"),
+  //         roomId: roomId,
+  //         roomCategory: roomCategory,
+  //         roomImage: roomImage,
+  //         roomName: roomName,
+  //         customRoute: "/(tabs)",
+  //       },
+  //     });
+  //   } else {
+  //     Alert.alert("Cannot redirect");
+  //   }
+  // };
+  const {
+    subjectName,
+    setSubjectName,
+    courseAndSection,
+    setCourseAndSection,
+    datePicker,
+    timeInPicker,
+    timeOutPicker,
+    handleReserve,
+  } = useHandleReserve({ roomId, roomName, roomCategory, roomImage });
 
   return (
     <BottomSheetView

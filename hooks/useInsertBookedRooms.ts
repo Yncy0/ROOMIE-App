@@ -22,7 +22,8 @@ export default async function useInsertBookedRooms(
         time_out: time_out,
       },
     ])
-    .select();
+    .select()
+    .single();
 
   if (error) throw error;
 
