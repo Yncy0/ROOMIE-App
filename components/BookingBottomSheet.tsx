@@ -10,6 +10,7 @@ import useTimePicker from "@/hooks/useTimePicker";
 import useInsertBookedRooms from "@/hooks/useInsertBookedRooms";
 import { useAuth } from "@/providers/AuthProvider";
 import { Alert } from "react-native";
+import { router } from "expo-router";
 
 type Props = {
   roomId: any;
@@ -43,6 +44,7 @@ export const BookingBottomSheet = ({ roomId }: Props) => {
           moment(timeOutPicker.time).format("LT")
         );
         Alert.alert("Success");
+        router.replace("/(tabs)");
       } catch (error) {
         Alert.alert("Error", (error as Error).message);
       }

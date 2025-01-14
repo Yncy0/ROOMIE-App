@@ -70,9 +70,9 @@ export default function Index() {
                 height={290}
                 onPress={() =>
                   router.replace({
-                    pathname: "../screens/[roomPreview]",
+                    pathname: "/screens/roomPreview/[id]",
                     params: {
-                      roomId: item.id,
+                      id: item.id,
                       roomName: item.room_name,
                       roomCategory: item.room_type,
                       roomImage: item.room_image,
