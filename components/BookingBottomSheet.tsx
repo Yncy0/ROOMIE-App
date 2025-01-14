@@ -11,20 +11,32 @@ import useInsertBookedRooms from "@/hooks/useInsertBookedRooms";
 import { useAuth } from "@/providers/AuthProvider";
 import { Alert } from "react-native";
 import { router } from "expo-router";
+import useFetchBookedRooms from "@/hooks/useFetchBookedRooms";
 
 type Props = {
   roomId: any;
+  roomName: string;
+  roomCategory: string;
+  roomImage: string;
 };
 
-export const BookingBottomSheet = ({ roomId }: Props) => {
+export const BookingBottomSheet = ({
+  roomId,
+  roomName,
+  roomCategory,
+  roomImage,
+}: Props) => {
   const [subjectName, setSubjectName] = React.useState<string>("");
   const [courseAndSection, setCourseAndSection] = React.useState<string>("");
 
   const datePicker = useDatePicker();
   const timeInPicker = useTimePicker();
   const timeOutPicker = useTimePicker();
-  const { session } = useAuth();
 
+  const { session } = useAuth();
+  const { data } = useFetchBookedRooms();
+
+  //FIXME: Too much logic code for the component
   const handleReserve = async () => {
     if (
       subjectName &&
@@ -44,12 +56,34 @@ export const BookingBottomSheet = ({ roomId }: Props) => {
           moment(timeOutPicker.time).format("LT")
         );
         Alert.alert("Success");
-        router.replace("/(tabs)");
+        onSuccess();
       } catch (error) {
         Alert.alert("Error", (error as Error).message);
       }
     } else {
       Alert.alert("Please fill all the blanks!");
+    }
+  };
+
+  //FIXME: Too much logic code for the component
+  const onSuccess = () => {
+    if (data && data.id) {
+      router.replace({
+        pathname: "/screens/bookingReceipt/[id]",
+        params: {
+          id: data.id,
+          subjectName: subjectName,
+          courseAndSection: courseAndSection,
+          date: moment(datePicker.date).format("DD MMMM YYYY"),
+          timeIn: moment(timeInPicker.time).format("LT"),
+          timeOut: moment(timeOutPicker.time).format("LT"),
+          roomId: roomId,
+          roomCategory: roomCategory,
+          roomImage: roomImage,
+          roomName: roomName,
+          customRoute: "/(tabs)",
+        },
+      });
     }
   };
 

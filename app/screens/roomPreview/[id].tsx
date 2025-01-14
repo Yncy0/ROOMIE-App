@@ -80,7 +80,12 @@ export default function RoomPreview() {
           </View>
         </ScrollView>
         <BottomSheetModal ref={bottomSheetMoadlRef}>
-          <BookingBottomSheet roomId={id} />
+          <BookingBottomSheet
+            roomId={id}
+            roomName={roomName}
+            roomCategory={roomCategory}
+            roomImage={roomImage}
+          />
         </BottomSheetModal>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>

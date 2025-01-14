@@ -4,6 +4,8 @@ const useDatePicker = (initialDate = new Date()) => {
     const [date, setDate] = React.useState(initialDate);
     const [open, setOpen] = React.useState<boolean>(false);
 
+    let dateToString: string;
+
     const onConfirm = (selectDate: Date) => {
         setDate(selectDate);
         setOpen(false);
