@@ -1,51 +1,31 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+
 import { supabase } from "../utils/supabase";
-import { QueryData } from "@supabase/supabase-js";
-import { Tables } from "@/database.types";
-
-
-type Schedule = Tables<'schedule'>
-type ScheduleWithForeign = Schedule & {
-    course: Tables<'course'> | null,
-    subject: Tables<'subject'> | null,
-}
 
 export default function useFetchSchedule() {
-    const [data, setData] = React.useState<ScheduleWithForeign[]>([]);
-
-    React.useEffect(() => {
-        const fetchData = async () => {
+    return useQuery({
+        queryKey: ["schedule"],
+        queryFn: async () => {
             const { data: { user } } = await supabase.auth.getUser();
-            let userId = ''
-            
+            let userId: string = "";
+
             if (user) {
-               userId = user?.id;
+                userId = user?.id;
             }
 
-            let scheduleWithQuery = supabase
-                .from('schedule')
+            const { data, error } = await supabase
+                .from("schedule")
                 .select(
-                    `*, 
-                    course(*), 
+                    `*,
+                    course(*),
                     subject(*)
-                    `
+                    `,
                 )
-                .eq('profile_id', userId);
-            
-            type ScheduleWithQuery = QueryData<typeof scheduleWithQuery>;
-                
-            const { data, error } = await scheduleWithQuery;
+                .eq("profile_id", userId);
+
             if (error) throw error;
-            const schedule: ScheduleWithQuery = data;
-            
-            if (data) {
-                setData(schedule);
-                console.log(schedule)
-            }
-        }
 
-        fetchData();
-    },[]);
-
-    return { data };
+            return data;
+        },
+    });
 }
