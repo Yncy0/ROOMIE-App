@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "ROOMIE_App",
-    "slug": "ROOMIE_App",
+    "name": "ROOMIE App",
+    "slug": "ROOMIE App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/roomie-logo.png",
+    "icon": "./assets/images/roomie-icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -14,7 +14,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/roomie-logo.png",
+        "foregroundImage": "./assets/images/roomie-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.ROOMIE_App"
@@ -29,16 +29,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/roomie-splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
-        },
-        "expo-media-library",
-        {
-          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
-          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
-          "isAccessMediaLocationEnabled": true
         }
       ]
     ],

@@ -20,11 +20,13 @@ import TextHorizontal from "@/components/TextHorizontal";
 
 const BookingReceipt = () => {
   const [status, requestPermission] = MediaLibrary.usePermissions();
-  const imageRef = React.useRef<View>(null);
+  const viewRef = React.useRef<View>(null);
 
-  if (status === null) {
-    requestPermission();
-  }
+  React.useEffect(() => {
+    if (status === null) {
+      requestPermission();
+    }
+  }, [status, requestPermission]);
 
   const {
     id,
@@ -50,15 +52,19 @@ const BookingReceipt = () => {
 
   const referenceNumber = id.substring(0, 7).toUpperCase();
 
-  const onSaveImageAsync = async () => {
+  const onSaveViewAsync = async () => {
     try {
-      const localUri = await captureRef(imageRef, {
-        quality: 1,
-      });
-
-      await MediaLibrary.saveToLibraryAsync(localUri);
-      if (localUri) {
-        alert("Saved!");
+      if (viewRef.current) {
+        const localUri = await captureRef(viewRef, {
+          format: "png",
+          quality: 1,
+        });
+        if (localUri) {
+          await MediaLibrary.saveToLibraryAsync(localUri);
+          alert("Saved!");
+        }
+      } else {
+        console.warn("viewRef is not assigned");
       }
     } catch (e) {
       console.log(e);
@@ -66,11 +72,12 @@ const BookingReceipt = () => {
   };
 
   return (
+    //FIXME: Convert all Tamagui into React Native/Expo component
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen name="Receipt" options={{ headerShown: false }} />
-          <View style={{ padding: 30 }} ref={imageRef}>
+          <View style={{ padding: 30 }} ref={viewRef}>
             <YStack
               width={"100%"}
               flex={1}
@@ -137,7 +144,7 @@ const BookingReceipt = () => {
                   backgroundColor={"$white1"}
                   alignSelf="center"
                   icon={<Ionicons name={"download-outline"} size={20} />}
-                  onPress={onSaveImageAsync}
+                  onPress={onSaveViewAsync}
                 >
                   Download
                 </Button>
@@ -147,6 +154,87 @@ const BookingReceipt = () => {
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
+    // <SafeAreaProvider>
+    //   <SafeAreaView style={{ flex: 1 }}>
+    //     <ScrollView showsVerticalScrollIndicator={false}>
+    //       <Stack.Screen name="Receipt" options={{ headerShown: false }} />
+    //       <View style={{ padding: 30 }} ref={viewRef}>
+    //         <YStack
+    //           width={"100%"}
+    //           flex={1}
+    //           alignItems="center"
+    //           py={20}
+    //           px={20}
+    //           gap={20}
+    //           backgroundColor={"$white1"}
+    //           borderRadius={"$3"}
+    //           elevation={10}
+    //         >
+    //           <XStack
+    //             alignItems="center"
+    //             justifyContent="space-between"
+    //             miw={"100%"}
+    //           >
+    //             <BackButton
+    //               onPress={() => router.replace("/(tabs)")}
+    //               size={24}
+    //             />
+    //           </XStack>
+    //           <Text fontSize={16} fontWeight="bold" alignSelf="center">
+    //             Reservation Details
+    //           </Text>
+    //           <Ionicons name={"checkmark-circle-sharp"} size={74} />
+    //           <YStack alignItems="center">
+    //             <Text fontSize={18} fontWeight="bold">
+    //               Your Booking Confirmed!
+    //             </Text>
+    //             <Text>{`Reference No: "MR${referenceNumber}"`}</Text>
+    //           </YStack>
+
+    //           <Image
+    //             source={{ uri: roomImage }}
+    //             minHeight={170}
+    //             minWidth={250 / 2}
+    //             width={250}
+    //             maxWidth={250 * 2}
+    //           />
+    //           <YStack alignItems="center" pb={20}>
+    //             <Text fontSize={18} fontWeight={"bold"}>
+    //               {roomName}
+    //             </Text>
+    //             <Text>{roomCategory}</Text>
+    //           </YStack>
+    //           <Text pb={20}>Details</Text>
+    //           <YStack miw={"100%"} gap={10}>
+    //             <TextHorizontal description="Date Booked:" value={date} />
+    //             <Separator borderColor={"$gray8"} />
+    //             <TextHorizontal
+    //               description="Time:"
+    //               value={`${timeIn}-${timeOut}`}
+    //             />
+    //             <Separator borderColor={"$gray8"} />
+    //             <TextHorizontal description="Subject" value={subjectName} />
+    //             <Separator borderColor={"$gray8"} />
+    //             <TextHorizontal
+    //               description="Section"
+    //               value={courseAndSection}
+    //             />
+    //             <Separator borderColor={"$gray8"} />
+
+    //             <Button
+    //               backgroundColor={"$white1"}
+    //               alignSelf="center"
+    //               icon={<Ionicons name={"download-outline"} size={20} />}
+    //               onPress={onSaveViewAsync}
+    //             >
+    //               Download
+    //             </Button>
+    //           </YStack>
+    //         </YStack>
+    //       </View>
+    //     </ScrollView>
+    //   </SafeAreaView>
+    // </SafeAreaProvider>
   );
 };
 
