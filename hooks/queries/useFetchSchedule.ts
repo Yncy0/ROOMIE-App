@@ -6,23 +6,24 @@ import { Tables } from "@/database.types";
 
 type Schedule = Tables<"schedule">;
 
-export default function useFetchSchedule(room_id?: string) {
-    const getId = async () => {
-        //GETTING ID
-        const { data: { user } } = await supabase.auth.getUser();
-        let userId: string = "";
+const getId = async () => {
+    //GETTING ID
+    const { data: { user } } = await supabase.auth.getUser();
+    let userId: string = "";
 
-        if (user) {
-            userId = user?.id;
-        }
+    if (user) {
+        userId = user?.id;
+    }
 
-        return userId;
-    };
+    return userId;
+};
 
-    const scheduleWithDateQuery = useQuery<Schedule[]>({
+export function useFetchSchedule() {
+    return useQuery<Schedule[]>({
         queryKey: ["schedule"],
         queryFn: async () => {
-            let query = supabase
+            const userId = await getId();
+            const { data: schedule, error } = await supabase
                 .from("schedule")
                 .select(
                     `*,
@@ -30,18 +31,33 @@ export default function useFetchSchedule(room_id?: string) {
                     subject(*)
                     `,
                 )
-                .eq("profile_id", getId())
-                .eq("days", moment().format("dddd"));
+                .eq("profile_id", userId);
 
-            if (room_id) query = query.eq("room_id", room_id);
+            if (error) throw error;
 
-            const { data: scheduleWithDay, error: scheduleError } = await query;
+            return schedule;
+        },
+    });
+}
 
-            if (scheduleError) throw scheduleError;
+export function useFetchScheduleWithDay(day: string) {
+    return useQuery<Schedule[]>({
+        queryKey: ["schedule", day],
+        queryFn: async () => {
+            const userId = await getId();
+            const { data: scheduleWithDay, error } = await supabase
+                .from("schedule")
+                .select(
+                    `*,
+                    course(*),
+                    subject(*)
+                    `,
+                )
+                .eq("profile_id", userId)
+                .eq("days", moment(day).format("dddd"));
 
+            if (error) throw error;
             return scheduleWithDay;
         },
     });
-
-    return { scheduleWithDateQuery };
 }

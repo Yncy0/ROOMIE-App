@@ -11,7 +11,7 @@ import {
 
 import { BookingBottomSheet } from "@/components/BookingBottomSheet";
 import BackButton from "@/components/buttons/BackButton";
-import useFetchSchedule from "@/hooks/queries/useFetchSchedule";
+import { useFetchSchedule } from "@/hooks/queries/useFetchSchedule";
 import ScheduleText from "@/components/ScheduleText";
 
 export default function RoomPreview() {
@@ -23,7 +23,7 @@ export default function RoomPreview() {
       roomImage: string;
       customRoute: any;
     }>();
-  const { scheduleWithDateQuery } = useFetchSchedule();
+  const { data } = useFetchSchedule();
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = React.useCallback(() => {
@@ -76,10 +76,8 @@ export default function RoomPreview() {
                 <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
               </XStack>
             </YStack>
-            {scheduleWithDateQuery.data &&
-              scheduleWithDateQuery.data.map((item) => (
-                <ScheduleText key={item.id} items={item} />
-              ))}
+            {data &&
+              data.map((item) => <ScheduleText key={item.id} items={item} />)}
           </View>
         </ScrollView>
         <BottomSheetModal ref={bottomSheetMoadlRef}>
