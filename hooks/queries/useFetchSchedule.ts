@@ -61,3 +61,26 @@ export function useFetchScheduleWithDay(day: string) {
         },
     });
 }
+
+export function useFetchScheduleWithRoom(day: string, room_id: string) {
+    return useQuery<Schedule[]>({
+        queryKey: ["schedule", day, room_id],
+        queryFn: async () => {
+            const { data: scheduleWithRoom, error } = await supabase
+                .from("schedule")
+                .select(
+                    `*,
+                    course(*),
+                    subject(*)
+                    `,
+                )
+                .eq("days", day)
+                .eq("room_id", room_id);
+
+            if (error) throw error;
+
+            return scheduleWithRoom;
+        },
+        enabled: !!day && !!room_id,
+    });
+}

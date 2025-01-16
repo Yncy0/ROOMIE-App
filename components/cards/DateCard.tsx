@@ -1,6 +1,7 @@
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable } from "react-native";
 import moment from "moment";
+import { YStack, Text } from "tamagui";
 
 type Props = {
   date: any;
@@ -18,31 +19,49 @@ export default function DateCard({
   const isSelected = formatDate === moment(selectedDate).format("DD MMMM YYYY");
 
   return (
-    <Pressable
-      onPress={() => setSelectedDate(date)}
-      style={{
-        flexDirection: "column",
-        gap: 10,
-        alignItems: "center",
-        justifyContent: "center",
-        borderWidth: 2,
-        borderColor: "#E8E8E8",
-        borderRadius: 10,
-        backgroundColor: isSelected
-          ? "blue"
-          : formatDate === todayDate
-          ? "red"
-          : "white",
-        height: 90,
-        width: 60,
-      }}
-    >
-      <Text style={{ fontSize: 16, fontWeight: "700" }}>
-        {moment(date).format("ddd")}
-      </Text>
-      <Text style={{ fontSize: 16, fontWeight: "800" }}>
-        {moment(date).format("DD")}
-      </Text>
+    <Pressable onPress={() => setSelectedDate(date)}>
+      <YStack
+        alignItems="center"
+        justifyContent="center"
+        borderRadius={10}
+        elevation={4}
+        height={90}
+        width={60}
+        backgroundColor={
+          isSelected
+            ? "$blue8"
+            : formatDate === todayDate
+            ? "$black10"
+            : "$white1"
+        }
+      >
+        <Text
+          fos={16}
+          fontWeight="bold"
+          color={
+            isSelected
+              ? "$white1"
+              : formatDate === todayDate
+              ? "$white1"
+              : "$black1"
+          }
+        >
+          {moment(date).format("ddd")}
+        </Text>
+        <Text
+          fos={16}
+          fontWeight="900"
+          color={
+            isSelected
+              ? "$white1"
+              : formatDate === todayDate
+              ? "$white1"
+              : "$black1"
+          }
+        >
+          {moment(date).format("DD")}
+        </Text>
+      </YStack>
     </Pressable>
   );
 }

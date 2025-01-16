@@ -7,10 +7,7 @@ import { View, Text } from "@tamagui/core";
 
 import DateCard from "@/components/cards/DateCard";
 import ScheduleText from "@/components/ScheduleText";
-import {
-  useFetchSchedule,
-  useFetchScheduleWithDay,
-} from "@/hooks/queries/useFetchSchedule";
+import { useFetchScheduleWithDay } from "@/hooks/queries/useFetchSchedule";
 
 const generateDatesForCurrentMonth = () => {
   const startOfMonth = moment().startOf("month");
@@ -40,14 +37,14 @@ export default function Schedule() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text miw={"100%"} px={20} pb={20}>
+          {/* <Text miw={"100%"} px={20} pb={20}>
             History
           </Text>
           <View fd={"row"} jc={"space-between"} miw={"100%"} px={20} pb={40}>
             <HistoryStatus status="Incoming" color="#FFDB5E" />
             <HistoryStatus status="Completed" color="#2B32B2" />
             <HistoryStatus status="Cancelled" color="#FF5C5C" />
-          </View>
+          </View> */}
           <Text miw={"100%"} px={20} pb={20}>
             My Schedule
           </Text>
@@ -63,7 +60,11 @@ export default function Schedule() {
             )}
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ gap: 10, paddingHorizontal: 20 }}
+            contentContainerStyle={{
+              gap: 10,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+            }}
             initialNumToRender={4}
           />
           <Text miw={"100%"} p={20} fow={"700"}>
