@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Button, Pressable, Text, View } from "react-native";
 
 //TO-DO: add onPress() later
@@ -26,7 +27,7 @@ export default function PressableText({ text, onPress }: Props) {
       ]}
     >
       <Text style={{ fontSize: 16 }}>{text}</Text>
-      <Text style={{ fontSize: 20 }}>{">"}</Text>
+      <Ionicons name={"chevron-forward"} size={16} />
     </Pressable>
   );
 }

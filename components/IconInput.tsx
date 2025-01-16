@@ -1,9 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import moment from "moment";
 import React from "react";
 import { Input, XStack, View } from "tamagui";
 
-//TODO: Make a custome props for each value and onChange in <Input/>
 type Props = {
   icon: any;
   placeholder: string;
@@ -27,7 +25,6 @@ export default function IconInput({
       <Input
         flex={1}
         placeholder={placeholder}
-        //FIXME: Value of Date and Time
         value={value}
         onChangeText={onChangeText}
         pl={40}

@@ -1,3 +1,4 @@
+import HeaderHome from "@/components/HeaderHome";
 import { useAuth } from "@/providers/AuthProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { Redirect, Tabs } from "expo-router";
@@ -23,6 +24,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
+          headerTitle: () => <HeaderHome />,
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? "home-sharp" : "home-outline"}

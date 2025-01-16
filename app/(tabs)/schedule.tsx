@@ -24,6 +24,8 @@ const generateDatesForCurrentMonth = () => {
 
 export default function Schedule() {
   const [selectedDate, setSelectedDate] = React.useState<string>("");
+  const selectedDateFormat = moment(selectedDate).format("dddd: DD MMMM YYYY");
+  const currentDateFormat = moment().format("dddd: DD MMMM YYYY");
   const dates = generateDatesForCurrentMonth();
 
   const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
@@ -68,7 +70,7 @@ export default function Schedule() {
             initialNumToRender={4}
           />
           <Text miw={"100%"} p={20} fow={"700"}>
-            {moment(selectedDate).format("dddd: DD MMMM YYYY")}
+            {selectedDate ? selectedDateFormat : currentDateFormat}
           </Text>
           <View px={20} gap={20}>
             {isLoading ? (
