@@ -24,7 +24,7 @@ const generateDatesForCurrentMonth = () => {
 export default function Schedule() {
   const dates = generateDatesForCurrentMonth();
 
-  const { data } = useFetchSchedule();
+  const { scheduleWithDateQuery } = useFetchSchedule();
 
   return (
     <SafeAreaProvider>
@@ -60,8 +60,10 @@ export default function Schedule() {
             {moment().format("dddd: DD MMMM YYYY")}
           </Text>
           <View px={20} gap={20}>
-            {data &&
-              data.map((item) => <ScheduleText key={item.id} items={item} />)}
+            {scheduleWithDateQuery.data &&
+              scheduleWithDateQuery.data.map((item) => (
+                <ScheduleText key={item.id} items={item} />
+              ))}
           </View>
         </ScrollView>
       </SafeAreaView>
