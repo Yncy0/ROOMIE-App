@@ -2,14 +2,13 @@ import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { FlatList, Pressable, ScrollView } from "react-native";
 import { router } from "expo-router";
-import { View, Text } from "@tamagui/core";
+import { Text } from "@tamagui/core";
 
-import Searchbar from "@/components/Searchbar";
-import FilterButton from "@/components/buttons/FilterButton";
 import BookedCard from "@/components/cards/BookedCard";
 import RoomCard from "@/components/cards/RoomCard";
 import { DATA } from "@/data/DATA";
-import useFetchRooms from "@/hooks/useFetchRooms";
+import useFetchRooms from "@/hooks/queries/useFetchRooms";
+import { XStack } from "tamagui";
 
 export default function Index() {
   const { data } = useFetchRooms();
@@ -23,23 +22,12 @@ export default function Index() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            fd={"row"}
-            jc={"space-between"}
-            ai={"center"}
-            miw={"100%"}
-            px={20}
-            pb={10}
-          >
-            <Searchbar placeholder="Search" />
-            <FilterButton color="#2B32B2" />
-          </View>
-          <View miw={"100%"} fd={"row"} jc={"space-between"} px={20} pb={20}>
+          <XStack miw={"100%"} jc={"space-between"} px={20} pb={20}>
             <Text>My Booking</Text>
             <Pressable>
               <Text>See all</Text>
             </Pressable>
-          </View>
+          </XStack>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -54,12 +42,12 @@ export default function Index() {
               <BookedCard items={item} key={index} />
             )}
           />
-          <View miw={"100%"} fd={"row"} jc={"space-between"} px={20} pb={20}>
+          <XStack miw={"100%"} jc={"space-between"} px={20} pb={20}>
             <Text>{"Available Rooms"}</Text>
             <Pressable>
               <Text>{"See more"}</Text>
             </Pressable>
-          </View>
+          </XStack>
           <FlatList
             data={data}
             renderItem={({ item }) => (

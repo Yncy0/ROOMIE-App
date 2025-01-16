@@ -1,9 +1,9 @@
 import React from "react";
-import { ImageBackground, Modal, ScrollView } from "react-native";
+import { ImageBackground, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import moment from "moment";
-import { View, Text, Button } from "tamagui";
+import { View, Text, Button, XStack, YStack } from "tamagui";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -11,6 +11,11 @@ import {
 
 import { BookingBottomSheet } from "@/components/BookingBottomSheet";
 import BackButton from "@/components/buttons/BackButton";
+import {
+  useFetchSchedule,
+  useFetchScheduleWithRoom,
+} from "@/hooks/queries/useFetchSchedule";
+import ScheduleText from "@/components/ScheduleText";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -21,6 +26,9 @@ export default function RoomPreview() {
       roomImage: string;
       customRoute: any;
     }>();
+  const day = moment().format("dddd");
+  const { data } = useFetchScheduleWithRoom(day, id);
+
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = React.useCallback(() => {
@@ -43,7 +51,7 @@ export default function RoomPreview() {
             <BackButton
               onPress={() => router.replace({ pathname: customRoute })}
             />
-            <View fd={"row"} jc={"space-between"} ai={"center"}>
+            <XStack justifyContent={"space-between"} alignItems={"center"}>
               <View>
                 <Text col={"$white1"} fos={20} fow={"bold"}>
                   {roomName}
@@ -56,31 +64,34 @@ export default function RoomPreview() {
                 bg={"$blue10"}
                 color={"$white1"}
                 onPress={handlePresentModalPress}
-                br={"$radius.2"}
+                borderRadius={"$radius.2"}
                 miw={183}
               >
                 Book Now
               </Button>
-            </View>
+            </XStack>
           </ImageBackground>
           <View p={20} gap={20}>
-            <Text>DESCRIPTION</Text>
-            <Text bbc={"$gray1"} bbw={1} pb={10}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-              soluta aliquid consequuntur dolorum modi nesciunt dignissimos quas
-              mollitia aspernatur aut. Possimus veniam repudiandae
-              exercitationem ipsa reprehenderit sequi architecto molestiae
-              repellat!
-            </Text>
-            <Text>Today's Booking</Text>
-            <View fd={"row"} ai={"center"} jc={"space-between"}>
-              <Text>Today</Text>
-              <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
-            </View>
+            <YStack gap={5}>
+              <Text fos={16} fow="bold">
+                Today's Booking
+              </Text>
+              <XStack ai={"center"} jc={"space-between"}>
+                <Text>Today</Text>
+                <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
+              </XStack>
+            </YStack>
+            {data &&
+              data.map((item) => <ScheduleText key={item.id} items={item} />)}
           </View>
         </ScrollView>
         <BottomSheetModal ref={bottomSheetMoadlRef}>
-          <BookingBottomSheet roomId={id} />
+          <BookingBottomSheet
+            roomId={id}
+            roomName={roomName}
+            roomCategory={roomCategory}
+            roomImage={roomImage}
+          />
         </BottomSheetModal>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>

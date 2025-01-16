@@ -3,18 +3,20 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/utils/supabase";
 
 const useFetchCourse = () => {
-    return useQuery({
+    const courseQuery = useQuery({
         queryKey: ["course"],
         queryFn: async () => {
-            const { data, error } = await supabase
+            const { data: course, error } = await supabase
                 .from("course")
                 .select("*");
 
             if (error) throw error;
 
-            return data;
+            return course;
         },
     });
+
+    return courseQuery;
 };
 
 export default useFetchCourse;

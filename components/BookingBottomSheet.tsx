@@ -5,53 +5,31 @@ import DatePicker from "react-native-date-picker";
 import moment from "moment";
 
 import IconInput from "./IconInput";
-import useDatePicker from "@/hooks/useDatePicker";
-import useTimePicker from "@/hooks/useTimePicker";
-import useInsertBookedRooms from "@/hooks/useInsertBookedRooms";
-import { useAuth } from "@/providers/AuthProvider";
-import { Alert } from "react-native";
-import { router } from "expo-router";
+import useHandleReserve from "@/hooks/useHandleReserve";
 
 type Props = {
   roomId: any;
+  roomName: string;
+  roomCategory: string;
+  roomImage: string;
 };
 
-export const BookingBottomSheet = ({ roomId }: Props) => {
-  const [subjectName, setSubjectName] = React.useState<string>("");
-  const [courseAndSection, setCourseAndSection] = React.useState<string>("");
-
-  const datePicker = useDatePicker();
-  const timeInPicker = useTimePicker();
-  const timeOutPicker = useTimePicker();
-  const { session } = useAuth();
-
-  const handleReserve = async () => {
-    if (
-      subjectName &&
-      courseAndSection &&
-      datePicker.date &&
-      timeInPicker.time &&
-      timeOutPicker.time
-    ) {
-      try {
-        await useInsertBookedRooms(
-          session?.user.id,
-          roomId,
-          moment(datePicker.date).format("DD MMMM YYYY"),
-          subjectName,
-          courseAndSection,
-          moment(timeInPicker.time).format("LT"),
-          moment(timeOutPicker.time).format("LT")
-        );
-        Alert.alert("Success");
-        router.replace("/(tabs)");
-      } catch (error) {
-        Alert.alert("Error", (error as Error).message);
-      }
-    } else {
-      Alert.alert("Please fill all the blanks!");
-    }
-  };
+export const BookingBottomSheet = ({
+  roomId,
+  roomName,
+  roomCategory,
+  roomImage,
+}: Props) => {
+  const {
+    subjectName,
+    setSubjectName,
+    courseAndSection,
+    setCourseAndSection,
+    datePicker,
+    timeInPicker,
+    timeOutPicker,
+    handleReserve,
+  } = useHandleReserve({ roomId, roomName, roomCategory, roomImage });
 
   return (
     <BottomSheetView

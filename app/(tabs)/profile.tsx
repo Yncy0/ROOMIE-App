@@ -6,7 +6,7 @@ import { View, Text } from "@tamagui/core";
 
 import { supabase } from "@/utils/supabase";
 import PressableText from "@/components/buttons/PressableText";
-import useFetchProfiles from "@/hooks/useFetchProfiles";
+import useFetchProfiles from "@/hooks/queries/useFetchProfiles";
 
 export default function Profile() {
   const [profilePic, hasProfilePic] = React.useState<boolean>(false);

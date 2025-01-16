@@ -9,7 +9,7 @@ export default async function useInsertBookedRooms(
   time_in: string,
   time_out: string,
 ) {
-  const { data, error } = await supabase
+  const { data: booked_rooms, error } = await supabase
     .from("booked_rooms")
     .insert([
       {
@@ -22,9 +22,10 @@ export default async function useInsertBookedRooms(
         time_out: time_out,
       },
     ])
-    .select();
+    .select()
+    .single();
 
   if (error) throw error;
 
-  return data;
+  return booked_rooms;
 }
