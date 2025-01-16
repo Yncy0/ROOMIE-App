@@ -2,13 +2,11 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import moment from "moment";
 import { useRouter } from "expo-router";
-import useInsertBookedRooms from "@/hooks/useInsertBookedRooms";
-import useFetchBookedRooms from "@/hooks/useFetchBookedRooms";
-import { useAuth } from "@/providers/AuthProvider";
 
 import useDatePicker from "@/hooks/useDatePicker";
 import useTimePicker from "@/hooks/useTimePicker";
-import { router } from "expo-router";
+import useInsertBookedRooms from "@/hooks/useInsertBookedRooms";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface UseHandleReserveProps {
     roomId: any;
@@ -17,6 +15,7 @@ interface UseHandleReserveProps {
     roomImage: string;
 }
 
+//FIXME: Too much jiberish code!
 const useHandleReserve = (
     { roomId, roomName, roomCategory, roomImage }: UseHandleReserveProps,
 ) => {
@@ -36,7 +35,8 @@ const useHandleReserve = (
             courseAndSection &&
             datePicker.date &&
             timeInPicker.time &&
-            timeOutPicker.time
+            timeOutPicker.time &&
+            timeInPicker.time === timeOutPicker.time
         ) {
             try {
                 const insert = await useInsertBookedRooms(
@@ -53,7 +53,7 @@ const useHandleReserve = (
                 Alert.alert("Error");
             }
         } else {
-            Alert.alert("Please fill all the blanks!");
+            Alert.alert("Please fill the information properly!");
         }
     };
 

@@ -13,7 +13,7 @@ export default function useFetchSchedule() {
                 userId = user?.id;
             }
 
-            const { data, error } = await supabase
+            const { data: schedule, error } = await supabase
                 .from("schedule")
                 .select(
                     `*,
@@ -25,7 +25,7 @@ export default function useFetchSchedule() {
 
             if (error) throw error;
 
-            return data;
+            return schedule;
         },
     });
 }
