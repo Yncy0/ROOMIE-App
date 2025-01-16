@@ -9,7 +9,7 @@ import FilterButton from "@/components/buttons/FilterButton";
 import BookedCard from "@/components/cards/BookedCard";
 import RoomCard from "@/components/cards/RoomCard";
 import { DATA } from "@/data/DATA";
-import useFetchRooms from "@/hooks/useFetchRooms";
+import useFetchRooms from "@/hooks/queries/useFetchRooms";
 
 export default function Index() {
   const { data } = useFetchRooms();

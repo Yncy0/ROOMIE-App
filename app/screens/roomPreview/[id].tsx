@@ -11,7 +11,7 @@ import {
 
 import { BookingBottomSheet } from "@/components/BookingBottomSheet";
 import BackButton from "@/components/buttons/BackButton";
-import useFetchSchedule from "@/hooks/useFetchSchedule";
+import useFetchSchedule from "@/hooks/queries/useFetchSchedule";
 import ScheduleText from "@/components/ScheduleText";
 
 export default function RoomPreview() {

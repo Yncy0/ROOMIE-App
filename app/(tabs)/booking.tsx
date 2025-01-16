@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import { Text } from "@tamagui/core";
 
 import RoomCard from "@/components/cards/RoomCard";
-import useFetchRooms from "@/hooks/useFetchRooms";
+import useFetchRooms from "@/hooks/queries/useFetchRooms";
 
 const screenWidth = Dimensions.get("screen").width;
 

@@ -6,7 +6,7 @@ import { View, Text } from "@tamagui/core";
 
 import DateCard from "@/components/cards/DateCard";
 import ScheduleText from "@/components/ScheduleText";
-import useFetchSchedule from "@/hooks/useFetchSchedule";
+import useFetchSchedule from "@/hooks/queries/useFetchSchedule";
 
 const generateDatesForCurrentMonth = () => {
   const startOfMonth = moment().startOf("month");

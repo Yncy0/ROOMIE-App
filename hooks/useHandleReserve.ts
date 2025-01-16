@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 
 import useDatePicker from "@/hooks/useDatePicker";
 import useTimePicker from "@/hooks/useTimePicker";
-import useInsertBookedRooms from "@/hooks/useInsertBookedRooms";
+import useInsertBookedRooms from "@/hooks/queries/useInsertBookedRooms";
 import { useAuth } from "@/providers/AuthProvider";
 
 interface UseHandleReserveProps {
