@@ -174,6 +174,7 @@ export type Database = {
           days: string | null
           id: string
           profile_id: string | null
+          room_id: string | null
           subject_id: string | null
           time_in: string | null
           time_out: string | null
@@ -184,6 +185,7 @@ export type Database = {
           days?: string | null
           id?: string
           profile_id?: string | null
+          room_id?: string | null
           subject_id?: string | null
           time_in?: string | null
           time_out?: string | null
@@ -194,6 +196,7 @@ export type Database = {
           days?: string | null
           id?: string
           profile_id?: string | null
+          room_id?: string | null
           subject_id?: string | null
           time_in?: string | null
           time_out?: string | null
@@ -211,6 +214,13 @@ export type Database = {
             columns: ["profile_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "schedule_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
             referencedColumns: ["id"]
           },
           {

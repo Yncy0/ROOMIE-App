@@ -60,6 +60,7 @@ export default function Schedule() {
             {moment().format("dddd: DD MMMM YYYY")}
           </Text>
           <View px={20} gap={20}>
+            {/*RENDERING HERE*/}
             {scheduleWithDateQuery.data &&
               scheduleWithDateQuery.data.map((item) => (
                 <ScheduleText key={item.id} items={item} />
