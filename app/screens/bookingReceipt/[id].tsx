@@ -13,7 +13,7 @@ import {
   YStack,
 } from "tamagui";
 import * as MediaLibrary from "expo-media-library";
-import { captureRef } from "react-native-view-shot";
+import ViewShot, { captureRef } from "react-native-view-shot";
 
 import BackButton from "@/components/buttons/BackButton";
 import TextHorizontal from "@/components/TextHorizontal";
@@ -54,20 +54,18 @@ const BookingReceipt = () => {
 
   const onSaveViewAsync = async () => {
     try {
-      if (viewRef.current) {
-        const localUri = await captureRef(viewRef, {
-          format: "png",
-          quality: 1,
-        });
-        if (localUri) {
-          await MediaLibrary.saveToLibraryAsync(localUri);
-          alert("Saved!");
-        }
-      } else {
-        console.warn("viewRef is not assigned");
+      const localUri = await captureRef(viewRef, {
+        format: "png",
+        quality: 1,
+      });
+      if (localUri) {
+        await MediaLibrary.saveToLibraryAsync(localUri);
+        alert("Saved!");
+        router.replace("/(tabs)");
       }
     } catch (e) {
       console.log(e);
+      alert("Cannot save!");
     }
   };
 
@@ -77,7 +75,7 @@ const BookingReceipt = () => {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen name="Receipt" options={{ headerShown: false }} />
-          <View style={{ padding: 30 }} ref={viewRef}>
+          <ViewShot style={{ padding: 30 }} ref={viewRef}>
             <YStack
               width={"100%"}
               flex={1}
@@ -150,7 +148,7 @@ const BookingReceipt = () => {
                 </Button>
               </YStack>
             </YStack>
-          </View>
+          </ViewShot>
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
