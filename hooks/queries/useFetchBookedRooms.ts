@@ -1,26 +1,20 @@
+import { Tables } from "@/database.types";
 import { supabase } from "@/utils/supabase";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+
+type BookedRooms = Tables<"booked_rooms">;
 
 export default function useFetchBookedRooms() {
-    const [id, setId] = React.useState<string | undefined>(undefined);
-
-    const bookedRoomsQuery = useQuery({
+    const bookedRoomsQuery = useQuery<BookedRooms[]>({
         queryKey: ["booked_rooms"],
         queryFn: async () => {
-            const { data: booked_rooms, error } = await supabase
+            const { data: bookedRooms, error } = await supabase
                 .from("booked_rooms")
-                .select(
-                    "id",
-                ).single();
+                .select("*");
 
             if (error) throw error;
 
-            if (booked_rooms) {
-                setId(booked_rooms.id as string);
-            }
-
-            return { booked_rooms, id };
+            return bookedRooms;
         },
     });
 

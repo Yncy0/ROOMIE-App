@@ -16,6 +16,7 @@ import {
   useFetchScheduleWithRoom,
 } from "@/hooks/queries/useFetchSchedule";
 import ScheduleText from "@/components/ScheduleText";
+import { primaryColor } from "@/constants/Colors";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -61,7 +62,7 @@ export default function RoomPreview() {
                 </Text>
               </View>
               <Button
-                bg={"$blue10"}
+                bg={primaryColor}
                 color={"$white1"}
                 onPress={handlePresentModalPress}
                 borderRadius={"$radius.2"}

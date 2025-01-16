@@ -24,6 +24,7 @@
     "@rneui/themed": "^4.0.0-rc.8",
     "@supabase/supabase-js": "^2.47.5",
     "@tamagui/config": "^1.121.6",
+    "@tamagui/linear-gradient": "^1.121.11",
     "@tanstack/react-query": "^5.63.0",
     "expo": "~52.0.25",
     "expo-blur": "~14.0.2",
@@ -34,6 +35,7 @@
     "expo-haptics": "~14.0.1",
     "expo-image": "~2.0.4",
     "expo-linking": "~7.0.4",
+    "expo-media-library": "~17.0.5",
     "expo-router": "~4.0.16",
     "expo-splash-screen": "~0.29.20",
     "expo-status-bar": "~2.0.1",
@@ -52,11 +54,11 @@
     "react-native-screens": "~4.4.0",
     "react-native-svg": "15.8.0",
     "react-native-url-polyfill": "^2.0.0",
+    "react-native-view-shot": "~4.0.3",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
     "tamagui": "^1.121.6",
-    "react-native-view-shot": "~4.0.3",
-    "expo-media-library": "~17.0.5"
+    "expo-linear-gradient": "~14.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

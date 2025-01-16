@@ -2,6 +2,7 @@ import React from "react";
 import { Pressable } from "react-native";
 import moment from "moment";
 import { YStack, Text } from "tamagui";
+import { primaryColor } from "@/constants/Colors";
 
 type Props = {
   date: any;
@@ -29,7 +30,7 @@ export default function DateCard({
         width={60}
         backgroundColor={
           isSelected
-            ? "$blue8"
+            ? primaryColor
             : formatDate === todayDate
             ? "$black10"
             : "$white1"

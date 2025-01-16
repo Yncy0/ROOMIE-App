@@ -8,13 +8,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import config from "../tamagui.config";
 
 export default function RootLayout() {
-  // const [loaded] = useFonts({
-  //   Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
-  //   InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
-  // });
-
-  // if (!loaded) return <></>;
-
   const queryCLient = new QueryClient();
 
   React.useEffect(() => {

@@ -1,5 +1,4 @@
 import React from "react";
-import HistoryStatus from "@/components/HistoryStatus";
 import { FlatList, ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import moment from "moment";
@@ -8,6 +7,7 @@ import { View, Text } from "@tamagui/core";
 import DateCard from "@/components/cards/DateCard";
 import ScheduleText from "@/components/ScheduleText";
 import { useFetchScheduleWithDay } from "@/hooks/queries/useFetchSchedule";
+import EmptyDisplay from "@/components/EmptyDisplay";
 
 const generateDatesForCurrentMonth = () => {
   const startOfMonth = moment().startOf("month");
@@ -73,13 +73,10 @@ export default function Schedule() {
             {selectedDate ? selectedDateFormat : currentDateFormat}
           </Text>
           <View px={20} gap={20}>
-            {isLoading ? (
-              <Text>Loading</Text>
-            ) : error ? (
-              <Text>ERROR</Text>
-            ) : (
-              data &&
+            {data && data.length > 0 ? (
               data.map((item) => <ScheduleText key={item.id} items={item} />)
+            ) : (
+              <EmptyDisplay />
             )}
           </View>
         </ScrollView>

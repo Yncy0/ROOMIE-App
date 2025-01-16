@@ -1,17 +1,21 @@
 import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { FlatList, Pressable, ScrollView } from "react-native";
+import { Image } from "expo-image";
 import { router } from "expo-router";
-import { Text } from "@tamagui/core";
+import { Text, View } from "@tamagui/core";
+import { XStack } from "tamagui";
 
 import BookedCard from "@/components/cards/BookedCard";
 import RoomCard from "@/components/cards/RoomCard";
 import { DATA } from "@/data/DATA";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
-import { XStack } from "tamagui";
+import useFetchBookedRooms from "@/hooks/queries/useFetchBookedRooms";
+import EmptyDisplay from "@/components/EmptyDisplay";
 
 export default function Index() {
-  const { data } = useFetchRooms();
+  const { data: rooms } = useFetchRooms();
+  const { data: bookedRooms } = useFetchBookedRooms();
 
   return (
     <SafeAreaProvider>
@@ -22,34 +26,38 @@ export default function Index() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <XStack miw={"100%"} jc={"space-between"} px={20} pb={20}>
+          <XStack miw={"100%"} justifyContent={"space-between"} px={20} pb={20}>
             <Text>My Booking</Text>
             <Pressable>
               <Text>See all</Text>
             </Pressable>
           </XStack>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              gap: 20,
-              paddingHorizontal: 20,
-              paddingBottom: 20,
-            }}
-            initialNumToRender={7}
-            data={DATA}
-            renderItem={({ item, index }) => (
-              <BookedCard items={item} key={index} />
-            )}
-          />
-          <XStack miw={"100%"} jc={"space-between"} px={20} pb={20}>
+          {bookedRooms && bookedRooms.length > 0 ? (
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{
+                gap: 20,
+                paddingHorizontal: 20,
+                paddingBottom: 20,
+              }}
+              initialNumToRender={7}
+              data={bookedRooms}
+              renderItem={({ item, index }) => (
+                <BookedCard items={item} key={index} />
+              )}
+            />
+          ) : (
+            <EmptyDisplay />
+          )}
+          <XStack miw={"100%"} justifyContent={"space-between"} px={20} pb={20}>
             <Text>{"Available Rooms"}</Text>
             <Pressable>
               <Text>{"See more"}</Text>
             </Pressable>
           </XStack>
           <FlatList
-            data={data}
+            data={rooms}
             renderItem={({ item }) => (
               <RoomCard
                 key={item.id}

@@ -1,7 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Button, Pressable, Text, View } from "react-native";
-
-//TO-DO: add onPress() later
+import { Pressable, Text } from "react-native";
 
 type Props = {
   text: string;
