@@ -17,6 +17,8 @@ export default function Index() {
   const { data: rooms } = useFetchRooms();
   const { data: bookedRooms } = useFetchBookedRooms();
 
+  console.log("Bookings", bookedRooms);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView

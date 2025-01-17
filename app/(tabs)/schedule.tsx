@@ -30,6 +30,20 @@ export default function Schedule() {
 
   const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
 
+  //FIXME: Too much loop, better do a queue()
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const currentTime = moment().format("HH:mm:ss");
+      data?.forEach((item) => {
+        if (item.time_out === currentTime) {
+          console.log(`Item ${item.id} is due now!`);
+        }
+        // console.log("TIME OUT", item.time_out);
+      });
+    }, 1000);
+    () => clearInterval(interval);
+  }, [data]);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView
@@ -39,14 +53,6 @@ export default function Schedule() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          {/* <Text miw={"100%"} px={20} pb={20}>
-            History
-          </Text>
-          <View fd={"row"} jc={"space-between"} miw={"100%"} px={20} pb={40}>
-            <HistoryStatus status="Incoming" color="#FFDB5E" />
-            <HistoryStatus status="Completed" color="#2B32B2" />
-            <HistoryStatus status="Cancelled" color="#FF5C5C" />
-          </View> */}
           <Text miw={"100%"} px={20} pb={20}>
             My Schedule
           </Text>
