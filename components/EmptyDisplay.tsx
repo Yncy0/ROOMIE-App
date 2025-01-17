@@ -8,7 +8,7 @@ const EmptyDisplay = () => {
         source={require("@/assets/images/booking_empty.svg")}
         style={{ width: 100, height: 100 }}
       />
-      <Text>Oops! It is looks like empty</Text>
+      <Text>Oops! It is empty</Text>
     </View>
   );
 };
