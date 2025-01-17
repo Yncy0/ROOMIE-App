@@ -10,7 +10,7 @@ import BookedCard from "@/components/cards/BookedCard";
 import RoomCard from "@/components/cards/RoomCard";
 import { DATA } from "@/data/DATA";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
-import useFetchBookedRooms from "@/hooks/queries/useFetchBookedRooms";
+import { useFetchBookedRooms } from "@/hooks/queries/useFetchBookedRooms";
 import EmptyDisplay from "@/components/EmptyDisplay";
 
 export default function Index() {
