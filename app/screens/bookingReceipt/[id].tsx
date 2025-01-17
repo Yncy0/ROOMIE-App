@@ -22,6 +22,12 @@ const BookingReceipt = () => {
   const [status, requestPermission] = MediaLibrary.usePermissions();
   const viewRef = React.useRef<View>(null);
 
+  React.useEffect(() => {
+    if (status === null) {
+      requestPermission();
+    }
+  }, [status, requestPermission]);
+
   const {
     id,
     subjectName,
@@ -47,12 +53,6 @@ const BookingReceipt = () => {
   const referenceNumber = id.substring(0, 7).toUpperCase();
 
   const onSaveViewAsync = async () => {
-    React.useEffect(() => {
-      if (status === null) {
-        requestPermission();
-      }
-    }, [status, requestPermission]);
-
     try {
       const localUri = await captureRef(viewRef, {
         format: "png",
@@ -70,7 +70,6 @@ const BookingReceipt = () => {
   };
 
   return (
-    //FIXME: Convert all Tamagui into React Native/Expo component
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView showsVerticalScrollIndicator={false}>

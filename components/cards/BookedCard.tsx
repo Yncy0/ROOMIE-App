@@ -23,8 +23,8 @@ export default function BookedCard({ items }: Props) {
       <Image
         source={{ uri: items.rooms.room_image }}
         style={{
-          width: 100,
-          height: 100,
+          width: 120,
+          height: 120,
           borderRadius: 10,
         }}
       />

@@ -15,10 +15,12 @@ interface UseHandleReserveProps {
     roomImage: string;
 }
 
-//FIXME: Too much jiberish code!
-const useHandleReserve = (
-    { roomId, roomName, roomCategory, roomImage }: UseHandleReserveProps,
-) => {
+const useHandleReserve = ({
+    roomId,
+    roomName,
+    roomCategory,
+    roomImage,
+}: UseHandleReserveProps) => {
     const [subjectName, setSubjectName] = useState("");
     const [courseAndSection, setCourseAndSection] = useState("");
 
@@ -31,28 +33,31 @@ const useHandleReserve = (
 
     const handleReserve = async () => {
         if (
-            subjectName &&
-            courseAndSection &&
-            datePicker.date &&
-            timeInPicker.time &&
-            timeOutPicker.time
+            !subjectName || !courseAndSection || !datePicker.date ||
+            !timeInPicker.time || !timeOutPicker.time
         ) {
-            try {
-                const insert = await useInsertBookedRooms(
-                    session?.user.id,
-                    roomId,
-                    moment(datePicker.date).format("DD MMMM YYYY"),
-                    subjectName,
-                    courseAndSection,
-                    moment(timeInPicker.time).format("LT"),
-                    moment(timeOutPicker.time).format("LT"),
-                );
-                onSuccess(insert.id);
-            } catch (error) {
-                Alert.alert("Error");
-            }
-        } else {
             Alert.alert("Please fill the information properly!");
+            return;
+        }
+
+        if (moment(timeInPicker.time).isSame(moment(timeOutPicker.time))) {
+            Alert.alert("Reserve time-in and time-out cannot be the same!");
+            return;
+        }
+
+        try {
+            const insert = await useInsertBookedRooms(
+                session?.user.id,
+                roomId,
+                moment(datePicker.date).format("DD MMMM YYYY"),
+                subjectName,
+                courseAndSection,
+                moment(timeInPicker.time).format("LT"),
+                moment(timeOutPicker.time).format("LT"),
+            );
+            onSuccess(insert.id);
+        } catch (error) {
+            Alert.alert("Error, please contact the administrator");
         }
     };
 
