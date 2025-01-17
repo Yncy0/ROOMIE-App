@@ -17,6 +17,7 @@ import {
 } from "@/hooks/queries/useFetchSchedule";
 import ScheduleText from "@/components/ScheduleText";
 import { primaryColor } from "@/constants/Colors";
+import EmptyDisplay from "@/components/EmptyDisplay";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -45,14 +46,19 @@ export default function RoomPreview() {
             source={{ uri: roomImage }}
             style={{
               height: 275,
-              padding: 20,
               justifyContent: "space-between",
             }}
           >
             <BackButton
               onPress={() => router.replace({ pathname: customRoute })}
             />
-            <XStack justifyContent={"space-between"} alignItems={"center"}>
+            <XStack
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              backgroundColor={"rgba(0,0,0,0.5)"}
+              px={20}
+              py={10}
+            >
               <View>
                 <Text col={"$white1"} fos={20} fow={"bold"}>
                   {roomName}
@@ -78,12 +84,15 @@ export default function RoomPreview() {
                 Today's Booking
               </Text>
               <XStack ai={"center"} jc={"space-between"}>
-                <Text>Today</Text>
+                <Text>Today's Schedule</Text>
                 <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
               </XStack>
             </YStack>
-            {data &&
-              data.map((item) => <ScheduleText key={item.id} items={item} />)}
+            {data && data.length > 0 ? (
+              data.map((item) => <ScheduleText key={item.id} items={item} />)
+            ) : (
+              <EmptyDisplay />
+            )}
           </View>
         </ScrollView>
         <BottomSheetModal ref={bottomSheetMoadlRef}>

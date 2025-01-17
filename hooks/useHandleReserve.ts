@@ -35,8 +35,7 @@ const useHandleReserve = (
             courseAndSection &&
             datePicker.date &&
             timeInPicker.time &&
-            timeOutPicker.time &&
-            timeInPicker.time === timeOutPicker.time
+            timeOutPicker.time
         ) {
             try {
                 const insert = await useInsertBookedRooms(

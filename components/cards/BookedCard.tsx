@@ -21,7 +21,7 @@ export default function BookedCard({ items }: Props) {
       elevation={10}
     >
       <Image
-        source={items.room_image}
+        source={{ uri: items.rooms.room_image }}
         style={{
           width: 100,
           height: 100,
@@ -29,10 +29,10 @@ export default function BookedCard({ items }: Props) {
         }}
       />
       <YStack gap={5}>
-        <Text color={"$white1"}>{items.room_name}</Text>
-        <Text color={"$white1"}>{items.room_category}</Text>
-        <IconText icon="albums-outline" text={items.subject} />
-        <IconText icon="people-outline" text={items.section} />
+        <Text color={"$white1"}>{items.rooms.room_name}</Text>
+        <Text color={"$white1"}>{items.rooms.room_type}</Text>
+        <IconText icon="albums-outline" text={items.subject_name} />
+        <IconText icon="people-outline" text={items.course_and_section} />
         <IconText
           icon="time-outline"
           text={`${items.time_in}-${items.time_out}`}

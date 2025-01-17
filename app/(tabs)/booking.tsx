@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, FlatList, Dimensions } from "react-native";
+import { FlatList, Dimensions } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Text } from "@tamagui/core";
