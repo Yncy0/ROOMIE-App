@@ -63,8 +63,8 @@ const useHandleReserve = ({
                 moment(datePicker.date).format("DD MMMM YYYY"),
                 subjectName,
                 courseAndSection,
-                moment(timeInPicker.time).format("LT"),
-                moment(timeOutPicker.time).format("LT"),
+                moment(timeInPicker.time).toISOString(),
+                moment(timeOutPicker.time).toISOString(),
                 "ongoing",
             );
             onSuccess((await insert).id);

@@ -10,6 +10,7 @@ import {
 } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 import { useDeleteBookedRooms } from "@/hooks/queries/bookedRooms/useDeleteBookedRooms";
+import moment from "moment";
 
 type BookedRooms = Tables<"booked_rooms">;
 
@@ -28,22 +29,27 @@ const BookingsList = () => {
 
   //FIXME: Seperate file
   const updateRoomStatus = async () => {
-    const data = await useUpdateBookedRoomStatus();
-    if (data) {
-      setBookedRooms((prevRooms) =>
-        prevRooms.map(
-          (room) =>
-            data.find((updatedRoom) => updatedRoom.id === room.id) || room
-        )
-      );
+    try {
+      const data = await useUpdateBookedRoomStatus();
+      if (data) {
+        setBookedRooms((prevRooms) =>
+          prevRooms.map(
+            (room) =>
+              data.find((updatedRoom) => updatedRoom.id === room.id) || room
+          )
+        );
+        console.log("Status updated successfully: ", data);
+      }
+    } catch (error) {
+      console.error("Error updating status: ", error);
     }
   };
   React.useEffect(() => {
-    const intervalId = setInterval(() => {
+    const interval = setInterval(() => {
       updateRoomStatus();
       console.log("UPDATED");
     }, 10000);
-    return () => clearInterval(intervalId);
+    return () => clearInterval(interval);
   }, [bookedRooms]);
 
   //FIXME: Seperate file
@@ -64,7 +70,7 @@ const BookingsList = () => {
     <>
       {bookedRooms && bookedRooms.length > 0 ? (
         <FlatList
-          key={bookedRooms.length}
+          keyExtractor={(item) => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{

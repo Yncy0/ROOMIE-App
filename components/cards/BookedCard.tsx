@@ -3,6 +3,7 @@ import { Card, Text, YStack } from "tamagui";
 
 import { IconText } from "../IconText";
 import { primaryColor } from "@/constants/Colors";
+import moment from "moment";
 
 type Props = {
   items: any;
@@ -35,7 +36,9 @@ export default function BookedCard({ items }: Props) {
         <IconText icon="people-outline" text={items.course_and_section} />
         <IconText
           icon="time-outline"
-          text={`${items.time_in}-${items.time_out}`}
+          text={`${moment(items.time_in).format("LT")}-${moment(
+            items.time_out
+          ).format("LT")}`}
         />
       </YStack>
     </Card>
