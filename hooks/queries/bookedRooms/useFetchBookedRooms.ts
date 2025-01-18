@@ -57,7 +57,7 @@ export function useFetchBookedRoomsR() {
 
                 setBookedRooms(data || []);
                 setLoading(false);
-            } catch (err) {
+            } catch (e) {
                 setError("Error fetching booked rooms");
                 setLoading(false);
             }
@@ -66,19 +66,20 @@ export function useFetchBookedRoomsR() {
         fetchBookedRooms();
 
         // Set up the real-time subscription
-        const channel = supabase.channel("custom-all-channel")
+        const channels = supabase.channel("custom-all-channel")
             .on(
                 "postgres_changes",
-                { event: "*", schema: "public", table: "booked_rooms" },
+                { event: "INSERT", schema: "public", table: "booked_rooms" },
                 (payload) => {
                     console.log("Change received!", payload);
+                    fetchBookedRooms();
                 },
             )
             .subscribe();
 
         // Cleanup subscription on component unmount
         return () => {
-            supabase.removeChannel(channel);
+            supabase.removeChannel(channels);
         };
     }, []);
 
