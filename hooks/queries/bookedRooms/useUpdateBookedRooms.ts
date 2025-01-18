@@ -8,7 +8,7 @@ export const useUpdateBookedRoomStatus = async () => {
     const { data, error } = await supabase
         .from("booked_rooms")
         .update({ status: "done" })
-        .lt("time_out", timeNow)
+        .lte("time_out", timeNow)
         .select();
 
     if (error) throw error;
@@ -24,7 +24,7 @@ export const useUpdateBookedRoomStatusR = () => {
             const { data, error } = await supabase
                 .from("booked_rooms")
                 .update({ status: "done" })
-                .lt("time_out", timeNow)
+                .lte("time_out", timeNow)
                 .select();
 
             if (error) throw error;
@@ -41,7 +41,7 @@ export const useUpdateBookedRoomStatusR = () => {
                     event: "UPDATE",
                     schema: "public",
                     table: "booked_rooms",
-                    filter: `time_out=lt.${timeNow}`,
+                    filter: `time_out=lte.${timeNow}`,
                 },
                 (payload) => {
                     console.log("Change received!", payload);

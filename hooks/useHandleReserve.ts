@@ -49,7 +49,7 @@ const useHandleReserve = ({
         }
 
         try {
-            const insert = await useInsertBookedRooms(
+            const insert = useInsertBookedRooms(
                 session?.user.id,
                 roomId,
                 moment(datePicker.date).format("DD MMMM YYYY"),
@@ -57,9 +57,9 @@ const useHandleReserve = ({
                 courseAndSection,
                 moment(timeInPicker.time).format("LT"),
                 moment(timeOutPicker.time).format("LT"),
+                "ongoing",
             );
-            onSuccess(insert.id);
-            console.log(moment(timeInPicker.time).format("HH:mm:ss"));
+            onSuccess((await insert).id);
         } catch (error) {
             Alert.alert("Error, please contact the administrator");
         }

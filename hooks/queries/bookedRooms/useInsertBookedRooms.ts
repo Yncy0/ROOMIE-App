@@ -8,6 +8,7 @@ export default async function useInsertBookedRooms(
   course_and_section: string,
   time_in: string,
   time_out: string,
+  status: string,
 ) {
   const { data: booked_rooms, error } = await supabase
     .from("booked_rooms")
@@ -20,6 +21,7 @@ export default async function useInsertBookedRooms(
         room_id: room_id,
         time_in: time_in,
         time_out: time_out,
+        status: status,
       },
     ])
     .select()

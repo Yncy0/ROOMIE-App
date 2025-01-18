@@ -69,10 +69,10 @@ export function useFetchBookedRoomsR() {
         const channels = supabase.channel("custom-all-channel")
             .on(
                 "postgres_changes",
-                { event: "INSERT", schema: "public", table: "booked_rooms" },
+                { event: "*", schema: "public", table: "booked_rooms" },
                 (payload) => {
                     console.log("Change received!", payload);
-                    fetchBookedRooms();
+                    // fetchBookedRooms();
                 },
             )
             .subscribe();

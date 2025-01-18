@@ -18,10 +18,10 @@ import {
 import moment from "moment";
 
 const BookingsList = () => {
+  const { bookedRooms, loading, error } = useFetchBookedRoomsR();
+
   useUpdateBookedRoomStatusR();
   useDeleteBookedRoomsR();
-
-  const { bookedRooms, loading, error } = useFetchBookedRoomsR();
 
   return (
     <>
