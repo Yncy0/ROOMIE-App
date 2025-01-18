@@ -2,7 +2,7 @@ import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { FlatList, Pressable, ScrollView } from "react-native";
 import { router } from "expo-router";
-import { Text, View } from "@tamagui/core";
+import { Text } from "@tamagui/core";
 import { XStack } from "tamagui";
 
 import RoomCard from "@/components/cards/RoomCard";

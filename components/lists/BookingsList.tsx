@@ -4,40 +4,26 @@ import { FlatList } from "react-native";
 import BookedCard from "../cards/BookedCard";
 import EmptyDisplay from "../EmptyDisplay";
 import { useDeleteBookedRooms } from "@/hooks/queries/bookedRooms/useDeleteBookedRooms";
-import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import {
+  useFetchBookedRooms,
+  useFetchBookedRoomsR,
+} from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 import moment from "moment";
 
 const BookingsList = () => {
-  const { data: bookedRooms } = useFetchBookedRooms();
+  const { bookedRooms, loading, error } = useFetchBookedRoomsR();
   const timeNow = moment().format("LT");
 
-  bookedRooms?.map(async (i) => {
-    console.log(i.time_out);
-    console.log(i.status);
+  //   bookedRooms?.map((i) => {
+  //     if (i.time_out && i.time_out <= timeNow) {
+  //       useUpdateBookedRoomStatus();
+  //     }
 
-    if (i.time_out && i.time_out <= timeNow) {
-      useUpdateBookedRoomStatus();
-      console.log("happening");
-    }
-  });
-
-  useUpdateBookedRoomStatus();
-  useDeleteBookedRooms();
-
-  //   React.useEffect(() => {
-  //     const updateBookedRooms = async () => {
-  //       await useUpdateBookedRoomStatus();
-  //     };
-  //     updateBookedRooms();
-  //   }, []);
-
-  //   React.useEffect(() => {
-  //     const deleteBookedRooms = async () => {
-  //       await useDeleteBookedRooms();
-  //     };
-  //     deleteBookedRooms();
-  //   }, []);
+  //     if (i.status && i.status === "done") {
+  //       useDeleteBookedRooms();
+  //     }
+  //   });
 
   return (
     <>
