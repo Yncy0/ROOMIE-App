@@ -8,6 +8,7 @@ import {
   useBookedRoomsSubscription,
   useFetchBookedRooms,
 } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 import { useDeleteBookedRooms } from "@/hooks/queries/bookedRooms/useDeleteBookedRooms";
 
 type BookedRooms = Tables<"booked_rooms">;
@@ -24,6 +25,27 @@ const BookingsList = () => {
   }, [initBookedRooms]);
 
   useBookedRoomsSubscription(setBookedRooms);
+
+  //FIXME: Seperate file
+  const updateRoomStatus = async () => {
+    const data = await useUpdateBookedRoomStatus();
+    if (data) {
+      setBookedRooms((prevRooms) =>
+        prevRooms.map(
+          (room) =>
+            data.find((updatedRoom) => updatedRoom.id === room.id) || room
+        )
+      );
+    }
+    console.log("UPDATING");
+  };
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      updateRoomStatus();
+      console.log("UPDATED");
+    }, 60000);
+    return () => clearInterval(intervalId);
+  }, [bookedRooms]);
 
   //FIXME: Seperate file
   React.useEffect(() => {
