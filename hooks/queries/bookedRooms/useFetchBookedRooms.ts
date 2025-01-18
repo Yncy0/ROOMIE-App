@@ -52,10 +52,12 @@ export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
                     table: "booked_rooms",
                 },
                 (payload) => {
-                    console.log("Change received!", payload);
-                    setBookedRooms((prevRooms: any) => {
-                        return [...prevRooms, payload.new];
-                    });
+                    if (payload.new) {
+                        console.log("Change received!", payload);
+                        setBookedRooms((prevRooms: any) => {
+                            return [...prevRooms, payload.new];
+                        });
+                    }
                 },
             )
             .on("postgres_changes", {

@@ -48,6 +48,14 @@ const useHandleReserve = ({
             return;
         }
 
+        if (
+            (moment(timeInPicker.time) > moment(timeOutPicker.time)) &&
+            (moment(timeOutPicker.time) < moment(timeInPicker.time))
+        ) {
+            Alert.alert("It's impossible to book that time!");
+            return;
+        }
+
         try {
             const insert = useInsertBookedRooms(
                 session?.user.id,
@@ -55,8 +63,8 @@ const useHandleReserve = ({
                 moment(datePicker.date).format("DD MMMM YYYY"),
                 subjectName,
                 courseAndSection,
-                moment(timeInPicker.time).format("LT"),
-                moment(timeOutPicker.time).format("LT"),
+                moment(timeInPicker.time).toISOString(),
+                moment(timeOutPicker.time).toISOString(),
                 "ongoing",
             );
             onSuccess((await insert).id);
