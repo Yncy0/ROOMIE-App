@@ -1,23 +1,20 @@
 import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { FlatList, Pressable, ScrollView } from "react-native";
-import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Text, View } from "@tamagui/core";
 import { XStack } from "tamagui";
 
 import BookedCard from "@/components/cards/BookedCard";
 import RoomCard from "@/components/cards/RoomCard";
-import { DATA } from "@/data/DATA";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import { useFetchBookedRooms } from "@/hooks/queries/useFetchBookedRooms";
 import EmptyDisplay from "@/components/EmptyDisplay";
+import { useFetchSchedule } from "@/hooks/queries/useFetchSchedule";
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();
   const { data: bookedRooms } = useFetchBookedRooms();
-
-  console.log("Bookings", bookedRooms);
 
   return (
     <SafeAreaProvider>

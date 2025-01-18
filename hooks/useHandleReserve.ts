@@ -3,10 +3,11 @@ import { Alert } from "react-native";
 import moment from "moment";
 import { useRouter } from "expo-router";
 
-import useDatePicker from "@/hooks/useDatePicker";
-import useTimePicker from "@/hooks/useTimePicker";
+import useDatePicker from "@/hooks/pickers/useDatePicker";
+import useTimePicker from "@/hooks/pickers/useTimePicker";
 import useInsertBookedRooms from "@/hooks/queries/useInsertBookedRooms";
 import { useAuth } from "@/providers/AuthProvider";
+import { useFetchScheduleWithRoom } from "./queries/useFetchSchedule";
 
 interface UseHandleReserveProps {
     roomId: any;
@@ -27,8 +28,10 @@ const useHandleReserve = ({
     const datePicker = useDatePicker();
     const timeInPicker = useTimePicker();
     const timeOutPicker = useTimePicker();
+    const dayFormat = moment(datePicker.date).format("dddd");
 
     const { session } = useAuth();
+    const { data: schedule } = useFetchScheduleWithRoom(dayFormat, roomId);
     const router = useRouter();
 
     const handleReserve = async () => {
@@ -56,6 +59,7 @@ const useHandleReserve = ({
                 moment(timeOutPicker.time).format("LT"),
             );
             onSuccess(insert.id);
+            console.log(moment(timeInPicker.time).format("HH:mm:ss"));
         } catch (error) {
             Alert.alert("Error, please contact the administrator");
         }
