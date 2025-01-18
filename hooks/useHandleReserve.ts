@@ -48,6 +48,14 @@ const useHandleReserve = ({
             return;
         }
 
+        if (
+            (moment(timeInPicker.time) > moment(timeOutPicker.time)) &&
+            (moment(timeOutPicker.time) < moment(timeInPicker.time))
+        ) {
+            Alert.alert("It's impossible to book that time!");
+            return;
+        }
+
         try {
             const insert = useInsertBookedRooms(
                 session?.user.id,

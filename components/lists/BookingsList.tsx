@@ -37,13 +37,12 @@ const BookingsList = () => {
         )
       );
     }
-    console.log("UPDATING");
   };
   React.useEffect(() => {
     const intervalId = setInterval(() => {
       updateRoomStatus();
       console.log("UPDATED");
-    }, 60000);
+    }, 10000);
     return () => clearInterval(intervalId);
   }, [bookedRooms]);
 
