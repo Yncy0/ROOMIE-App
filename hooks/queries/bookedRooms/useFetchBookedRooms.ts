@@ -46,14 +46,19 @@ export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
         const channels = supabase.channel("custom-insert-channel")
             .on(
                 "postgres_changes",
-                { event: "INSERT", schema: "public", table: "booked_rooms" },
+                {
+                    event: "INSERT",
+                    schema: "public",
+                    table: "booked_rooms",
+                },
                 (payload) => {
                     console.log("Change received!", payload);
                     setBookedRooms((prevRooms: any) => {
                         return [...prevRooms, payload.new];
                     });
                 },
-            ).on("postgres_changes", {
+            )
+            .on("postgres_changes", {
                 event: "UPDATE",
                 schema: "public",
                 table: "booked_rooms",
@@ -66,7 +71,8 @@ export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
                             : room
                     )
                 );
-            }).on("postgres_changes", {
+            })
+            .on("postgres_changes", {
                 event: "DELETE",
                 schema: "public",
                 table: "booked_rooms",
