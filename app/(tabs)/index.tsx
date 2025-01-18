@@ -8,13 +8,13 @@ import { XStack } from "tamagui";
 import BookedCard from "@/components/cards/BookedCard";
 import RoomCard from "@/components/cards/RoomCard";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
-import { useFetchBookedRooms } from "@/hooks/queries/useFetchBookedRooms";
+
 import EmptyDisplay from "@/components/EmptyDisplay";
 import { useFetchSchedule } from "@/hooks/queries/useFetchSchedule";
+import BookingsList from "@/components/lists/BookingsList";
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();
-  const { data: bookedRooms } = useFetchBookedRooms();
 
   return (
     <SafeAreaProvider>
@@ -31,24 +31,7 @@ export default function Index() {
               <Text>See all</Text>
             </Pressable>
           </XStack>
-          {bookedRooms && bookedRooms.length > 0 ? (
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{
-                gap: 20,
-                paddingHorizontal: 20,
-                paddingBottom: 20,
-              }}
-              initialNumToRender={7}
-              data={bookedRooms}
-              renderItem={({ item, index }) => (
-                <BookedCard items={item} key={index} />
-              )}
-            />
-          ) : (
-            <EmptyDisplay />
-          )}
+          <BookingsList />
           <XStack miw={"100%"} justifyContent={"space-between"} px={20} pb={20}>
             <Text>{"Available Rooms"}</Text>
             <Pressable>
