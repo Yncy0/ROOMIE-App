@@ -10,6 +10,10 @@ type Props = {
 };
 
 export default function BookedCard({ items }: Props) {
+  if (!items || !items.rooms) {
+    return null;
+  }
+
   return (
     <Card
       flexDirection="row"
