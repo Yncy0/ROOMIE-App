@@ -5,13 +5,9 @@ import { router } from "expo-router";
 import { Text, View } from "@tamagui/core";
 import { XStack } from "tamagui";
 
-import BookedCard from "@/components/cards/BookedCard";
 import RoomCard from "@/components/cards/RoomCard";
-import useFetchRooms from "@/hooks/queries/useFetchRooms";
-
-import EmptyDisplay from "@/components/EmptyDisplay";
-import { useFetchSchedule } from "@/hooks/queries/useFetchSchedule";
 import BookingsList from "@/components/lists/BookingsList";
+import useFetchRooms from "@/hooks/queries/useFetchRooms";
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();

@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 
 import useDatePicker from "@/hooks/pickers/useDatePicker";
 import useTimePicker from "@/hooks/pickers/useTimePicker";
-import useInsertBookedRooms from "@/hooks/queries/useInsertBookedRooms";
+import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRooms";
 import { useAuth } from "@/providers/AuthProvider";
 import { useFetchScheduleWithRoom } from "./queries/useFetchSchedule";
 

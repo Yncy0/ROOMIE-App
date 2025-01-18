@@ -21,7 +21,7 @@ import EmptyDisplay from "@/components/EmptyDisplay";
 import {
   useFetchBookedRooms,
   useFetchBookedRoomsWithRooms,
-} from "@/hooks/queries/useFetchBookedRooms";
+} from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import BookedCard from "@/components/cards/BookedCard";
 
 export default function RoomPreview() {
