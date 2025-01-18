@@ -4,29 +4,29 @@ import { FlatList } from "react-native";
 import BookedCard from "../cards/BookedCard";
 import EmptyDisplay from "../EmptyDisplay";
 import {
-  useDeleteBookedRooms,
-  useDeleteBookedRoomsR,
-} from "@/hooks/queries/bookedRooms/useDeleteBookedRooms";
-import {
+  useBookedRoomsSubscription,
   useFetchBookedRooms,
-  useFetchBookedRoomsR,
 } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
-import {
-  useUpdateBookedRoomStatus,
-  useUpdateBookedRoomStatusR,
-} from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
-import moment from "moment";
+import { Tables } from "@/database.types";
+
+type BookedRooms = Tables<"booked_rooms">;
 
 const BookingsList = () => {
-  const { bookedRooms, loading, error } = useFetchBookedRoomsR();
+  const { data: initBookedRooms, isLoading, error } = useFetchBookedRooms();
+  const [bookedRooms, setBookedRooms] = React.useState<BookedRooms[]>([]);
 
-  useUpdateBookedRoomStatusR();
-  useDeleteBookedRoomsR();
+  React.useEffect(() => {
+    if (initBookedRooms) {
+      setBookedRooms(initBookedRooms);
+    }
+  }, [initBookedRooms]);
+  useBookedRoomsSubscription(setBookedRooms);
 
   return (
     <>
       {bookedRooms && bookedRooms.length > 0 ? (
         <FlatList
+          key={bookedRooms.length}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{

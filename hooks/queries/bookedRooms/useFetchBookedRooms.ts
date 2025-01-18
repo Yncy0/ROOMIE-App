@@ -4,6 +4,7 @@ import { supabase } from "@/utils/supabase";
 import { useQuery } from "@tanstack/react-query";
 
 type BookedRooms = Tables<"booked_rooms">;
+type SetBookedRooms = React.Dispatch<React.SetStateAction<BookedRooms[]>>;
 
 export function useFetchBookedRooms() {
     const bookedRoomsQuery = useQuery<BookedRooms[]>({
@@ -40,48 +41,42 @@ export function useFetchBookedRoomsWithRooms(id: string) {
     return bookedRoomsQuery;
 }
 
-export function useFetchBookedRoomsR() {
-    const [bookedRooms, setBookedRooms] = React.useState<BookedRooms[]>([]);
-    const [loading, setLoading] = React.useState<boolean>(true);
-    const [error, setError] = React.useState<string | null>(null);
-
+export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
     React.useEffect(() => {
-        // Fetch initial data
-        const fetchBookedRooms = async () => {
-            try {
-                const { data, error } = await supabase
-                    .from("booked_rooms")
-                    .select(`*, rooms(*)`);
-
-                if (error) throw error;
-
-                setBookedRooms(data || []);
-                setLoading(false);
-            } catch (e) {
-                setError("Error fetching booked rooms");
-                setLoading(false);
-            }
-        };
-
-        fetchBookedRooms();
-
-        // Set up the real-time subscription
-        const channels = supabase.channel("custom-all-channel")
+        const channels = supabase.channel("custom-insert-channel")
             .on(
                 "postgres_changes",
-                { event: "*", schema: "public", table: "booked_rooms" },
+                { event: "INSERT", schema: "public", table: "booked_rooms" },
                 (payload) => {
                     console.log("Change received!", payload);
-                    // fetchBookedRooms();
+                    setBookedRooms((prevRooms: any) => {
+                        return [...prevRooms, payload.new];
+                    });
                 },
-            )
-            .subscribe();
+            ).on("postgres_changes", {
+                event: "UPDATE",
+                schema: "public",
+                table: "booked_rooms",
+            }, (payload) => {
+                console.log("Booking updated!", payload);
+                setBookedRooms((prevRooms: any) =>
+                    prevRooms.map((room: any) =>
+                        room.id === payload.new.id ? payload.new : room
+                    )
+                );
+            }).on("postgres_changes", {
+                event: "DELETE",
+                schema: "public",
+                table: "booked_rooms",
+            }, (payload) => {
+                console.log("Booking deleted!", payload);
+                setBookedRooms((prevRooms) =>
+                    prevRooms.filter((room) => room.id !== payload.old.id)
+                );
+            }).subscribe();
 
-        // Cleanup subscription on component unmount
         return () => {
-            supabase.removeChannel(channels);
+            channels.unsubscribe();
         };
-    }, []);
-
-    return { bookedRooms, loading, error };
-}
+    }, [setBookedRooms]);
+};

@@ -6,8 +6,6 @@ import { PortalProvider, TamaguiProvider } from "tamagui";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import config from "../tamagui.config";
-import { useUpdateBookedRoomStatusR } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
-import { useDeleteBookedRoomsR } from "@/hooks/queries/bookedRooms/useDeleteBookedRooms";
 
 export default function RootLayout() {
   const queryCLient = new QueryClient();
