@@ -1,7 +1,9 @@
-import HeaderHome from "@/components/HeaderHome";
-import { useAuth } from "@/providers/AuthProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { Redirect, Tabs } from "expo-router";
+
+import HeaderHome from "@/components/HeaderHome";
+import { useAuth } from "@/providers/AuthProvider";
+import { primaryColor, primaryColor1 } from "@/constants/Colors";
 
 export default function TabLayout() {
   const { isAuthenticated } = useAuth();
@@ -11,7 +13,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#2B32B2",
+        tabBarActiveTintColor: primaryColor1,
         headerShadowVisible: false,
         headerTintColor: "black",
         headerShown: true,

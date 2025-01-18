@@ -3,7 +3,7 @@ import { ImageBackground, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import moment from "moment";
-import { View, Text, Button, XStack, YStack } from "tamagui";
+import { View, Text, Button, XStack, YStack, Separator } from "tamagui";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -16,6 +16,13 @@ import {
   useFetchScheduleWithRoom,
 } from "@/hooks/queries/useFetchSchedule";
 import ScheduleText from "@/components/ScheduleText";
+import { primaryColor } from "@/constants/Colors";
+import EmptyDisplay from "@/components/EmptyDisplay";
+import {
+  useFetchBookedRooms,
+  useFetchBookedRoomsWithRooms,
+} from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import BookedCard from "@/components/cards/BookedCard";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -27,7 +34,9 @@ export default function RoomPreview() {
       customRoute: any;
     }>();
   const day = moment().format("dddd");
-  const { data } = useFetchScheduleWithRoom(day, id);
+
+  const { data: schedule } = useFetchScheduleWithRoom(day, id);
+  const { data: bookedRooms } = useFetchBookedRoomsWithRooms(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
@@ -44,14 +53,19 @@ export default function RoomPreview() {
             source={{ uri: roomImage }}
             style={{
               height: 275,
-              padding: 20,
               justifyContent: "space-between",
             }}
           >
             <BackButton
               onPress={() => router.replace({ pathname: customRoute })}
             />
-            <XStack justifyContent={"space-between"} alignItems={"center"}>
+            <XStack
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              backgroundColor={"rgba(0,0,0,0.5)"}
+              px={20}
+              py={10}
+            >
               <View>
                 <Text col={"$white1"} fos={20} fow={"bold"}>
                   {roomName}
@@ -61,7 +75,7 @@ export default function RoomPreview() {
                 </Text>
               </View>
               <Button
-                bg={"$blue10"}
+                bg={primaryColor}
                 color={"$white1"}
                 onPress={handlePresentModalPress}
                 borderRadius={"$radius.2"}
@@ -76,13 +90,28 @@ export default function RoomPreview() {
               <Text fos={16} fow="bold">
                 Today's Booking
               </Text>
-              <XStack ai={"center"} jc={"space-between"}>
-                <Text>Today</Text>
-                <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
-              </XStack>
+              {bookedRooms && bookedRooms.length > 0 ? (
+                bookedRooms.map((item) => (
+                  <BookedCard key={item.id} items={item} />
+                ))
+              ) : (
+                <Text alignSelf="center" py={35}>
+                  Empty Booked List
+                </Text>
+              )}
             </YStack>
-            {data &&
-              data.map((item) => <ScheduleText key={item.id} items={item} />)}
+            <Separator borderColor={"$gray8"} />
+            <XStack ai={"center"} jc={"space-between"}>
+              <Text>Today's Schedule</Text>
+              <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
+            </XStack>
+            {schedule && schedule.length > 0 ? (
+              schedule.map((item) => (
+                <ScheduleText key={item.id} items={item} />
+              ))
+            ) : (
+              <EmptyDisplay />
+            )}
           </View>
         </ScrollView>
         <BottomSheetModal ref={bottomSheetMoadlRef}>

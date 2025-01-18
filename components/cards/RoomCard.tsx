@@ -19,6 +19,7 @@ export default function RoomCard({ items, onPress, width, height }: Props) {
           height: height,
           justifyContent: "flex-end",
           padding: 10,
+          elevation: 10,
         }}
         imageStyle={{ borderRadius: 10 }}
       >

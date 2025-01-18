@@ -17,6 +17,7 @@ export type Database = {
           id: string
           profile_id: string | null
           room_id: string | null
+          status: string | null
           subject_name: string | null
           time_in: string | null
           time_out: string | null
@@ -28,6 +29,7 @@ export type Database = {
           id?: string
           profile_id?: string | null
           room_id?: string | null
+          status?: string | null
           subject_name?: string | null
           time_in?: string | null
           time_out?: string | null
@@ -39,6 +41,7 @@ export type Database = {
           id?: string
           profile_id?: string | null
           room_id?: string | null
+          status?: string | null
           subject_name?: string | null
           time_in?: string | null
           time_out?: string | null

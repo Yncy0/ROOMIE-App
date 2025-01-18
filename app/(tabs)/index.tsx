@@ -3,15 +3,14 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { FlatList, Pressable, ScrollView } from "react-native";
 import { router } from "expo-router";
 import { Text } from "@tamagui/core";
-
-import BookedCard from "@/components/cards/BookedCard";
-import RoomCard from "@/components/cards/RoomCard";
-import { DATA } from "@/data/DATA";
-import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import { XStack } from "tamagui";
 
+import RoomCard from "@/components/cards/RoomCard";
+import BookingsList from "@/components/lists/BookingsList";
+import useFetchRooms from "@/hooks/queries/useFetchRooms";
+
 export default function Index() {
-  const { data } = useFetchRooms();
+  const { data: rooms } = useFetchRooms();
 
   return (
     <SafeAreaProvider>
@@ -22,34 +21,21 @@ export default function Index() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <XStack miw={"100%"} jc={"space-between"} px={20} pb={20}>
+          <XStack miw={"100%"} justifyContent={"space-between"} px={20} pb={20}>
             <Text>My Booking</Text>
             <Pressable>
               <Text>See all</Text>
             </Pressable>
           </XStack>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              gap: 20,
-              paddingHorizontal: 20,
-              paddingBottom: 20,
-            }}
-            initialNumToRender={7}
-            data={DATA}
-            renderItem={({ item, index }) => (
-              <BookedCard items={item} key={index} />
-            )}
-          />
-          <XStack miw={"100%"} jc={"space-between"} px={20} pb={20}>
+          <BookingsList />
+          <XStack miw={"100%"} justifyContent={"space-between"} px={20} pb={20}>
             <Text>{"Available Rooms"}</Text>
             <Pressable>
               <Text>{"See more"}</Text>
             </Pressable>
           </XStack>
           <FlatList
-            data={data}
+            data={rooms}
             renderItem={({ item }) => (
               <RoomCard
                 key={item.id}

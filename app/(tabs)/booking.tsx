@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, FlatList, Dimensions } from "react-native";
+import { FlatList, Dimensions } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Text } from "@tamagui/core";
@@ -29,8 +29,9 @@ const Booking = () => {
               height={200}
               onPress={() =>
                 router.replace({
-                  pathname: "../screens/[roomPreview]",
+                  pathname: "/screens/roomPreview/[id]",
                   params: {
+                    id: item.id,
                     roomName: item.room_name,
                     roomCategory: item.room_type,
                     roomImage: item.room_image,
