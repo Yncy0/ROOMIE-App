@@ -61,7 +61,9 @@ export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
                 console.log("Booking updated!", payload);
                 setBookedRooms((prevRooms: any) =>
                     prevRooms.map((room: any) =>
-                        room.id === payload.new.id ? payload.new : room
+                        room.id === payload.new.id
+                            ? { ...room, ...payload.new }
+                            : room
                     )
                 );
             }).on("postgres_changes", {
