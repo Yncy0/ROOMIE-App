@@ -57,18 +57,20 @@ const useHandleReserve = ({
             return;
         }
 
-        const isAvailable = await useCheckForOverlap(
-            roomId,
-            moment(datePicker.date).format("DD MMMM YYYY"),
-            moment(timeInPicker.time).toISOString(),
-            moment(timeOutPicker.time).toISOString(),
-        );
-        if (!isAvailable) {
-            Alert.alert("The room is already booked for the selected time!");
-            return;
-        }
-
         try {
+            const isAvailable = await useCheckForOverlap(
+                roomId,
+                moment(datePicker.date).format("DD MMMM YYYY"),
+                moment(timeInPicker.time).toISOString(),
+                moment(timeOutPicker.time).toISOString(),
+            );
+            if (!isAvailable) {
+                Alert.alert(
+                    "The room is already booked for the selected time!",
+                );
+                return;
+            }
+
             const insert = useInsertBookedRooms(
                 session?.user.id,
                 roomId,
