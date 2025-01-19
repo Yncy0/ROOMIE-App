@@ -1,7 +1,7 @@
 import React from "react";
 import { Tables } from "@/database.types";
 import { supabase } from "@/utils/supabase";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 type BookedRooms = Tables<"booked_rooms">;
 type SetBookedRooms = React.Dispatch<React.SetStateAction<BookedRooms[]>>;
@@ -42,6 +42,8 @@ export function useFetchBookedRoomsWithRooms(id: string) {
 }
 
 export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
+    const queryClient = useQueryClient();
+
     React.useEffect(() => {
         const channels = supabase.channel("custom-insert-channel")
             .on(
@@ -52,12 +54,10 @@ export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
                     table: "booked_rooms",
                 },
                 (payload) => {
-                    if (payload.new) {
-                        console.log("Change received!", payload);
-                        setBookedRooms((prevRooms: any) => {
-                            return [...prevRooms, payload.new];
-                        });
-                    }
+                    console.log("Change received!", payload);
+                    queryClient.invalidateQueries({
+                        queryKey: ["booked_rooms"],
+                    });
                 },
             )
             .on("postgres_changes", {
@@ -66,13 +66,9 @@ export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
                 table: "booked_rooms",
             }, (payload) => {
                 console.log("Booking updated!", payload);
-                setBookedRooms((prevRooms: any) =>
-                    prevRooms.map((room: any) =>
-                        room.id === payload.new.id
-                            ? { ...room, ...payload.new }
-                            : room
-                    )
-                );
+                queryClient.invalidateQueries({
+                    queryKey: ["booked_rooms"],
+                });
             })
             .on("postgres_changes", {
                 event: "DELETE",
@@ -80,9 +76,9 @@ export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
                 table: "booked_rooms",
             }, (payload) => {
                 console.log("Booking deleted!", payload);
-                setBookedRooms((prevRooms) =>
-                    prevRooms.filter((room) => room.id !== payload.old.id)
-                );
+                queryClient.invalidateQueries({
+                    queryKey: ["booked_rooms"],
+                });
             }).subscribe();
 
         return () => {
