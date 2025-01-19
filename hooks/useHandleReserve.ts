@@ -8,6 +8,7 @@ import useTimePicker from "@/hooks/pickers/useTimePicker";
 import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRooms";
 import { useAuth } from "@/providers/AuthProvider";
 import { useFetchScheduleWithRoom } from "./queries/useFetchSchedule";
+import useCheckForOverlap from "./queries/bookedRooms/useCheckOverlap";
 
 interface UseHandleReserveProps {
     roomId: any;
@@ -53,6 +54,17 @@ const useHandleReserve = ({
             (moment(timeOutPicker.time) < moment(timeInPicker.time))
         ) {
             Alert.alert("It's impossible to book that time!");
+            return;
+        }
+
+        const isAvailable = await useCheckForOverlap(
+            roomId,
+            moment(datePicker.date).format("DD MMMM YYYY"),
+            moment(timeInPicker.time).toISOString(),
+            moment(timeOutPicker.time).toISOString(),
+        );
+        if (!isAvailable) {
+            Alert.alert("The room is already booked for the selected time!");
             return;
         }
 
