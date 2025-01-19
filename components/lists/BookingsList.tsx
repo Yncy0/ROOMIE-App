@@ -4,7 +4,7 @@ import { FlatList } from "react-native";
 import BookedCard from "../cards/BookedCard";
 import EmptyDisplay from "../EmptyDisplay";
 import {
-  useBookedRoomsSubscription,
+  useBookedRoomSubscription,
   useFetchBookedRooms,
 } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
@@ -13,7 +13,7 @@ import { useDeleteBookedRooms } from "@/hooks/queries/bookedRooms/useDeleteBooke
 const BookingsList = () => {
   const { data: bookedRooms, isLoading, error } = useFetchBookedRooms();
 
-  useBookedRoomsSubscription();
+  useBookedRoomSubscription();
 
   React.useEffect(() => {
     const interval = setInterval(() => {

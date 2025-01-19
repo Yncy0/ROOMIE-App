@@ -41,7 +41,7 @@ export function useFetchBookedRoomsWithRooms(id: string) {
     return bookedRoomsQuery;
 }
 
-export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
+export const useBookedRoomSubscription = () => {
     const queryClient = useQueryClient();
 
     React.useEffect(() => {
@@ -60,29 +60,37 @@ export const useBookedRoomsSubscription = (setBookedRooms: SetBookedRooms) => {
                     });
                 },
             )
-            .on("postgres_changes", {
-                event: "UPDATE",
-                schema: "public",
-                table: "booked_rooms",
-            }, (payload) => {
-                console.log("Booking updated!", payload);
-                queryClient.invalidateQueries({
-                    queryKey: ["booked_rooms"],
-                });
-            })
-            .on("postgres_changes", {
-                event: "DELETE",
-                schema: "public",
-                table: "booked_rooms",
-            }, (payload) => {
-                console.log("Booking deleted!", payload);
-                queryClient.invalidateQueries({
-                    queryKey: ["booked_rooms"],
-                });
-            }).subscribe();
+            .on(
+                "postgres_changes",
+                {
+                    event: "UPDATE",
+                    schema: "public",
+                    table: "booked_rooms",
+                },
+                (payload) => {
+                    console.log("Booking updated!", payload);
+                    queryClient.invalidateQueries({
+                        queryKey: ["booked_rooms"],
+                    });
+                },
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event: "DELETE",
+                    schema: "public",
+                    table: "booked_rooms",
+                },
+                (payload) => {
+                    console.log("Booking deleted!", payload);
+                    queryClient.invalidateQueries({
+                        queryKey: ["booked_rooms"],
+                    });
+                },
+            ).subscribe();
 
         return () => {
             channels.unsubscribe();
         };
-    }, [setBookedRooms]);
+    }, []);
 };
