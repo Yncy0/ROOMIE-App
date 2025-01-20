@@ -9,20 +9,15 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 
+import { primaryColor } from "@/constants/Colors";
 import { BookingBottomSheet } from "@/components/BookingBottomSheet";
 import BackButton from "@/components/buttons/BackButton";
-import {
-  useFetchSchedule,
-  useFetchScheduleWithRoom,
-} from "@/hooks/queries/useFetchSchedule";
 import ScheduleText from "@/components/ScheduleText";
-import { primaryColor } from "@/constants/Colors";
 import EmptyDisplay from "@/components/EmptyDisplay";
-import {
-  useFetchBookedRooms,
-  useFetchBookedRoomsWithRooms,
-} from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import BookedCard from "@/components/cards/BookedCard";
+import { useFetchScheduleWithRoom } from "@/hooks/queries/schedule/useFetchSchedule";
+import { useFetchBookedRoomsWithRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -39,6 +34,8 @@ export default function RoomPreview() {
   const { data: bookedRooms } = useFetchBookedRoomsWithRooms(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
+
+  useSubscriptionSchedule();
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();

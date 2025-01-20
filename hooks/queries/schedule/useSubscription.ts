@@ -1,9 +1,8 @@
-import React from "react";
-import { useQueryClient } from "@tanstack/react-query";
-
 import { supabase } from "@/utils/supabase";
+import { useQueryClient } from "@tanstack/react-query";
+import React from "react";
 
-const useSubscriptionBookedRoom = () => {
+const useSubscriptionSchedule = () => {
     const queryClient = useQueryClient();
 
     React.useEffect(() => {
@@ -13,12 +12,12 @@ const useSubscriptionBookedRoom = () => {
                 {
                     event: "INSERT",
                     schema: "public",
-                    table: "booked_rooms",
+                    table: "schedule",
                 },
                 (payload) => {
                     console.log("Change received!", payload);
                     queryClient.invalidateQueries({
-                        queryKey: ["booked_rooms"],
+                        queryKey: ["schedule"],
                     });
                 },
             )
@@ -27,12 +26,12 @@ const useSubscriptionBookedRoom = () => {
                 {
                     event: "UPDATE",
                     schema: "public",
-                    table: "booked_rooms",
+                    table: "schedule",
                 },
                 (payload) => {
                     console.log("Booking updated!", payload);
                     queryClient.invalidateQueries({
-                        queryKey: ["booked_rooms"],
+                        queryKey: ["schedule"],
                     });
                 },
             )
@@ -41,12 +40,12 @@ const useSubscriptionBookedRoom = () => {
                 {
                     event: "DELETE",
                     schema: "public",
-                    table: "booked_rooms",
+                    table: "schedule",
                 },
                 (payload) => {
                     console.log("Booking deleted!", payload);
                     queryClient.invalidateQueries({
-                        queryKey: ["booked_rooms"],
+                        queryKey: ["schedule"],
                     });
                 },
             ).subscribe();
@@ -57,4 +56,4 @@ const useSubscriptionBookedRoom = () => {
     }, []);
 };
 
-export default useSubscriptionBookedRoom;
+export default useSubscriptionSchedule;

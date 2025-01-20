@@ -7,7 +7,7 @@ import useDatePicker from "@/hooks/pickers/useDatePicker";
 import useTimePicker from "@/hooks/pickers/useTimePicker";
 import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRooms";
 import { useAuth } from "@/providers/AuthProvider";
-import { useFetchScheduleWithRoom } from "./queries/useFetchSchedule";
+import { useFetchScheduleWithRoom } from "./queries/schedule/useFetchSchedule";
 import useCheckForOverlap from "./queries/bookedRooms/useCheckOverlap";
 
 interface UseHandleReserveProps {
