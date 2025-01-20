@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { supabase } from "../../utils/supabase";
+import { supabase } from "../../../utils/supabase";
 import moment from "moment";
 import { Tables } from "@/database.types";
 

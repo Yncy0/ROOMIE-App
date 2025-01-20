@@ -178,6 +178,7 @@ export type Database = {
           id: string
           profile_id: string | null
           room_id: string | null
+          status: string | null
           subject_id: string | null
           time_in: string | null
           time_out: string | null
@@ -189,6 +190,7 @@ export type Database = {
           id?: string
           profile_id?: string | null
           room_id?: string | null
+          status?: string | null
           subject_id?: string | null
           time_in?: string | null
           time_out?: string | null
@@ -200,6 +202,7 @@ export type Database = {
           id?: string
           profile_id?: string | null
           room_id?: string | null
+          status?: string | null
           subject_id?: string | null
           time_in?: string | null
           time_out?: string | null
@@ -267,7 +270,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      update_booked_rooms_status: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

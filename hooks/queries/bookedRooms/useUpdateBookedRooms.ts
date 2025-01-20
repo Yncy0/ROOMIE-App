@@ -1,6 +1,5 @@
 import { supabase } from "@/utils/supabase";
 import moment from "moment";
-import React from "react";
 
 export const useUpdateBookedRoomStatus = async () => {
     const timeNow = moment().format("YYYY-MM-DD HH:mm:ssZ");

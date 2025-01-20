@@ -1,3 +1,4 @@
+import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import { XStack, YStack, Text, Separator, View } from "tamagui";
 
 type Props = {
@@ -5,6 +6,8 @@ type Props = {
 };
 
 export default function ScheduleText({ items }: Props) {
+  useSubscriptionSchedule();
+
   return (
     <XStack
       alignItems="center"
@@ -17,9 +20,12 @@ export default function ScheduleText({ items }: Props) {
     >
       <YStack flex={1} gap={5}>
         <View>
-          <Text fontSize={14} fontWeight="bold">
-            {items.subject.subject_code}
-          </Text>
+          <XStack justifyContent="space-between">
+            <Text fontSize={14} fontWeight="bold">
+              {items.subject.subject_code}
+            </Text>
+            <Text>{items.status}</Text>
+          </XStack>
           <Text fontSize={12}>{items.subject.subject_name}</Text>
         </View>
         <Separator />
