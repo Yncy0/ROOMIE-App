@@ -18,6 +18,7 @@ import BookedCard from "@/components/cards/BookedCard";
 import { useFetchScheduleWithRoom } from "@/hooks/queries/schedule/useFetchSchedule";
 import { useFetchBookedRoomsWithRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
+import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -35,7 +36,8 @@ export default function RoomPreview() {
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
-  useSubscriptionSchedule();
+  // useSubscriptionBookedRoom();
+  // useSubscriptionSchedule();
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();

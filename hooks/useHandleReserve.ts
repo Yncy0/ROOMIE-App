@@ -32,7 +32,6 @@ const useHandleReserve = ({
     const dayFormat = moment(datePicker.date).format("dddd");
 
     const { session } = useAuth();
-    const { data: schedule } = useFetchScheduleWithRoom(dayFormat, roomId);
     const router = useRouter();
 
     const handleReserve = async () => {
@@ -58,15 +57,15 @@ const useHandleReserve = ({
         }
 
         try {
-            const isAvailable = await useCheckForOverlap(
+            const { bookedRooms, schedule } = await useCheckForOverlap(
                 roomId,
                 moment(datePicker.date).format("DD MMMM YYYY"),
                 moment(timeInPicker.time).toISOString(),
                 moment(timeOutPicker.time).toISOString(),
             );
-            if (!isAvailable) {
+            if (!bookedRooms || !schedule) {
                 Alert.alert(
-                    "The room is already booked for the selected time!",
+                    "The room has already ongoing schedule!",
                 );
                 return;
             }
@@ -84,6 +83,7 @@ const useHandleReserve = ({
             onSuccess((await insert).id);
         } catch (error) {
             Alert.alert("Error, please contact the administrator");
+            console.log(moment(timeOutPicker.time).format("HH:mm:ssZ"));
         }
     };
 

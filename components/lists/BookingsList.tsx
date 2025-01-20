@@ -16,7 +16,7 @@ const BookingsList = () => {
   React.useEffect(() => {
     const interval = setInterval(() => {
       useUpdateBookedRoomStatus();
-      console.log("UPDATED");
+      console.log("UPDATED BOOKED ROOMS");
     }, 60000);
     return () => clearInterval(interval);
   }, [bookedRooms]);

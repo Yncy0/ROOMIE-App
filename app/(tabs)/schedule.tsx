@@ -9,6 +9,10 @@ import ScheduleText from "@/components/ScheduleText";
 import { useFetchScheduleWithDay } from "@/hooks/queries/schedule/useFetchSchedule";
 import EmptyDisplay from "@/components/EmptyDisplay";
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
+import {
+  useUpdateScheduleDone,
+  useUpdateScheduleOngoing,
+} from "@/hooks/queries/schedule/useUpdateSchedule";
 
 const generateDatesForCurrentMonth = () => {
   const startOfMonth = moment().startOf("month");
@@ -36,6 +40,15 @@ export default function Schedule() {
   const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
 
   useSubscriptionSchedule();
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      useUpdateScheduleOngoing();
+      useUpdateScheduleDone();
+      console.log("UPDATED SCHEDULE");
+    }, 60000);
+    return () => clearInterval(interval);
+  }, [data]);
 
   return (
     <SafeAreaProvider>
