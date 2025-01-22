@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, XStack } from "tamagui";
+import { Text, View } from "react-native";
 
 type Props = {
   description: string;
@@ -8,10 +8,10 @@ type Props = {
 
 const TextHorizontal = ({ description, value }: Props) => {
   return (
-    <XStack justifyContent="space-between">
+    <View style={{ justifyContent: "space-between" }}>
       <Text>{description}</Text>
       <Text>{value}</Text>
-    </XStack>
+    </View>
   );
 };
 

@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Text, XStack } from "tamagui";
+import { Text, View } from "react-native";
 
 type Props = {
   icon: any;
@@ -8,7 +8,7 @@ type Props = {
 
 export const IconText = ({ icon, text }: Props) => {
   return (
-    <XStack
+    <View
       style={{
         flexDirection: "row",
         alignItems: "center",
@@ -16,7 +16,7 @@ export const IconText = ({ icon, text }: Props) => {
       }}
     >
       <Ionicons name={icon} size={14} color={"#fff"} />
-      <Text color={"$white1"}>{text}</Text>
-    </XStack>
+      <Text style={{ color: "white" }}>{text}</Text>
+    </View>
   );
 };

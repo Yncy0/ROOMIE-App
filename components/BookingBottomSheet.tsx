@@ -1,11 +1,12 @@
 import React from "react";
-import { Button, XStack, YStack } from "tamagui";
+import { Pressable, View, Text } from "react-native";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import DatePicker from "react-native-date-picker";
 import moment from "moment";
 
 import IconInput from "./inputs/IconInput";
 import useHandleReserve from "@/hooks/useHandleReserve";
+import { primaryColor } from "@/constants/Colors";
 
 type Props = {
   roomId: any;
@@ -42,7 +43,7 @@ export const BookingBottomSheet = ({
         paddingBottom: 50,
       }}
     >
-      <YStack miw="100%" alignItems="center" gap={20}>
+      <View style={{ minWidth: "100%", alignItems: "center", gap: 20 }}>
         <DatePicker
           modal
           open={datePicker.open}
@@ -85,7 +86,7 @@ export const BookingBottomSheet = ({
           value={moment(datePicker.date).format("DD MMMM YYYY")}
           onChangeText={() => {}}
         />
-        <XStack gap={20}>
+        <View style={{ gap: 20 }}>
           <IconInput
             icon={"schedule"}
             placeholder="Time-in"
@@ -100,16 +101,14 @@ export const BookingBottomSheet = ({
             value={moment(timeOutPicker.time).format("LT")}
             onChangeText={() => {}}
           />
-        </XStack>
-        <Button
-          miw={"100%"}
-          backgroundColor={"$blue10"}
-          color={"$white1"}
+        </View>
+        <Pressable
+          style={{ backgroundColor: primaryColor, minWidth: "100%" }}
           onPress={handleReserve}
         >
-          Reserve
-        </Button>
-      </YStack>
+          <Text style={{ color: "white" }}>Reserve</Text>
+        </Pressable>
+      </View>
     </BottomSheetView>
   );
 };
