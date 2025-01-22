@@ -1,4 +1,4 @@
-import { View, Text, Alert, Image, StyleSheet } from "react-native";
+import { View, Text, Alert, Image, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import * as ImagePicker from "expo-image-picker";
 
@@ -91,7 +91,7 @@ const Avatar = ({ size, url, onUpload }: Props) => {
   }
 
   return (
-    <View>
+    <Pressable onPress={uploadAvatar} disabled={uploading}>
       {avatarUrl ? (
         <Image
           source={{ uri: avatarUrl }}
@@ -101,9 +101,9 @@ const Avatar = ({ size, url, onUpload }: Props) => {
         <View style={[avatarSize, styles.avatar, styles.noImage]} />
       )}
       <View>
-        <Button onPress={uploadAvatar} disabled={uploading} />
+        {/* <Button onPress={uploadAvatar} disabled={uploading} /> */}
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -111,7 +111,7 @@ export default Avatar;
 
 const styles = StyleSheet.create({
   avatar: {
-    borderRadius: 5,
+    borderRadius: 50,
     overflow: "hidden",
     maxWidth: "100%",
   },
@@ -124,6 +124,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: "rgb(200, 200, 200)",
-    borderRadius: 5,
+    borderRadius: 50,
   },
 });
