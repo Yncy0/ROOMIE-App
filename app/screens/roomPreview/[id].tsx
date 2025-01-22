@@ -1,9 +1,11 @@
 import React from "react";
-import { ImageBackground, ScrollView } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { ImageBackground, ScrollView, View, Button, Text } from "react-native";
+import {
+  GestureHandlerRootView,
+  Pressable,
+} from "react-native-gesture-handler";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import moment from "moment";
-import { View, Text, Button, XStack, YStack, Separator } from "tamagui";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -58,35 +60,39 @@ export default function RoomPreview() {
             <BackButton
               onPress={() => router.replace({ pathname: customRoute })}
             />
-            <XStack
-              justifyContent={"space-between"}
-              alignItems={"center"}
-              backgroundColor={"rgba(0,0,0,0.5)"}
-              px={20}
-              py={10}
+            <View
+              style={{
+                justifyContent: "space-between",
+                alignItems: "center",
+                backgroundColor: "rgba(0,0,0,0.5)",
+                padding: 10,
+              }}
             >
               <View>
-                <Text col={"$white1"} fos={20} fow={"bold"}>
+                <Text
+                  style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
+                >
                   {roomName}
                 </Text>
-                <Text col={"$white1"} fos={14}>
+                <Text style={{ color: "white", fontSize: 14 }}>
                   {roomCategory}
                 </Text>
               </View>
-              <Button
-                bg={primaryColor}
-                color={"$white1"}
+              <Pressable
+                style={{
+                  backgroundColor: primaryColor,
+                  borderRadius: 10,
+                  minWidth: 180,
+                }}
                 onPress={handlePresentModalPress}
-                borderRadius={"$radius.2"}
-                miw={183}
               >
-                Book Now
-              </Button>
-            </XStack>
+                <Text style={{ color: "white" }}>Book Now</Text>
+              </Pressable>
+            </View>
           </ImageBackground>
-          <View p={20} gap={20}>
-            <YStack gap={5}>
-              <Text fos={16} fow="bold">
+          <View style={{ padding: 20, gap: 20 }}>
+            <View style={{ gap: 5 }}>
+              <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                 Today's Booking
               </Text>
               {bookedRooms && bookedRooms.length > 0 ? (
@@ -94,16 +100,17 @@ export default function RoomPreview() {
                   <BookedCard key={item.id} items={item} />
                 ))
               ) : (
-                <Text alignSelf="center" py={35}>
+                <Text style={{ alignSelf: "center", paddingHorizontal: 35 }}>
                   Empty Booked List
                 </Text>
               )}
-            </YStack>
-            <Separator borderColor={"$gray8"} />
-            <XStack ai={"center"} jc={"space-between"}>
+            </View>
+            <View
+              style={{ alignItems: "center", justifyContent: "space-between" }}
+            >
               <Text>Today's Schedule</Text>
               <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
-            </XStack>
+            </View>
             {schedule && schedule.length > 0 ? (
               schedule.map((item) => (
                 <ScheduleText key={item.id} items={item} />

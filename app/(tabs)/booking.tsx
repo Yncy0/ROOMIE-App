@@ -1,8 +1,7 @@
 import React from "react";
-import { FlatList, Dimensions } from "react-native";
+import { FlatList, Dimensions, Text } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
-import { Text } from "@tamagui/core";
 
 import RoomCard from "@/components/cards/RoomCard";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
@@ -15,7 +14,15 @@ const Booking = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ backgroundColor: "white" }}>
-        <Text px={15} pt={20} pb={10} fos={16} fow={"bold"}>
+        <Text
+          style={{
+            paddingHorizontal: 10,
+            paddingTop: 20,
+            paddingBottom: 10,
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
+        >
           Available Rooms
         </Text>
         <FlatList

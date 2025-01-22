@@ -3,7 +3,6 @@ import AuthProvider from "@/providers/AuthProvider";
 import * as SplashScreen from "expo-splash-screen";
 import { Stack } from "expo-router";
 import { setStatusBarStyle } from "expo-status-bar";
-import { PortalProvider, TamaguiProvider } from "tamagui";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import config from "../tamagui.config";
@@ -28,18 +27,14 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <TamaguiProvider config={config}>
-        <PortalProvider shouldAddRootHost>
-          <AuthProvider>
-            <QueryClientProvider client={queryCLient}>
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-              </Stack>
-            </QueryClientProvider>
-          </AuthProvider>
-        </PortalProvider>
-      </TamaguiProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryCLient}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          </Stack>
+        </QueryClientProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

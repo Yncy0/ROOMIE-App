@@ -1,8 +1,7 @@
 import React from "react";
-import { FlatList, ScrollView } from "react-native";
+import { FlatList, ScrollView, View, Text } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import moment from "moment";
-import { View, Text } from "@tamagui/core";
 
 import DateCard from "@/components/cards/DateCard";
 import ScheduleText from "@/components/ScheduleText";
@@ -59,7 +58,13 @@ export default function Schedule() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text miw={"100%"} px={20} pb={20}>
+          <Text
+            style={{
+              minWidth: "100%",
+              paddingHorizontal: 20,
+              paddingBottom: 20,
+            }}
+          >
             My Schedule
           </Text>
           <FlatList
@@ -81,10 +86,10 @@ export default function Schedule() {
             }}
             initialNumToRender={4}
           />
-          <Text miw={"100%"} p={20} fow={"700"}>
+          <Text style={{ minWidth: "100%", padding: 20, fontWeight: 700 }}>
             {currentDateFormat ? currentDateFormat : selectedDateFormat}
           </Text>
-          <View px={20} gap={20}>
+          <View style={{ paddingHorizontal: 20, gap: 20 }}>
             {data && data.length > 0 ? (
               data.map((item) => <ScheduleText key={item.id} items={item} />)
             ) : (

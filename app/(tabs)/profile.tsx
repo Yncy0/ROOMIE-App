@@ -1,8 +1,6 @@
 import React from "react";
-import { Alert, ScrollView } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-import { View, Text, Input, XStack, Button } from "tamagui";
 
 import { supabase } from "@/utils/supabase";
 import PressableText from "@/components/buttons/PressableText";
@@ -24,7 +22,16 @@ export default function Profile() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View f={1} ai={"center"} jc={"center"} gap={7} miw={"100%"} pb={50}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 7,
+              minWidth: "100%",
+              paddingBottom: 50,
+            }}
+          >
             <Avatar
               size={100}
               url={avatarUrl}
