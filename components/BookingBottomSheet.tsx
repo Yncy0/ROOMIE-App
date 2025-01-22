@@ -4,7 +4,7 @@ import { BottomSheetView } from "@gorhom/bottom-sheet";
 import DatePicker from "react-native-date-picker";
 import moment from "moment";
 
-import IconInput from "./IconInput";
+import IconInput from "./inputs/IconInput";
 import useHandleReserve from "@/hooks/useHandleReserve";
 
 type Props = {
