@@ -39,7 +39,7 @@ const useFetchProfiles = () => {
         }
     }
 
-    return { username, loading, avatarUrl };
+    return { username, loading, avatarUrl, setAvatarUrl };
 };
 
 export default useFetchProfiles;
