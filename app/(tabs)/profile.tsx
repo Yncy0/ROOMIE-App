@@ -42,9 +42,9 @@ export default function Profile() {
               }}
             />
           </View>
-          <PressableText text="User Information" />
+          {/* <PressableText text="User Information" />
           <PressableText text="Privacy and Security" />
-          <PressableText text="Settings" />
+          <PressableText text="Settings" /> */}
           <PressableText
             text="Logout"
             onPress={() => supabase.auth.signOut()}
