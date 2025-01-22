@@ -23,7 +23,7 @@ const useHandleReserve = ({
     roomCategory,
     roomImage,
 }: UseHandleReserveProps) => {
-    const [subjectName, setSubjectName] = useState("");
+    const [subjectCode, setSubjectCode] = useState("");
     const [courseAndSection, setCourseAndSection] = useState("");
 
     const datePicker = useDatePicker();
@@ -36,7 +36,7 @@ const useHandleReserve = ({
 
     const handleReserve = async () => {
         if (
-            !subjectName || !courseAndSection || !datePicker.date ||
+            !subjectCode || !courseAndSection || !datePicker.date ||
             !timeInPicker.time || !timeOutPicker.time
         ) {
             Alert.alert("Please fill the information properly!");
@@ -74,7 +74,7 @@ const useHandleReserve = ({
                 session?.user.id,
                 roomId,
                 moment(datePicker.date).format("DD MMMM YYYY"),
-                subjectName,
+                subjectCode,
                 courseAndSection,
                 moment(timeInPicker.time).toISOString(),
                 moment(timeOutPicker.time).toISOString(),
@@ -93,7 +93,7 @@ const useHandleReserve = ({
                 pathname: "/screens/bookingReceipt/[id]",
                 params: {
                     id: id,
-                    subjectName: subjectName,
+                    subjectName: subjectCode,
                     courseAndSection: courseAndSection,
                     date: moment(datePicker.date).format("DD MMMM YYYY"),
                     timeIn: moment(timeInPicker.time).format("LT"),
@@ -111,8 +111,8 @@ const useHandleReserve = ({
     };
 
     return {
-        subjectName,
-        setSubjectName,
+        subjectCode,
+        setSubjectCode,
         courseAndSection,
         setCourseAndSection,
         datePicker,

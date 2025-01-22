@@ -40,7 +40,7 @@ export default function BookedCard({ items }: Props) {
       <YStack gap={5}>
         <Text color={"$white1"}>{items.rooms.room_name}</Text>
         <Text color={"$white1"}>{items.rooms.room_type}</Text>
-        <IconText icon="albums-outline" text={items.subject_name} />
+        <IconText icon="albums-outline" text={items.subject_code} />
         <IconText icon="people-outline" text={items.course_and_section} />
         <IconText
           icon="time-outline"

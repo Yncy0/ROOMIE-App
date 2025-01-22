@@ -4,7 +4,7 @@ export default async function useInsertBookedRooms(
   profile_id: any,
   room_id: any,
   date: string,
-  subject_name: string,
+  subject_code: string,
   course_and_section: string,
   time_in: string,
   time_out: string,
@@ -15,7 +15,7 @@ export default async function useInsertBookedRooms(
     .insert([
       {
         date: date,
-        subject_name: subject_name,
+        subject_code: subject_code,
         course_and_section: course_and_section,
         profile_id: profile_id,
         room_id: room_id,
