@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Alert } from "react-native";
-import moment from "moment";
 import { useRouter } from "expo-router";
+import dayjs from "dayjs";
 
 import useDatePicker from "@/hooks/pickers/useDatePicker";
 import useTimePicker from "@/hooks/pickers/useTimePicker";
@@ -29,7 +29,7 @@ const useHandleReserve = ({
     const datePicker = useDatePicker();
     const timeInPicker = useTimePicker();
     const timeOutPicker = useTimePicker();
-    const dayFormat = moment(datePicker.date).format("dddd");
+    const dayFormat = dayjs(datePicker.date).format("dddd");
 
     const { session } = useAuth();
     const router = useRouter();
@@ -43,14 +43,14 @@ const useHandleReserve = ({
             return;
         }
 
-        if (moment(timeInPicker.time).isSame(moment(timeOutPicker.time))) {
+        if (dayjs(timeInPicker.time).isSame(dayjs(timeOutPicker.time))) {
             Alert.alert("Reserve time-in and time-out cannot be the same!");
             return;
         }
 
         if (
-            (moment(timeInPicker.time) > moment(timeOutPicker.time)) &&
-            (moment(timeOutPicker.time) < moment(timeInPicker.time))
+            (dayjs(timeInPicker.time) > dayjs(timeOutPicker.time)) &&
+            (dayjs(timeOutPicker.time) < dayjs(timeInPicker.time))
         ) {
             Alert.alert("It's impossible to book that time!");
             return;
@@ -59,9 +59,9 @@ const useHandleReserve = ({
         try {
             const { bookedRooms, schedule } = await useCheckForOverlap(
                 roomId,
-                moment(datePicker.date).format("DD MMMM YYYY"),
-                moment(timeInPicker.time).toISOString(),
-                moment(timeOutPicker.time).toISOString(),
+                dayjs(datePicker.date).format("DD MMMM YYYY"),
+                dayjs(timeInPicker.time).toISOString(),
+                dayjs(timeOutPicker.time).toISOString(),
             );
             if (!bookedRooms || !schedule) {
                 Alert.alert(
@@ -73,17 +73,17 @@ const useHandleReserve = ({
             const insert = useInsertBookedRooms(
                 session?.user.id,
                 roomId,
-                moment(datePicker.date).format("DD MMMM YYYY"),
+                dayjs(datePicker.date).format("DD MMMM YYYY"),
                 subjectName,
                 courseAndSection,
-                moment(timeInPicker.time).toISOString(),
-                moment(timeOutPicker.time).toISOString(),
+                dayjs(timeInPicker.time).toISOString(),
+                dayjs(timeOutPicker.time).toISOString(),
                 "ongoing",
             );
             onSuccess((await insert).id);
         } catch (error) {
             Alert.alert("Error, please contact the administrator");
-            console.log(moment(timeOutPicker.time).format("HH:mm:ssZ"));
+            console.log(dayjs(timeOutPicker.time).format("HH:mm:ssZ"));
         }
     };
 
@@ -95,9 +95,9 @@ const useHandleReserve = ({
                     id: id,
                     subjectName: subjectName,
                     courseAndSection: courseAndSection,
-                    date: moment(datePicker.date).format("DD MMMM YYYY"),
-                    timeIn: moment(timeInPicker.time).format("LT"),
-                    timeOut: moment(timeOutPicker.time).format("LT"),
+                    date: dayjs(datePicker.date).format("DD MMMM YYYY"),
+                    timeIn: dayjs(timeInPicker.time).format("LT"),
+                    timeOut: dayjs(timeOutPicker.time).format("LT"),
                     roomId: roomId,
                     roomCategory: roomCategory,
                     roomImage: roomImage,

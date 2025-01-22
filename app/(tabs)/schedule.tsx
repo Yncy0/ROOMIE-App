@@ -1,7 +1,7 @@
 import React from "react";
 import { FlatList, ScrollView, View, Text } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import moment from "moment";
+import dayjs from "dayjs";
 
 import DateCard from "@/components/cards/DateCard";
 import ScheduleText from "@/components/ScheduleText";
@@ -14,9 +14,9 @@ import {
 } from "@/hooks/queries/schedule/useUpdateSchedule";
 
 const generateDatesForCurrentMonth = () => {
-  const startOfMonth = moment().startOf("month");
-  const endOfMonth = moment().endOf("month");
-  const currentDate = moment();
+  const startOfMonth = dayjs().startOf("month");
+  const endOfMonth = dayjs().endOf("month");
+  const currentDate = dayjs();
   const dates = [];
 
   let date = startOfMonth;
@@ -32,8 +32,8 @@ const generateDatesForCurrentMonth = () => {
 export default function Schedule() {
   const [selectedDate, setSelectedDate] = React.useState<string>("");
 
-  const selectedDateFormat = moment(selectedDate).format("dddd: DD MMMM YYYY");
-  const currentDateFormat = moment().format("dddd: DD MMMM YYYY");
+  const selectedDateFormat = dayjs(selectedDate).format("dddd: DD MMMM YYYY");
+  const currentDateFormat = dayjs().format("dddd: DD MMMM YYYY");
   const dates = generateDatesForCurrentMonth();
 
   const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);

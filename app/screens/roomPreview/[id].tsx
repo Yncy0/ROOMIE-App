@@ -5,7 +5,7 @@ import {
   Pressable,
 } from "react-native-gesture-handler";
 import { router, Stack, useLocalSearchParams } from "expo-router";
-import moment from "moment";
+import dayjs from "dayjs";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -21,6 +21,7 @@ import { useFetchScheduleWithRoom } from "@/hooks/queries/schedule/useFetchSched
 import { useFetchBookedRoomsWithRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
+import BookingsList from "@/components/lists/BookingsList";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -31,15 +32,15 @@ export default function RoomPreview() {
       roomImage: string;
       customRoute: any;
     }>();
-  const day = moment().format("dddd");
+  const day = dayjs().format("dddd");
 
   const { data: schedule } = useFetchScheduleWithRoom(day, id);
   const { data: bookedRooms } = useFetchBookedRoomsWithRooms(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
-  // useSubscriptionBookedRoom();
-  // useSubscriptionSchedule();
+  useSubscriptionBookedRoom();
+  useSubscriptionSchedule();
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();
@@ -95,21 +96,13 @@ export default function RoomPreview() {
               <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                 Today's Booking
               </Text>
-              {bookedRooms && bookedRooms.length > 0 ? (
-                bookedRooms.map((item) => (
-                  <BookedCard key={item.id} items={item} />
-                ))
-              ) : (
-                <Text style={{ alignSelf: "center", paddingHorizontal: 35 }}>
-                  Empty Booked List
-                </Text>
-              )}
+              <BookingsList />
             </View>
             <View
               style={{ alignItems: "center", justifyContent: "space-between" }}
             >
               <Text>Today's Schedule</Text>
-              <Text>{moment().format("dddd, DD, MMM YYYY")}</Text>
+              <Text>{dayjs().format("dddd, DD, MMM YYYY")}</Text>
             </View>
             {schedule && schedule.length > 0 ? (
               schedule.map((item) => (

@@ -1,5 +1,5 @@
 import { supabase } from "@/utils/supabase";
-import moment from "moment";
+import dayjs from "dayjs";
 
 const useCheckForOverlap = async (
     roomId: string,
@@ -7,7 +7,7 @@ const useCheckForOverlap = async (
     timeIn: string,
     timeOut: string,
 ) => {
-    const today = moment().format("dddd");
+    const today = dayjs().format("dddd");
 
     const { data: bookedRooms, error: bookedRoomsError } = await supabase
         .from("booked_rooms")
