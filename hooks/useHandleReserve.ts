@@ -84,6 +84,7 @@ const useHandleReserve = ({
         } catch (error) {
             Alert.alert("Error, please contact the administrator");
             console.log(moment(timeOutPicker.time).format("HH:mm:ssZ"));
+            console.log(error);
         }
     };
 
