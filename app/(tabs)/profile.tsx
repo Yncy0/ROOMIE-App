@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { Alert, ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { View, Text, Input, XStack, Button } from "tamagui";
@@ -36,7 +36,10 @@ export default function Profile() {
             <ProfileInput
               username={username}
               onChangeText={(text) => setUsername(text)}
-              onPress={() => updateProfiles(username, avatarUrl)}
+              onPress={() => {
+                updateProfiles(username, avatarUrl);
+                Alert.alert("Profile Edited Successfully!");
+              }}
             />
           </View>
           <PressableText text="User Information" />
