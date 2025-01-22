@@ -13,7 +13,11 @@ export default function RoomCard({ items, onPress, width, height }: Props) {
   return (
     <Pressable onPress={onPress}>
       <ImageBackground
-        source={{ uri: items.room_image }}
+        source={
+          items.room_image
+            ? { uri: items.room_image }
+            : require("@/assets/images/image-placeholder.png")
+        }
         style={{
           width: width,
           height: height,

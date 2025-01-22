@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ROOMIE App",
-    "slug": "ROOMIE App",
+    "slug": "ROOMIE_App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/roomie-icon.png",

@@ -1,17 +1,19 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { Alert, ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { View, Text } from "@tamagui/core";
+import { View, Text, Input, XStack, Button } from "tamagui";
 
 import { supabase } from "@/utils/supabase";
 import PressableText from "@/components/buttons/PressableText";
-import useFetchProfiles from "@/hooks/queries/useFetchProfiles";
+import useFetchProfiles from "@/hooks/queries/profiles/useFetchProfiles";
+import Avatar from "@/components/Avatar";
+import { useUpdateProfiles } from "@/hooks/queries/profiles/useUpdateProfile";
+import ProfileInput from "@/components/inputs/ProfileInput";
 
 export default function Profile() {
-  const [profilePic, hasProfilePic] = React.useState<boolean>(false);
-
-  const { username } = useFetchProfiles();
+  const { username, setUsername, avatarUrl, setAvatarUrl } = useFetchProfiles();
+  const updateProfiles = useUpdateProfiles();
 
   return (
     <SafeAreaProvider>
@@ -23,12 +25,26 @@ export default function Profile() {
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View f={1} ai={"center"} jc={"center"} gap={7} miw={"100%"} pb={50}>
-            <Ionicons name={"person-circle-sharp"} size={80} />
-            <Text>{username}</Text>
+            <Avatar
+              size={100}
+              url={avatarUrl}
+              onUpload={(url: string) => {
+                setAvatarUrl(url);
+                updateProfiles(username, avatarUrl);
+              }}
+            />
+            <ProfileInput
+              username={username}
+              onChangeText={(text) => setUsername(text)}
+              onPress={() => {
+                updateProfiles(username, avatarUrl);
+                Alert.alert("Profile Edited Successfully!");
+              }}
+            />
           </View>
-          <PressableText text="User Information" />
+          {/* <PressableText text="User Information" />
           <PressableText text="Privacy and Security" />
-          <PressableText text="Settings" />
+          <PressableText text="Settings" /> */}
           <PressableText
             text="Logout"
             onPress={() => supabase.auth.signOut()}

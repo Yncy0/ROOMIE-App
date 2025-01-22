@@ -3,7 +3,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { XStack, YStack } from "tamagui";
 import { Stack } from "expo-router";
 
-import IconInput from "@/components/IconInput";
+import IconInput from "@/components/inputs/IconInput";
 
 const Search = () => {
   const [search, onSearch] = React.useState<string>("");
