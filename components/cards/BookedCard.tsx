@@ -26,7 +26,11 @@ export default function BookedCard({ items }: Props) {
       elevation={10}
     >
       <Image
-        source={{ uri: items.rooms.room_image }}
+        source={
+          items.rooms.room_image
+            ? { uri: items.rooms.room_image }
+            : require("@/assets/images/image-placeholder.png")
+        }
         style={{
           width: 120,
           height: 120,
