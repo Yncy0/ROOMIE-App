@@ -33,16 +33,11 @@ export default function Profile() {
                 updateProfiles(username, avatarUrl);
               }}
             />
-            <XStack>
-              <Input
-                value={username || ""}
-                onChangeText={(text) => setUsername(text)}
-              />
-              <Button
-                icon={<Ionicons name={"pencil"} />}
-                onPress={() => updateProfiles(username, avatarUrl)}
-              />
-            </XStack>
+            <ProfileInput
+              username={username}
+              onChangeText={(text) => setUsername(text)}
+              onPress={() => updateProfiles(username, avatarUrl)}
+            />
           </View>
           <PressableText text="User Information" />
           <PressableText text="Privacy and Security" />
