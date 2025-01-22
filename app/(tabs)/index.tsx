@@ -21,6 +21,7 @@ export default function Index() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
+              flexDirection: "row",
               minWidth: "100%",
               justifyContent: "space-between",
               paddingHorizontal: 10,
@@ -35,6 +36,7 @@ export default function Index() {
           <BookingsList />
           <View
             style={{
+              flexDirection: "row",
               minWidth: "100%",
               justifyContent: "space-between",
               paddingHorizontal: 10,

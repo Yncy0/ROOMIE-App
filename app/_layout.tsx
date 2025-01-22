@@ -13,7 +13,7 @@ import {
 } from "@react-navigation/native";
 import { useColorScheme } from "react-native";
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const queryCLient = new QueryClient();
