@@ -22,8 +22,8 @@ export const BookingBottomSheet = ({
   roomImage,
 }: Props) => {
   const {
-    subjectName,
-    setSubjectName,
+    subjectCode,
+    setSubjectCode,
     courseAndSection,
     setCourseAndSection,
     datePicker,
@@ -77,8 +77,8 @@ export const BookingBottomSheet = ({
         <IconInput
           icon={"book"}
           placeholder="Subject Name"
-          value={subjectName}
-          onChangeText={setSubjectName}
+          value={subjectCode}
+          onChangeText={setSubjectCode}
         />
         <IconInput
           icon={"people-alt"}

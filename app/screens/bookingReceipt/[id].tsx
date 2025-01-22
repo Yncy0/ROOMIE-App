@@ -22,7 +22,7 @@ const BookingReceipt = () => {
 
   const {
     id,
-    subjectName,
+    subjectCode,
     courseAndSection,
     date,
     timeIn,
@@ -32,7 +32,7 @@ const BookingReceipt = () => {
     roomName,
   } = useLocalSearchParams<{
     id: string;
-    subjectName: string;
+    subjectCode: string;
     courseAndSection: string;
     date: string;
     timeIn: string;
@@ -141,7 +141,7 @@ const BookingReceipt = () => {
                   value={`${timeIn}-${timeOut}`}
                 />
 
-                <TextHorizontal description="Subject" value={subjectName} />
+                <TextHorizontal description="Subject" value={subjectCode} />
 
                 <TextHorizontal
                   description="Section"
