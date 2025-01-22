@@ -7,11 +7,12 @@ import { View, Text } from "@tamagui/core";
 import { supabase } from "@/utils/supabase";
 import PressableText from "@/components/buttons/PressableText";
 import useFetchProfiles from "@/hooks/queries/useFetchProfiles";
+import Avatar from "@/components/Avatar";
 
 export default function Profile() {
   const [profilePic, hasProfilePic] = React.useState<boolean>(false);
 
-  const { username } = useFetchProfiles();
+  const { username, avatarUrl } = useFetchProfiles();
 
   return (
     <SafeAreaProvider>
@@ -23,7 +24,7 @@ export default function Profile() {
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View f={1} ai={"center"} jc={"center"} gap={7} miw={"100%"} pb={50}>
-            <Ionicons name={"person-circle-sharp"} size={80} />
+            <Avatar size={200} url={avatarUrl} onUpload={(url: string) => {}} />
             <Text>{username}</Text>
           </View>
           <PressableText text="User Information" />

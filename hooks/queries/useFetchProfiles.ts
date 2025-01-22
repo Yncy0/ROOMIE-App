@@ -7,6 +7,7 @@ import { useAuth } from "@/providers/AuthProvider";
 const useFetchProfiles = () => {
     const [username, setUsername] = React.useState<string>("");
     const [loading, setLoading] = React.useState<boolean>(true);
+    const [avatarUrl, setAvatarUrl] = React.useState("");
 
     const { session } = useAuth();
 
@@ -29,6 +30,7 @@ const useFetchProfiles = () => {
 
             if (profiles) {
                 setUsername(profiles.username as string);
+                setAvatarUrl(profiles.avatar_url as string);
             }
         } catch (error) {
             if (error instanceof Error) Alert.alert(error.message);
@@ -37,7 +39,7 @@ const useFetchProfiles = () => {
         }
     }
 
-    return { username, loading };
+    return { username, loading, avatarUrl };
 };
 
 export default useFetchProfiles;
