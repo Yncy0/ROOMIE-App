@@ -69,6 +69,7 @@ const BookingReceipt = () => {
           <ViewShot style={{ padding: 30 }} ref={viewRef}>
             <View
               style={{
+                flexDirection: "column",
                 width: "100%",
                 flex: 1,
                 alignItems: "center",
@@ -82,6 +83,7 @@ const BookingReceipt = () => {
             >
               <View
                 style={{
+                  flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "space-between",
                   minWidth: "100%",
@@ -102,7 +104,7 @@ const BookingReceipt = () => {
                 Reservation Details
               </Text>
               <Ionicons name={"checkmark-circle-sharp"} size={74} />
-              <View style={{ alignItems: "center" }}>
+              <View style={{ alignItems: "center", flexDirection: "column" }}>
                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                   Your Booking Confirmed!
                 </Text>
@@ -118,7 +120,13 @@ const BookingReceipt = () => {
                   maxWidth: 250 * 2,
                 }}
               />
-              <View style={{ alignItems: "center", paddingBottom: 20 }}>
+              <View
+                style={{
+                  alignItems: "center",
+                  paddingBottom: 20,
+                  flexDirection: "row",
+                }}
+              >
                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                   {roomName}
                 </Text>

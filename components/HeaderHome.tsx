@@ -7,6 +7,7 @@ const HeaderHome = () => {
   return (
     <View
       style={{
+        flexDirection: "row",
         justifyContent: "space-between",
         minWidth: "100%",
         alignItems: "center",

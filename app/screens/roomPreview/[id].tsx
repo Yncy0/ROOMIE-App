@@ -63,6 +63,7 @@ export default function RoomPreview() {
             />
             <View
               style={{
+                flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
                 backgroundColor: "rgba(0,0,0,0.5)",
@@ -92,14 +93,18 @@ export default function RoomPreview() {
             </View>
           </ImageBackground>
           <View style={{ padding: 20, gap: 20 }}>
-            <View style={{ gap: 5 }}>
+            <View style={{ gap: 5, flexDirection: "column" }}>
               <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                 Today's Booking
               </Text>
               <BookingsList />
             </View>
             <View
-              style={{ alignItems: "center", justifyContent: "space-between" }}
+              style={{
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
             >
               <Text>Today's Schedule</Text>
               <Text>{dayjs().format("dddd, DD, MMM YYYY")}</Text>

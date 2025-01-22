@@ -8,7 +8,7 @@ type Props = {
 
 const TextHorizontal = ({ description, value }: Props) => {
   return (
-    <View style={{ justifyContent: "space-between" }}>
+    <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
       <Text>{description}</Text>
       <Text>{value}</Text>
     </View>

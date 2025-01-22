@@ -24,6 +24,7 @@ export default function Profile() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
+              flexDirection: "column",
               flex: 1,
               alignItems: "center",
               justifyContent: "center",

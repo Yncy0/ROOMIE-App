@@ -23,6 +23,7 @@ export default function DateCard({
     <Pressable onPress={() => setSelectedDate(date)}>
       <View
         style={{
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 10,

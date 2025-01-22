@@ -39,7 +39,7 @@ export default function BookedCard({ items }: Props) {
           borderRadius: 10,
         }}
       />
-      <View style={{ gap: 5 }}>
+      <View style={{ gap: 5, flexDirection: "column" }}>
         <Text style={{ color: "white1" }}>{items.rooms.room_name}</Text>
         <Text style={{ color: "white1" }}>{items.rooms.room_type}</Text>
         <IconText icon="albums-outline" text={items.subject_name} />

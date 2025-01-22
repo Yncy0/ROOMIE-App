@@ -43,7 +43,14 @@ export const BookingBottomSheet = ({
         paddingBottom: 50,
       }}
     >
-      <View style={{ minWidth: "100%", alignItems: "center", gap: 20 }}>
+      <View
+        style={{
+          minWidth: "100%",
+          alignItems: "center",
+          gap: 20,
+          flexDirection: "column",
+        }}
+      >
         <DatePicker
           modal
           open={datePicker.open}
@@ -86,7 +93,7 @@ export const BookingBottomSheet = ({
           value={moment(datePicker.date).format("DD MMMM YYYY")}
           onChangeText={() => {}}
         />
-        <View style={{ gap: 20 }}>
+        <View style={{ gap: 20, flexDirection: "row" }}>
           <IconInput
             icon={"schedule"}
             placeholder="Time-in"
