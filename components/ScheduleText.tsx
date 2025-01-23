@@ -1,5 +1,5 @@
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
-import { XStack, YStack, Text, Separator, View } from "tamagui";
+import { Text, View } from "react-native";
 
 type Props = {
   items: any;
@@ -9,33 +9,39 @@ export default function ScheduleText({ items }: Props) {
   useSubscriptionSchedule();
 
   return (
-    <XStack
-      alignItems="center"
-      justifyContent="center"
-      backgroundColor={"$white1"}
-      borderRadius={10}
-      elevation={1}
-      minWidth={"100%"}
-      padding={15}
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "white",
+        borderRadius: 10,
+        elevation: 1,
+        minWidth: "100%",
+        padding: 15,
+      }}
     >
-      <YStack flex={1} gap={5}>
+      <View style={{ flex: 1, gap: 5, flexDirection: "column" }}>
         <View>
-          <XStack justifyContent="space-between">
-            <Text fontSize={14} fontWeight="bold">
+          <View
+            style={{ justifyContent: "space-between", flexDirection: "row" }}
+          >
+            <Text style={{ fontSize: 14, fontWeight: "bold" }}>
               {items.subject.subject_code}
             </Text>
             <Text>{items.status}</Text>
-          </XStack>
-          <Text fontSize={12}>{items.subject.subject_name}</Text>
+          </View>
+          <Text style={{ fontSize: 12 }}>{items.subject.subject_code}</Text>
         </View>
-        <Separator />
-        <XStack justifyContent="space-between">
+        <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <Text
-            fontSize={12}
+            style={{ fontSize: 12 }}
           >{`${items.course.course_name} ${items.course.course_year}${items.course.course_section} `}</Text>
-          <Text fontSize={12}>{`${items.time_in}-${items.time_out}`}</Text>
-        </XStack>
-      </YStack>
-    </XStack>
+          <Text
+            style={{ fontSize: 12 }}
+          >{`${items.time_in}-${items.time_out}`}</Text>
+        </View>
+      </View>
+    </View>
   );
 }

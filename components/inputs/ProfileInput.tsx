@@ -1,6 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Pressable } from "react-native";
-import { Input, XStack } from "tamagui";
+import { Pressable, View, TextInput } from "react-native";
 
 type Props = {
   username: string;
@@ -10,12 +9,12 @@ type Props = {
 
 const ProfileInput = ({ username, onChangeText, onPress }: Props) => {
   return (
-    <XStack>
-      <Input value={username || ""} onChangeText={onChangeText} />
+    <View style={{ flexDirection: "row", gap: 10 }}>
+      <TextInput value={username || ""} onChangeText={onChangeText} />
       <Pressable onPress={onPress}>
-        <Ionicons name={"pencil-outline"} size={24} />
+        <Ionicons name={"pencil-outline"} size={16} />
       </Pressable>
-    </XStack>
+    </View>
   );
 };
 

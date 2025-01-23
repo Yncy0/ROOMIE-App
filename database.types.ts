@@ -14,11 +14,12 @@ export type Database = {
           course_and_section: string | null
           created_at: string
           date: string | null
+          days: string | null
           id: string
           profile_id: string | null
           room_id: string | null
           status: string | null
-          subject_name: string | null
+          subject_code: string | null
           time_in: string | null
           time_out: string | null
         }
@@ -26,11 +27,12 @@ export type Database = {
           course_and_section?: string | null
           created_at?: string
           date?: string | null
+          days?: string | null
           id?: string
           profile_id?: string | null
           room_id?: string | null
           status?: string | null
-          subject_name?: string | null
+          subject_code?: string | null
           time_in?: string | null
           time_out?: string | null
         }
@@ -38,11 +40,12 @@ export type Database = {
           course_and_section?: string | null
           created_at?: string
           date?: string | null
+          days?: string | null
           id?: string
           profile_id?: string | null
           room_id?: string | null
           status?: string | null
-          subject_name?: string | null
+          subject_code?: string | null
           time_in?: string | null
           time_out?: string | null
         }
@@ -270,10 +273,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      update_booked_rooms_status: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never

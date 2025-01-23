@@ -1,8 +1,7 @@
 import React from "react";
-import { FlatList, ScrollView } from "react-native";
+import { FlatList, ScrollView, View, Text } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import moment from "moment";
-import { View, Text } from "@tamagui/core";
+import dayjs from "dayjs";
 
 import DateCard from "@/components/cards/DateCard";
 import ScheduleText from "@/components/ScheduleText";
@@ -15,17 +14,15 @@ import {
 } from "@/hooks/queries/schedule/useUpdateSchedule";
 
 const generateDatesForCurrentMonth = () => {
-  const startOfMonth = moment().startOf("month");
-  const endOfMonth = moment().endOf("month");
-  const currentDate = moment();
+  const startOfMonth = dayjs();
+  const endOfMonth = dayjs().endOf("month");
+  const currentDate = dayjs();
   const dates = [];
 
   let date = startOfMonth;
   while (date <= endOfMonth) {
-    if ((date = currentDate)) {
-      dates.push(date.clone());
-    }
-    date.add(1, "day");
+    dates.push(date.clone());
+    date = date.add(1, "day");
   }
   return dates;
 };
@@ -33,8 +30,8 @@ const generateDatesForCurrentMonth = () => {
 export default function Schedule() {
   const [selectedDate, setSelectedDate] = React.useState<string>("");
 
-  const selectedDateFormat = moment(selectedDate).format("dddd: DD MMMM YYYY");
-  const currentDateFormat = moment().format("dddd: DD MMMM YYYY");
+  const selectedDateFormat = dayjs(selectedDate).format("dddd: DD MMMM YYYY");
+  const currentDateFormat = dayjs().format("dddd: DD MMMM YYYY");
   const dates = generateDatesForCurrentMonth();
 
   const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
@@ -42,13 +39,17 @@ export default function Schedule() {
   useSubscriptionSchedule();
 
   React.useEffect(() => {
+    console.log("Schedule component rendered");
+  }, []);
+
+  React.useEffect(() => {
     const interval = setInterval(() => {
-      useUpdateScheduleOngoing();
+      // useUpdateScheduleOngoing();
       useUpdateScheduleDone();
       console.log("UPDATED SCHEDULE");
     }, 60000);
     return () => clearInterval(interval);
-  }, [data]);
+  }, [data?.length]);
 
   return (
     <SafeAreaProvider>
@@ -59,12 +60,18 @@ export default function Schedule() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text miw={"100%"} px={20} pb={20}>
+          <Text
+            style={{
+              minWidth: "100%",
+              paddingHorizontal: 20,
+              paddingBottom: 20,
+            }}
+          >
             My Schedule
           </Text>
           <FlatList
             data={dates}
-            keyExtractor={(index) => index.toString()}
+            keyExtractor={(item, index) => item.toString()}
             renderItem={({ item }) => (
               <DateCard
                 date={item}
@@ -81,11 +88,15 @@ export default function Schedule() {
             }}
             initialNumToRender={4}
           />
-          <Text miw={"100%"} p={20} fow={"700"}>
+          <Text style={{ minWidth: "100%", padding: 20, fontWeight: 700 }}>
             {currentDateFormat ? currentDateFormat : selectedDateFormat}
           </Text>
-          <View px={20} gap={20}>
-            {data && data.length > 0 ? (
+          <View style={{ paddingHorizontal: 20, gap: 20 }}>
+            {isLoading ? (
+              <Text>Loading...</Text>
+            ) : error ? (
+              <Text>Error loading data</Text>
+            ) : data && data.length > 0 ? (
               data.map((item) => <ScheduleText key={item.id} items={item} />)
             ) : (
               <EmptyDisplay />

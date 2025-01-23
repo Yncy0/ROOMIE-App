@@ -1,9 +1,7 @@
 import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { FlatList, Pressable, ScrollView } from "react-native";
+import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import { router } from "expo-router";
-import { Text } from "@tamagui/core";
-import { XStack } from "tamagui";
 
 import RoomCard from "@/components/cards/RoomCard";
 import BookingsList from "@/components/lists/BookingsList";
@@ -21,19 +19,35 @@ export default function Index() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <XStack miw={"100%"} justifyContent={"space-between"} px={20} pb={20}>
+          <View
+            style={{
+              flexDirection: "row",
+              minWidth: "100%",
+              justifyContent: "space-between",
+              paddingHorizontal: 10,
+              paddingBottom: 20,
+            }}
+          >
             <Text>My Booking</Text>
             <Pressable>
               <Text>See all</Text>
             </Pressable>
-          </XStack>
+          </View>
           <BookingsList />
-          <XStack miw={"100%"} justifyContent={"space-between"} px={20} pb={20}>
+          <View
+            style={{
+              flexDirection: "row",
+              minWidth: "100%",
+              justifyContent: "space-between",
+              paddingHorizontal: 10,
+              paddingBottom: 20,
+            }}
+          >
             <Text>{"Available Rooms"}</Text>
             <Pressable>
               <Text>{"See more"}</Text>
             </Pressable>
-          </XStack>
+          </View>
           <FlatList
             data={rooms}
             renderItem={({ item }) => (

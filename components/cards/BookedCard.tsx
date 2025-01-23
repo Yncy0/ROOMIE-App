@@ -1,9 +1,10 @@
 import { Image } from "expo-image";
-import { Card, Text, YStack } from "tamagui";
+import { Text, View } from "react-native";
 
 import { IconText } from "../IconText";
 import { primaryColor } from "@/constants/Colors";
 import moment from "moment";
+import dayjs from "dayjs";
 
 type Props = {
   items: any;
@@ -15,15 +16,17 @@ export default function BookedCard({ items }: Props) {
   }
 
   return (
-    <Card
-      flexDirection="row"
-      alignItems="center"
-      backgroundColor={primaryColor}
-      borderRadius={10}
-      gap={20}
-      paddingHorizontal={15}
-      minHeight={150}
-      elevation={10}
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: primaryColor,
+        borderRadius: 10,
+        gap: 20,
+        paddingHorizontal: 15,
+        minHeight: 150,
+        elevation: 10,
+      }}
     >
       <Image
         source={
@@ -37,18 +40,18 @@ export default function BookedCard({ items }: Props) {
           borderRadius: 10,
         }}
       />
-      <YStack gap={5}>
-        <Text color={"$white1"}>{items.rooms.room_name}</Text>
-        <Text color={"$white1"}>{items.rooms.room_type}</Text>
-        <IconText icon="albums-outline" text={items.subject_name} />
+      <View style={{ gap: 5, flexDirection: "column" }}>
+        <Text style={{ color: "white" }}>{items.rooms.room_name}</Text>
+        <Text style={{ color: "white" }}>{items.rooms.room_type}</Text>
+        <IconText icon="albums-outline" text={items.subject_code} />
         <IconText icon="people-outline" text={items.course_and_section} />
         <IconText
           icon="time-outline"
-          text={`${moment(items.time_in).format("LT")}-${moment(
+          text={`${dayjs(items.time_in).format("HH:mm a")} - ${dayjs(
             items.time_out
-          ).format("LT")}`}
+          ).format("HH:mm a")}`}
         />
-      </YStack>
-    </Card>
+      </View>
+    </View>
   );
 }

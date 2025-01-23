@@ -1,6 +1,8 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import { Input, XStack, View } from "tamagui";
+import { View, TextInput } from "react-native";
+import { Input } from "@rneui/themed";
+import { bgGray500 } from "@/constants/Colors";
 
 type Props = {
   icon: any;
@@ -18,18 +20,27 @@ export default function IconInput({
   onChangeText,
 }: Props) {
   return (
-    <XStack flex={1} alignItems="center" justifyContent="flex-start" mih={50}>
-      <View position="absolute" left={10} zIndex={100}>
+    <View
+      style={{
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        minHeight: 50,
+        backgroundColor: bgGray500,
+        borderRadius: 50,
+      }}
+    >
+      <View style={{ position: "absolute", left: 10, zIndex: 100 }}>
         <MaterialIcons name={icon} size={24} />
       </View>
-      <Input
-        flex={1}
+      <TextInput
+        style={{ paddingLeft: 40, flex: 1 }}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
-        pl={40}
         onPress={onPress}
       />
-    </XStack>
+    </View>
   );
 }

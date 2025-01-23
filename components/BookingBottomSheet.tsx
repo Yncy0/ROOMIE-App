@@ -1,11 +1,13 @@
 import React from "react";
-import { Button, XStack, YStack } from "tamagui";
+import { Pressable, View, Text } from "react-native";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import DatePicker from "react-native-date-picker";
 import moment from "moment";
 
 import IconInput from "./inputs/IconInput";
 import useHandleReserve from "@/hooks/useHandleReserve";
+import { primaryColor } from "@/constants/Colors";
+import dayjs from "dayjs";
 
 type Props = {
   roomId: any;
@@ -21,8 +23,8 @@ export const BookingBottomSheet = ({
   roomImage,
 }: Props) => {
   const {
-    subjectName,
-    setSubjectName,
+    subjectCode,
+    setSubjectCode,
     courseAndSection,
     setCourseAndSection,
     datePicker,
@@ -42,7 +44,14 @@ export const BookingBottomSheet = ({
         paddingBottom: 50,
       }}
     >
-      <YStack miw="100%" alignItems="center" gap={20}>
+      <View
+        style={{
+          minWidth: "100%",
+          alignItems: "center",
+          gap: 20,
+          flexDirection: "column",
+        }}
+      >
         <DatePicker
           modal
           open={datePicker.open}
@@ -69,8 +78,8 @@ export const BookingBottomSheet = ({
         <IconInput
           icon={"book"}
           placeholder="Subject Name"
-          value={subjectName}
-          onChangeText={setSubjectName}
+          value={subjectCode}
+          onChangeText={setSubjectCode}
         />
         <IconInput
           icon={"people-alt"}
@@ -82,34 +91,38 @@ export const BookingBottomSheet = ({
           icon={"calendar-today"}
           placeholder="Date"
           onPress={() => datePicker.setOpen(true)}
-          value={moment(datePicker.date).format("DD MMMM YYYY")}
+          value={dayjs(datePicker.date).format("DD MMMM YYYY")}
           onChangeText={() => {}}
         />
-        <XStack gap={20}>
+        <View style={{ gap: 20, flexDirection: "row" }}>
           <IconInput
             icon={"schedule"}
             placeholder="Time-in"
             onPress={() => timeInPicker.setOpen(true)}
-            value={moment(timeInPicker.time).format("LT")}
+            value={dayjs(timeInPicker.time).format("HH:mm: a")}
             onChangeText={() => {}}
           />
           <IconInput
             icon={"schedule"}
             placeholder="Time-out"
             onPress={() => timeOutPicker.setOpen(true)}
-            value={moment(timeOutPicker.time).format("LT")}
+            value={dayjs(timeOutPicker.time).format("HH:mm: a")}
             onChangeText={() => {}}
           />
-        </XStack>
-        <Button
-          miw={"100%"}
-          backgroundColor={"$blue10"}
-          color={"$white1"}
+        </View>
+        <Pressable
+          style={{
+            backgroundColor: primaryColor,
+            minWidth: "100%",
+            alignItems: "center",
+            paddingVertical: 12,
+            borderRadius: 50,
+          }}
           onPress={handleReserve}
         >
-          Reserve
-        </Button>
-      </YStack>
+          <Text style={{ color: "white" }}>Reserve</Text>
+        </Pressable>
+      </View>
     </BottomSheetView>
   );
 };

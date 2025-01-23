@@ -1,9 +1,8 @@
-import { View, Text, Alert, Image, StyleSheet, Pressable } from "react-native";
+import { View, Alert, Image, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import * as ImagePicker from "expo-image-picker";
 
 import { supabase } from "@/utils/supabase";
-import { Button } from "tamagui";
 
 type Props = {
   size: number;
