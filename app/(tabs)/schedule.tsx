@@ -14,7 +14,7 @@ import {
 } from "@/hooks/queries/schedule/useUpdateSchedule";
 
 const generateDatesForCurrentMonth = () => {
-  const startOfMonth = dayjs().startOf("month");
+  const startOfMonth = dayjs();
   const endOfMonth = dayjs().endOf("month");
   const currentDate = dayjs();
   const dates = [];
