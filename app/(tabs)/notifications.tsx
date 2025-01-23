@@ -1,14 +1,14 @@
+import useColorTheme from "@/hooks/useColorTheme";
 import { Stack } from "expo-router";
 import { ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-
 export default function Notifications() {
-    <SafeAreaProvider>
-        <SafeAreaView>
-            <ScrollView showsVerticalScrollIndicator={false}>
+  const { themeContainerStyle, themeTextStyle } = useColorTheme();
 
-            </ScrollView>
-        </SafeAreaView>
-    </SafeAreaProvider>
+  <SafeAreaProvider>
+    <SafeAreaView style={[{ flex: 1 }, themeContainerStyle]}>
+      <ScrollView showsVerticalScrollIndicator={false}></ScrollView>
+    </SafeAreaView>
+  </SafeAreaProvider>;
 }

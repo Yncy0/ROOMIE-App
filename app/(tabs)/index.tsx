@@ -32,7 +32,7 @@ export default function Index() {
               paddingBottom: 20,
             }}
           >
-            <Text>My Booking</Text>
+            <Text style={themeTextStyle}>My Booking</Text>
             <Pressable>
               <Text>See all</Text>
             </Pressable>
@@ -47,7 +47,7 @@ export default function Index() {
               paddingBottom: 20,
             }}
           >
-            <Text>{"Available Rooms"}</Text>
+            <Text style={themeTextStyle}>{"Available Rooms"}</Text>
             <Pressable>
               <Text>{"See more"}</Text>
             </Pressable>

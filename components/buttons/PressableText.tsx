@@ -1,3 +1,4 @@
+import useColorTheme from "@/hooks/useColorTheme";
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, Text } from "react-native";
 
@@ -7,6 +8,8 @@ type Props = {
 };
 
 export default function PressableText({ text, onPress }: Props) {
+  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+
   return (
     <Pressable
       onPress={onPress}
@@ -22,9 +25,10 @@ export default function PressableText({ text, onPress }: Props) {
           height: 70,
           paddingHorizontal: 20,
         },
+        themeContainerStyle,
       ]}
     >
-      <Text style={{ fontSize: 16 }}>{text}</Text>
+      <Text style={[{ fontSize: 16 }, themeTextStyle]}>{text}</Text>
       <Ionicons name={"chevron-forward"} size={16} />
     </Pressable>
   );

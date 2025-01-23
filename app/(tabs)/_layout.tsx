@@ -4,9 +4,12 @@ import { Redirect, Tabs } from "expo-router";
 import HeaderHome from "@/components/HeaderHome";
 import { useAuth } from "@/providers/AuthProvider";
 import { primaryColor, primaryColor1 } from "@/constants/Colors";
+import useColorTheme from "@/hooks/useColorTheme";
 
 export default function TabLayout() {
   const { isAuthenticated } = useAuth();
+
+  const { themeContainerStyle, themeTextStyle } = useColorTheme();
 
   if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
 

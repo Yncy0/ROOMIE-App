@@ -12,6 +12,7 @@ import {
   useUpdateScheduleDone,
   useUpdateScheduleOngoing,
 } from "@/hooks/queries/schedule/useUpdateSchedule";
+import useColorTheme from "@/hooks/useColorTheme";
 
 const generateDatesForCurrentMonth = () => {
   const startOfMonth = dayjs();
@@ -28,6 +29,7 @@ const generateDatesForCurrentMonth = () => {
 };
 
 export default function Schedule() {
+  const { themeContainerStyle, themeTextStyle } = useColorTheme();
   const [selectedDate, setSelectedDate] = React.useState<string>("");
 
   const selectedDateFormat = dayjs(selectedDate).format("dddd: DD MMMM YYYY");
@@ -54,18 +56,23 @@ export default function Schedule() {
   return (
     <SafeAreaProvider>
       <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: "#fff",
-        }}
+        style={[
+          {
+            flex: 1,
+          },
+          themeContainerStyle,
+        ]}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text
-            style={{
-              minWidth: "100%",
-              paddingHorizontal: 20,
-              paddingBottom: 20,
-            }}
+            style={[
+              {
+                minWidth: "100%",
+                paddingHorizontal: 20,
+                paddingBottom: 20,
+              },
+              themeTextStyle,
+            ]}
           >
             My Schedule
           </Text>
@@ -88,7 +95,12 @@ export default function Schedule() {
             }}
             initialNumToRender={4}
           />
-          <Text style={{ minWidth: "100%", padding: 20, fontWeight: 700 }}>
+          <Text
+            style={[
+              { minWidth: "100%", padding: 20, fontWeight: 700 },
+              themeTextStyle,
+            ]}
+          >
             {currentDateFormat ? currentDateFormat : selectedDateFormat}
           </Text>
           <View style={{ paddingHorizontal: 20, gap: 20 }}>

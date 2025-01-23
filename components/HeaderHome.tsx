@@ -1,19 +1,27 @@
 import SearchButton from "@/components/buttons/SearchButton";
+import useColorTheme from "@/hooks/useColorTheme";
 import { router } from "expo-router";
 
 import { Text, View } from "react-native";
 
 const HeaderHome = () => {
+  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+
   return (
     <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        minWidth: "100%",
-        alignItems: "center",
-      }}
+      style={[
+        {
+          flexDirection: "row",
+          justifyContent: "space-between",
+          minWidth: "100%",
+          alignItems: "center",
+        },
+        themeContainerStyle,
+      ]}
     >
-      <Text style={{ fontSize: 20, fontWeight: "bold" }}>Home</Text>
+      <Text style={[{ fontSize: 20, fontWeight: "bold" }, themeTextStyle]}>
+        Home
+      </Text>
       <SearchButton onPress={() => router.replace("/screens/search")} />
     </View>
   );

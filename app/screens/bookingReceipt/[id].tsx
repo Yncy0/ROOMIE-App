@@ -9,10 +9,13 @@ import ViewShot, { captureRef } from "react-native-view-shot";
 
 import BackButton from "@/components/buttons/BackButton";
 import TextHorizontal from "@/components/TextHorizontal";
+import useColorTheme from "@/hooks/useColorTheme";
 
 const BookingReceipt = () => {
   const [status, requestPermission] = MediaLibrary.usePermissions();
   const viewRef = React.useRef<View>(null);
+
+  const { themeContainerStyle, themeTextStyle } = useColorTheme();
 
   React.useEffect(() => {
     if (status === null) {
@@ -63,7 +66,7 @@ const BookingReceipt = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={[{ flex: 1 }, themeContainerStyle]}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen name="Receipt" options={{ headerShown: false }} />
           <ViewShot style={{ padding: 30 }} ref={viewRef}>

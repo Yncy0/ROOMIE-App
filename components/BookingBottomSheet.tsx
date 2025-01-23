@@ -8,6 +8,7 @@ import IconInput from "./inputs/IconInput";
 import useHandleReserve from "@/hooks/useHandleReserve";
 import { primaryColor } from "@/constants/Colors";
 import dayjs from "dayjs";
+import useColorTheme from "@/hooks/useColorTheme";
 
 type Props = {
   roomId: any;
@@ -33,16 +34,20 @@ export const BookingBottomSheet = ({
     handleReserve,
   } = useHandleReserve({ roomId, roomName, roomCategory, roomImage });
 
+  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+
   return (
     <BottomSheetView
-      style={{
-        flex: 1,
-        backgroundColor: "white",
-        minHeight: "50%",
-        paddingHorizontal: 20,
-        paddingTop: 20,
-        paddingBottom: 50,
-      }}
+      style={[
+        {
+          flex: 1,
+          minHeight: "50%",
+          paddingHorizontal: 20,
+          paddingTop: 20,
+          paddingBottom: 50,
+        },
+        themeContainerStyle,
+      ]}
     >
       <View
         style={{

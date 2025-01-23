@@ -33,7 +33,7 @@ export default function DateCard({
           backgroundColor: isSelected
             ? primaryColor
             : formatDate === todayDate
-            ? "black"
+            ? "gray"
             : "white",
         }}
       >

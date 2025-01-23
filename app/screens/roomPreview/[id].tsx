@@ -22,6 +22,7 @@ import { useFetchBookedRoomsWithRooms } from "@/hooks/queries/bookedRooms/useFet
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
 import BookingsList from "@/components/lists/BookingsList";
+import useColorTheme from "@/hooks/useColorTheme";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -33,6 +34,8 @@ export default function RoomPreview() {
       customRoute: any;
     }>();
   const day = dayjs().format("dddd");
+
+  const { themeContainerStyle, themeTextStyle } = useColorTheme();
 
   const { data: schedule } = useFetchScheduleWithRoom(day, id);
   const { data: bookedRooms } = useFetchBookedRoomsWithRooms(id);
@@ -47,7 +50,7 @@ export default function RoomPreview() {
   }, []);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={[{ flex: 1 }, themeContainerStyle]}>
       <BottomSheetModalProvider>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen options={{ headerShown: false }} />
@@ -85,7 +88,7 @@ export default function RoomPreview() {
                   backgroundColor: primaryColor,
                   borderRadius: 10,
                   minWidth: 180,
-                  padding: 5,
+                  padding: 10,
                   alignItems: "center",
                 }}
                 onPress={handlePresentModalPress}
@@ -96,7 +99,9 @@ export default function RoomPreview() {
           </ImageBackground>
           <View style={{ padding: 20, gap: 20 }}>
             <View style={{ gap: 5, flexDirection: "column" }}>
-              <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+              <Text
+                style={[{ fontSize: 16, fontWeight: "bold" }, themeTextStyle]}
+              >
                 Today's Booking
               </Text>
               <BookingsList />
@@ -108,8 +113,10 @@ export default function RoomPreview() {
                 flexDirection: "row",
               }}
             >
-              <Text>Today's Schedule</Text>
-              <Text>{dayjs().format("dddd, DD, MMM YYYY")}</Text>
+              <Text style={themeTextStyle}>Today's Schedule</Text>
+              <Text style={themeTextStyle}>
+                {dayjs().format("dddd, DD, MMM YYYY")}
+              </Text>
             </View>
             {schedule && schedule.length > 0 ? (
               schedule.map((item) => (
