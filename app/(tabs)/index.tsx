@@ -6,17 +6,21 @@ import { router } from "expo-router";
 import RoomCard from "@/components/cards/RoomCard";
 import BookingsList from "@/components/lists/BookingsList";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
+import useColorTheme from "@/hooks/useColorTheme";
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();
+  const { themeTextStyle, themeContainerStyle } = useColorTheme();
 
   return (
     <SafeAreaProvider>
       <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: "#fff",
-        }}
+        style={[
+          {
+            flex: 1,
+          },
+          themeContainerStyle,
+        ]}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
@@ -24,7 +28,7 @@ export default function Index() {
               flexDirection: "row",
               minWidth: "100%",
               justifyContent: "space-between",
-              paddingHorizontal: 10,
+              paddingHorizontal: 15,
               paddingBottom: 20,
             }}
           >
