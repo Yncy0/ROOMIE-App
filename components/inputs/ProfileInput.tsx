@@ -9,10 +9,10 @@ type Props = {
 
 const ProfileInput = ({ username, onChangeText, onPress }: Props) => {
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View style={{ flexDirection: "row", gap: 10 }}>
       <TextInput value={username || ""} onChangeText={onChangeText} />
       <Pressable onPress={onPress}>
-        <Ionicons name={"pencil-outline"} size={24} />
+        <Ionicons name={"pencil-outline"} size={16} />
       </Pressable>
     </View>
   );
