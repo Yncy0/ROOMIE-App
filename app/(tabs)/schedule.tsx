@@ -12,7 +12,7 @@ import {
   useUpdateScheduleDone,
   useUpdateScheduleOngoing,
 } from "@/hooks/queries/schedule/useUpdateSchedule";
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 
 const generateDatesForCurrentMonth = () => {
   const startOfMonth = dayjs();

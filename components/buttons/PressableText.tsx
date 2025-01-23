@@ -1,4 +1,4 @@
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, Text } from "react-native";
 

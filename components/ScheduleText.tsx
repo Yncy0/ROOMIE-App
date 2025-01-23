@@ -1,5 +1,5 @@
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 import dayjs from "dayjs";
 import { Text, View } from "react-native";
 

@@ -5,7 +5,7 @@ import { Stack, router } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 
 import IconInput from "@/components/inputs/IconInput";
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 
 const Search = () => {
   const [search, onSearch] = React.useState<string>("");

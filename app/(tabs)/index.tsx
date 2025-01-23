@@ -6,7 +6,7 @@ import { router } from "expo-router";
 import RoomCard from "@/components/cards/RoomCard";
 import BookingsList from "@/components/lists/BookingsList";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();

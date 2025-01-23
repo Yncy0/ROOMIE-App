@@ -1,6 +1,6 @@
 import { StyleSheet, useColorScheme } from "react-native";
 
-const useColorTheme = () => {
+const useThemeColor = () => {
     const colorScheme = useColorScheme();
 
     const themeTextStyle = colorScheme === "light"
@@ -8,13 +8,17 @@ const useColorTheme = () => {
         : styles.darkThemeText;
 
     const themeContainerStyle = colorScheme === "light"
+        ? styles.lightThemeContainer
+        : styles.darkThemeContainer;
+
+    const themeBackgroundStyle = colorScheme === "light"
         ? styles.lightThemeBackground
         : styles.darkThemeBackground;
 
     return { themeTextStyle, themeContainerStyle };
 };
 
-export default useColorTheme;
+export default useThemeColor;
 
 const styles = StyleSheet.create({
     lightThemeText: {
@@ -22,6 +26,12 @@ const styles = StyleSheet.create({
     },
     darkThemeText: {
         color: "#ffffff",
+    },
+    lightThemeContainer: {
+        backgroundColor: "#ffffff",
+    },
+    darkThemeContainer: {
+        backgroundColor: "#000000",
     },
     lightThemeBackground: {
         backgroundColor: "#ffffff",

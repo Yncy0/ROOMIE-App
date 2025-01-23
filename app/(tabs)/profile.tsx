@@ -8,7 +8,7 @@ import useFetchProfiles from "@/hooks/queries/profiles/useFetchProfiles";
 import Avatar from "@/components/Avatar";
 import { useUpdateProfiles } from "@/hooks/queries/profiles/useUpdateProfile";
 import ProfileInput from "@/components/inputs/ProfileInput";
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 
 export default function Profile() {
   const { username, setUsername, avatarUrl, setAvatarUrl } = useFetchProfiles();

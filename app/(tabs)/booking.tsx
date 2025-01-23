@@ -5,7 +5,7 @@ import { router } from "expo-router";
 
 import RoomCard from "@/components/cards/RoomCard";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 
 const screenWidth = Dimensions.get("screen").width;
 

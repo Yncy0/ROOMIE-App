@@ -22,7 +22,7 @@ import { useFetchBookedRoomsWithRooms } from "@/hooks/queries/bookedRooms/useFet
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
 import BookingsList from "@/components/lists/BookingsList";
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =

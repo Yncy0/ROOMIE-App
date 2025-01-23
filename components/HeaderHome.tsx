@@ -1,5 +1,5 @@
 import SearchButton from "@/components/buttons/SearchButton";
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 import { router } from "expo-router";
 
 import { Text, View } from "react-native";

@@ -8,7 +8,7 @@ import IconInput from "./inputs/IconInput";
 import useHandleReserve from "@/hooks/useHandleReserve";
 import { primaryColor } from "@/constants/Colors";
 import dayjs from "dayjs";
-import useColorTheme from "@/hooks/useColorTheme";
+import useColorTheme from "@/hooks/useThemeColor";
 
 type Props = {
   roomId: any;
