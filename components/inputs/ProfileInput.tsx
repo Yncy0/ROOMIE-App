@@ -1,4 +1,4 @@
-import useColorTheme from "@/hooks/useThemeColor";
+import useThemeColor from "@/hooks/useThemeColor";
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, View, TextInput } from "react-native";
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ProfileInput = ({ username, onChangeText, onPress }: Props) => {
-  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   return (
     <View style={{ flexDirection: "row", gap: 10 }}>

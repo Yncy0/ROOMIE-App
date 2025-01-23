@@ -9,13 +9,13 @@ import ViewShot, { captureRef } from "react-native-view-shot";
 
 import BackButton from "@/components/buttons/BackButton";
 import TextHorizontal from "@/components/TextHorizontal";
-import useColorTheme from "@/hooks/useThemeColor";
+import useThemeColor from "@/hooks/useThemeColor";
 
 const BookingReceipt = () => {
   const [status, requestPermission] = MediaLibrary.usePermissions();
   const viewRef = React.useRef<View>(null);
 
-  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   React.useEffect(() => {
     if (status === null) {

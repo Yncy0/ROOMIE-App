@@ -1,5 +1,5 @@
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
-import useColorTheme from "@/hooks/useThemeColor";
+import useThemeColor from "@/hooks/useThemeColor";
 import dayjs from "dayjs";
 import { Text, View } from "react-native";
 
@@ -9,7 +9,7 @@ type Props = {
 
 export default function ScheduleText({ items }: Props) {
   useSubscriptionSchedule();
-  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   const timeInFormat = dayjs(items.time_in).format("HH:mm a");
 

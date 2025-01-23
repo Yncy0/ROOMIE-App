@@ -1,9 +1,9 @@
 import { View, Text } from "react-native";
 import { Image } from "expo-image";
-import useColorTheme from "@/hooks/useThemeColor";
+import useThemeColor from "@/hooks/useThemeColor";
 
 const EmptyDisplay = () => {
-  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   return (
     <View

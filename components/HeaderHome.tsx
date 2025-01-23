@@ -1,11 +1,11 @@
 import SearchButton from "@/components/buttons/SearchButton";
-import useColorTheme from "@/hooks/useThemeColor";
+import useThemeColor from "@/hooks/useThemeColor";
 import { router } from "expo-router";
 
 import { Text, View } from "react-native";
 
 const HeaderHome = () => {
-  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   return (
     <View

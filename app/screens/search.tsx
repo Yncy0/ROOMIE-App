@@ -5,11 +5,11 @@ import { Stack, router } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 
 import IconInput from "@/components/inputs/IconInput";
-import useColorTheme from "@/hooks/useThemeColor";
+import useThemeColor from "@/hooks/useThemeColor";
 
 const Search = () => {
   const [search, onSearch] = React.useState<string>("");
-  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   useFocusEffect(
     React.useCallback(() => {

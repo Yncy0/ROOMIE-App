@@ -1,4 +1,4 @@
-import useColorTheme from "@/hooks/useThemeColor";
+import useThemeColor from "@/hooks/useThemeColor";
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, Text } from "react-native";
 
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function PressableText({ text, onPress }: Props) {
-  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   return (
     <Pressable

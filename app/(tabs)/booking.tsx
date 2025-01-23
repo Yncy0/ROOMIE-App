@@ -5,13 +5,13 @@ import { router } from "expo-router";
 
 import RoomCard from "@/components/cards/RoomCard";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
-import useColorTheme from "@/hooks/useThemeColor";
+import useThemeColor from "@/hooks/useThemeColor";
 
 const screenWidth = Dimensions.get("screen").width;
 
 const Booking = () => {
   const { data } = useFetchRooms();
-  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   return (
     <SafeAreaProvider>

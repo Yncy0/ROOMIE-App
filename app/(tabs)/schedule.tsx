@@ -12,7 +12,7 @@ import {
   useUpdateScheduleDone,
   useUpdateScheduleOngoing,
 } from "@/hooks/queries/schedule/useUpdateSchedule";
-import useColorTheme from "@/hooks/useThemeColor";
+import useThemeColor from "@/hooks/useThemeColor";
 
 const generateDatesForCurrentMonth = () => {
   const startOfMonth = dayjs();
@@ -29,7 +29,7 @@ const generateDatesForCurrentMonth = () => {
 };
 
 export default function Schedule() {
-  const { themeContainerStyle, themeTextStyle } = useColorTheme();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
   const [selectedDate, setSelectedDate] = React.useState<string>("");
 
   const selectedDateFormat = dayjs(selectedDate).format("dddd: DD MMMM YYYY");
