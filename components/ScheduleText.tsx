@@ -42,7 +42,7 @@ export default function ScheduleText({ items }: Props) {
           >{`${items.course.course_name} ${items.course.course_year}${items.course.course_section} `}</Text>
           <Text
             style={{ fontSize: 12 }}
-          >{`${items.timez_in} - ${items.timez_out}`}</Text>
+          >{`${items.time_in} - ${items.time_out}`}</Text>
         </View>
       </View>
     </View>

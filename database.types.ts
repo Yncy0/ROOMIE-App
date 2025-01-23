@@ -185,8 +185,6 @@ export type Database = {
           subject_id: string | null
           time_in: string | null
           time_out: string | null
-          timez_in: string | null
-          timez_out: string | null
         }
         Insert: {
           course_id?: string | null
@@ -199,8 +197,6 @@ export type Database = {
           subject_id?: string | null
           time_in?: string | null
           time_out?: string | null
-          timez_in?: string | null
-          timez_out?: string | null
         }
         Update: {
           course_id?: string | null
@@ -213,8 +209,6 @@ export type Database = {
           subject_id?: string | null
           time_in?: string | null
           time_out?: string | null
-          timez_in?: string | null
-          timez_out?: string | null
         }
         Relationships: [
           {

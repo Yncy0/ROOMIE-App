@@ -76,7 +76,7 @@ export function useFetchScheduleWithRoom(day: string, room_id: string) {
                 )
                 .eq("days", day)
                 .eq("room_id", room_id)
-                .order("timez_in", { ascending: true });
+                .order("time_in", { ascending: true });
 
             if (error) throw error;
 
