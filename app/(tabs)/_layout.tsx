@@ -48,6 +48,11 @@ export default function TabLayout() {
             />
           ),
         }}
+        listeners={{
+          tabPress: (e) => {
+            console.log("Schedule tab pressed", e);
+          },
+        }}
       />
       <Tabs.Screen
         name="booking"

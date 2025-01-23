@@ -21,10 +21,8 @@ const generateDatesForCurrentMonth = () => {
 
   let date = startOfMonth;
   while (date <= endOfMonth) {
-    if ((date = currentDate)) {
-      dates.push(date.clone());
-    }
-    date.add(1, "day");
+    dates.push(date.clone());
+    date = date.add(1, "day");
   }
   return dates;
 };
@@ -41,13 +39,17 @@ export default function Schedule() {
   useSubscriptionSchedule();
 
   React.useEffect(() => {
+    console.log("Schedule component rendered");
+  }, []);
+
+  React.useEffect(() => {
     const interval = setInterval(() => {
       // useUpdateScheduleOngoing();
       useUpdateScheduleDone();
       console.log("UPDATED SCHEDULE");
     }, 60000);
     return () => clearInterval(interval);
-  }, [data]);
+  }, [data?.length]);
 
   return (
     <SafeAreaProvider>
@@ -69,7 +71,7 @@ export default function Schedule() {
           </Text>
           <FlatList
             data={dates}
-            keyExtractor={(index) => index.toString()}
+            keyExtractor={(item, index) => item.toString()}
             renderItem={({ item }) => (
               <DateCard
                 date={item}
@@ -90,7 +92,11 @@ export default function Schedule() {
             {currentDateFormat ? currentDateFormat : selectedDateFormat}
           </Text>
           <View style={{ paddingHorizontal: 20, gap: 20 }}>
-            {data && data.length > 0 ? (
+            {isLoading ? (
+              <Text>Loading...</Text>
+            ) : error ? (
+              <Text>Error loading data</Text>
+            ) : data && data.length > 0 ? (
               data.map((item) => <ScheduleText key={item.id} items={item} />)
             ) : (
               <EmptyDisplay />

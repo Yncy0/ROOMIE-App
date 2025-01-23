@@ -31,7 +31,7 @@ export default function ScheduleText({ items }: Props) {
             </Text>
             <Text>{items.status}</Text>
           </View>
-          <Text style={{ fontSize: 12 }}>{items.subject.subject_name}</Text>
+          <Text style={{ fontSize: 12 }}>{items.subject.subject_code}</Text>
         </View>
         <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <Text

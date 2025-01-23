@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { supabase } from "../../../utils/supabase";
-import moment from "moment";
+import dayjs from "dayjs";
 import { Tables } from "@/database.types";
 
 type Schedule = Tables<"schedule">;
@@ -54,7 +54,7 @@ export function useFetchScheduleWithDay(day: string) {
                     `,
                 )
                 .eq("profile_id", userId)
-                .eq("days", moment(day).format("dddd"));
+                .eq("days", dayjs(day).format("dddd"));
 
             if (error) throw error;
             return scheduleWithDay;

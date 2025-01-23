@@ -4,8 +4,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { Stack } from "expo-router";
 import { setStatusBarStyle } from "expo-status-bar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-import config from "../tamagui.config";
 import {
   DarkTheme,
   DefaultTheme,
