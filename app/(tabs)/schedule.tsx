@@ -44,7 +44,7 @@ export default function Schedule() {
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      // useUpdateScheduleOngoing();
+      useUpdateScheduleOngoing();
       useUpdateScheduleDone();
       console.log("UPDATED SCHEDULE");
     }, 60000);

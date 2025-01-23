@@ -1,4 +1,5 @@
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
+import dayjs from "dayjs";
 import { Text, View } from "react-native";
 
 type Props = {
@@ -7,6 +8,8 @@ type Props = {
 
 export default function ScheduleText({ items }: Props) {
   useSubscriptionSchedule();
+
+  const timeInFormat = dayjs(items.time_in).format("HH:mm a");
 
   return (
     <View
@@ -31,7 +34,7 @@ export default function ScheduleText({ items }: Props) {
             </Text>
             <Text>{items.status}</Text>
           </View>
-          <Text style={{ fontSize: 12 }}>{items.subject.subject_code}</Text>
+          <Text style={{ fontSize: 12 }}>{items.subject.subject_name}</Text>
         </View>
         <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <Text
@@ -39,7 +42,7 @@ export default function ScheduleText({ items }: Props) {
           >{`${items.course.course_name} ${items.course.course_year}${items.course.course_section} `}</Text>
           <Text
             style={{ fontSize: 12 }}
-          >{`${items.time_in}-${items.time_out}`}</Text>
+          >{`${items.timez_in} - ${items.timez_out}`}</Text>
         </View>
       </View>
     </View>

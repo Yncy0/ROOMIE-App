@@ -150,7 +150,7 @@ const BookingReceipt = () => {
 
                 <Pressable
                   style={{
-                    backgroundColor: "white1",
+                    backgroundColor: "white",
                     alignSelf: "center",
                     alignItems: "center",
                     flexDirection: "row",

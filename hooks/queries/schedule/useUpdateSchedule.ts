@@ -9,7 +9,7 @@ export const useUpdateScheduleDone = async () => {
         .from("schedule")
         .update({ status: "done" })
         .eq("days", today)
-        .gte("time_out", timeNow);
+        .gte("timez_out", timeNow);
 
     if (error) throw error;
 
@@ -21,8 +21,8 @@ export const useUpdateScheduleOngoing = async () => {
         .from("schedule")
         .update({ status: "ongoing" })
         .eq("days", today)
-        .lte("time_out", timeNow)
-        .gte("time_in", timeNow);
+        .lte("timez_out", timeNow)
+        .gte("timez_in", timeNow);
 
     if (error) throw error;
 
