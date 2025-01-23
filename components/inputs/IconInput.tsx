@@ -2,6 +2,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { View, TextInput } from "react-native";
 import { Input } from "@rneui/themed";
+import { bgGray500 } from "@/constants/Colors";
 
 type Props = {
   icon: any;
@@ -26,6 +27,8 @@ export default function IconInput({
         alignItems: "center",
         justifyContent: "flex-start",
         minHeight: 50,
+        backgroundColor: bgGray500,
+        borderRadius: 50,
       }}
     >
       <View style={{ position: "absolute", left: 10, zIndex: 100 }}>

@@ -124,7 +124,7 @@ const BookingReceipt = () => {
                 style={{
                   alignItems: "center",
                   paddingBottom: 20,
-                  flexDirection: "row",
+                  flexDirection: "column",
                 }}
               >
                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>
@@ -149,11 +149,17 @@ const BookingReceipt = () => {
                 />
 
                 <Pressable
-                  style={{ backgroundColor: "white1", alignSelf: "center" }}
+                  style={{
+                    backgroundColor: "white1",
+                    alignSelf: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    gap: 5,
+                  }}
                   onPress={onSaveViewAsync}
                 >
-                  {/* icon={<Ionicons name={"download-outline"} size={20} />} */}
-                  Download
+                  <Ionicons name={"download-outline"} size={20} />
+                  <Text>Download</Text>
                 </Pressable>
               </View>
             </View>

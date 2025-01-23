@@ -85,6 +85,8 @@ export default function RoomPreview() {
                   backgroundColor: primaryColor,
                   borderRadius: 10,
                   minWidth: 180,
+                  padding: 5,
+                  alignItems: "center",
                 }}
                 onPress={handlePresentModalPress}
               >

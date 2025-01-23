@@ -4,6 +4,7 @@ import { Text, View } from "react-native";
 import { IconText } from "../IconText";
 import { primaryColor } from "@/constants/Colors";
 import moment from "moment";
+import dayjs from "dayjs";
 
 type Props = {
   items: any;
@@ -40,15 +41,15 @@ export default function BookedCard({ items }: Props) {
         }}
       />
       <View style={{ gap: 5, flexDirection: "column" }}>
-        <Text style={{ color: "white1" }}>{items.rooms.room_name}</Text>
-        <Text style={{ color: "white1" }}>{items.rooms.room_type}</Text>
+        <Text style={{ color: "white" }}>{items.rooms.room_name}</Text>
+        <Text style={{ color: "white" }}>{items.rooms.room_type}</Text>
         <IconText icon="albums-outline" text={items.subject_code} />
         <IconText icon="people-outline" text={items.course_and_section} />
         <IconText
           icon="time-outline"
-          text={`${moment(items.time_in).format("LT")}-${moment(
+          text={`${dayjs(items.time_in).format("HH:mm a")} - ${dayjs(
             items.time_out
-          ).format("LT")}`}
+          ).format("HH:mm a")}`}
         />
       </View>
     </View>

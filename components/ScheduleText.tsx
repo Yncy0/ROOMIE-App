@@ -14,7 +14,7 @@ export default function ScheduleText({ items }: Props) {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "$white1",
+        backgroundColor: "white",
         borderRadius: 10,
         elevation: 1,
         minWidth: "100%",
