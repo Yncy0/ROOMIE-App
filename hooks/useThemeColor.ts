@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffffff",
     },
     darkThemeContainer: {
-        backgroundColor: "#000000",
+        backgroundColor: black500,
     },
     lightThemeBackground: {
         backgroundColor: "#ffffff",

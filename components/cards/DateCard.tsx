@@ -61,7 +61,7 @@ export default function DateCard({
               ? "white"
               : formatDate === todayDate
               ? "white"
-              : "black",
+              : themeTextStyle.color,
           }}
         >
           {dayjs(date).format("DD")}
