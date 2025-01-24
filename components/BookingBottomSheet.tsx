@@ -34,7 +34,7 @@ export const BookingBottomSheet = ({
     handleReserve,
   } = useHandleReserve({ roomId, roomName, roomCategory, roomImage });
 
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeContainerStyle } = useThemeColor();
 
   return (
     <BottomSheetView

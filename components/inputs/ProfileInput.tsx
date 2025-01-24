@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ProfileInput = ({ username, onChangeText, onPress }: Props) => {
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeTextStyle } = useThemeColor();
 
   return (
     <View style={{ flexDirection: "row", gap: 10 }}>

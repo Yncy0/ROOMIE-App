@@ -13,17 +13,15 @@ import useThemeColor from "@/hooks/useThemeColor";
 export default function Profile() {
   const { username, setUsername, avatarUrl, setAvatarUrl } = useFetchProfiles();
   const updateProfiles = useUpdateProfiles();
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeContainerStyle, themeBackgroundStyle } = useThemeColor();
 
   return (
     <SafeAreaProvider>
       <SafeAreaView
-        style={[
-          {
-            flex: 1,
-          },
-          themeContainerStyle,
-        ]}
+        style={{
+          flex: 1,
+          backgroundColor: themeBackgroundStyle.backgroundColor,
+        }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View

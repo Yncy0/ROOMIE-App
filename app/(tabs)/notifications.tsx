@@ -4,10 +4,12 @@ import { ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function Notifications() {
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeBackgroundStyle, themeTextStyle } = useThemeColor();
 
   <SafeAreaProvider>
-    <SafeAreaView style={[{ flex: 1 }, themeContainerStyle]}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: themeBackgroundStyle.backgroundColor }}
+    >
       <ScrollView showsVerticalScrollIndicator={false}></ScrollView>
     </SafeAreaView>
   </SafeAreaProvider>;

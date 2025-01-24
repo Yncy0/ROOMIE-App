@@ -1,8 +1,7 @@
+import useThemeColor from "@/hooks/useThemeColor";
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { View, TextInput } from "react-native";
-import { Input } from "@rneui/themed";
-import { bgGray500 } from "@/constants/Colors";
 
 type Props = {
   icon: any;
@@ -19,6 +18,8 @@ export default function IconInput({
   value,
   onChangeText,
 }: Props) {
+  const { themeInputStyle, themeTextStyle } = useThemeColor();
+
   return (
     <View
       style={{
@@ -27,12 +28,12 @@ export default function IconInput({
         alignItems: "center",
         justifyContent: "flex-start",
         minHeight: 50,
-        backgroundColor: bgGray500,
+        backgroundColor: themeInputStyle.backgroundColor,
         borderRadius: 50,
       }}
     >
       <View style={{ position: "absolute", left: 10, zIndex: 100 }}>
-        <MaterialIcons name={icon} size={24} />
+        <MaterialIcons name={icon} size={24} color={themeTextStyle.color} />
       </View>
       <TextInput
         style={{ paddingLeft: 40, flex: 1 }}

@@ -15,7 +15,7 @@ const BookingReceipt = () => {
   const [status, requestPermission] = MediaLibrary.usePermissions();
   const viewRef = React.useRef<View>(null);
 
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeBackgroundStyle } = useThemeColor();
 
   React.useEffect(() => {
     if (status === null) {
@@ -66,7 +66,12 @@ const BookingReceipt = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={[{ flex: 1 }, themeContainerStyle]}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: themeBackgroundStyle.backgroundColor,
+        }}
+      >
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen name="Receipt" options={{ headerShown: false }} />
           <ViewShot style={{ padding: 30 }} ref={viewRef}>

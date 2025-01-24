@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function PressableText({ text, onPress }: Props) {
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeBackgroundStyle, themeTextStyle } = useThemeColor();
 
   return (
     <Pressable
@@ -24,11 +24,11 @@ export default function PressableText({ text, onPress }: Props) {
           width: "100%",
           height: 70,
           paddingHorizontal: 20,
+          backgroundColor: themeBackgroundStyle.backgroundColor,
         },
-        themeContainerStyle,
       ]}
     >
-      <Text style={[{ fontSize: 16 }, themeTextStyle]}>{text}</Text>
+      <Text style={{ fontSize: 16, color: themeTextStyle.color }}>{text}</Text>
       <Ionicons name={"chevron-forward"} size={16} />
     </Pressable>
   );

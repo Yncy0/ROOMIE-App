@@ -1,3 +1,4 @@
+import { black500, gray500 } from "@/constants/Colors";
 import { StyleSheet, useColorScheme } from "react-native";
 
 const useThemeColor = () => {
@@ -15,7 +16,16 @@ const useThemeColor = () => {
         ? styles.lightThemeBackground
         : styles.darkThemeBackground;
 
-    return { themeTextStyle, themeContainerStyle };
+    const themeInputStyle = colorScheme === "light"
+        ? styles.lightThemeInput
+        : styles.darkThemeInput;
+
+    return {
+        themeTextStyle,
+        themeContainerStyle,
+        themeBackgroundStyle,
+        themeInputStyle,
+    };
 };
 
 export default useThemeColor;
@@ -38,5 +48,11 @@ const styles = StyleSheet.create({
     },
     darkThemeBackground: {
         backgroundColor: "#000000",
+    },
+    lightThemeInput: {
+        backgroundColor: gray500,
+    },
+    darkThemeInput: {
+        backgroundColor: black500,
     },
 });

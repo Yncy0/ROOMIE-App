@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import useThemeColor from "@/hooks/useThemeColor";
 
 const EmptyDisplay = () => {
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeTextStyle } = useThemeColor();
 
   return (
     <View

@@ -11,22 +11,20 @@ const screenWidth = Dimensions.get("screen").width;
 
 const Booking = () => {
   const { data } = useFetchRooms();
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={themeContainerStyle}>
+      <SafeAreaView style={themeBackgroundStyle}>
         <Text
-          style={[
-            {
-              paddingHorizontal: 10,
-              paddingTop: 20,
-              paddingBottom: 10,
-              fontSize: 16,
-              fontWeight: "bold",
-            },
-            themeTextStyle,
-          ]}
+          style={{
+            paddingHorizontal: 10,
+            paddingTop: 20,
+            paddingBottom: 10,
+            fontSize: 16,
+            fontWeight: "bold",
+            color: themeTextStyle.color,
+          }}
         >
           Available Rooms
         </Text>

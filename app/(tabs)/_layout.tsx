@@ -9,7 +9,7 @@ import useThemeColor from "@/hooks/useThemeColor";
 export default function TabLayout() {
   const { isAuthenticated } = useAuth();
 
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeBackgroundStyle } = useThemeColor();
 
   if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
 
@@ -19,6 +19,9 @@ export default function TabLayout() {
         tabBarActiveTintColor: primaryColor1,
         headerShadowVisible: false,
         headerShown: true,
+        headerStyle: {
+          backgroundColor: themeBackgroundStyle.backgroundColor,
+        },
       }}
     >
       <Tabs.Screen

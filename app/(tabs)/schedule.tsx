@@ -17,7 +17,6 @@ import useThemeColor from "@/hooks/useThemeColor";
 const generateDatesForCurrentMonth = () => {
   const startOfMonth = dayjs();
   const endOfMonth = dayjs().endOf("month");
-  const currentDate = dayjs();
   const dates = [];
 
   let date = startOfMonth;
@@ -29,7 +28,8 @@ const generateDatesForCurrentMonth = () => {
 };
 
 export default function Schedule() {
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeContainerStyle, themeTextStyle, themeBackgroundStyle } =
+    useThemeColor();
   const [selectedDate, setSelectedDate] = React.useState<string>("");
 
   const selectedDateFormat = dayjs(selectedDate).format("dddd: DD MMMM YYYY");
@@ -56,23 +56,19 @@ export default function Schedule() {
   return (
     <SafeAreaProvider>
       <SafeAreaView
-        style={[
-          {
-            flex: 1,
-          },
-          themeContainerStyle,
-        ]}
+        style={{
+          flex: 1,
+          backgroundColor: themeBackgroundStyle.backgroundColor,
+        }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text
-            style={[
-              {
-                minWidth: "100%",
-                paddingHorizontal: 20,
-                paddingBottom: 20,
-              },
-              themeTextStyle,
-            ]}
+            style={{
+              minWidth: "100%",
+              paddingHorizontal: 20,
+              paddingBottom: 20,
+              color: themeTextStyle.color,
+            }}
           >
             My Schedule
           </Text>
@@ -96,10 +92,12 @@ export default function Schedule() {
             initialNumToRender={4}
           />
           <Text
-            style={[
-              { minWidth: "100%", padding: 20, fontWeight: 700 },
-              themeTextStyle,
-            ]}
+            style={{
+              minWidth: "100%",
+              padding: 20,
+              fontWeight: 700,
+              color: themeTextStyle.color,
+            }}
           >
             {currentDateFormat ? currentDateFormat : selectedDateFormat}
           </Text>

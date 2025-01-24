@@ -16,18 +16,16 @@ export default function ScheduleText({ items }: Props) {
 
   return (
     <View
-      style={[
-        {
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 10,
-          elevation: 1,
-          minWidth: "100%",
-          padding: 15,
-        },
-        themeContainerStyle,
-      ]}
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        elevation: 1,
+        minWidth: "100%",
+        padding: 15,
+        backgroundColor: themeContainerStyle.backgroundColor,
+      }}
     >
       <View style={{ flex: 1, gap: 5, flexDirection: "column" }}>
         <View>
@@ -35,22 +33,26 @@ export default function ScheduleText({ items }: Props) {
             style={{ justifyContent: "space-between", flexDirection: "row" }}
           >
             <Text
-              style={[{ fontSize: 14, fontWeight: "bold" }, themeTextStyle]}
+              style={{
+                fontSize: 14,
+                fontWeight: "bold",
+                color: themeTextStyle.color,
+              }}
             >
               {items.subject.subject_code}
             </Text>
             <Text style={themeTextStyle}>{items.status}</Text>
           </View>
-          <Text style={[{ fontSize: 12 }, themeTextStyle]}>
+          <Text style={{ fontSize: 12, color: themeTextStyle.color }}>
             {items.subject.subject_name}
           </Text>
         </View>
         <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <Text
-            style={[{ fontSize: 12 }, themeTextStyle]}
+            style={{ fontSize: 12, color: themeTextStyle.color }}
           >{`${items.course.course_name} ${items.course.course_year}${items.course.course_section} `}</Text>
           <Text
-            style={[{ fontSize: 12 }, themeTextStyle]}
+            style={{ fontSize: 12, color: themeTextStyle.color }}
           >{`${timeInFormat} - ${timeOutFormat}`}</Text>
         </View>
       </View>

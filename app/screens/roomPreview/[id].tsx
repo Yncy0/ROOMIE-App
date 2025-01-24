@@ -35,7 +35,7 @@ export default function RoomPreview() {
     }>();
   const day = dayjs().format("dddd");
 
-  const { themeContainerStyle, themeTextStyle } = useThemeColor();
+  const { themeBackgroundStyle, themeTextStyle } = useThemeColor();
 
   const { data: schedule } = useFetchScheduleWithRoom(day, id);
   const { data: bookedRooms } = useFetchBookedRoomsWithRooms(id);
@@ -50,7 +50,9 @@ export default function RoomPreview() {
   }, []);
 
   return (
-    <GestureHandlerRootView style={[{ flex: 1 }, themeContainerStyle]}>
+    <GestureHandlerRootView
+      style={{ flex: 1, backgroundColor: themeBackgroundStyle.backgroundColor }}
+    >
       <BottomSheetModalProvider>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen options={{ headerShown: false }} />

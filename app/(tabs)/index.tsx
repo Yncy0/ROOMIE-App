@@ -10,17 +10,15 @@ import useThemeColor from "@/hooks/useThemeColor";
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();
-  const { themeTextStyle, themeContainerStyle } = useThemeColor();
+  const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   return (
     <SafeAreaProvider>
       <SafeAreaView
-        style={[
-          {
-            flex: 1,
-          },
-          themeContainerStyle,
-        ]}
+        style={{
+          flex: 1,
+          backgroundColor: themeBackgroundStyle.backgroundColor,
+        }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
