@@ -16,3 +16,11 @@ export const generateDatesForCurrentMonth = () => {
 export const formatCompleteDate = (v?: string) => {
     return dayjs(v).format("dddd: DD MMMM YYYY");
 };
+
+export const formatTimeMeridian = (v?: string) => {
+    return dayjs(v).format("HH:mm a");
+};
+
+export const formatDate = (v?: string) => {
+    return dayjs(v).format("DD MMMM YYYY");
+};

@@ -32,6 +32,7 @@ import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
 import BookingsList from "@/components/lists/BookingsList";
 import useThemeColor from "@/hooks/useThemeColor";
+import { formatCompleteDate } from "@/utils/timeUtils";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -108,9 +109,7 @@ export default function RoomPreview() {
             </View>
             <View style={styles.container3}>
               <Text style={themeTextStyle}>Today's Schedule</Text>
-              <Text style={themeTextStyle}>
-                {dayjs().format("dddd, DD, MMM YYYY")}
-              </Text>
+              <Text style={themeTextStyle}>{formatCompleteDate()}</Text>
             </View>
             {schedule && schedule.length > 0 ? (
               schedule.map((item) => (

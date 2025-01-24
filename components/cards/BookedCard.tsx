@@ -5,6 +5,7 @@ import { IconText } from "../IconText";
 import { primaryColor } from "@/constants/Colors";
 import moment from "moment";
 import dayjs from "dayjs";
+import { formatTimeMeridian } from "@/utils/timeUtils";
 
 type Props = {
   items: any;
@@ -32,9 +33,9 @@ export default function BookedCard({ items }: Props) {
         <IconText icon="people-outline" text={items.course_and_section} />
         <IconText
           icon="time-outline"
-          text={`${dayjs(items.time_in).format("HH:mm a")} - ${dayjs(
+          text={`${formatTimeMeridian(items.time_in)} - ${formatTimeMeridian(
             items.time_out
-          ).format("HH:mm a")}`}
+          )}`}
         />
       </View>
     </View>

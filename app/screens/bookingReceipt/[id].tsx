@@ -98,28 +98,23 @@ const BookingReceipt = () => {
                 <Text style={styles.header2}>Your Booking Confirmed!</Text>
                 <Text>{`Reference No: "MR${referenceNumber}"`}</Text>
               </View>
-
               <Image source={{ uri: roomImage }} style={{}} />
               <View style={styles.container2}>
                 <Text style={styles.header2}>{roomName}</Text>
                 <Text>{roomCategory}</Text>
               </View>
               <Text style={styles.text1}>Details</Text>
-              <View style={{ minWidth: "100%", gap: 10 }}>
+              <View style={styles.text2}>
                 <TextHorizontal description="Date Booked:" value={date} />
-
                 <TextHorizontal
                   description="Time:"
                   value={`${timeIn}-${timeOut}`}
                 />
-
                 <TextHorizontal description="Subject" value={subjectCode} />
-
                 <TextHorizontal
                   description="Section"
                   value={courseAndSection}
                 />
-
                 <Pressable style={styles.pressable} onPress={onSaveViewAsync}>
                   <Ionicons name={"download-outline"} size={20} />
                   <Text>Download</Text>
@@ -159,6 +154,7 @@ const styles = StyleSheet.create({
   },
   image: { minHeight: 170, minWidth: 250 / 2, width: 250, maxWidth: 250 * 2 },
   text1: { paddingBottom: 20 },
+  text2: { minWidth: "100%", gap: 10 },
   pressable: {
     backgroundColor: "white",
     alignSelf: "center",
