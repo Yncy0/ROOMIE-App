@@ -20,11 +20,16 @@ const useThemeColor = () => {
         ? styles.lightThemeInput
         : styles.darkThemeInput;
 
+    const themePlaceholder = colorScheme === "light"
+        ? styles.lightThemePlaceholder
+        : styles.darkThemePlaceHolder;
+
     return {
         themeTextStyle,
         themeContainerStyle,
         themeBackgroundStyle,
         themeInputStyle,
+        themePlaceholder,
     };
 };
 
@@ -54,5 +59,11 @@ const styles = StyleSheet.create({
     },
     darkThemeInput: {
         backgroundColor: black500,
+    },
+    lightThemePlaceholder: {
+        color: "#f2f2f2",
+    },
+    darkThemePlaceHolder: {
+        color: "#636c72",
     },
 });

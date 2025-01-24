@@ -34,20 +34,18 @@ export const BookingBottomSheet = ({
     handleReserve,
   } = useHandleReserve({ roomId, roomName, roomCategory, roomImage });
 
-  const { themeContainerStyle } = useThemeColor();
+  const { themeBackgroundStyle } = useThemeColor();
 
   return (
     <BottomSheetView
-      style={[
-        {
-          flex: 1,
-          minHeight: "50%",
-          paddingHorizontal: 20,
-          paddingTop: 20,
-          paddingBottom: 50,
-        },
-        themeContainerStyle,
-      ]}
+      style={{
+        flex: 1,
+        minHeight: "50%",
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        paddingBottom: 50,
+        backgroundColor: themeBackgroundStyle.backgroundColor,
+      }}
     >
       <View
         style={{

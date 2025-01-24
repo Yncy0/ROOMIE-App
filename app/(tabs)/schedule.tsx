@@ -49,7 +49,7 @@ export default function Schedule() {
       useUpdateScheduleOngoing();
       useUpdateScheduleDone();
       console.log("UPDATED SCHEDULE");
-    }, 60000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [data?.length]);
 

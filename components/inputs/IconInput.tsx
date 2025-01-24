@@ -18,7 +18,7 @@ export default function IconInput({
   value,
   onChangeText,
 }: Props) {
-  const { themeInputStyle, themeTextStyle } = useThemeColor();
+  const { themeInputStyle, themeTextStyle, themePlaceholder } = useThemeColor();
 
   return (
     <View
@@ -36,8 +36,9 @@ export default function IconInput({
         <MaterialIcons name={icon} size={24} color={themeTextStyle.color} />
       </View>
       <TextInput
-        style={{ paddingLeft: 40, flex: 1 }}
+        style={{ paddingLeft: 40, flex: 1, color: themeTextStyle.color }}
         placeholder={placeholder}
+        placeholderTextColor={themePlaceholder.color}
         value={value}
         onChangeText={onChangeText}
         onPress={onPress}
