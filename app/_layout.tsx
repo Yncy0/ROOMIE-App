@@ -17,11 +17,11 @@ export default function RootLayout() {
   const queryCLient = new QueryClient();
   const colorScheme = useColorScheme();
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      setStatusBarStyle("dark");
-    }, 0);
-  }, []);
+  // React.useEffect(() => {
+  //   setTimeout(() => {
+  //     setStatusBarStyle("dark");
+  //   }, 0);
+  // }, []);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
