@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import BookedCard from "../cards/BookedCard";
 import EmptyDisplay from "../EmptyDisplay";
@@ -34,11 +34,7 @@ const BookingsList = ({ isHorizontal, bookedRooms }: Props) => {
           horizontal={isHorizontal}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            gap: 20,
-            paddingHorizontal: 20,
-            paddingBottom: 20,
-          }}
+          contentContainerStyle={styles.list}
           initialNumToRender={7}
           data={bookedRooms}
           renderItem={({ item }) => (item ? <BookedCard items={item} /> : null)}
@@ -51,3 +47,11 @@ const BookingsList = ({ isHorizontal, bookedRooms }: Props) => {
 };
 
 export default BookingsList;
+
+const styles = StyleSheet.create({
+  list: {
+    gap: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+});

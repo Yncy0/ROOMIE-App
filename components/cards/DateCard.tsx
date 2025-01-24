@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import dayjs from "dayjs";
 import { View, Text } from "react-native";
 import { primaryColor } from "@/constants/Colors";
@@ -25,44 +25,42 @@ export default function DateCard({
   return (
     <Pressable onPress={() => setSelectedDate(date)}>
       <View
-        style={{
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 10,
-          elevation: 4,
-          height: 90,
-          width: 60,
-          backgroundColor: isSelected
-            ? primaryColor
-            : formatDate === todayDate
-            ? "gray"
-            : themeContainerStyle.backgroundColor,
-        }}
+        style={[
+          {
+            backgroundColor: isSelected
+              ? primaryColor
+              : formatDate === todayDate
+              ? "gray"
+              : themeContainerStyle.backgroundColor,
+          },
+          styles.container,
+        ]}
       >
         <Text
-          style={{
-            fontSize: 16,
-            fontWeight: "bold",
-            color: isSelected
-              ? "white"
-              : formatDate === todayDate
-              ? "white"
-              : themeTextStyle.color,
-          }}
+          style={[
+            {
+              color: isSelected
+                ? "white"
+                : formatDate === todayDate
+                ? "white"
+                : themeTextStyle.color,
+            },
+            styles.header1,
+          ]}
         >
           {dayjs(date).format("ddd")}
         </Text>
         <Text
-          style={{
-            fontSize: 16,
-            fontWeight: 900,
-            color: isSelected
-              ? "white"
-              : formatDate === todayDate
-              ? "white"
-              : themeTextStyle.color,
-          }}
+          style={[
+            {
+              color: isSelected
+                ? "white"
+                : formatDate === todayDate
+                ? "white"
+                : themeTextStyle.color,
+            },
+            styles.subHeader,
+          ]}
         >
           {dayjs(date).format("DD")}
         </Text>
@@ -70,3 +68,23 @@ export default function DateCard({
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    elevation: 4,
+    height: 90,
+    width: 60,
+  },
+  header1: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  subHeader: {
+    fontSize: 16,
+    fontWeight: 900,
+  },
+});

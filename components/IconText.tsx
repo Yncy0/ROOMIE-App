@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
   icon: any;
@@ -8,15 +8,18 @@ type Props = {
 
 export const IconText = ({ icon, text }: Props) => {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 5,
-      }}
-    >
+    <View style={styles.container}>
       <Ionicons name={icon} size={14} color={"#fff"} />
-      <Text style={{ color: "white" }}>{text}</Text>
+      <Text style={styles.text}>{text}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+  },
+  text: { color: "white" },
+});

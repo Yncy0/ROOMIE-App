@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import { IconText } from "../IconText";
 import { primaryColor } from "@/constants/Colors";
@@ -16,33 +16,18 @@ export default function BookedCard({ items }: Props) {
   }
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        backgroundColor: primaryColor,
-        borderRadius: 10,
-        gap: 20,
-        paddingHorizontal: 15,
-        minHeight: 150,
-        elevation: 10,
-      }}
-    >
+    <View style={styles.container}>
       <Image
         source={
           items.rooms.room_image
             ? { uri: items.rooms.room_image }
             : require("@/assets/images/image-placeholder.png")
         }
-        style={{
-          width: 120,
-          height: 120,
-          borderRadius: 10,
-        }}
+        style={styles.image}
       />
-      <View style={{ gap: 5, flexDirection: "column" }}>
-        <Text style={{ color: "white" }}>{items.rooms.room_name}</Text>
-        <Text style={{ color: "white" }}>{items.rooms.room_type}</Text>
+      <View style={styles.container1}>
+        <Text style={styles.text}>{items.rooms.room_name}</Text>
+        <Text style={styles.text}>{items.rooms.room_type}</Text>
         <IconText icon="albums-outline" text={items.subject_code} />
         <IconText icon="people-outline" text={items.course_and_section} />
         <IconText
@@ -55,3 +40,23 @@ export default function BookedCard({ items }: Props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: primaryColor,
+    borderRadius: 10,
+    gap: 20,
+    paddingHorizontal: 15,
+    minHeight: 150,
+    elevation: 10,
+  },
+  image: {
+    width: 120,
+    height: 120,
+    borderRadius: 10,
+  },
+  container1: { gap: 5, flexDirection: "column" },
+  text: { color: "white" },
+});

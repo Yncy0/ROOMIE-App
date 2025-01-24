@@ -1,6 +1,6 @@
 import useThemeColor from "@/hooks/useThemeColor";
 import { Ionicons } from "@expo/vector-icons";
-import { Pressable, Text } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 type Props = {
   text: string;
@@ -15,21 +15,31 @@ export default function PressableText({ text, onPress }: Props) {
       onPress={onPress}
       style={({ pressed }) => [
         {
-          backgroundColor: pressed ? "#D9D9D9" : "white",
+          backgroundColor: pressed
+            ? "#D9D9D9"
+            : themeBackgroundStyle.backgroundColor,
         },
-        {
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-          height: 70,
-          paddingHorizontal: 15,
-          backgroundColor: themeBackgroundStyle.backgroundColor,
-        },
+        styles.pressable,
       ]}
     >
-      <Text style={{ fontSize: 16, color: themeTextStyle.color }}>{text}</Text>
-      <Ionicons name={"chevron-forward"} size={16} />
+      <Text style={[styles.text, themeTextStyle]}>{text}</Text>
+      <Ionicons
+        name={"chevron-forward"}
+        size={16}
+        color={themeTextStyle.color}
+      />
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  pressable: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    height: 70,
+    paddingHorizontal: 15,
+  },
+  text: { fontSize: 16 },
+});
