@@ -6,6 +6,7 @@ import {
   Button,
   Text,
   BackHandler,
+  StyleSheet,
 } from "react-native";
 import {
   GestureHandlerRootView,
@@ -74,71 +75,38 @@ export default function RoomPreview() {
   );
 
   return (
-    <GestureHandlerRootView
-      style={{ flex: 1, backgroundColor: themeBackgroundStyle.backgroundColor }}
-    >
+    <GestureHandlerRootView style={[styles.container, themeBackgroundStyle]}>
       <BottomSheetModalProvider>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen options={{ headerShown: false }} />
           <ImageBackground
             source={{ uri: roomImage }}
-            style={{
-              height: 275,
-              justifyContent: "flex-end",
-            }}
+            style={styles.imageBackground}
           >
             {/* <BackButton
               onPress={() => router.replace({ pathname: customRoute })}
             /> */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                backgroundColor: "rgba(0,0,0,0.5)",
-                padding: 10,
-              }}
-            >
+            <View style={styles.opaque}>
               <View>
-                <Text
-                  style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
-                >
-                  {roomName}
-                </Text>
-                <Text style={{ color: "white", fontSize: 14 }}>
-                  {roomCategory}
-                </Text>
+                <Text style={styles.header1}>{roomName}</Text>
+                <Text style={styles.header2}>{roomCategory}</Text>
               </View>
               <Pressable
-                style={{
-                  backgroundColor: primaryColor,
-                  borderRadius: 10,
-                  minWidth: 180,
-                  padding: 10,
-                  alignItems: "center",
-                }}
+                style={styles.pressable}
                 onPress={handlePresentModalPress}
               >
-                <Text style={{ color: "white" }}>Book Now</Text>
+                <Text style={styles.text1}>Book Now</Text>
               </Pressable>
             </View>
           </ImageBackground>
-          <View style={{ padding: 20, gap: 20 }}>
-            <View style={{ gap: 5, flexDirection: "column" }}>
-              <Text
-                style={[{ fontSize: 16, fontWeight: "bold" }, themeTextStyle]}
-              >
+          <View style={styles.container1}>
+            <View style={styles.container2}>
+              <Text style={[styles.header3, themeTextStyle]}>
                 Today's Booking
               </Text>
               <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
             </View>
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexDirection: "row",
-              }}
-            >
+            <View style={styles.container3}>
               <Text style={themeTextStyle}>Today's Schedule</Text>
               <Text style={themeTextStyle}>
                 {dayjs().format("dddd, DD, MMM YYYY")}
@@ -155,9 +123,7 @@ export default function RoomPreview() {
         </ScrollView>
         <BottomSheetModal
           ref={bottomSheetMoadlRef}
-          handleStyle={{
-            backgroundColor: themeBackgroundStyle.backgroundColor,
-          }}
+          handleStyle={themeBackgroundStyle}
           handleIndicatorStyle={{
             backgroundColor: themeHandler.backgroundColor,
           }}
@@ -173,3 +139,36 @@ export default function RoomPreview() {
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  imageBackground: {
+    height: 275,
+    justifyContent: "flex-end",
+  },
+  opaque: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    padding: 10,
+  },
+  header1: { color: "white", fontSize: 20, fontWeight: "bold" },
+  header2: { color: "white", fontSize: 14 },
+  header3: { fontSize: 16, fontWeight: "bold" },
+  text1: { color: "white" },
+  pressable: {
+    backgroundColor: primaryColor,
+    borderRadius: 10,
+    minWidth: 180,
+    padding: 10,
+    alignItems: "center",
+  },
+  container1: { padding: 20, gap: 20 },
+  container2: { gap: 5, flexDirection: "column" },
+  container3: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+});

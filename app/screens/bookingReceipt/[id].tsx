@@ -2,7 +2,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { Alert, Image, Pressable, ScrollView, View, Text } from "react-native";
+import {
+  Alert,
+  Image,
+  Pressable,
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+} from "react-native";
 
 import * as MediaLibrary from "expo-media-library";
 import ViewShot, { captureRef } from "react-native-view-shot";
@@ -66,30 +74,12 @@ const BookingReceipt = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: themeBackgroundStyle.backgroundColor,
-        }}
-      >
+      <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen name="Receipt" options={{ headerShown: false }} />
           <ViewShot style={{ padding: 30 }} ref={viewRef}>
-            <View
-              style={{
-                flexDirection: "column",
-                width: "100%",
-                flex: 1,
-                alignItems: "center",
-                paddingVertical: 20,
-                paddingHorizontal: 15,
-                gap: 20,
-                backgroundColor: "white",
-                borderRadius: 10,
-                elevation: 10,
-              }}
-            >
-              <View
+            <View style={styles.body}>
+              {/* <View
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -101,46 +91,20 @@ const BookingReceipt = () => {
                   onPress={() => router.replace("/(tabs)")}
                   size={24}
                 />
-              </View>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: "bold",
-                  alignSelf: "center",
-                }}
-              >
-                Reservation Details
-              </Text>
+              </View> */}
+              <Text style={styles.header1}>Reservation Details</Text>
               <Ionicons name={"checkmark-circle-sharp"} size={74} />
-              <View style={{ alignItems: "center", flexDirection: "column" }}>
-                <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                  Your Booking Confirmed!
-                </Text>
+              <View style={styles.container1}>
+                <Text style={styles.header2}>Your Booking Confirmed!</Text>
                 <Text>{`Reference No: "MR${referenceNumber}"`}</Text>
               </View>
 
-              <Image
-                source={{ uri: roomImage }}
-                style={{
-                  minHeight: 170,
-                  minWidth: 250 / 2,
-                  width: 250,
-                  maxWidth: 250 * 2,
-                }}
-              />
-              <View
-                style={{
-                  alignItems: "center",
-                  paddingBottom: 20,
-                  flexDirection: "column",
-                }}
-              >
-                <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                  {roomName}
-                </Text>
+              <Image source={{ uri: roomImage }} style={{}} />
+              <View style={styles.container2}>
+                <Text style={styles.header2}>{roomName}</Text>
                 <Text>{roomCategory}</Text>
               </View>
-              <Text style={{ paddingBottom: 20 }}>Details</Text>
+              <Text style={styles.text1}>Details</Text>
               <View style={{ minWidth: "100%", gap: 10 }}>
                 <TextHorizontal description="Date Booked:" value={date} />
 
@@ -156,16 +120,7 @@ const BookingReceipt = () => {
                   value={courseAndSection}
                 />
 
-                <Pressable
-                  style={{
-                    backgroundColor: "white",
-                    alignSelf: "center",
-                    alignItems: "center",
-                    flexDirection: "row",
-                    gap: 5,
-                  }}
-                  onPress={onSaveViewAsync}
-                >
+                <Pressable style={styles.pressable} onPress={onSaveViewAsync}>
                   <Ionicons name={"download-outline"} size={20} />
                   <Text>Download</Text>
                 </Pressable>
@@ -179,3 +134,36 @@ const BookingReceipt = () => {
 };
 
 export default BookingReceipt;
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  body: {
+    flexDirection: "column",
+    width: "100%",
+    flex: 1,
+    alignItems: "center",
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    gap: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    elevation: 10,
+  },
+  header1: { fontSize: 16, fontWeight: "bold", alignSelf: "center" },
+  header2: { fontSize: 18, fontWeight: "bold" },
+  container1: { alignItems: "center", flexDirection: "column" },
+  container2: {
+    alignItems: "center",
+    paddingBottom: 20,
+    flexDirection: "column",
+  },
+  image: { minHeight: 170, minWidth: 250 / 2, width: 250, maxWidth: 250 * 2 },
+  text1: { paddingBottom: 20 },
+  pressable: {
+    backgroundColor: "white",
+    alignSelf: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 5,
+  },
+});

@@ -19,10 +19,10 @@ const HeaderHome = () => {
       <Text style={[{ fontSize: 20, fontWeight: "bold" }, themeTextStyle]}>
         Home
       </Text>
-      <SearchButton
+      {/* <SearchButton
         onPress={() => router.replace("/screens/search")}
         size={24}
-      />
+      /> */}
     </View>
   );
 };

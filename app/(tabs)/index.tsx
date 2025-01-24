@@ -1,6 +1,13 @@
 import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { Link, router } from "expo-router";
 
 import RoomCard from "@/components/cards/RoomCard";
@@ -14,27 +21,14 @@ import {
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();
-  const { data: bookedRooms } = useFetchBookedRoomsWithUser();
+  const { data: bookedRooms } = useFetchBookedRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: themeBackgroundStyle.backgroundColor,
-        }}
-      >
+      <SafeAreaView style={[styles.backgroundContainer, themeBackgroundStyle]}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              flexDirection: "row",
-              minWidth: "100%",
-              justifyContent: "space-between",
-              paddingHorizontal: 15,
-              paddingBottom: 20,
-            }}
-          >
+          <View style={styles.container1}>
             <Text style={themeTextStyle}>My Booking</Text>
             <Pressable>
               <Link href={"/(tabs)/booking"} style={themeTextStyle}>
@@ -43,15 +37,7 @@ export default function Index() {
             </Pressable>
           </View>
           <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
-          <View
-            style={{
-              flexDirection: "row",
-              minWidth: "100%",
-              justifyContent: "space-between",
-              paddingHorizontal: 10,
-              paddingBottom: 20,
-            }}
-          >
+          <View style={styles.container2}>
             <Text style={themeTextStyle}>{"Available Rooms"}</Text>
             <Pressable>
               <Link href={"/(tabs)/rooms"} style={themeTextStyle}>
@@ -91,3 +77,23 @@ export default function Index() {
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  backgroundContainer: {
+    flex: 1,
+  },
+  container1: {
+    flexDirection: "row",
+    minWidth: "100%",
+    justifyContent: "space-between",
+    paddingHorizontal: 15,
+    paddingBottom: 20,
+  },
+  container2: {
+    flexDirection: "row",
+    minWidth: "100%",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    paddingBottom: 20,
+  },
+});

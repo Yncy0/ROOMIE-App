@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Dimensions } from "react-native";
@@ -15,21 +15,8 @@ const Rooms = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: themeBackgroundStyle.backgroundColor,
-        }}
-      >
-        <Text
-          style={{
-            paddingHorizontal: 15,
-            paddingBottom: 10,
-            color: themeTextStyle.color,
-          }}
-        >
-          Available Rooms
-        </Text>
+      <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
+        <Text style={[styles.header, themeTextStyle]}>Available Rooms</Text>
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
@@ -65,3 +52,11 @@ const Rooms = () => {
 };
 
 export default Rooms;
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  header: {
+    paddingHorizontal: 15,
+    paddingBottom: 10,
+  },
+});
