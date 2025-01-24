@@ -19,7 +19,11 @@ const ProfileInput = ({ username, onChangeText, onPress }: Props) => {
         onChangeText={onChangeText}
       />
       <Pressable onPress={onPress}>
-        <Ionicons name={"pencil-outline"} size={16} />
+        <Ionicons
+          name={"pencil-outline"}
+          size={16}
+          color={themeTextStyle.color}
+        />
       </Pressable>
     </View>
   );
