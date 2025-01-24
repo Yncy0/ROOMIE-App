@@ -25,8 +25,6 @@ const Rooms = () => {
           style={{
             paddingHorizontal: 15,
             paddingBottom: 10,
-            fontSize: 16,
-            fontWeight: "bold",
             color: themeTextStyle.color,
           }}
         >
