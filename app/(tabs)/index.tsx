@@ -7,9 +7,11 @@ import RoomCard from "@/components/cards/RoomCard";
 import BookingsList from "@/components/lists/BookingsList";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import useThemeColor from "@/hooks/useThemeColor";
+import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();
+  const { data: bookedRooms } = useFetchBookedRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   return (
@@ -35,7 +37,7 @@ export default function Index() {
               <Text>See all</Text>
             </Pressable>
           </View>
-          <BookingsList />
+          <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
           <View
             style={{
               flexDirection: "row",

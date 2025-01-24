@@ -106,7 +106,7 @@ export default function RoomPreview() {
               >
                 Today's Booking
               </Text>
-              <BookingsList />
+              <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
             </View>
             <View
               style={{
