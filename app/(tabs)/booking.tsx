@@ -4,11 +4,14 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import useThemeColor from "@/hooks/useThemeColor";
 import BookingsList from "@/components/lists/BookingsList";
-import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import {
+  useFetchBookedRooms,
+  useFetchBookedRoomsWithUser,
+} from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 
 const Booking = () => {
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-  const { data } = useFetchBookedRooms();
+  const { data } = useFetchBookedRoomsWithUser();
 
   return (
     <SafeAreaProvider>
