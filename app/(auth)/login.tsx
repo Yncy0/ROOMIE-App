@@ -3,6 +3,7 @@ import { Alert, StyleSheet, View, AppState, Image } from "react-native";
 import { supabase } from "@/utils/supabase";
 import { Button, Input } from "@rneui/themed";
 import { Stack } from "expo-router";
+import useThemeColor from "@/hooks/useThemeColor";
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -20,6 +21,9 @@ export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { themeBackgroundStyle, themeInputStyle, themeTextStyle } =
+    useThemeColor();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -52,7 +56,7 @@ export default function Auth() {
     <View
       style={{
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: themeBackgroundStyle.backgroundColor,
         paddingTop: 50,
         gap: 75,
       }}
@@ -69,31 +73,40 @@ export default function Auth() {
         />
         <Input
           label="Email"
-          leftIcon={{ type: "font-awesome", name: "envelope", size: 16 }}
+          leftIcon={{
+            type: "font-awesome",
+            name: "envelope",
+            size: 16,
+            color: "#636c72",
+          }}
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={"none"}
-          inputStyle={{ fontSize: 16 }}
+          inputStyle={{ fontSize: 16, color: themeTextStyle.color }}
           inputContainerStyle={{
             borderBottomWidth: 0,
-            backgroundColor: "#f2f2f2",
+            backgroundColor: themeInputStyle.backgroundColor,
             paddingHorizontal: 10,
             borderRadius: 50,
           }}
         />
         <Input
           label="Password"
-          leftIcon={{ type: "font-awesome", name: "lock" }}
+          leftIcon={{
+            type: "font-awesome",
+            name: "lock",
+            color: "#636c72",
+          }}
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
           placeholder="Password"
           autoCapitalize={"none"}
-          inputStyle={{ fontSize: 16 }}
+          inputStyle={{ fontSize: 16, color: themeTextStyle.color }}
           inputContainerStyle={{
             borderBottomWidth: 0,
-            backgroundColor: "#f2f2f2",
+            backgroundColor: themeInputStyle.backgroundColor,
             paddingHorizontal: 10,
             borderRadius: 50,
           }}
