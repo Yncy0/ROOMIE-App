@@ -23,8 +23,7 @@ const Rooms = () => {
       >
         <Text
           style={{
-            paddingHorizontal: 10,
-            paddingTop: 20,
+            paddingHorizontal: 15,
             paddingBottom: 10,
             fontSize: 16,
             fontWeight: "bold",

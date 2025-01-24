@@ -62,7 +62,20 @@ export default function TabLayout() {
           title: "Booking",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "add-sharp" : "add-outline"}
+              name={focused ? "book-sharp" : "book-outline"}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="rooms"
+        options={{
+          title: "Rooms",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "layers-sharp" : "layers-outline"}
               color={color}
               size={24}
             />

@@ -1,13 +1,13 @@
 import { supabase } from "@/utils/supabase";
-import moment from "moment";
+import dayjs from "dayjs";
 
-const timeNow = moment().format("HH:mm:ss");
-const today = moment().format("dddd");
+const timeNow = dayjs().format("HH:mm:ss");
+const today = dayjs().format("dddd");
 
 export const useUpdateScheduleDone = async () => {
     const { data, error } = await supabase
         .from("schedule")
-        .update({ status: "done" })
+        .update({ status: "DONE" })
         .eq("days", today)
         .lte("time_out", timeNow);
 
@@ -19,7 +19,7 @@ export const useUpdateScheduleDone = async () => {
 export const useUpdateScheduleOngoing = async () => {
     const { data, error } = await supabase
         .from("schedule")
-        .update({ status: "ongoing" })
+        .update({ status: "ONGOING" })
         .eq("days", today)
         .lte("time_out", timeNow)
         .gte("time_in", timeNow);

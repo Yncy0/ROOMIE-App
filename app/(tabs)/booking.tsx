@@ -12,7 +12,12 @@ const Booking = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={themeBackgroundStyle}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: themeBackgroundStyle.backgroundColor,
+        }}
+      >
         <Text
           style={{
             paddingHorizontal: 15,

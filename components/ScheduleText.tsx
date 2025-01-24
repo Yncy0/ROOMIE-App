@@ -11,9 +11,6 @@ export default function ScheduleText({ items }: Props) {
   useSubscriptionSchedule();
   const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
-  const timeInFormat = dayjs(items.time_in).format("HH:mm a");
-  const timeOutFormat = dayjs(items.time_out).format("HH:mm a");
-
   return (
     <View
       style={{
@@ -53,7 +50,7 @@ export default function ScheduleText({ items }: Props) {
           >{`${items.course.course_name} ${items.course.course_year}${items.course.course_section} `}</Text>
           <Text
             style={{ fontSize: 12, color: themeTextStyle.color }}
-          >{`${timeInFormat} - ${timeOutFormat}`}</Text>
+          >{`${items.timef_in} - ${items.timef_out}`}</Text>
         </View>
       </View>
     </View>
