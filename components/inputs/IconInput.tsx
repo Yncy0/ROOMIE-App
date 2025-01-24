@@ -18,7 +18,7 @@ export default function IconInput({
   value,
   onChangeText,
 }: Props) {
-  const { themeInputStyle, themeTextStyle, themePlaceholder } = useThemeColor();
+  const { themeInputStyle, themeTextStyle } = useThemeColor();
 
   return (
     <View
@@ -38,7 +38,7 @@ export default function IconInput({
       <TextInput
         style={{ paddingLeft: 40, flex: 1, color: themeTextStyle.color }}
         placeholder={placeholder}
-        placeholderTextColor={themePlaceholder.color}
+        placeholderTextColor={"#636c72"}
         value={value}
         onChangeText={onChangeText}
         onPress={onPress}

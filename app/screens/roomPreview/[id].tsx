@@ -43,7 +43,8 @@ export default function RoomPreview() {
     }>();
   const day = dayjs().format("dddd");
 
-  const { themeBackgroundStyle, themeTextStyle } = useThemeColor();
+  const { themeBackgroundStyle, themeTextStyle, themeHandler } =
+    useThemeColor();
 
   const { data: schedule } = useFetchScheduleWithRoom(day, id);
   const { data: bookedRooms } = useFetchBookedRoomsWithRooms(id);
@@ -152,7 +153,15 @@ export default function RoomPreview() {
             )}
           </View>
         </ScrollView>
-        <BottomSheetModal ref={bottomSheetMoadlRef}>
+        <BottomSheetModal
+          ref={bottomSheetMoadlRef}
+          handleStyle={{
+            backgroundColor: themeBackgroundStyle.backgroundColor,
+          }}
+          handleIndicatorStyle={{
+            backgroundColor: themeHandler.backgroundColor,
+          }}
+        >
           <BookingBottomSheet
             roomId={id}
             roomName={roomName}
