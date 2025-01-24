@@ -13,37 +13,22 @@ import {
   useUpdateScheduleOngoing,
 } from "@/hooks/queries/schedule/useUpdateSchedule";
 import useThemeColor from "@/hooks/useThemeColor";
-
-//TODO: Make separate folder
-const generateDatesForCurrentMonth = () => {
-  const startOfMonth = dayjs();
-  const endOfMonth = dayjs().endOf("month");
-  const dates = [];
-
-  let date = startOfMonth;
-  while (date <= endOfMonth) {
-    dates.push(date.clone());
-    date = date.add(1, "day");
-  }
-  return dates;
-};
+import {
+  formatCompleteDate,
+  generateDatesForCurrentMonth,
+} from "@/utils/timeUtils";
 
 export default function Schedule() {
-  const { themeContainerStyle, themeTextStyle, themeBackgroundStyle } =
-    useThemeColor();
   const [selectedDate, setSelectedDate] = React.useState<string>("");
 
-  const selectedDateFormat = dayjs(selectedDate).format("dddd: DD MMMM YYYY");
-  const currentDateFormat = dayjs().format("dddd: DD MMMM YYYY");
+  const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
+  const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
+
+  const selectedDateFormat = formatCompleteDate(selectedDate);
+  const currentDateFormat = formatCompleteDate();
   const dates = generateDatesForCurrentMonth();
 
-  const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
-
   useSubscriptionSchedule();
-
-  React.useEffect(() => {
-    console.log("Schedule component rendered");
-  }, []);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
