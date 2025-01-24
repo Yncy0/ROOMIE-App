@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 
 import RoomCard from "@/components/cards/RoomCard";
 import BookingsList from "@/components/lists/BookingsList";
@@ -34,7 +34,9 @@ export default function Index() {
           >
             <Text style={themeTextStyle}>My Booking</Text>
             <Pressable>
-              <Text>See all</Text>
+              <Link href={"/(tabs)/booking"} style={themeTextStyle}>
+                See All
+              </Link>
             </Pressable>
           </View>
           <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
@@ -49,7 +51,9 @@ export default function Index() {
           >
             <Text style={themeTextStyle}>{"Available Rooms"}</Text>
             <Pressable>
-              <Text>{"See more"}</Text>
+              <Link href={"/(tabs)/rooms"} style={themeTextStyle}>
+                See More
+              </Link>
             </Pressable>
           </View>
           <FlatList
