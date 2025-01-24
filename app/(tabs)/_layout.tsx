@@ -18,11 +18,11 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: primaryColor1,
         headerShadowVisible: false,
-        headerTintColor: "black",
+        // headerTintColor: "black",
         headerShown: true,
-        tabBarStyle: {
-          backgroundColor: "#fff",
-        },
+        // tabBarStyle: {
+        //   backgroundColor: "#fff",
+        // },
       }}
     >
       <Tabs.Screen
