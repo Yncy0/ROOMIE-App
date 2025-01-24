@@ -23,7 +23,7 @@ export default function PressableText({ text, onPress }: Props) {
           justifyContent: "space-between",
           width: "100%",
           height: 70,
-          paddingHorizontal: 20,
+          paddingHorizontal: 15,
           backgroundColor: themeBackgroundStyle.backgroundColor,
         },
       ]}

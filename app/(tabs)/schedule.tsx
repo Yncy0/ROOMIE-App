@@ -65,7 +65,7 @@ export default function Schedule() {
           <Text
             style={{
               minWidth: "100%",
-              paddingHorizontal: 20,
+              paddingHorizontal: 15,
               paddingBottom: 20,
               color: themeTextStyle.color,
             }}
@@ -86,7 +86,7 @@ export default function Schedule() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
               gap: 10,
-              paddingHorizontal: 20,
+              paddingHorizontal: 15,
               paddingVertical: 10,
             }}
             initialNumToRender={4}
@@ -94,7 +94,7 @@ export default function Schedule() {
           <Text
             style={{
               minWidth: "100%",
-              padding: 20,
+              padding: 15,
               fontWeight: 700,
               color: themeTextStyle.color,
             }}

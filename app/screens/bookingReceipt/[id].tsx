@@ -82,7 +82,7 @@ const BookingReceipt = () => {
                 flex: 1,
                 alignItems: "center",
                 paddingVertical: 20,
-                paddingHorizontal: 20,
+                paddingHorizontal: 15,
                 gap: 20,
                 backgroundColor: "white",
                 borderRadius: 10,
