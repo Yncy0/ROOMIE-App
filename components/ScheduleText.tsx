@@ -1,4 +1,6 @@
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
+import useThemeColor from "@/hooks/useThemeColor";
+import dayjs from "dayjs";
 import { Text, View } from "react-native";
 
 type Props = {
@@ -7,6 +9,7 @@ type Props = {
 
 export default function ScheduleText({ items }: Props) {
   useSubscriptionSchedule();
+  const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   return (
     <View
@@ -14,11 +17,11 @@ export default function ScheduleText({ items }: Props) {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "white",
         borderRadius: 10,
         elevation: 1,
         minWidth: "100%",
         padding: 15,
+        backgroundColor: themeContainerStyle.backgroundColor,
       }}
     >
       <View style={{ flex: 1, gap: 5, flexDirection: "column" }}>
@@ -26,20 +29,28 @@ export default function ScheduleText({ items }: Props) {
           <View
             style={{ justifyContent: "space-between", flexDirection: "row" }}
           >
-            <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "bold",
+                color: themeTextStyle.color,
+              }}
+            >
               {items.subject.subject_code}
             </Text>
-            <Text>{items.status}</Text>
+            <Text style={themeTextStyle}>{items.status}</Text>
           </View>
-          <Text style={{ fontSize: 12 }}>{items.subject.subject_code}</Text>
+          <Text style={{ fontSize: 12, color: themeTextStyle.color }}>
+            {items.subject.subject_name}
+          </Text>
         </View>
         <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <Text
-            style={{ fontSize: 12 }}
+            style={{ fontSize: 12, color: themeTextStyle.color }}
           >{`${items.course.course_name} ${items.course.course_year}${items.course.course_section} `}</Text>
           <Text
-            style={{ fontSize: 12 }}
-          >{`${items.time_in}-${items.time_out}`}</Text>
+            style={{ fontSize: 12, color: themeTextStyle.color }}
+          >{`${items.timef_in} - ${items.timef_out}`}</Text>
         </View>
       </View>
     </View>

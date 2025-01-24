@@ -8,9 +8,12 @@ import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdate
 import { useDeleteBookedRooms } from "@/hooks/queries/bookedRooms/useDeleteBookedRooms";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
 
-const BookingsList = () => {
-  const { data: bookedRooms, isLoading, error } = useFetchBookedRooms();
+type Props = {
+  isHorizontal: boolean;
+  bookedRooms: any;
+};
 
+const BookingsList = ({ isHorizontal, bookedRooms }: Props) => {
   useSubscriptionBookedRoom();
 
   React.useEffect(() => {
@@ -28,8 +31,9 @@ const BookingsList = () => {
       {bookedRooms && bookedRooms.length > 0 ? (
         <FlatList
           keyExtractor={(item) => item.id.toString()}
-          horizontal
+          horizontal={isHorizontal}
           showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             gap: 20,
             paddingHorizontal: 20,

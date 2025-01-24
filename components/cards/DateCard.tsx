@@ -3,6 +3,7 @@ import { Pressable } from "react-native";
 import dayjs from "dayjs";
 import { View, Text } from "react-native";
 import { primaryColor } from "@/constants/Colors";
+import useThemeColor from "@/hooks/useThemeColor";
 
 type Props = {
   date: any;
@@ -19,6 +20,8 @@ export default function DateCard({
   const todayDate = dayjs().format("DD MMMM YYYY");
   const isSelected = formatDate === dayjs(selectedDate).format("DD MMMM YYYY");
 
+  const { themeTextStyle, themeContainerStyle } = useThemeColor();
+
   return (
     <Pressable onPress={() => setSelectedDate(date)}>
       <View
@@ -33,8 +36,8 @@ export default function DateCard({
           backgroundColor: isSelected
             ? primaryColor
             : formatDate === todayDate
-            ? "black"
-            : "white",
+            ? "gray"
+            : themeContainerStyle.backgroundColor,
         }}
       >
         <Text
@@ -45,7 +48,7 @@ export default function DateCard({
               ? "white"
               : formatDate === todayDate
               ? "white"
-              : "black",
+              : themeTextStyle.color,
           }}
         >
           {dayjs(date).format("ddd")}
@@ -58,7 +61,7 @@ export default function DateCard({
               ? "white"
               : formatDate === todayDate
               ? "white"
-              : "black",
+              : themeTextStyle.color,
           }}
         >
           {dayjs(date).format("DD")}

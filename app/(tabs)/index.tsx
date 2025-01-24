@@ -6,16 +6,20 @@ import { router } from "expo-router";
 import RoomCard from "@/components/cards/RoomCard";
 import BookingsList from "@/components/lists/BookingsList";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
+import useThemeColor from "@/hooks/useThemeColor";
+import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();
+  const { data: bookedRooms } = useFetchBookedRooms();
+  const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   return (
     <SafeAreaProvider>
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: "#fff",
+          backgroundColor: themeBackgroundStyle.backgroundColor,
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -24,16 +28,16 @@ export default function Index() {
               flexDirection: "row",
               minWidth: "100%",
               justifyContent: "space-between",
-              paddingHorizontal: 10,
+              paddingHorizontal: 15,
               paddingBottom: 20,
             }}
           >
-            <Text>My Booking</Text>
+            <Text style={themeTextStyle}>My Booking</Text>
             <Pressable>
               <Text>See all</Text>
             </Pressable>
           </View>
-          <BookingsList />
+          <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
           <View
             style={{
               flexDirection: "row",
@@ -43,7 +47,7 @@ export default function Index() {
               paddingBottom: 20,
             }}
           >
-            <Text>{"Available Rooms"}</Text>
+            <Text style={themeTextStyle}>{"Available Rooms"}</Text>
             <Pressable>
               <Text>{"See more"}</Text>
             </Pressable>

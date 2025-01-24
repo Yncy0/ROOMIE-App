@@ -5,9 +5,11 @@ import { Stack, router } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 
 import IconInput from "@/components/inputs/IconInput";
+import useThemeColor from "@/hooks/useThemeColor";
 
 const Search = () => {
   const [search, onSearch] = React.useState<string>("");
+  const { themeBackgroundStyle } = useThemeColor();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -26,7 +28,12 @@ const Search = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: themeBackgroundStyle.backgroundColor,
+        }}
+      >
         <Stack.Screen options={{ headerShown: false }} />
         <View>
           <IconInput

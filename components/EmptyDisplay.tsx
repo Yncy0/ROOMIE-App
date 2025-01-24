@@ -1,7 +1,10 @@
 import { View, Text } from "react-native";
 import { Image } from "expo-image";
+import useThemeColor from "@/hooks/useThemeColor";
 
 const EmptyDisplay = () => {
+  const { themeTextStyle } = useThemeColor();
+
   return (
     <View
       style={{
@@ -14,7 +17,7 @@ const EmptyDisplay = () => {
         source={require("@/assets/svg/booking_empty.svg")}
         style={{ width: 100, height: 100 }}
       />
-      <Text>Oops! It is empty</Text>
+      <Text style={themeTextStyle}>Oops! It is empty</Text>
     </View>
   );
 };

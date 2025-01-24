@@ -12,11 +12,11 @@ import {
   useUpdateScheduleDone,
   useUpdateScheduleOngoing,
 } from "@/hooks/queries/schedule/useUpdateSchedule";
+import useThemeColor from "@/hooks/useThemeColor";
 
 const generateDatesForCurrentMonth = () => {
   const startOfMonth = dayjs();
   const endOfMonth = dayjs().endOf("month");
-  const currentDate = dayjs();
   const dates = [];
 
   let date = startOfMonth;
@@ -28,6 +28,8 @@ const generateDatesForCurrentMonth = () => {
 };
 
 export default function Schedule() {
+  const { themeContainerStyle, themeTextStyle, themeBackgroundStyle } =
+    useThemeColor();
   const [selectedDate, setSelectedDate] = React.useState<string>("");
 
   const selectedDateFormat = dayjs(selectedDate).format("dddd: DD MMMM YYYY");
@@ -44,7 +46,7 @@ export default function Schedule() {
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      // useUpdateScheduleOngoing();
+      useUpdateScheduleOngoing();
       useUpdateScheduleDone();
       console.log("UPDATED SCHEDULE");
     }, 60000);
@@ -56,7 +58,7 @@ export default function Schedule() {
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: "#fff",
+          backgroundColor: themeBackgroundStyle.backgroundColor,
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -65,6 +67,7 @@ export default function Schedule() {
               minWidth: "100%",
               paddingHorizontal: 20,
               paddingBottom: 20,
+              color: themeTextStyle.color,
             }}
           >
             My Schedule
@@ -88,7 +91,14 @@ export default function Schedule() {
             }}
             initialNumToRender={4}
           />
-          <Text style={{ minWidth: "100%", padding: 20, fontWeight: 700 }}>
+          <Text
+            style={{
+              minWidth: "100%",
+              padding: 20,
+              fontWeight: 700,
+              color: themeTextStyle.color,
+            }}
+          >
             {currentDateFormat ? currentDateFormat : selectedDateFormat}
           </Text>
           <View style={{ paddingHorizontal: 20, gap: 20 }}>

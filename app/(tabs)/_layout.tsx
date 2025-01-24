@@ -4,9 +4,12 @@ import { Redirect, Tabs } from "expo-router";
 import HeaderHome from "@/components/HeaderHome";
 import { useAuth } from "@/providers/AuthProvider";
 import { primaryColor, primaryColor1 } from "@/constants/Colors";
+import useThemeColor from "@/hooks/useThemeColor";
 
 export default function TabLayout() {
   const { isAuthenticated } = useAuth();
+
+  const { themeBackgroundStyle } = useThemeColor();
 
   if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
 
@@ -15,10 +18,9 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: primaryColor1,
         headerShadowVisible: false,
-        headerTintColor: "black",
         headerShown: true,
-        tabBarStyle: {
-          backgroundColor: "#fff",
+        headerStyle: {
+          backgroundColor: themeBackgroundStyle.backgroundColor,
         },
       }}
     >
@@ -60,7 +62,20 @@ export default function TabLayout() {
           title: "Booking",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "add-sharp" : "add-outline"}
+              name={focused ? "book-sharp" : "book-outline"}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="rooms"
+        options={{
+          title: "Rooms",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "layers-sharp" : "layers-outline"}
               color={color}
               size={24}
             />

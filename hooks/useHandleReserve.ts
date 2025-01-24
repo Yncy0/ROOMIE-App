@@ -23,6 +23,14 @@ const useHandleReserve = ({
     roomCategory,
     roomImage,
 }: UseHandleReserveProps) => {
+    const dayjs = require("dayjs");
+    require("dayjs/plugin/timezone");
+    require("dayjs/plugin/utc");
+
+    // Load plugins
+    dayjs.extend(require("dayjs/plugin/timezone"));
+    dayjs.extend(require("dayjs/plugin/utc"));
+
     const [subjectCode, setSubjectCode] = useState("");
     const [courseAndSection, setCourseAndSection] = useState("");
 
@@ -30,6 +38,9 @@ const useHandleReserve = ({
     const timeInPicker = useTimePicker();
     const timeOutPicker = useTimePicker();
     const dayFormat = dayjs(datePicker.date).format("dddd");
+
+    const localTimeIn = dayjs(timeInPicker.time).tz("Asia/Manila").format();
+    const localTimeOut = dayjs(timeOutPicker.time).tz("Asia/Manila").format();
 
     const { session } = useAuth();
     const router = useRouter();
@@ -60,8 +71,8 @@ const useHandleReserve = ({
             const { bookedRooms, schedule } = await useCheckForOverlap(
                 roomId,
                 dayjs(datePicker.date).format("DD MMMM YYYY"),
-                dayjs(timeInPicker.time).toISOString(),
-                dayjs(timeOutPicker.time).toISOString(),
+                localTimeIn,
+                localTimeOut,
             );
             if (!bookedRooms || !schedule) {
                 Alert.alert(
@@ -76,14 +87,15 @@ const useHandleReserve = ({
                 dayjs(datePicker.date).format("DD MMMM YYYY"),
                 subjectCode,
                 courseAndSection,
-                dayjs(timeInPicker.time).toISOString(),
-                dayjs(timeOutPicker.time).toISOString(),
+                localTimeIn,
+                localTimeOut,
                 "ongoing",
             );
             onSuccess((await insert).id);
+            console.log(localTimeIn);
+            console.log(localTimeOut);
         } catch (error) {
             Alert.alert("Error, please contact the administrator");
-            console.log(dayjs(timeOutPicker.time).format("HH:mm:ssZ"));
         }
     };
 
@@ -96,8 +108,8 @@ const useHandleReserve = ({
                     subjectCode: subjectCode,
                     courseAndSection: courseAndSection,
                     date: dayjs(datePicker.date).format("DD MMMM YYYY"),
-                    timeIn: dayjs(timeInPicker.time).format("LT"),
-                    timeOut: dayjs(timeOutPicker.time).format("LT"),
+                    timeIn: dayjs(timeInPicker.time).format("HH:mm a"),
+                    timeOut: dayjs(timeOutPicker.time).format("HH:mm a"),
                     roomId: roomId,
                     roomCategory: roomCategory,
                     roomImage: roomImage,

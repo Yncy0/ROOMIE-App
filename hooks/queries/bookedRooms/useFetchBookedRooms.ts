@@ -22,6 +22,24 @@ export function useFetchBookedRooms() {
     return bookedRoomsQuery;
 }
 
+export function useFetchBookedRoomSingle() {
+    const bookedRoomsQuery = useQuery({
+        queryKey: ["booked_rooms"],
+        queryFn: async () => {
+            const { data: bookedRooms, error } = await supabase
+                .from("booked_rooms")
+                .select(`*, rooms(*)`)
+                .single();
+
+            if (error) throw error;
+
+            return bookedRooms;
+        },
+    });
+
+    return bookedRoomsQuery;
+}
+
 export function useFetchBookedRoomsWithRooms(id: string) {
     const bookedRoomsQuery = useQuery<BookedRooms[]>({
         queryKey: ["booked_rooms", id],
