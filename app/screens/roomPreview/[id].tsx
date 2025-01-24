@@ -1,5 +1,12 @@
 import React from "react";
-import { ImageBackground, ScrollView, View, Button, Text } from "react-native";
+import {
+  ImageBackground,
+  ScrollView,
+  View,
+  Button,
+  Text,
+  BackHandler,
+} from "react-native";
 import {
   GestureHandlerRootView,
   Pressable,
@@ -10,6 +17,7 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { primaryColor } from "@/constants/Colors";
 import { BookingBottomSheet } from "@/components/BookingBottomSheet";
@@ -49,6 +57,21 @@ export default function RoomPreview() {
     bottomSheetMoadlRef.current?.present();
   }, []);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        router.replace(customRoute);
+        return true; // Return true to prevent default behavior
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () => {
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+      };
+    }, [])
+  );
+
   return (
     <GestureHandlerRootView
       style={{ flex: 1, backgroundColor: themeBackgroundStyle.backgroundColor }}
@@ -60,12 +83,12 @@ export default function RoomPreview() {
             source={{ uri: roomImage }}
             style={{
               height: 275,
-              justifyContent: "space-between",
+              justifyContent: "flex-end",
             }}
           >
-            <BackButton
+            {/* <BackButton
               onPress={() => router.replace({ pathname: customRoute })}
-            />
+            /> */}
             <View
               style={{
                 flexDirection: "row",
