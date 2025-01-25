@@ -17,10 +17,6 @@
         "foregroundImage": "./assets/images/roomie-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "androidStatusBar": {
-        "backgroundColor": "#C2185B",
-        "translucent": false
-      },
       "package": "com.anonymous.ROOMIE_App"
     },
     "web": {
