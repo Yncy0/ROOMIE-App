@@ -13,14 +13,14 @@ export const generateDatesForCurrentMonth = () => {
     return dates;
 };
 
-export const formatCompleteDate = (v?: string) => {
+export const formatCompleteDate = (v?: any) => {
     return dayjs(v).format("dddd: DD MMMM YYYY");
 };
 
-export const formatTimeMeridian = (v?: string) => {
+export const formatTimeMeridian = (v?: any) => {
     return dayjs(v).format("HH:mm a");
 };
 
-export const formatDate = (v?: string) => {
+export const formatDate = (v?: any) => {
     return dayjs(v).format("DD MMMM YYYY");
 };

@@ -23,6 +23,7 @@ export default function BookedCard({ items }: Props) {
       pathname: "/screens/bookingPreview/[id]",
       params: {
         id: items.id,
+        roomId: items.room_id,
         roomImage: items.rooms.room_image,
         roomName: items.rooms.room_name,
         roomType: items.rooms.room_type,

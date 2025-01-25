@@ -14,22 +14,29 @@ import {
 
 import TextHorizontal from "@/components/TextHorizontal";
 import useThemeColor from "@/hooks/useThemeColor";
-import { formatTimeMeridian } from "@/utils/timeUtils";
+import { formatDate, formatTimeMeridian } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
 import { primaryColor } from "@/constants/Colors";
+import InputHorizontal from "@/components/InputHorizontal";
+import DatePicker from "react-native-date-picker";
+import useHandleEdit from "@/hooks/useHandleEdit";
+
+// Added hooks for DatePicker
 const BookingPreview = () => {
   const {
     id,
+    subjectCode,
+    courseAndSection,
+    roomId,
     roomImage,
     roomName,
     roomType,
     date,
-    subjectCode,
-    courseAndSection,
     timeIn,
     timeOut,
   } = useLocalSearchParams<{
     id: any;
+    roomId: any;
     roomImage: string;
     roomName: string;
     roomType: string;
@@ -43,6 +50,25 @@ const BookingPreview = () => {
   const { themeBackgroundStyle, themeTextStyle, themeContainerStyle } =
     useThemeColor();
 
+  const {
+    subjectCode: editSubjectCode,
+    setSubjectCode: setEditSubjectCode,
+    courseAndSection: editCourseAndSection,
+    setCourseAndSection: setEditCourseAndSection,
+    datePicker,
+    timeInPicker,
+    timeOutPicker,
+    handleEdit,
+  } = useHandleEdit({
+    bookingId: id,
+    roomId: roomId,
+    initialDate: date,
+    initialTimeIn: timeIn,
+    initialTimeOut: timeOut,
+    initialSubjectCode: subjectCode,
+    initialCourseAndSection: courseAndSection,
+  });
+
   pressBack("/(tabs)");
 
   return (
@@ -51,6 +77,29 @@ const BookingPreview = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen name="View" options={{ headerShown: false }} />
           <View style={[styles.body, themeBackgroundStyle]}>
+            <DatePicker
+              modal
+              open={datePicker.open}
+              date={datePicker.date}
+              onConfirm={datePicker.onConfirm}
+              onCancel={datePicker.onCancel}
+            />
+            <DatePicker
+              modal
+              open={timeInPicker.open}
+              date={timeInPicker.time}
+              mode="time"
+              onConfirm={timeInPicker.onConfirm}
+              onCancel={timeInPicker.onClose}
+            />
+            <DatePicker
+              modal
+              open={timeOutPicker.open}
+              date={timeOutPicker.time}
+              mode="time"
+              onConfirm={timeOutPicker.onConfirm}
+              onCancel={timeOutPicker.onClose}
+            />
             <Text style={[styles.header1, themeTextStyle]}>
               Reservation Details
             </Text>
@@ -59,24 +108,44 @@ const BookingPreview = () => {
             >{`Reference No: "MR${id}"`}</Text>
             <Image source={{ uri: roomImage }} style={styles.image} />
             <View style={styles.container2}>
-              <Text style={styles.header2}>{roomName}</Text>
-              <Text>{roomType}</Text>
+              <Text style={[styles.header2, themeTextStyle]}>{roomName}</Text>
+              <Text style={themeTextStyle}>{roomType}</Text>
             </View>
-            <Text style={styles.text1}>Details</Text>
+            <Text style={[styles.text1, themeTextStyle]}>Details</Text>
             <View style={styles.container3}>
-              <TextHorizontal description="Date Booked:" value={date} />
-              <TextHorizontal
-                description="Time:"
-                value={`${formatTimeMeridian(timeIn)}-${formatTimeMeridian(
-                  timeOut
-                )}`}
+              <InputHorizontal
+                description="Date Booked:"
+                onPress={() => datePicker.setOpen(true)}
+                value={formatDate(datePicker.date)}
+                onChangeText={() => {}}
               />
-              <TextHorizontal description="Subject" value={subjectCode} />
-              <TextHorizontal description="Section" value={courseAndSection} />
+              <InputHorizontal
+                description="Time in:"
+                onPress={() => timeInPicker.setOpen(true)}
+                value={formatTimeMeridian(timeInPicker.time)}
+                onChangeText={() => {}}
+              />
+              <InputHorizontal
+                description="Time out:"
+                onPress={() => timeOutPicker.setOpen(true)}
+                value={formatTimeMeridian(timeOutPicker.time)}
+                onChangeText={() => {}}
+              />
+              <InputHorizontal
+                description="Subject:"
+                value={editSubjectCode}
+                onChangeText={setEditSubjectCode}
+              />
+              <InputHorizontal
+                description="Section:"
+                value={editCourseAndSection}
+                onChangeText={setEditCourseAndSection}
+              />
             </View>
             <View style={styles.buttonContainer}>
               <Pressable
                 style={[styles.pressable, { backgroundColor: primaryColor }]}
+                onPress={handleEdit}
               >
                 <Text style={styles.textEdit}>Edit</Text>
               </Pressable>
@@ -108,7 +177,7 @@ const styles = StyleSheet.create({
   },
   header1: { fontSize: 16, fontWeight: "bold", alignSelf: "flex-start" },
   header2: { fontSize: 18, fontWeight: "bold" },
-  subHeader: { alignSelf: "flex-start" },
+  subHeader: { alignSelf: "center", textAlign: "center" },
   container2: {
     alignItems: "center",
     paddingBottom: 20,
@@ -129,7 +198,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 10,
   },
-  //
   textEdit: {
     color: "white",
   },
