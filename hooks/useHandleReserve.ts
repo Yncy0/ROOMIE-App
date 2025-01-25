@@ -9,7 +9,6 @@ import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRoo
 import { useAuth } from "@/providers/AuthProvider";
 import { useFetchScheduleWithRoom } from "./queries/schedule/useFetchSchedule";
 import useCheckForOverlap from "./queries/bookedRooms/useCheckOverlap";
-import useUpsertBookedRooms from "./queries/bookedRooms/useUpsertBookedRooms";
 
 interface UseHandleReserveProps {
     roomId: any;
