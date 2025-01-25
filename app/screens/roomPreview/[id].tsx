@@ -71,9 +71,6 @@ export default function RoomPreview() {
             source={{ uri: roomImage }}
             style={styles.imageBackground}
           >
-            {/* <BackButton
-              onPress={() => router.replace({ pathname: customRoute })}
-            /> */}
             <View style={styles.opaque}>
               <View>
                 <Text style={styles.header1}>{roomName}</Text>
@@ -95,8 +92,12 @@ export default function RoomPreview() {
               <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
             </View>
             <View style={styles.container3}>
-              <Text style={themeTextStyle}>Today's Schedule</Text>
-              <Text style={themeTextStyle}>{formatCompleteDate()}</Text>
+              <Text style={[styles.text2, themeTextStyle]}>
+                Today's Schedule
+              </Text>
+              <Text style={[styles.text2, themeTextStyle]}>
+                {formatCompleteDate()}
+              </Text>
             </View>
             {schedule && schedule.length > 0 ? (
               schedule.map((item) => (
@@ -127,7 +128,9 @@ export default function RoomPreview() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   imageBackground: {
     height: 275,
     justifyContent: "flex-end",
@@ -139,10 +142,26 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
     padding: 10,
   },
-  header1: { color: "white", fontSize: 20, fontWeight: "bold" },
-  header2: { color: "white", fontSize: 14 },
-  header3: { fontSize: 16, fontWeight: "bold" },
-  text1: { color: "white" },
+  header1: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  header2: {
+    color: "white",
+    fontSize: 14,
+  },
+  header3: {
+    fontSize: 16,
+    fontWeight: "bold",
+    paddingHorizontal: 15,
+  },
+  text1: {
+    color: "white",
+  },
+  text2: {
+    paddingHorizontal: 15,
+  },
   pressable: {
     backgroundColor: primaryColor,
     borderRadius: 10,
@@ -150,8 +169,14 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
   },
-  container1: { padding: 20, gap: 20 },
-  container2: { gap: 5, flexDirection: "column" },
+  container1: {
+    paddingTop: 20,
+    gap: 20,
+  },
+  container2: {
+    gap: 5,
+    flexDirection: "column",
+  },
   container3: {
     alignItems: "center",
     justifyContent: "space-between",

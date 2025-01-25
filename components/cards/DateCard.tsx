@@ -17,7 +17,6 @@ export default function DateCard({
   setSelectedDate,
 }: Props) {
   const formatDate = dayjs(date).format("DD MMMM YYYY");
-  const todayDate = dayjs().format("DD MMMM YYYY");
   const isSelected = formatDate === dayjs(selectedDate).format("DD MMMM YYYY");
 
   const { themeTextStyle, themeContainerStyle } = useThemeColor();
@@ -29,8 +28,6 @@ export default function DateCard({
           {
             backgroundColor: isSelected
               ? primaryColor
-              : formatDate === todayDate
-              ? "gray"
               : themeContainerStyle.backgroundColor,
           },
           styles.container,
@@ -39,11 +36,7 @@ export default function DateCard({
         <Text
           style={[
             {
-              color: isSelected
-                ? "white"
-                : formatDate === todayDate
-                ? "white"
-                : themeTextStyle.color,
+              color: isSelected ? "white" : themeTextStyle.color,
             },
             styles.header1,
           ]}
@@ -53,11 +46,7 @@ export default function DateCard({
         <Text
           style={[
             {
-              color: isSelected
-                ? "white"
-                : formatDate === todayDate
-                ? "white"
-                : themeTextStyle.color,
+              color: isSelected ? "white" : themeTextStyle.color,
             },
             styles.subHeader,
           ]}

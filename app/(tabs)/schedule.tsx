@@ -29,8 +29,6 @@ export default function Schedule() {
 
   const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
 
-  useSubscriptionSchedule();
-
   //TODO: change 60000 to 1000 during presentation
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -40,6 +38,8 @@ export default function Schedule() {
     }, 60000);
     return () => clearInterval(interval);
   }, [data?.length]);
+
+  useSubscriptionSchedule();
 
   return (
     <SafeAreaProvider>
