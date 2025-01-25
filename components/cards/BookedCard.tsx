@@ -12,8 +12,6 @@ type Props = {
 };
 
 export default function BookedCard({ items }: Props) {
-  useSubscriptionBookedRoom();
-
   if (!items || !items.rooms) {
     return null;
   }
@@ -35,6 +33,8 @@ export default function BookedCard({ items }: Props) {
       },
     });
   };
+
+  useSubscriptionBookedRoom();
 
   return (
     <Pressable style={styles.container} onPress={onPress}>
@@ -64,6 +64,7 @@ export default function BookedCard({ items }: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: primaryColor,
@@ -71,6 +72,7 @@ const styles = StyleSheet.create({
     gap: 20,
     paddingHorizontal: 15,
     minHeight: 150,
+    minWidth: 300,
     elevation: 10,
   },
   image: {

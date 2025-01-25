@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import BookedCard from "../cards/BookedCard";
 import EmptyDisplay from "../EmptyDisplay";
@@ -37,6 +37,7 @@ const BookingsList = ({ isHorizontal, bookedRooms }: Props) => {
           contentContainerStyle={styles.list}
           initialNumToRender={7}
           data={bookedRooms}
+          // ItemSeparatorComponent={() => <View style={{ width: 100 }} />}
           renderItem={({ item }) => (item ? <BookedCard items={item} /> : null)}
         />
       ) : (
