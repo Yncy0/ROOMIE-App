@@ -24,9 +24,9 @@ export default function ScheduleText({ items }: Props) {
           <Text style={styles.subHeader}>{items.subject.subject_name}</Text>
         </View>
         <View style={styles.container1}>
-          <Text
-            style={[styles.text1, themeTextStyle]}
-          >{`${items.course.course_name} ${items.course.course_year}${items.course.course_section} `}</Text>
+          <Text style={[styles.text1, themeTextStyle]}>
+            {items.course_name}
+          </Text>
           <Text
             style={[styles.text1, themeTextStyle]}
           >{`${items.timef_in} - ${items.timef_out}`}</Text>
