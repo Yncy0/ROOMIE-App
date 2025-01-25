@@ -78,6 +78,11 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 10,
   },
-  container1: { gap: 5, flexDirection: "column" },
-  text: { color: "white" },
+  container1: {
+    gap: 5,
+    flexDirection: "column",
+  },
+  text: {
+    color: "white",
+  },
 });

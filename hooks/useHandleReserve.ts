@@ -12,15 +12,13 @@ import useCheckForOverlap from "./queries/bookedRooms/useCheckOverlap";
 import useUpsertBookedRooms from "./queries/bookedRooms/useUpsertBookedRooms";
 
 interface UseHandleReserveProps {
-    id: any;
-    roomId?: any;
-    roomName?: string;
-    roomCategory?: string;
-    roomImage?: string;
+    roomId: any;
+    roomName: string;
+    roomCategory: string;
+    roomImage: string;
 }
 
 const useHandleReserve = ({
-    id,
     roomId,
     roomName,
     roomCategory,
@@ -84,8 +82,7 @@ const useHandleReserve = ({
                 return;
             }
 
-            const insert = useUpsertBookedRooms(
-                id,
+            const insert = useInsertBookedRooms(
                 session?.user.id,
                 roomId,
                 dayjs(datePicker.date).format("DD MMMM YYYY"),

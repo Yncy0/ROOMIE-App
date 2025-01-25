@@ -18,5 +18,8 @@ const TextHorizontal = ({ description, value }: Props) => {
 export default TextHorizontal;
 
 const styles = StyleSheet.create({
-  container: { justifyContent: "space-between", flexDirection: "row" },
+  container: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
 });

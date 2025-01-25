@@ -46,13 +46,27 @@ const styles = StyleSheet.create({
     minWidth: "100%",
     padding: 15,
   },
-  wrapper1: { flex: 1, gap: 5, flexDirection: "column" },
-  wrapper2: { justifyContent: "space-between", flexDirection: "row" },
+  wrapper1: {
+    flex: 1,
+    gap: 5,
+    flexDirection: "column",
+  },
+  wrapper2: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
   header1: {
     fontSize: 14,
     fontWeight: "bold",
   },
-  subHeader: { fontSize: 12 },
-  container1: { justifyContent: "space-between", flexDirection: "row" },
-  text1: { fontSize: 12 },
+  subHeader: {
+    fontSize: 12,
+  },
+  container1: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  text1: {
+    fontSize: 12,
+  },
 });

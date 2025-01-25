@@ -44,9 +44,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     minHeight: 50,
-
     borderRadius: 50,
   },
-  wrapper: { position: "absolute", left: 10, zIndex: 100 },
-  text: { paddingLeft: 40, flex: 1 },
+  wrapper: {
+    position: "absolute",
+    left: 10,
+    zIndex: 100,
+  },
+  text: {
+    paddingLeft: 40,
+    flex: 1,
+  },
 });

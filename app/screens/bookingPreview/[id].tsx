@@ -163,7 +163,9 @@ const BookingPreview = () => {
 export default BookingPreview;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   body: {
     flexDirection: "column",
     width: "100%",
@@ -175,17 +177,38 @@ const styles = StyleSheet.create({
     gap: 20,
     backgroundColor: "white",
   },
-  header1: { fontSize: 16, fontWeight: "bold", alignSelf: "flex-start" },
-  header2: { fontSize: 18, fontWeight: "bold" },
-  subHeader: { alignSelf: "center", textAlign: "center" },
+  header1: {
+    fontSize: 16,
+    fontWeight: "bold",
+    alignSelf: "flex-start",
+  },
+  header2: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  subHeader: {
+    alignSelf: "center",
+    textAlign: "center",
+  },
   container2: {
     alignItems: "center",
     paddingBottom: 20,
     flexDirection: "column",
   },
-  image: { minHeight: 170, minWidth: 250 / 2, width: 250, maxWidth: 250 * 2 },
-  text1: { paddingBottom: 20 },
-  container3: { minWidth: "100%", gap: 25, paddingBottom: 20 },
+  image: {
+    minHeight: 170,
+    minWidth: 250 / 2,
+    width: 250,
+    maxWidth: 250 * 2,
+  },
+  text1: {
+    paddingBottom: 20,
+  },
+  container3: {
+    minWidth: "100%",
+    gap: 25,
+    paddingBottom: 20,
+  },
   pressable: {
     flex: 1,
     alignSelf: "center",

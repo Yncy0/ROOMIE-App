@@ -41,5 +41,7 @@ const styles = StyleSheet.create({
     height: 70,
     paddingHorizontal: 15,
   },
-  text: { fontSize: 16 },
+  text: {
+    fontSize: 16,
+  },
 });

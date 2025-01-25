@@ -140,7 +140,9 @@ const BookingReceipt = () => {
 export default BookingReceipt;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   body: {
     flexDirection: "column",
     width: "100%",
@@ -153,17 +155,37 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 10,
   },
-  header1: { fontSize: 16, fontWeight: "bold", alignSelf: "center" },
-  header2: { fontSize: 18, fontWeight: "bold" },
-  container1: { alignItems: "center", flexDirection: "column" },
+  header1: {
+    fontSize: 16,
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
+  header2: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  container1: {
+    alignItems: "center",
+    flexDirection: "column",
+  },
   container2: {
     alignItems: "center",
     paddingBottom: 20,
     flexDirection: "column",
   },
-  image: { minHeight: 170, minWidth: 250 / 2, width: 250, maxWidth: 250 * 2 },
-  text1: { paddingBottom: 20 },
-  text2: { minWidth: "100%", gap: 10 },
+  image: {
+    minHeight: 170,
+    minWidth: 250 / 2,
+    width: 250,
+    maxWidth: 250 * 2,
+  },
+  text1: {
+    paddingBottom: 20,
+  },
+  text2: {
+    minWidth: "100%",
+    gap: 10,
+  },
   pressable: {
     backgroundColor: "white",
     alignSelf: "center",

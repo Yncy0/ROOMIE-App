@@ -82,7 +82,9 @@ export default function Schedule() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   header1: {
     minWidth: "100%",
     paddingHorizontal: 15,
