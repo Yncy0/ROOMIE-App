@@ -1,5 +1,5 @@
 import React from "react";
-import { View, BackHandler } from "react-native";
+import { View, BackHandler, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Stack, router } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
@@ -28,12 +28,7 @@ const Search = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: themeBackgroundStyle.backgroundColor,
-        }}
-      >
+      <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <Stack.Screen options={{ headerShown: false }} />
         <View>
           <IconInput
@@ -49,3 +44,7 @@ const Search = () => {
 };
 
 export default Search;
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+});

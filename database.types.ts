@@ -14,7 +14,6 @@ export type Database = {
           course_and_section: string | null
           created_at: string
           date: string | null
-          days: string | null
           id: string
           profile_id: string | null
           room_id: string | null
@@ -27,7 +26,6 @@ export type Database = {
           course_and_section?: string | null
           created_at?: string
           date?: string | null
-          days?: string | null
           id?: string
           profile_id?: string | null
           room_id?: string | null
@@ -40,7 +38,6 @@ export type Database = {
           course_and_section?: string | null
           created_at?: string
           date?: string | null
-          days?: string | null
           id?: string
           profile_id?: string | null
           room_id?: string | null

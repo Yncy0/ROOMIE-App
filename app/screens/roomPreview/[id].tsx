@@ -1,5 +1,13 @@
 import React from "react";
-import { ImageBackground, ScrollView, View, Button, Text } from "react-native";
+import {
+  ImageBackground,
+  ScrollView,
+  View,
+  Button,
+  Text,
+  BackHandler,
+  StyleSheet,
+} from "react-native";
 import {
   GestureHandlerRootView,
   Pressable,
@@ -10,6 +18,7 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { primaryColor } from "@/constants/Colors";
 import { BookingBottomSheet } from "@/components/BookingBottomSheet";
@@ -23,6 +32,7 @@ import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
 import BookingsList from "@/components/lists/BookingsList";
 import useThemeColor from "@/hooks/useThemeColor";
+import { formatCompleteDate } from "@/utils/timeUtils";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -35,7 +45,8 @@ export default function RoomPreview() {
     }>();
   const day = dayjs().format("dddd");
 
-  const { themeBackgroundStyle, themeTextStyle } = useThemeColor();
+  const { themeBackgroundStyle, themeTextStyle, themeHandler } =
+    useThemeColor();
 
   const { data: schedule } = useFetchScheduleWithRoom(day, id);
   const { data: bookedRooms } = useFetchBookedRoomsWithRooms(id);
@@ -49,76 +60,56 @@ export default function RoomPreview() {
     bottomSheetMoadlRef.current?.present();
   }, []);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        router.replace(customRoute);
+        return true; // Return true to prevent default behavior
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () => {
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+      };
+    }, [])
+  );
+
   return (
-    <GestureHandlerRootView
-      style={{ flex: 1, backgroundColor: themeBackgroundStyle.backgroundColor }}
-    >
+    <GestureHandlerRootView style={[styles.container, themeBackgroundStyle]}>
       <BottomSheetModalProvider>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen options={{ headerShown: false }} />
           <ImageBackground
             source={{ uri: roomImage }}
-            style={{
-              height: 275,
-              justifyContent: "space-between",
-            }}
+            style={styles.imageBackground}
           >
-            <BackButton
+            {/* <BackButton
               onPress={() => router.replace({ pathname: customRoute })}
-            />
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                backgroundColor: "rgba(0,0,0,0.5)",
-                padding: 10,
-              }}
-            >
+            /> */}
+            <View style={styles.opaque}>
               <View>
-                <Text
-                  style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
-                >
-                  {roomName}
-                </Text>
-                <Text style={{ color: "white", fontSize: 14 }}>
-                  {roomCategory}
-                </Text>
+                <Text style={styles.header1}>{roomName}</Text>
+                <Text style={styles.header2}>{roomCategory}</Text>
               </View>
               <Pressable
-                style={{
-                  backgroundColor: primaryColor,
-                  borderRadius: 10,
-                  minWidth: 180,
-                  padding: 10,
-                  alignItems: "center",
-                }}
+                style={styles.pressable}
                 onPress={handlePresentModalPress}
               >
-                <Text style={{ color: "white" }}>Book Now</Text>
+                <Text style={styles.text1}>Book Now</Text>
               </Pressable>
             </View>
           </ImageBackground>
-          <View style={{ padding: 20, gap: 20 }}>
-            <View style={{ gap: 5, flexDirection: "column" }}>
-              <Text
-                style={[{ fontSize: 16, fontWeight: "bold" }, themeTextStyle]}
-              >
+          <View style={styles.container1}>
+            <View style={styles.container2}>
+              <Text style={[styles.header3, themeTextStyle]}>
                 Today's Booking
               </Text>
               <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
             </View>
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexDirection: "row",
-              }}
-            >
+            <View style={styles.container3}>
               <Text style={themeTextStyle}>Today's Schedule</Text>
-              <Text style={themeTextStyle}>
-                {dayjs().format("dddd, DD, MMM YYYY")}
-              </Text>
+              <Text style={themeTextStyle}>{formatCompleteDate()}</Text>
             </View>
             {schedule && schedule.length > 0 ? (
               schedule.map((item) => (
@@ -129,7 +120,13 @@ export default function RoomPreview() {
             )}
           </View>
         </ScrollView>
-        <BottomSheetModal ref={bottomSheetMoadlRef}>
+        <BottomSheetModal
+          ref={bottomSheetMoadlRef}
+          handleStyle={themeBackgroundStyle}
+          handleIndicatorStyle={{
+            backgroundColor: themeHandler.backgroundColor,
+          }}
+        >
           <BookingBottomSheet
             roomId={id}
             roomName={roomName}
@@ -141,3 +138,36 @@ export default function RoomPreview() {
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  imageBackground: {
+    height: 275,
+    justifyContent: "flex-end",
+  },
+  opaque: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    padding: 10,
+  },
+  header1: { color: "white", fontSize: 20, fontWeight: "bold" },
+  header2: { color: "white", fontSize: 14 },
+  header3: { fontSize: 16, fontWeight: "bold" },
+  text1: { color: "white" },
+  pressable: {
+    backgroundColor: primaryColor,
+    borderRadius: 10,
+    minWidth: 180,
+    padding: 10,
+    alignItems: "center",
+  },
+  container1: { padding: 20, gap: 20 },
+  container2: { gap: 5, flexDirection: "column" },
+  container3: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+});

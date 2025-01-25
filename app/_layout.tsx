@@ -2,7 +2,7 @@ import React from "react";
 import AuthProvider from "@/providers/AuthProvider";
 import * as SplashScreen from "expo-splash-screen";
 import { Stack } from "expo-router";
-import { setStatusBarStyle } from "expo-status-bar";
+import { StatusBar } from "expo-status-bar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   DarkTheme,
@@ -17,14 +17,9 @@ export default function RootLayout() {
   const queryCLient = new QueryClient();
   const colorScheme = useColorScheme();
 
-  // React.useEffect(() => {
-  //   setTimeout(() => {
-  //     setStatusBarStyle("dark");
-  //   }, 0);
-  // }, []);
-
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <StatusBar style="auto" backgroundColor="transparent" />
       <AuthProvider>
         <QueryClientProvider client={queryCLient}>
           <Stack>

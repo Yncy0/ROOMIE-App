@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, ScrollView, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { supabase } from "@/utils/supabase";
@@ -17,24 +17,9 @@ export default function Profile() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: themeBackgroundStyle.backgroundColor,
-        }}
-      >
+      <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              flexDirection: "column",
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 7,
-              minWidth: "100%",
-              paddingBottom: 50,
-            }}
-          >
+          <View style={[styles.containerColumn, themeContainerStyle]}>
             <Avatar
               size={100}
               url={avatarUrl}
@@ -64,3 +49,18 @@ export default function Profile() {
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  containerColumn: {
+    flexDirection: "column",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 7,
+    minWidth: "100%",
+    paddingBottom: 50,
+  },
+});

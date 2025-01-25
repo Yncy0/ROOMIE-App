@@ -5,7 +5,7 @@ export const useDeleteBookedRooms = async () => {
     const { error } = await supabase
         .from("booked_rooms")
         .delete()
-        .eq("status", "done");
+        .eq("status", "DONE");
 
     if (error) throw error;
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, View, Text } from "react-native";
+import { Pressable, View, Text, StyleSheet } from "react-native";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import DatePicker from "react-native-date-picker";
 import moment from "moment";
@@ -34,29 +34,11 @@ export const BookingBottomSheet = ({
     handleReserve,
   } = useHandleReserve({ roomId, roomName, roomCategory, roomImage });
 
-  const { themeContainerStyle } = useThemeColor();
+  const { themeBackgroundStyle } = useThemeColor();
 
   return (
-    <BottomSheetView
-      style={[
-        {
-          flex: 1,
-          minHeight: "50%",
-          paddingHorizontal: 20,
-          paddingTop: 20,
-          paddingBottom: 50,
-        },
-        themeContainerStyle,
-      ]}
-    >
-      <View
-        style={{
-          minWidth: "100%",
-          alignItems: "center",
-          gap: 20,
-          flexDirection: "column",
-        }}
-      >
+    <BottomSheetView style={[styles.bottomSheet, themeBackgroundStyle]}>
+      <View style={styles.container}>
         <DatePicker
           modal
           open={datePicker.open}
@@ -115,19 +97,34 @@ export const BookingBottomSheet = ({
             onChangeText={() => {}}
           />
         </View>
-        <Pressable
-          style={{
-            backgroundColor: primaryColor,
-            minWidth: "100%",
-            alignItems: "center",
-            paddingVertical: 12,
-            borderRadius: 50,
-          }}
-          onPress={handleReserve}
-        >
-          <Text style={{ color: "white" }}>Reserve</Text>
+        <Pressable style={styles.pressable} onPress={handleReserve}>
+          <Text style={styles.text}>Reserve</Text>
         </Pressable>
       </View>
     </BottomSheetView>
   );
 };
+
+const styles = StyleSheet.create({
+  bottomSheet: {
+    flex: 1,
+    minHeight: "50%",
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 50,
+  },
+  container: {
+    minWidth: "100%",
+    alignItems: "center",
+    gap: 20,
+    flexDirection: "column",
+  },
+  pressable: {
+    backgroundColor: primaryColor,
+    minWidth: "100%",
+    alignItems: "center",
+    paddingVertical: 12,
+    borderRadius: 50,
+  },
+  text: { color: "white" },
+});

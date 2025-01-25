@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
   description: string;
@@ -8,7 +8,7 @@ type Props = {
 
 const TextHorizontal = ({ description, value }: Props) => {
   return (
-    <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
+    <View style={styles.container}>
       <Text>{description}</Text>
       <Text>{value}</Text>
     </View>
@@ -16,3 +16,7 @@ const TextHorizontal = ({ description, value }: Props) => {
 };
 
 export default TextHorizontal;
+
+const styles = StyleSheet.create({
+  container: { justifyContent: "space-between", flexDirection: "row" },
+});

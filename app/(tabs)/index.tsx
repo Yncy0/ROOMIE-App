@@ -1,13 +1,23 @@
 import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
-import { router } from "expo-router";
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { Link, router } from "expo-router";
 
 import RoomCard from "@/components/cards/RoomCard";
 import BookingsList from "@/components/lists/BookingsList";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import useThemeColor from "@/hooks/useThemeColor";
-import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import {
+  useFetchBookedRooms,
+  useFetchBookedRoomsWithUser,
+} from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();
@@ -16,40 +26,23 @@ export default function Index() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: themeBackgroundStyle.backgroundColor,
-        }}
-      >
+      <SafeAreaView style={[styles.backgroundContainer, themeBackgroundStyle]}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              flexDirection: "row",
-              minWidth: "100%",
-              justifyContent: "space-between",
-              paddingHorizontal: 15,
-              paddingBottom: 20,
-            }}
-          >
+          <View style={styles.container1}>
             <Text style={themeTextStyle}>My Booking</Text>
             <Pressable>
-              <Text>See all</Text>
+              <Link href={"/(tabs)/booking"} style={themeTextStyle}>
+                See All
+              </Link>
             </Pressable>
           </View>
           <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
-          <View
-            style={{
-              flexDirection: "row",
-              minWidth: "100%",
-              justifyContent: "space-between",
-              paddingHorizontal: 10,
-              paddingBottom: 20,
-            }}
-          >
+          <View style={styles.container2}>
             <Text style={themeTextStyle}>{"Available Rooms"}</Text>
             <Pressable>
-              <Text>{"See more"}</Text>
+              <Link href={"/(tabs)/rooms"} style={themeTextStyle}>
+                See More
+              </Link>
             </Pressable>
           </View>
           <FlatList
@@ -84,3 +77,23 @@ export default function Index() {
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  backgroundContainer: {
+    flex: 1,
+  },
+  container1: {
+    flexDirection: "row",
+    minWidth: "100%",
+    justifyContent: "space-between",
+    paddingHorizontal: 15,
+    paddingBottom: 20,
+  },
+  container2: {
+    flexDirection: "row",
+    minWidth: "100%",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    paddingBottom: 20,
+  },
+});

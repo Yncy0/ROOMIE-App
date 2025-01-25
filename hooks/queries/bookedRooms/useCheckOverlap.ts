@@ -17,17 +17,17 @@ const useCheckForOverlap = async (
             roomId,
         )
         .eq("date", date)
-        .or(`time_in.lte.${timeOut},time_out.gte.${timeIn}`);
+        .filter("time_in", "lte", timeOut)
+        .filter("time_out", "gte", timeIn);
 
     const { data: schedule, error: scheduleError } = await supabase
         .from("schedule")
         .select("*")
         .eq("room_id", roomId)
         .eq("days", today)
-        .eq("status", "ongoing");
+        .eq("status", "ONGOING");
 
     console.log("Schedule Data:", schedule);
-    console.log("Today", today);
 
     if (bookedRoomsError || scheduleError) {
         throw new Error(bookedRoomsError?.message || scheduleError?.message);
