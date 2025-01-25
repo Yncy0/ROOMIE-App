@@ -96,6 +96,7 @@ const useHandleReserve = ({
             console.log(localTimeOut);
         } catch (error) {
             Alert.alert("Error, please contact the administrator");
+            console.log(error);
         }
     };
 
