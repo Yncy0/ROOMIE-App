@@ -21,12 +21,13 @@ import {
 export default function Schedule() {
   const [selectedDate, setSelectedDate] = React.useState<string>("");
 
-  const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   const selectedDateFormat = formatCompleteDate(selectedDate);
   const currentDateFormat = formatCompleteDate();
   const dates = generateDatesForCurrentMonth();
+
+  const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
 
   useSubscriptionSchedule();
 
