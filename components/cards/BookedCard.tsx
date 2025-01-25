@@ -6,12 +6,15 @@ import { primaryColor } from "@/constants/Colors";
 import moment from "moment";
 import dayjs from "dayjs";
 import { formatTimeMeridian } from "@/utils/timeUtils";
+import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
 
 type Props = {
   items: any;
 };
 
 export default function BookedCard({ items }: Props) {
+  useSubscriptionBookedRoom();
+
   if (!items || !items.rooms) {
     return null;
   }

@@ -61,7 +61,8 @@
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
     "expo-notifications": "~0.29.12",
-    "expo-device": "~7.0.2"
+    "expo-device": "~7.0.2",
+    "expo-navigation-bar": "~4.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

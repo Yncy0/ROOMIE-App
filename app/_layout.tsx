@@ -10,8 +10,13 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useColorScheme } from "react-native";
+import * as NavigationBar from "expo-navigation-bar";
 
 // SplashScreen.preventAutoHideAsync();
+
+NavigationBar.setPositionAsync("absolute");
+NavigationBar.setBackgroundColorAsync("#ffffff00");
+NavigationBar.setButtonStyleAsync("light");
 
 export default function RootLayout() {
   const queryCLient = new QueryClient();
@@ -19,7 +24,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <StatusBar style="auto" backgroundColor="transparent" />
+      <StatusBar style="auto" backgroundColor="transparent" translucent />
       <AuthProvider>
         <QueryClientProvider client={queryCLient}>
           <Stack>
