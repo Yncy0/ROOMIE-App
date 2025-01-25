@@ -25,7 +25,6 @@ import { BookingBottomSheet } from "@/components/BookingBottomSheet";
 import BackButton from "@/components/buttons/BackButton";
 import ScheduleText from "@/components/ScheduleText";
 import EmptyDisplay from "@/components/EmptyDisplay";
-import BookedCard from "@/components/cards/BookedCard";
 import { useFetchScheduleWithRoom } from "@/hooks/queries/schedule/useFetchSchedule";
 import { useFetchBookedRoomsWithRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
@@ -33,6 +32,7 @@ import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscripti
 import BookingsList from "@/components/lists/BookingsList";
 import useThemeColor from "@/hooks/useThemeColor";
 import { formatCompleteDate } from "@/utils/timeUtils";
+import { pressBack } from "@/utils/pressBack";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -60,20 +60,7 @@ export default function RoomPreview() {
     bottomSheetMoadlRef.current?.present();
   }, []);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const onBackPress = () => {
-        router.replace(customRoute);
-        return true; // Return true to prevent default behavior
-      };
-
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
-
-      return () => {
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-      };
-    }, [])
-  );
+  pressBack(customRoute);
 
   return (
     <GestureHandlerRootView style={[styles.container, themeBackgroundStyle]}>

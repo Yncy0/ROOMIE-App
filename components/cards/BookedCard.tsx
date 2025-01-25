@@ -1,12 +1,11 @@
 import { Image } from "expo-image";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { IconText } from "../IconText";
 import { primaryColor } from "@/constants/Colors";
-import moment from "moment";
-import dayjs from "dayjs";
 import { formatTimeMeridian } from "@/utils/timeUtils";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
+import { router } from "expo-router";
 
 type Props = {
   items: any;
@@ -19,8 +18,25 @@ export default function BookedCard({ items }: Props) {
     return null;
   }
 
+  const onPress = () => {
+    router.replace({
+      pathname: "/screens/bookingPreview/[id]",
+      params: {
+        id: items.id,
+        roomImage: items.rooms.room_image,
+        roomName: items.rooms.room_name,
+        roomType: items.rooms.room_type,
+        date: items.date,
+        subjectCode: items.subject_code,
+        courseAndSection: items.course_and_section,
+        timeIn: items.time_in,
+        timeOut: items.time_out,
+      },
+    });
+  };
+
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Image
         source={
           items.rooms.room_image
@@ -41,7 +57,7 @@ export default function BookedCard({ items }: Props) {
           )}`}
         />
       </View>
-    </View>
+    </Pressable>
   );
 }
 

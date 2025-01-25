@@ -1,5 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import { router, Stack, useLocalSearchParams } from "expo-router";
+import {
+  router,
+  Stack,
+  useFocusEffect,
+  useLocalSearchParams,
+} from "expo-router";
 import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -10,6 +15,7 @@ import {
   View,
   Text,
   StyleSheet,
+  BackHandler,
 } from "react-native";
 
 import * as MediaLibrary from "expo-media-library";
@@ -18,6 +24,7 @@ import ViewShot, { captureRef } from "react-native-view-shot";
 import BackButton from "@/components/buttons/BackButton";
 import TextHorizontal from "@/components/TextHorizontal";
 import useThemeColor from "@/hooks/useThemeColor";
+import { pressBack } from "@/utils/pressBack";
 
 const BookingReceipt = () => {
   const [status, requestPermission] = MediaLibrary.usePermissions();
@@ -72,6 +79,8 @@ const BookingReceipt = () => {
     }
   };
 
+  pressBack("/(tabs)");
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
@@ -98,7 +107,7 @@ const BookingReceipt = () => {
                 <Text style={styles.header2}>Your Booking Confirmed!</Text>
                 <Text>{`Reference No: "MR${referenceNumber}"`}</Text>
               </View>
-              <Image source={{ uri: roomImage }} style={{}} />
+              <Image source={{ uri: roomImage }} style={styles.image} />
               <View style={styles.container2}>
                 <Text style={styles.header2}>{roomName}</Text>
                 <Text>{roomCategory}</Text>
