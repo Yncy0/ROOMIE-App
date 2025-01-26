@@ -19,7 +19,14 @@ export default function Profile() {
   const { themeContainerStyle, themeBackgroundStyle } = useThemeColor();
 
   React.useEffect(() => {
-    if (!loading) SplashScreen.hideAsync();
+    if (!loading) {
+      console.log("profile.tsx loaded!", loading);
+
+      SplashScreen.hideAsync();
+      console.log("hide SplashScreen profile.tsx");
+    } else {
+      console.log("profile.tsx still loading");
+    }
   }, [loading]);
 
   return (

@@ -38,8 +38,17 @@ export default function Schedule() {
   const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
 
   React.useEffect(() => {
-    if (!isLoading) SplashScreen.hideAsync();
+    if (!isLoading) {
+      console.log("schedule.tsx loaded", isLoading);
+
+      SplashScreen.hideAsync();
+      console.log("hide SplashScreen schedule.tsx");
+    }
   }, [isLoading]);
+
+  if (error) {
+    console.error(error);
+  }
 
   //TODO: change 60000 to 1000 during presentation
   React.useEffect(() => {

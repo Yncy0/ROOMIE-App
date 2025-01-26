@@ -15,23 +15,41 @@ import RoomCard from "@/components/cards/RoomCard";
 import BookingsList from "@/components/lists/BookingsList";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import useThemeColor from "@/hooks/useThemeColor";
-import {
-  useFetchBookedRooms,
-  useFetchBookedRoomsWithUser,
-} from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 
 export default function Index() {
-  const { data: rooms, isLoading: roomsLoading } = useFetchRooms();
-  const { data: bookedRooms, isLoading: bookedRoomsLoading } =
-    useFetchBookedRooms();
+  const {
+    data: rooms,
+    isLoading: roomsLoading,
+    error: roomsError,
+  } = useFetchRooms();
+  const {
+    data: bookedRooms,
+    isLoading: bookedRoomsLoading,
+    error: bookedRoomsError,
+  } = useFetchBookedRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   React.useEffect(() => {
     if (!roomsLoading && !bookedRoomsLoading) {
+      console.log("Loading Rooms Success @index.tsx", roomsLoading);
+      console.log(
+        "Loading Booked Rooms Success @index.tsx",
+        bookedRoomsLoading
+      );
+
       SplashScreen.hideAsync();
+      console.log("Hide SplashScreen index.tsx");
+    } else {
+      console.log("index.tsx still loading");
     }
   }, [roomsLoading, bookedRoomsLoading]);
+
+  if (roomsError || bookedRoomsError) {
+    console.error(roomsError);
+    console.error(bookedRoomsError);
+  }
 
   return (
     <SafeAreaProvider>

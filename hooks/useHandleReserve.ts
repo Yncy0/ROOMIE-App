@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Alert } from "react-native";
 import { useRouter } from "expo-router";
-import dayjs from "dayjs";
 
 import useDatePicker from "@/hooks/pickers/useDatePicker";
 import useTimePicker from "@/hooks/pickers/useTimePicker";
 import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRooms";
 import { useAuth } from "@/providers/AuthProvider";
-import { useFetchScheduleWithRoom } from "./queries/schedule/useFetchSchedule";
 import useCheckForOverlap from "./queries/bookedRooms/useCheckOverlap";
 
 interface UseHandleReserveProps {
@@ -37,7 +35,6 @@ const useHandleReserve = ({
     const datePicker = useDatePicker();
     const timeInPicker = useTimePicker();
     const timeOutPicker = useTimePicker();
-    const dayFormat = dayjs(datePicker.date).format("dddd");
 
     const localTimeIn = dayjs(timeInPicker.time).tz("Asia/Manila").format();
     const localTimeOut = dayjs(timeOutPicker.time).tz("Asia/Manila").format();

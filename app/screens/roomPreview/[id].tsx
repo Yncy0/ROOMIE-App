@@ -33,6 +33,7 @@ import BookingsList from "@/components/lists/BookingsList";
 import useThemeColor from "@/hooks/useThemeColor";
 import { formatCompleteDate } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
+import * as SplashScreen from "expo-splash-screen";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -48,14 +49,40 @@ export default function RoomPreview() {
   const { themeBackgroundStyle, themeTextStyle, themeHandler } =
     useThemeColor();
 
-  const { data: schedule } = useFetchScheduleWithRoom(day, id);
-  const { data: bookedRooms, isLoading: bookedRoomsLoading } =
-    useFetchBookedRoomsWithRooms(id);
+  const {
+    data: schedule,
+    isLoading: scheduleLoading,
+    error: scheduleError,
+  } = useFetchScheduleWithRoom(day, id);
+  const {
+    data: bookedRooms,
+    isLoading: bookedRoomsLoading,
+    error: bookedRoomsError,
+  } = useFetchBookedRoomsWithRooms(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
   useSubscriptionBookedRoom();
   useSubscriptionSchedule();
+
+  React.useEffect(() => {
+    if (!scheduleLoading || !bookedRoomsLoading) {
+      console.log(
+        "roomPreview is loading set to",
+        scheduleLoading || bookedRooms
+      );
+
+      SplashScreen.hideAsync();
+      console.log("hide SplashScreen roomPreview");
+    } else {
+      console.log("roomPreview still loading");
+    }
+  }, []);
+
+  if (bookedRoomsError || scheduleError) {
+    console.error(bookedRoomsError);
+    console.error(scheduleError);
+  }
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();

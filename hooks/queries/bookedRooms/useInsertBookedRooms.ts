@@ -27,7 +27,10 @@ export default async function useInsertBookedRooms(
     .select()
     .single();
 
-  if (error) throw error;
+  if (error) {
+    console.error(error);
+    throw error;
+  }
 
   return booked_rooms;
 }

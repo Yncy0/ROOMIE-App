@@ -11,7 +11,10 @@ export const useUpdateScheduleDone = async () => {
         .eq("days", today)
         .lte("time_out", timeNow);
 
-    if (error) throw error;
+    if (error) {
+        console.error(error);
+        throw error;
+    }
 
     return data;
 };
@@ -24,7 +27,10 @@ export const useUpdateScheduleOngoing = async () => {
         .lte("time_out", timeNow)
         .gte("time_in", timeNow);
 
-    if (error) throw error;
+    if (error) {
+        console.error(error);
+        throw error;
+    }
 
     return data;
 };

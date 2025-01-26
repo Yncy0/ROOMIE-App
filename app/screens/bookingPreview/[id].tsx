@@ -11,14 +11,13 @@ import {
   StyleSheet,
   BackHandler,
 } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
-import TextHorizontal from "@/components/TextHorizontal";
 import useThemeColor from "@/hooks/useThemeColor";
 import { formatDate, formatTimeMeridian } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
 import { primaryColor } from "@/constants/Colors";
 import InputHorizontal from "@/components/InputHorizontal";
-import DatePicker from "react-native-date-picker";
 import useHandleEdit from "@/hooks/useHandleEdit";
 
 // Added hooks for DatePicker
@@ -62,6 +61,7 @@ const BookingPreview = () => {
   } = useHandleEdit({
     bookingId: id,
     roomId: roomId,
+    roomImage: roomImage,
     initialDate: date,
     initialTimeIn: timeIn,
     initialTimeOut: timeOut,
@@ -77,29 +77,38 @@ const BookingPreview = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen name="View" options={{ headerShown: false }} />
           <View style={[styles.body, themeBackgroundStyle]}>
-            <DatePicker
-              modal
-              open={datePicker.open}
-              date={datePicker.date}
-              onConfirm={datePicker.onConfirm}
-              onCancel={datePicker.onCancel}
-            />
-            <DatePicker
-              modal
-              open={timeInPicker.open}
-              date={timeInPicker.time}
-              mode="time"
-              onConfirm={timeInPicker.onConfirm}
-              onCancel={timeInPicker.onClose}
-            />
-            <DatePicker
-              modal
-              open={timeOutPicker.open}
-              date={timeOutPicker.time}
-              mode="time"
-              onConfirm={timeOutPicker.onConfirm}
-              onCancel={timeOutPicker.onClose}
-            />
+            {datePicker.open && (
+              <DateTimePicker
+                mode="date"
+                value={datePicker.date}
+                display="calendar"
+                onChange={(event, selectedDate) => {
+                  datePicker.onConfirm(selectedDate || datePicker.date);
+                }}
+              />
+            )}
+
+            {timeInPicker.open && (
+              <DateTimePicker
+                mode="time"
+                value={timeInPicker.time}
+                display="spinner"
+                onChange={(event, selectedTime) => {
+                  timeInPicker.onConfirm(selectedTime || timeInPicker.time);
+                }}
+              />
+            )}
+
+            {timeOutPicker.open && (
+              <DateTimePicker
+                mode="time"
+                value={timeOutPicker.time}
+                display="spinner"
+                onChange={(event, selectedTime) => {
+                  timeOutPicker.onConfirm(selectedTime || timeOutPicker.time);
+                }}
+              />
+            )}
             <Text style={[styles.header1, themeTextStyle]}>
               Reservation Details
             </Text>

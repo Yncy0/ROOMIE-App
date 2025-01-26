@@ -4,6 +4,8 @@ import { Alert } from "react-native";
 import { supabase } from "@/utils/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 
+import * as SplashScreen from "expo-splash-screen";
+
 const useFetchProfiles = () => {
     const [username, setUsername] = React.useState<string>("");
     const [loading, setLoading] = React.useState<boolean>(true);
@@ -36,6 +38,7 @@ const useFetchProfiles = () => {
             if (error instanceof Error) Alert.alert(error.message);
         } finally {
             setLoading(false);
+            SplashScreen.hideAsync();
         }
     }
 

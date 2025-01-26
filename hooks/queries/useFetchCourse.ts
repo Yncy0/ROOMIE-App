@@ -10,7 +10,12 @@ const useFetchCourse = () => {
                 .from("course")
                 .select("*");
 
-            if (error) throw error;
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+
+            if (course) console.log(course);
 
             return course;
         },
