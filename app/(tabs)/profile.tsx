@@ -23,6 +23,7 @@ export default function Profile() {
       console.log("profile.tsx loaded!", loading);
 
       SplashScreen.hideAsync();
+      console.log("hide SplashScreen profile.tsx");
     } else {
       console.log("profile.tsx still loading");
     }

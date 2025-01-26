@@ -38,6 +38,7 @@ export default function RootLayout() {
       console.log("top level _layout.tsx is loaded");
 
       SplashScreen.hideAsync(); // Hide splash screen after async work
+      console.log("Hiding SplashScreen top level _layout.tsx");
     }
 
     prepare();

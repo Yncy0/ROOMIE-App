@@ -42,6 +42,7 @@ export default function Schedule() {
       console.log("schedule.tsx loaded", isLoading);
 
       SplashScreen.hideAsync();
+      console.log("hide SplashScreen schedule.tsx");
     }
   }, [isLoading]);
 

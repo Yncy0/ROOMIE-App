@@ -19,6 +19,7 @@ const Booking = () => {
       console.log("booking.tsx loaded successfully", isLoading);
 
       SplashScreen.hideAsync();
+      console.log("Hide SplashScreen booking.tsx");
     } else {
       console.log("booking.tsx still loading");
     }

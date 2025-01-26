@@ -33,6 +33,7 @@ import BookingsList from "@/components/lists/BookingsList";
 import useThemeColor from "@/hooks/useThemeColor";
 import { formatCompleteDate } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
+import * as SplashScreen from "expo-splash-screen";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -70,6 +71,9 @@ export default function RoomPreview() {
         "roomPreview is loading set to",
         scheduleLoading || bookedRooms
       );
+
+      SplashScreen.hideAsync();
+      console.log("hide SplashScreen roomPreview");
     } else {
       console.log("roomPreview still loading");
     }

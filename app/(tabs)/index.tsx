@@ -40,6 +40,7 @@ export default function Index() {
       );
 
       SplashScreen.hideAsync();
+      console.log("Hide SplashScreen index.tsx");
     } else {
       console.log("index.tsx still loading");
     }

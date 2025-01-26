@@ -20,6 +20,7 @@ const Rooms = () => {
       console.log("rooms.tsx loaded");
 
       SplashScreen.hideAsync();
+      console.log("Hide SplashScreen rooms.tsx");
     } else {
       console.log("rooms.tsx is still loading");
     }
