@@ -99,9 +99,7 @@ const Avatar = ({ size, url, onUpload }: Props) => {
       ) : (
         <View style={[avatarSize, styles.avatar, styles.noImage]} />
       )}
-      <View>
-        {/* <Button onPress={uploadAvatar} disabled={uploading} /> */}
-      </View>
+      <View></View>
     </Pressable>
   );
 };
