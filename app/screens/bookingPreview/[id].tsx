@@ -18,7 +18,6 @@ import { formatDate, formatTimeMeridian } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
 import { primaryColor } from "@/constants/Colors";
 import InputHorizontal from "@/components/InputHorizontal";
-import DatePicker from "react-native-date-picker";
 import useHandleEdit from "@/hooks/useHandleEdit";
 
 // Added hooks for DatePicker
@@ -77,7 +76,7 @@ const BookingPreview = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen name="View" options={{ headerShown: false }} />
           <View style={[styles.body, themeBackgroundStyle]}>
-            <DatePicker
+            {/* <DatePicker
               modal
               open={datePicker.open}
               date={datePicker.date}
@@ -99,7 +98,7 @@ const BookingPreview = () => {
               mode="time"
               onConfirm={timeOutPicker.onConfirm}
               onCancel={timeOutPicker.onClose}
-            />
+            /> */}
             <Text style={[styles.header1, themeTextStyle]}>
               Reservation Details
             </Text>

@@ -1,8 +1,7 @@
 import React from "react";
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
-import DatePicker from "react-native-date-picker";
-import moment from "moment";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import IconInput from "./inputs/IconInput";
 import useHandleReserve from "@/hooks/useHandleReserve";
@@ -36,32 +35,32 @@ export const BookingBottomSheet = ({
 
   const { themeBackgroundStyle } = useThemeColor();
 
+  if (datePicker.open) console.log(datePicker.open);
+
   return (
     <BottomSheetView style={[styles.bottomSheet, themeBackgroundStyle]}>
       <View style={styles.container}>
-        <DatePicker
-          modal
-          open={datePicker.open}
-          date={datePicker.date}
-          onConfirm={datePicker.onConfirm}
-          onCancel={datePicker.onCancel}
-        />
-        <DatePicker
-          modal
-          open={timeInPicker.open}
-          date={timeInPicker.time}
-          mode="time"
-          onConfirm={timeInPicker.onConfirm}
-          onCancel={timeInPicker.onClose}
-        />
-        <DatePicker
-          modal
-          open={timeOutPicker.open}
-          date={timeOutPicker.time}
-          mode="time"
-          onConfirm={timeOutPicker.onConfirm}
-          onCancel={timeOutPicker.onClose}
-        />
+        {datePicker.open && (
+          <DateTimePicker
+            mode="date"
+            value={datePicker.date}
+            display="calendar"
+          />
+        )}
+        {timeInPicker.open && (
+          <DateTimePicker
+            mode="time"
+            value={datePicker.date}
+            display="spinner"
+          />
+        )}
+        {timeOutPicker.open && (
+          <DateTimePicker
+            mode="time"
+            value={datePicker.date}
+            display="spinner"
+          />
+        )}
         <IconInput
           icon={"book"}
           placeholder="Subject Name"

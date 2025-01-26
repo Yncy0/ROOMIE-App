@@ -12,12 +12,7 @@ const useDatePicker = (initialDate = new Date()) => {
     const onCancel = () => {
         setOpen(false);
     };
-
-    const onSetDate = (date: any) => {
-        setDate(date);
-    };
-
-    return { date, setDate, onSetDate, open, setOpen, onConfirm, onCancel };
+    return { date, setDate, open, setOpen, onConfirm, onCancel };
 };
 
 export default useDatePicker;
