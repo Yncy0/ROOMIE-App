@@ -15,6 +15,20 @@ export const useUpdateBookedRoomStatus = async () => {
     return data;
 };
 
+export const useUpdateBookedRoomPending = async (booking_id: any) => {
+    const timeNow = dayjs().format("YYYY-MM-DD HH:mm:ssZ");
+
+    const { data, error } = await supabase
+        .from("booked_rooms")
+        .update({ status: "PENDING" })
+        .eq("id", booking_id)
+        .select();
+
+    if (error) throw error;
+
+    return data;
+};
+
 export async function useUpdateBookedRooms(
     booking_id: any, // Add the booking ID parameter to identify which booking to edit
     profile_id: any,
