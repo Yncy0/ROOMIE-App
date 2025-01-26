@@ -25,7 +25,7 @@ export default function ScheduleText({ items }: Props) {
         </View>
         <View style={styles.container1}>
           <Text style={[styles.text1, themeTextStyle]}>
-            {items.course_name}
+            {items.course.course_name}
           </Text>
           <Text
             style={[styles.text1, themeTextStyle]}
