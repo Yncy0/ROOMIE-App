@@ -27,13 +27,13 @@ export default function RootLayout() {
   const queryCLient = new QueryClient();
   const colorScheme = useColorScheme();
 
+  useUpdateScheduleDone();
+  useUpdateScheduleOngoing();
+  useUpdateBookedRoomStatus();
+
   React.useEffect(() => {
     async function prepare() {
       await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate loading
-
-      await useUpdateScheduleDone();
-      await useUpdateScheduleOngoing();
-      await useUpdateBookedRoomStatus();
 
       SplashScreen.hideAsync(); // Hide splash screen after async work
     }
