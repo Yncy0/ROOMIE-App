@@ -30,12 +30,17 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/roomie-splash-icon.png",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "image": "./assets/images/roomie-splash-icon.png",
+            "backgroundColor": "#000000"
+          },
           "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "resizeMode": "contain"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "react-native-edge-to-edge"
     ],
     "experiments": {
       "typedRoutes": true
