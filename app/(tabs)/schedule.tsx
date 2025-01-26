@@ -2,6 +2,7 @@ import React from "react";
 import { FlatList, ScrollView, View, Text, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
+import dayjs from "dayjs";
 
 import DateCard from "@/components/cards/DateCard";
 import ScheduleText from "@/components/ScheduleText";
@@ -20,7 +21,10 @@ import {
 import ScheduleSkeletonLoader from "@/components/loader/ScheduleSkeletonLoader";
 
 export default function Schedule() {
-  const [selectedDate, setSelectedDate] = React.useState<string>("");
+  // Initialize selectedDate to the current date
+  const [selectedDate, setSelectedDate] = React.useState<string>(
+    dayjs().format("YYYY-MM-DD")
+  );
 
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
@@ -31,7 +35,7 @@ export default function Schedule() {
   const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
 
   React.useEffect(() => {
-    if (!isLoading) SplashScreen.hideAsync;
+    if (!isLoading) SplashScreen.hideAsync();
   }, [isLoading]);
 
   //TODO: change 60000 to 1000 during presentation
@@ -50,7 +54,7 @@ export default function Schedule() {
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={[styles.container, themeTextStyle]}>My Schedule</Text>
+          <Text style={[styles.header1, themeTextStyle]}>My Schedule</Text>
           <FlatList
             data={dates}
             keyExtractor={(item, index) => item.toString()}
