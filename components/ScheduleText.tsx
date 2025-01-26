@@ -1,4 +1,3 @@
-import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import useThemeColor from "@/hooks/useThemeColor";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -7,8 +6,6 @@ type Props = {
 };
 
 export default function ScheduleText({ items }: Props) {
-  //CALL REALTIME SUBSCRIPTION FROM SUPABASE
-  useSubscriptionSchedule();
   const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   return (

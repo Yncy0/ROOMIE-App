@@ -26,6 +26,9 @@ export default function Schedule() {
     dayjs().format("YYYY-MM-DD")
   );
 
+  //CALL REALTIME SUBSCRIPTION FROM SUPABASE
+  useSubscriptionSchedule();
+
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   const selectedDateFormat = formatCompleteDate(selectedDate);
