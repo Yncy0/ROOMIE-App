@@ -11,6 +11,11 @@ import {
 } from "@react-navigation/native";
 import { useColorScheme } from "react-native";
 import * as NavigationBar from "expo-navigation-bar";
+import {
+  useUpdateScheduleDone,
+  useUpdateScheduleOngoing,
+} from "@/hooks/queries/schedule/useUpdateSchedule";
+import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,6 +30,11 @@ export default function RootLayout() {
   React.useEffect(() => {
     async function prepare() {
       await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate loading
+
+      await useUpdateScheduleDone();
+      await useUpdateScheduleOngoing();
+      await useUpdateBookedRoomStatus();
+
       SplashScreen.hideAsync(); // Hide splash screen after async work
     }
 
