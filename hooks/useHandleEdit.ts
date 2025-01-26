@@ -11,6 +11,7 @@ import { useUpdateBookedRooms } from "./queries/bookedRooms/useUpdateBookedRooms
 interface UseHandleEditProps {
     bookingId: any;
     roomId: any;
+    roomImage: any;
     initialDate: string;
     initialTimeIn: string;
     initialTimeOut: string;
@@ -21,6 +22,7 @@ interface UseHandleEditProps {
 const useHandleEdit = ({
     bookingId,
     roomId,
+    roomImage,
     initialDate,
     initialTimeIn,
     initialTimeOut,

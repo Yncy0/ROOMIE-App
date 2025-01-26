@@ -28,12 +28,18 @@ export default function RootLayout() {
 
   React.useEffect(() => {
     async function prepare() {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate loading
+      try {
+        // Simulate loading or perform actual loading tasks
+        await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      console.log("top level _layout.tsx is loaded");
+        console.log("top level _layout.tsx is loaded");
 
-      SplashScreen.hideAsync(); // Hide splash screen after async work
-      console.log("Hiding SplashScreen top level _layout.tsx");
+        // Hide splash screen after async work
+        await SplashScreen.hideAsync();
+        console.log("Hiding SplashScreen top level _layout.tsx");
+      } catch (error) {
+        console.error("Error during preparation:", error);
+      }
     }
 
     prepare();

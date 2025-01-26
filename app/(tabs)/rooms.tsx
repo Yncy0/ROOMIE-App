@@ -16,19 +16,20 @@ const Rooms = () => {
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   React.useEffect(() => {
+    if (error) {
+      console.error("Error fetching rooms:", error);
+      SplashScreen.hideAsync();
+      return;
+    }
+
     if (!isLoading) {
       console.log("rooms.tsx loaded");
-
       SplashScreen.hideAsync();
       console.log("Hide SplashScreen rooms.tsx");
     } else {
       console.log("rooms.tsx is still loading");
     }
-  }, [isLoading]);
-
-  if (error) {
-    console.error(error);
-  }
+  }, [isLoading, error]);
 
   return (
     <SafeAreaProvider>

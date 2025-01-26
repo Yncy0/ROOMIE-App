@@ -1,6 +1,7 @@
 import { View, Alert, Image, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import * as ImagePicker from "expo-image-picker";
+import * as SplashScreen from "expo-splash-screen";
 
 import { supabase } from "@/utils/supabase";
 
@@ -16,7 +17,17 @@ const Avatar = ({ size, url, onUpload }: Props) => {
   const avatarSize = { height: size, width: size };
 
   React.useEffect(() => {
-    if (url) downloadImage(url);
+    if (url) {
+      downloadImage(url)
+        .then(() => {
+          console.log("Image downloaded successfully");
+          SplashScreen.hideAsync();
+          console.log("Successfully loaded");
+        })
+        .catch((error) => {
+          console.error("Error downloading image:", error);
+        });
+    }
   }, [url]);
 
   async function downloadImage(path: string) {

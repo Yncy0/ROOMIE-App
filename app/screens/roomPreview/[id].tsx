@@ -66,23 +66,20 @@ export default function RoomPreview() {
   useSubscriptionSchedule();
 
   React.useEffect(() => {
-    if (!scheduleLoading || !bookedRoomsLoading) {
-      console.log(
-        "roomPreview is loading set to",
-        scheduleLoading || bookedRooms
-      );
+    if (scheduleError || bookedRoomsError) {
+      console.error("Error fetching data:", scheduleError, bookedRoomsError);
+      SplashScreen.hideAsync();
+      return;
+    }
 
+    if (!scheduleLoading && !bookedRoomsLoading) {
+      console.log("roomPreview loaded");
       SplashScreen.hideAsync();
       console.log("hide SplashScreen roomPreview");
     } else {
       console.log("roomPreview still loading");
     }
-  }, []);
-
-  if (bookedRoomsError || scheduleError) {
-    console.error(bookedRoomsError);
-    console.error(scheduleError);
-  }
+  }, [scheduleLoading, bookedRoomsLoading, scheduleError, bookedRoomsError]);
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();

@@ -1,13 +1,27 @@
 import { supabase } from "@/utils/supabase";
-import moment from "moment";
+import dayjs from "dayjs";
 
 export const useUpdateBookedRoomStatus = async () => {
-    const timeNow = moment().format("YYYY-MM-DD HH:mm:ssZ");
+    const timeNow = dayjs().format("YYYY-MM-DD HH:mm:ssZ");
 
     const { data, error } = await supabase
         .from("booked_rooms")
         .update({ status: "DONE" })
         .lte("time_out", timeNow)
+        .select();
+
+    if (error) throw error;
+
+    return data;
+};
+
+export const useUpdateBookedRoomPending = async (booking_id: any) => {
+    const timeNow = dayjs().format("YYYY-MM-DD HH:mm:ssZ");
+
+    const { data, error } = await supabase
+        .from("booked_rooms")
+        .update({ status: "PENDING" })
+        .eq("id", booking_id)
         .select();
 
     if (error) throw error;

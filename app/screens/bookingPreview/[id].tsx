@@ -19,6 +19,7 @@ import { pressBack } from "@/utils/pressBack";
 import { primaryColor } from "@/constants/Colors";
 import InputHorizontal from "@/components/InputHorizontal";
 import useHandleEdit from "@/hooks/useHandleEdit";
+import { useUpdateBookedRoomPending } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 
 // Added hooks for DatePicker
 const BookingPreview = () => {
@@ -158,7 +159,26 @@ const BookingPreview = () => {
               >
                 <Text style={styles.textEdit}>Edit</Text>
               </Pressable>
-              <Pressable style={[styles.pressable, themeContainerStyle]}>
+              <Pressable
+                style={[styles.pressable, themeContainerStyle]}
+                onPress={() =>
+                  Alert.alert(
+                    "Title", // Title of the alert dialog
+                    "Message", // Message to be displayed
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                      },
+                      {
+                        text: "OK",
+                        onPress: () => useUpdateBookedRoomPending(id),
+                      },
+                    ],
+                    { cancelable: false } // This option makes sure the user must tap a button before the alert can be dismissed
+                  )
+                }
+              >
                 <Text style={themeTextStyle}>Cancelation</Text>
               </Pressable>
             </View>
