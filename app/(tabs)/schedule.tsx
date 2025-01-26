@@ -46,7 +46,7 @@ export default function Schedule() {
   }, [isLoading]);
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
 
   //TODO: change 60000 to 1000 during presentation

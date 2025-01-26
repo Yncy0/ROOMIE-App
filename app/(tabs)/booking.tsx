@@ -24,7 +24,7 @@ const Booking = () => {
     }
   }, [isLoading]);
 
-  if (error) console.log(error);
+  if (error) console.error(error);
 
   return (
     <SafeAreaProvider>

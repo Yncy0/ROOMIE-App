@@ -33,7 +33,12 @@ export function useFetchSchedule() {
                 )
                 .eq("profile_id", userId);
 
-            if (error) throw error;
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+
+            if (schedule) console.log(schedule);
 
             return schedule;
         },
@@ -56,7 +61,13 @@ export function useFetchScheduleWithDay(day: string) {
                 .eq("profile_id", userId)
                 .eq("days", dayjs(day).format("dddd"));
 
-            if (error) throw error;
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+
+            if (scheduleWithDay) console.log(scheduleWithDay);
+
             return scheduleWithDay;
         },
     });
@@ -78,7 +89,12 @@ export function useFetchScheduleWithRoom(day: string, room_id: string) {
                 .eq("room_id", room_id)
                 .order("time_in", { ascending: true });
 
-            if (error) throw error;
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+
+            if (scheduleWithRoom) console.log(scheduleWithRoom);
 
             return scheduleWithRoom;
         },

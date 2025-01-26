@@ -46,8 +46,8 @@ export default function Index() {
   }, [roomsLoading, bookedRoomsLoading]);
 
   if (roomsError || bookedRoomsError) {
-    console.log(roomsError);
-    console.log(bookedRoomsError);
+    console.error(roomsError);
+    console.error(bookedRoomsError);
   }
 
   return (

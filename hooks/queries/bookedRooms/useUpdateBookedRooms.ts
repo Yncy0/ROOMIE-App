@@ -42,7 +42,10 @@ export async function useUpdateBookedRooms(
         .select()
         .single();
 
-    if (error) throw error;
+    if (error) {
+        console.error(error);
+        throw error;
+    }
 
     return booked_rooms;
 }

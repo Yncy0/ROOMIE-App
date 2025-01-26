@@ -14,7 +14,12 @@ export function useFetchBookedRooms() {
                 .from("booked_rooms")
                 .select(`*, rooms(*)`);
 
-            if (error) throw error;
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+
+            if (bookedRooms) console.log(bookedRooms);
 
             return bookedRooms;
         },
@@ -32,7 +37,12 @@ export function useFetchBookedRoomSingle() {
                 .select(`*, rooms(*)`)
                 .single();
 
-            if (error) throw error;
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+
+            if (bookedRooms) console.log(bookedRooms);
 
             return bookedRooms;
         },
@@ -50,7 +60,12 @@ export function useFetchBookedRoomsWithRooms(id: string) {
                 .select(`*, rooms(*)`)
                 .eq("room_id", id);
 
-            if (error) throw error;
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+
+            if (bookedRooms) console.log(bookedRooms);
 
             return bookedRooms;
         },
@@ -72,7 +87,12 @@ export function useFetchBookedRoomsWithUser() {
                     .select("*")
                     .eq("profile_id", session?.user.id);
 
-                if (error) throw error;
+                if (error) {
+                    console.error(error);
+                    throw error;
+                }
+
+                if (data) console.log(data);
 
                 return data;
             },

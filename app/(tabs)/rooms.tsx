@@ -26,7 +26,7 @@ const Rooms = () => {
   }, [isLoading]);
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
 
   return (

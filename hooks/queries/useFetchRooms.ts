@@ -10,7 +10,12 @@ export default function useFetchRooms() {
         .select(`*, building(id, building_name)`)
         .order("room_name", { ascending: true });
 
-      if (error) throw error;
+      if (error) {
+        console.error(error);
+        throw error;
+      }
+
+      if (rooms) console.log(rooms);
 
       return rooms;
     },

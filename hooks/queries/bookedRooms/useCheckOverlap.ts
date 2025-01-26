@@ -30,6 +30,8 @@ const useCheckForOverlap = async (
     console.log("Schedule Data:", schedule);
 
     if (bookedRoomsError || scheduleError) {
+        console.error(bookedRoomsError);
+        console.error(scheduleError);
         throw new Error(bookedRoomsError?.message || scheduleError?.message);
     }
 
