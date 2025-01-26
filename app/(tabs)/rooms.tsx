@@ -6,12 +6,28 @@ import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import RoomCard from "@/components/cards/RoomCard";
 import useThemeColor from "@/hooks/useThemeColor";
 import { router } from "expo-router";
+import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
+import * as SplashScreen from "expo-splash-screen";
 
 const screenWidth = Dimensions.get("screen").width;
 
 const Rooms = () => {
-  const { data } = useFetchRooms();
+  const { data, isLoading, error } = useFetchRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
+
+  React.useEffect(() => {
+    if (!isLoading) {
+      console.log("rooms.tsx loaded");
+
+      SplashScreen.hideAsync();
+    } else {
+      console.log("rooms.tsx is still loading");
+    }
+  }, [isLoading]);
+
+  if (error) {
+    console.log(error);
+  }
 
   return (
     <SafeAreaProvider>
@@ -20,26 +36,30 @@ const Rooms = () => {
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <RoomCard
-              key={item.id}
-              items={item}
-              width={screenWidth / 2 - 20}
-              height={200}
-              onPress={() =>
-                router.replace({
-                  pathname: "/screens/roomPreview/[id]",
-                  params: {
-                    id: item.id,
-                    roomName: item.room_name,
-                    roomCategory: item.room_type,
-                    roomImage: item.room_image,
-                    customRoute: "/(tabs)/rooms",
-                  },
-                })
-              }
-            />
-          )}
+          renderItem={({ item }) =>
+            isLoading ? (
+              <RoomSkeletonLoader />
+            ) : (
+              <RoomCard
+                key={item.id}
+                items={item}
+                width={screenWidth / 2 - 20}
+                height={200}
+                onPress={() =>
+                  router.replace({
+                    pathname: "/screens/roomPreview/[id]",
+                    params: {
+                      id: item.id,
+                      roomName: item.room_name,
+                      roomCategory: item.room_type,
+                      roomImage: item.room_image,
+                      customRoute: "/(tabs)/rooms",
+                    },
+                  })
+                }
+              />
+            )
+          }
           numColumns={2}
           columnWrapperStyle={{ justifyContent: "space-around" }}
           contentContainerStyle={{ gap: 20, padding: 5 }}

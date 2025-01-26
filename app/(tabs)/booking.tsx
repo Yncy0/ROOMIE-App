@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import * as SplashScreen from "expo-splash-screen";
 
 import useThemeColor from "@/hooks/useThemeColor";
 import BookingsList from "@/components/lists/BookingsList";
@@ -11,13 +12,29 @@ import {
 
 const Booking = () => {
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-  const { data } = useFetchBookedRooms();
+  const { data, isLoading, error } = useFetchBookedRooms();
+
+  React.useEffect(() => {
+    if (!isLoading) {
+      console.log("booking.tsx loaded successfully", isLoading);
+
+      SplashScreen.hideAsync();
+    } else {
+      console.log("booking.tsx still loading");
+    }
+  }, [isLoading]);
+
+  if (error) console.log(error);
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <Text style={[styles.header, themeTextStyle]}>Your Booked Rooms</Text>
-        <BookingsList isHorizontal={false} bookedRooms={data} />
+        <BookingsList
+          isHorizontal={false}
+          bookedRooms={data}
+          isLoading={isLoading}
+        />
       </SafeAreaView>
     </SafeAreaProvider>
   );

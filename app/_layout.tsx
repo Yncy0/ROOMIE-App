@@ -35,6 +35,8 @@ export default function RootLayout() {
     async function prepare() {
       await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate loading
 
+      console.log("top level _layout.tsx is loaded");
+
       SplashScreen.hideAsync(); // Hide splash screen after async work
     }
 
