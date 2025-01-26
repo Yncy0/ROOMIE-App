@@ -1,6 +1,4 @@
-import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import useThemeColor from "@/hooks/useThemeColor";
-import dayjs from "dayjs";
 import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
@@ -8,7 +6,6 @@ type Props = {
 };
 
 export default function ScheduleText({ items }: Props) {
-  useSubscriptionSchedule();
   const { themeContainerStyle, themeTextStyle } = useThemeColor();
 
   return (
