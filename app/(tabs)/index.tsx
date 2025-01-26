@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { Link, router } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 
 import RoomCard from "@/components/cards/RoomCard";
 import BookingsList from "@/components/lists/BookingsList";
@@ -18,12 +19,19 @@ import {
   useFetchBookedRooms,
   useFetchBookedRoomsWithUser,
 } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 
 export default function Index() {
-  const { data: rooms } = useFetchRooms();
+  const { data: rooms, isLoading: roomsLoading } = useFetchRooms();
   const { data: bookedRooms, isLoading: bookedRoomsLoading } =
     useFetchBookedRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
+
+  React.useEffect(() => {
+    if (!roomsLoading && !bookedRoomsLoading) {
+      SplashScreen.hideAsync();
+    }
+  }, [roomsLoading, bookedRoomsLoading]);
 
   return (
     <SafeAreaProvider>
@@ -52,26 +60,30 @@ export default function Index() {
           </View>
           <FlatList
             data={rooms}
-            renderItem={({ item }) => (
-              <RoomCard
-                key={item.id}
-                items={item}
-                width={230}
-                height={290}
-                onPress={() =>
-                  router.replace({
-                    pathname: "/screens/roomPreview/[id]",
-                    params: {
-                      id: item.id,
-                      roomName: item.room_name,
-                      roomCategory: item.room_type,
-                      roomImage: item.room_image,
-                      customRoute: "/(tabs)",
-                    },
-                  })
-                }
-              />
-            )}
+            renderItem={({ item }) =>
+              roomsLoading ? (
+                <RoomSkeletonLoader />
+              ) : (
+                <RoomCard
+                  key={item.id}
+                  items={item}
+                  width={230}
+                  height={290}
+                  onPress={() =>
+                    router.replace({
+                      pathname: "/screens/roomPreview/[id]",
+                      params: {
+                        id: item.id,
+                        roomName: item.room_name,
+                        roomCategory: item.room_type,
+                        roomImage: item.room_image,
+                        customRoute: "/(tabs)",
+                      },
+                    })
+                  }
+                />
+              )
+            }
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ gap: 20, paddingHorizontal: 20 }}
