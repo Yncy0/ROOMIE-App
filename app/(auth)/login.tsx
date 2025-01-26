@@ -27,12 +27,20 @@ export default function Auth() {
 
   async function signInWithEmail() {
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
 
-    if (error) Alert.alert(error.message);
+      if (error) {
+        console.error("Sign-in error:", error.message); // Log to console for better debugging
+        Alert.alert(error.message);
+      }
+    } catch (e) {
+      console.error("Unexpected error:", e);
+      Alert.alert("Unexpected error occurred");
+    }
     setLoading(false);
   }
 

@@ -12,7 +12,7 @@ import {
 import { useColorScheme } from "react-native";
 import * as NavigationBar from "expo-navigation-bar";
 
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 NavigationBar.setPositionAsync("absolute");
 NavigationBar.setBackgroundColorAsync("#ffffff00");
@@ -22,17 +22,26 @@ export default function RootLayout() {
   const queryCLient = new QueryClient();
   const colorScheme = useColorScheme();
 
+  React.useEffect(() => {
+    async function prepare() {
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate loading
+      SplashScreen.hideAsync(); // Hide splash screen after async work
+    }
+
+    prepare();
+  }, []);
+
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <StatusBar style="auto" backgroundColor="transparent" translucent />
-      <AuthProvider>
-        <QueryClientProvider client={queryCLient}>
+      <QueryClientProvider client={queryCLient}>
+        <AuthProvider>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           </Stack>
-        </QueryClientProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

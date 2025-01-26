@@ -15,10 +15,10 @@ import {
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import dayjs from "dayjs";
 import {
+  BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import { useFocusEffect } from "@react-navigation/native";
 
 import { primaryColor } from "@/constants/Colors";
 import { BookingBottomSheet } from "@/components/BookingBottomSheet";
@@ -49,7 +49,8 @@ export default function RoomPreview() {
     useThemeColor();
 
   const { data: schedule } = useFetchScheduleWithRoom(day, id);
-  const { data: bookedRooms } = useFetchBookedRoomsWithRooms(id);
+  const { data: bookedRooms, isLoading: bookedRoomsLoading } =
+    useFetchBookedRoomsWithRooms(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
@@ -59,6 +60,17 @@ export default function RoomPreview() {
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();
   }, []);
+
+  const renderBackdrop = React.useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={1}
+        appearsOnIndex={2}
+      />
+    ),
+    []
+  );
 
   pressBack(customRoute);
 
@@ -89,7 +101,11 @@ export default function RoomPreview() {
               <Text style={[styles.header3, themeTextStyle]}>
                 Today's Booking
               </Text>
-              <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
+              <BookingsList
+                isHorizontal={true}
+                bookedRooms={bookedRooms}
+                isLoading={bookedRoomsLoading}
+              />
             </View>
             <View style={styles.container3}>
               <Text style={[styles.text2, themeTextStyle]}>
@@ -114,6 +130,7 @@ export default function RoomPreview() {
           handleIndicatorStyle={{
             backgroundColor: themeHandler.backgroundColor,
           }}
+          backdropComponent={renderBackdrop}
         >
           <BookingBottomSheet
             roomId={id}

@@ -21,7 +21,8 @@ import {
 
 export default function Index() {
   const { data: rooms } = useFetchRooms();
-  const { data: bookedRooms } = useFetchBookedRooms();
+  const { data: bookedRooms, isLoading: bookedRoomsLoading } =
+    useFetchBookedRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   return (
@@ -36,7 +37,11 @@ export default function Index() {
               </Link>
             </Pressable>
           </View>
-          <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
+          <BookingsList
+            isHorizontal={true}
+            bookedRooms={bookedRooms}
+            isLoading={bookedRoomsLoading}
+          />
           <View style={styles.container2}>
             <Text style={themeTextStyle}>{"Available Rooms"}</Text>
             <Pressable>
