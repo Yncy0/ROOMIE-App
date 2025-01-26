@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, ScrollView, View, Text, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import * as SplashScreen from "expo-splash-screen";
 import dayjs from "dayjs";
 
 import DateCard from "@/components/cards/DateCard";
@@ -17,33 +18,43 @@ import {
   formatCompleteDate,
   generateDatesForCurrentMonth,
 } from "@/utils/timeUtils";
+import ScheduleSkeletonLoader from "@/components/loader/ScheduleSkeletonLoader";
 
 export default function Schedule() {
-  const [selectedDate, setSelectedDate] = React.useState<string>("");
+  // Initialize selectedDate to the current date
+  const [selectedDate, setSelectedDate] = React.useState<string>(
+    dayjs().format("YYYY-MM-DD")
+  );
 
-  const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   const selectedDateFormat = formatCompleteDate(selectedDate);
   const currentDateFormat = formatCompleteDate();
   const dates = generateDatesForCurrentMonth();
 
-  useSubscriptionSchedule();
+  const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
 
+  React.useEffect(() => {
+    if (!isLoading) SplashScreen.hideAsync();
+  }, [isLoading]);
+
+  //TODO: change 60000 to 1000 during presentation
   React.useEffect(() => {
     const interval = setInterval(() => {
       useUpdateScheduleOngoing();
       useUpdateScheduleDone();
       console.log("UPDATED SCHEDULE");
-    }, 1000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [data?.length]);
+
+  useSubscriptionSchedule();
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={[styles.container, themeTextStyle]}>My Schedule</Text>
+          <Text style={[styles.header1, themeTextStyle]}>My Schedule</Text>
           <FlatList
             data={dates}
             keyExtractor={(item, index) => item.toString()}
@@ -62,9 +73,9 @@ export default function Schedule() {
           <Text style={[styles.header2, themeTextStyle]}>
             {currentDateFormat ? currentDateFormat : selectedDateFormat}
           </Text>
-          <View style={{ paddingHorizontal: 20, gap: 20 }}>
+          <View style={{ paddingHorizontal: 15, gap: 20 }}>
             {isLoading ? (
-              <Text>Loading...</Text>
+              <ScheduleSkeletonLoader />
             ) : error ? (
               <Text>Error loading data</Text>
             ) : data && data.length > 0 ? (
@@ -80,7 +91,9 @@ export default function Schedule() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   header1: {
     minWidth: "100%",
     paddingHorizontal: 15,

@@ -32,5 +32,8 @@ const ProfileInput = ({ username, onChangeText, onPress }: Props) => {
 export default ProfileInput;
 
 const styles = StyleSheet.create({
-  container: { flexDirection: "row", gap: 10 },
+  container: {
+    flexDirection: "row",
+    gap: 10,
+  },
 });

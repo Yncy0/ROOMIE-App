@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const useTimePicker = (initialTime = new Date()) => {
     const [time, setTime] = React.useState(initialTime);
@@ -13,7 +13,7 @@ const useTimePicker = (initialTime = new Date()) => {
         setOpen(false);
     };
 
-  return {time, open, setOpen, onConfirm, onClose}
-}
+    return { time, setTime, open, setOpen, onConfirm, onClose };
+};
 
-export default useTimePicker
+export default useTimePicker;

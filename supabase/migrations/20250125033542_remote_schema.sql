@@ -369,7 +369,7 @@ ALTER TABLE "public"."subject" ENABLE ROW LEVEL SECURITY;
 CREATE PUBLICATION "realtime_messages_publication_v2_34_1" WITH (publish = 'insert, update, delete, truncate');
 
 
-ALTER PUBLICATION "realtime_messages_publication_v2_34_1" OWNER TO "supabase_admin";
+ALTER PUBLICATION "realtime_messages_publication_v2_34_1" OWNER TO "postgres";
 
 
 
@@ -380,13 +380,13 @@ ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
 CREATE PUBLICATION "supabase_realtime_messages_publication_v2_34_2" WITH (publish = 'insert, update, delete, truncate');
 
 
-ALTER PUBLICATION "supabase_realtime_messages_publication_v2_34_2" OWNER TO "supabase_admin";
+ALTER PUBLICATION "supabase_realtime_messages_publication_v2_34_2" OWNER TO "postgres";
 
 
 CREATE PUBLICATION "supabase_realtime_messages_publication_v2_34_6" WITH (publish = 'insert, update, delete, truncate');
 
 
-ALTER PUBLICATION "supabase_realtime_messages_publication_v2_34_6" OWNER TO "supabase_admin";
+ALTER PUBLICATION "supabase_realtime_messages_publication_v2_34_6" OWNER TO "postgres";
 
 
 ALTER PUBLICATION "supabase_realtime" ADD TABLE ONLY "public"."booked_rooms";
@@ -397,7 +397,7 @@ ALTER PUBLICATION "supabase_realtime" ADD TABLE ONLY "public"."schedule";
 
 
 
-GRANT USAGE ON SCHEMA "public" TO "postgres";
+GRANT USAGE ON SCHEMA "public" TO "supabase_admin";
 GRANT USAGE ON SCHEMA "public" TO "anon";
 GRANT USAGE ON SCHEMA "public" TO "authenticated";
 GRANT USAGE ON SCHEMA "public" TO "service_role";

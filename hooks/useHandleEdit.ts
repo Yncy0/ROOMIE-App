@@ -2,27 +2,31 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { useRouter } from "expo-router";
 import dayjs from "dayjs";
-
 import useDatePicker from "@/hooks/pickers/useDatePicker";
 import useTimePicker from "@/hooks/pickers/useTimePicker";
-import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRooms";
 import { useAuth } from "@/providers/AuthProvider";
-import { useFetchScheduleWithRoom } from "./queries/schedule/useFetchSchedule";
 import useCheckForOverlap from "./queries/bookedRooms/useCheckOverlap";
+import { useUpdateBookedRooms } from "./queries/bookedRooms/useUpdateBookedRooms";
 
-interface UseHandleReserveProps {
+interface UseHandleEditProps {
+    bookingId: any;
     roomId: any;
-    roomName: string;
-    roomCategory: string;
-    roomImage: string;
+    initialDate: string;
+    initialTimeIn: string;
+    initialTimeOut: string;
+    initialSubjectCode: string;
+    initialCourseAndSection: string;
 }
 
-const useHandleReserve = ({
+const useHandleEdit = ({
+    bookingId,
     roomId,
-    roomName,
-    roomCategory,
-    roomImage,
-}: UseHandleReserveProps) => {
+    initialDate,
+    initialTimeIn,
+    initialTimeOut,
+    initialSubjectCode,
+    initialCourseAndSection,
+}: UseHandleEditProps) => {
     const dayjs = require("dayjs");
     require("dayjs/plugin/timezone");
     require("dayjs/plugin/utc");
@@ -31,13 +35,14 @@ const useHandleReserve = ({
     dayjs.extend(require("dayjs/plugin/timezone"));
     dayjs.extend(require("dayjs/plugin/utc"));
 
-    const [subjectCode, setSubjectCode] = useState("");
-    const [courseAndSection, setCourseAndSection] = useState("");
+    const [subjectCode, setSubjectCode] = useState(initialSubjectCode);
+    const [courseAndSection, setCourseAndSection] = useState(
+        initialCourseAndSection,
+    );
 
-    const datePicker = useDatePicker();
-    const timeInPicker = useTimePicker();
-    const timeOutPicker = useTimePicker();
-    const dayFormat = dayjs(datePicker.date).format("dddd");
+    const datePicker = useDatePicker(new Date(initialDate));
+    const timeInPicker = useTimePicker(new Date(initialTimeIn));
+    const timeOutPicker = useTimePicker(new Date(initialTimeOut));
 
     const localTimeIn = dayjs(timeInPicker.time).tz("Asia/Manila").format();
     const localTimeOut = dayjs(timeOutPicker.time).tz("Asia/Manila").format();
@@ -45,7 +50,7 @@ const useHandleReserve = ({
     const { session } = useAuth();
     const router = useRouter();
 
-    const handleReserve = async () => {
+    const handleEdit = async () => {
         if (
             !subjectCode || !courseAndSection || !datePicker.date ||
             !timeInPicker.time || !timeOutPicker.time
@@ -68,20 +73,19 @@ const useHandleReserve = ({
         }
 
         try {
-            const { bookedRooms, schedule } = await useCheckForOverlap(
-                roomId,
-                dayjs(datePicker.date).format("DD MMMM YYYY"),
-                localTimeIn,
-                localTimeOut,
-            );
-            if (!bookedRooms || !schedule) {
-                Alert.alert(
-                    "The room has already ongoing schedule!",
-                );
-                return;
-            }
+            // const { bookedRooms, schedule } = await useCheckForOverlap(
+            //     roomId,
+            //     dayjs(datePicker.date).format("DD MMMM YYYY"),
+            //     localTimeIn,
+            //     localTimeOut,
+            // );
+            // if (!bookedRooms || !schedule) {
+            //     Alert.alert("The room has already ongoing schedule!");
+            //     return;
+            // }
 
-            const insert = useInsertBookedRooms(
+            const updated = await useUpdateBookedRooms(
+                bookingId,
                 session?.user.id,
                 roomId,
                 dayjs(datePicker.date).format("DD MMMM YYYY"),
@@ -91,9 +95,7 @@ const useHandleReserve = ({
                 localTimeOut,
                 "ONGOING",
             );
-            onSuccess((await insert).id);
-            console.log(localTimeIn);
-            console.log(localTimeOut);
+            onSuccess(bookingId);
         } catch (error) {
             Alert.alert("Error, please contact the administrator");
             console.log(error);
@@ -112,10 +114,6 @@ const useHandleReserve = ({
                     timeIn: dayjs(timeInPicker.time).format("HH:mm a"),
                     timeOut: dayjs(timeOutPicker.time).format("HH:mm a"),
                     roomId: roomId,
-                    roomCategory: roomCategory,
-                    roomImage: roomImage,
-                    roomName: roomName,
-                    customRoute: "/(tabs)",
                 },
             });
         } else {
@@ -131,8 +129,8 @@ const useHandleReserve = ({
         datePicker,
         timeInPicker,
         timeOutPicker,
-        handleReserve,
+        handleEdit,
     };
 };
 
-export default useHandleReserve;
+export default useHandleEdit;

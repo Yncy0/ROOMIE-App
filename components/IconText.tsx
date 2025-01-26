@@ -21,5 +21,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 5,
   },
-  text: { color: "white" },
+  text: {
+    color: "white",
+  },
 });

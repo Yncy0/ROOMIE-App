@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import BookedCard from "../cards/BookedCard";
 import EmptyDisplay from "../EmptyDisplay";
@@ -7,13 +7,15 @@ import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedR
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 import { useDeleteBookedRooms } from "@/hooks/queries/bookedRooms/useDeleteBookedRooms";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
+import BookingSkeletonLoader from "../loader/BookingSkeletonLoader";
 
 type Props = {
   isHorizontal: boolean;
+  isLoading: boolean;
   bookedRooms: any;
 };
 
-const BookingsList = ({ isHorizontal, bookedRooms }: Props) => {
+const BookingsList = ({ isHorizontal, bookedRooms, isLoading }: Props) => {
   useSubscriptionBookedRoom();
 
   React.useEffect(() => {
@@ -37,7 +39,9 @@ const BookingsList = ({ isHorizontal, bookedRooms }: Props) => {
           contentContainerStyle={styles.list}
           initialNumToRender={7}
           data={bookedRooms}
-          renderItem={({ item }) => (item ? <BookedCard items={item} /> : null)}
+          renderItem={({ item }) =>
+            isLoading ? <BookingSkeletonLoader /> : <BookedCard items={item} />
+          }
         />
       ) : (
         <EmptyDisplay />

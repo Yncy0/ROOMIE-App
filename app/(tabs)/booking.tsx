@@ -11,7 +11,7 @@ import {
 
 const Booking = () => {
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-  const { data } = useFetchBookedRoomsWithUser();
+  const { data } = useFetchBookedRooms();
 
   return (
     <SafeAreaProvider>

@@ -1,11 +1,11 @@
 import { Image } from "expo-image";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { IconText } from "../IconText";
 import { primaryColor } from "@/constants/Colors";
-import moment from "moment";
-import dayjs from "dayjs";
 import { formatTimeMeridian } from "@/utils/timeUtils";
+import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
+import { router } from "expo-router";
 
 type Props = {
   items: any;
@@ -16,8 +16,28 @@ export default function BookedCard({ items }: Props) {
     return null;
   }
 
+  const onPress = () => {
+    router.replace({
+      pathname: "/screens/bookingPreview/[id]",
+      params: {
+        id: items.id,
+        roomId: items.room_id,
+        roomImage: items.rooms.room_image,
+        roomName: items.rooms.room_name,
+        roomType: items.rooms.room_type,
+        date: items.date,
+        subjectCode: items.subject_code,
+        courseAndSection: items.course_and_section,
+        timeIn: items.time_in,
+        timeOut: items.time_out,
+      },
+    });
+  };
+
+  useSubscriptionBookedRoom();
+
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Image
         source={
           items.rooms.room_image
@@ -38,12 +58,13 @@ export default function BookedCard({ items }: Props) {
           )}`}
         />
       </View>
-    </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: primaryColor,
@@ -51,6 +72,7 @@ const styles = StyleSheet.create({
     gap: 20,
     paddingHorizontal: 15,
     minHeight: 150,
+    minWidth: 300,
     elevation: 10,
   },
   image: {
@@ -58,6 +80,11 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 10,
   },
-  container1: { gap: 5, flexDirection: "column" },
-  text: { color: "white" },
+  container1: {
+    gap: 5,
+    flexDirection: "column",
+  },
+  text: {
+    color: "white",
+  },
 });

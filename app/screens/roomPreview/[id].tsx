@@ -15,17 +15,16 @@ import {
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import dayjs from "dayjs";
 import {
+  BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import { useFocusEffect } from "@react-navigation/native";
 
 import { primaryColor } from "@/constants/Colors";
 import { BookingBottomSheet } from "@/components/BookingBottomSheet";
 import BackButton from "@/components/buttons/BackButton";
 import ScheduleText from "@/components/ScheduleText";
 import EmptyDisplay from "@/components/EmptyDisplay";
-import BookedCard from "@/components/cards/BookedCard";
 import { useFetchScheduleWithRoom } from "@/hooks/queries/schedule/useFetchSchedule";
 import { useFetchBookedRoomsWithRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
@@ -33,6 +32,7 @@ import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscripti
 import BookingsList from "@/components/lists/BookingsList";
 import useThemeColor from "@/hooks/useThemeColor";
 import { formatCompleteDate } from "@/utils/timeUtils";
+import { pressBack } from "@/utils/pressBack";
 
 export default function RoomPreview() {
   const { id, roomName, roomCategory, roomImage, customRoute } =
@@ -49,7 +49,8 @@ export default function RoomPreview() {
     useThemeColor();
 
   const { data: schedule } = useFetchScheduleWithRoom(day, id);
-  const { data: bookedRooms } = useFetchBookedRoomsWithRooms(id);
+  const { data: bookedRooms, isLoading: bookedRoomsLoading } =
+    useFetchBookedRoomsWithRooms(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
@@ -60,20 +61,18 @@ export default function RoomPreview() {
     bottomSheetMoadlRef.current?.present();
   }, []);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const onBackPress = () => {
-        router.replace(customRoute);
-        return true; // Return true to prevent default behavior
-      };
-
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
-
-      return () => {
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-      };
-    }, [])
+  const renderBackdrop = React.useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={1}
+        appearsOnIndex={2}
+      />
+    ),
+    []
   );
+
+  pressBack(customRoute);
 
   return (
     <GestureHandlerRootView style={[styles.container, themeBackgroundStyle]}>
@@ -84,9 +83,6 @@ export default function RoomPreview() {
             source={{ uri: roomImage }}
             style={styles.imageBackground}
           >
-            {/* <BackButton
-              onPress={() => router.replace({ pathname: customRoute })}
-            /> */}
             <View style={styles.opaque}>
               <View>
                 <Text style={styles.header1}>{roomName}</Text>
@@ -105,11 +101,19 @@ export default function RoomPreview() {
               <Text style={[styles.header3, themeTextStyle]}>
                 Today's Booking
               </Text>
-              <BookingsList isHorizontal={true} bookedRooms={bookedRooms} />
+              <BookingsList
+                isHorizontal={true}
+                bookedRooms={bookedRooms}
+                isLoading={bookedRoomsLoading}
+              />
             </View>
             <View style={styles.container3}>
-              <Text style={themeTextStyle}>Today's Schedule</Text>
-              <Text style={themeTextStyle}>{formatCompleteDate()}</Text>
+              <Text style={[styles.text2, themeTextStyle]}>
+                Today's Schedule
+              </Text>
+              <Text style={[styles.text2, themeTextStyle]}>
+                {formatCompleteDate()}
+              </Text>
             </View>
             {schedule && schedule.length > 0 ? (
               schedule.map((item) => (
@@ -126,6 +130,7 @@ export default function RoomPreview() {
           handleIndicatorStyle={{
             backgroundColor: themeHandler.backgroundColor,
           }}
+          backdropComponent={renderBackdrop}
         >
           <BookingBottomSheet
             roomId={id}
@@ -140,7 +145,9 @@ export default function RoomPreview() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   imageBackground: {
     height: 275,
     justifyContent: "flex-end",
@@ -152,10 +159,26 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
     padding: 10,
   },
-  header1: { color: "white", fontSize: 20, fontWeight: "bold" },
-  header2: { color: "white", fontSize: 14 },
-  header3: { fontSize: 16, fontWeight: "bold" },
-  text1: { color: "white" },
+  header1: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  header2: {
+    color: "white",
+    fontSize: 14,
+  },
+  header3: {
+    fontSize: 16,
+    fontWeight: "bold",
+    paddingHorizontal: 15,
+  },
+  text1: {
+    color: "white",
+  },
+  text2: {
+    paddingHorizontal: 15,
+  },
   pressable: {
     backgroundColor: primaryColor,
     borderRadius: 10,
@@ -163,8 +186,14 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
   },
-  container1: { padding: 20, gap: 20 },
-  container2: { gap: 5, flexDirection: "column" },
+  container1: {
+    paddingTop: 20,
+    gap: 20,
+  },
+  container2: {
+    gap: 5,
+    flexDirection: "column",
+  },
   container3: {
     alignItems: "center",
     justifyContent: "space-between",

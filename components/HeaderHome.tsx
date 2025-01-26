@@ -27,5 +27,8 @@ const styles = StyleSheet.create({
     minWidth: "100%",
     alignItems: "center",
   },
-  text: { fontSize: 20, fontWeight: "bold" },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
 });
