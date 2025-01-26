@@ -35,8 +35,6 @@ export const BookingBottomSheet = ({
 
   const { themeBackgroundStyle } = useThemeColor();
 
-  if (datePicker.open) console.log(datePicker.open);
-
   return (
     <BottomSheetView style={[styles.bottomSheet, themeBackgroundStyle]}>
       <View style={styles.container}>
@@ -45,20 +43,31 @@ export const BookingBottomSheet = ({
             mode="date"
             value={datePicker.date}
             display="calendar"
+            onChange={(event, selectedDate) => {
+              datePicker.onConfirm(selectedDate || datePicker.date);
+            }}
           />
         )}
+
         {timeInPicker.open && (
           <DateTimePicker
             mode="time"
-            value={datePicker.date}
+            value={timeInPicker.time}
             display="spinner"
+            onChange={(event, selectedTime) => {
+              timeInPicker.onConfirm(selectedTime || timeInPicker.time);
+            }}
           />
         )}
+
         {timeOutPicker.open && (
           <DateTimePicker
             mode="time"
-            value={datePicker.date}
+            value={timeOutPicker.time}
             display="spinner"
+            onChange={(event, selectedTime) => {
+              timeOutPicker.onConfirm(selectedTime || timeOutPicker.time);
+            }}
           />
         )}
         <IconInput
