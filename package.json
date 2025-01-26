@@ -76,17 +76,5 @@
     "supabase": "^2.1.1",
     "typescript": "^5.3.3"
   },
-  "private": true,
-  "expo": {
-    "doctor": {
-      "reactNativeDirectoryCheck": {
-        "exclude": [
-          "@tamagui/config",
-          "@tamagui/linear-gradient",
-          "tamagui",
-          "moment"
-        ]
-      }
-    }
-  }
+  "private": true
 }

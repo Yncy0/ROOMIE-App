@@ -26,7 +26,18 @@ const BookingsList = ({ isHorizontal, bookedRooms, isLoading }: Props) => {
     return () => clearInterval(interval);
   }, [bookedRooms]);
 
-  useDeleteBookedRooms();
+  React.useEffect(() => {
+    const deleteRooms = async () => {
+      try {
+        await useDeleteBookedRooms();
+        console.log("Booked rooms with status 'DONE' have been deleted");
+      } catch (error) {
+        console.error("Error deleting booked rooms:", error);
+      }
+    };
+
+    deleteRooms();
+  }, []);
 
   return (
     <>

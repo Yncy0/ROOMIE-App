@@ -1,8 +1,8 @@
 import { supabase } from "@/utils/supabase";
-import moment from "moment";
+import dayjs from "dayjs";
 
 export const useUpdateBookedRoomStatus = async () => {
-    const timeNow = moment().format("YYYY-MM-DD HH:mm:ssZ");
+    const timeNow = dayjs().format("YYYY-MM-DD HH:mm:ssZ");
 
     const { data, error } = await supabase
         .from("booked_rooms")

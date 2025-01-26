@@ -15,17 +15,20 @@ const Booking = () => {
   const { data, isLoading, error } = useFetchBookedRooms();
 
   React.useEffect(() => {
+    if (error) {
+      console.error("Error fetching booked rooms:", error);
+      SplashScreen.hideAsync();
+      return;
+    }
+
     if (!isLoading) {
       console.log("booking.tsx loaded successfully", isLoading);
-
       SplashScreen.hideAsync();
       console.log("Hide SplashScreen booking.tsx");
     } else {
       console.log("booking.tsx still loading");
     }
-  }, [isLoading]);
-
-  if (error) console.error(error);
+  }, [isLoading, error]);
 
   return (
     <SafeAreaProvider>
