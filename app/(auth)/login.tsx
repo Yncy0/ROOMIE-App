@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, View, AppState, Image } from "react-native";
+import { Alert, StyleSheet, View, AppState, Image, Text } from "react-native";
 import { supabase } from "@/utils/supabase";
 import { Button, Input } from "@rneui/themed";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import useThemeColor from "@/hooks/useThemeColor";
 
 // Tells Supabase Auth to continuously refresh the session automatically if
@@ -71,12 +71,15 @@ export default function Auth() {
         paddingTop: 50,
         gap: 75,
         justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Stack.Screen options={{ headerShown: false }} />
       <View
         style={{
           paddingHorizontal: 10,
+          width: "100%",
+          alignItems: "center",
         }}
       >
         <Image
@@ -102,10 +105,11 @@ export default function Auth() {
           autoCapitalize={"none"}
           inputStyle={{ fontSize: 16, color: themeTextStyle.color }}
           inputContainerStyle={{
+            width: "100%",
             borderBottomWidth: 0,
             backgroundColor: themeInputStyle.backgroundColor,
             paddingHorizontal: 15,
-            borderRadius: 50,
+            borderRadius: 10,
             gap: 10,
           }}
         />
@@ -123,20 +127,40 @@ export default function Auth() {
           autoCapitalize={"none"}
           inputStyle={{ fontSize: 16, color: themeTextStyle.color }}
           inputContainerStyle={{
+            width: "100%",
             borderBottomWidth: 0,
             backgroundColor: themeInputStyle.backgroundColor,
             paddingHorizontal: 15,
-            borderRadius: 50,
+            borderRadius: 10,
             gap: 10,
           }}
         />
+        <Button
+          title="Sign in"
+          disabled={loading}
+          onPress={() => signInWithEmail()}
+          containerStyle={{
+            width: "90%",
+            borderRadius: 10,
+            marginHorizontal: 10,
+            marginBottom: 20,
+          }}
+        />
+        <Text style={{ paddingBottom: 40 }}>Don't have an account?</Text>
+        <Button
+          title="Register"
+          disabled={loading}
+          onPress={() => router.replace("/(auth)/register")}
+          color={"black"}
+          containerStyle={{
+            width: "90%",
+            borderRadius: 10,
+            marginHorizontal: 10,
+            marginBottom: 50,
+          }}
+        />
       </View>
-      <Button
-        title="Sign in"
-        disabled={loading}
-        onPress={() => signInWithEmail()}
-        containerStyle={{ borderRadius: 50, marginHorizontal: 20 }}
-      />
+
       {/* <Button
         title="Sign up"
         disabled={loading}
