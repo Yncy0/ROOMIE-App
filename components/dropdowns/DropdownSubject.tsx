@@ -50,7 +50,7 @@ const DropdownSubject = ({ value, onChange }: DropdownSubjectProps) => {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? "Select item" : "..."}
+        placeholder={!isFocus ? "Subject" : "..."}
         searchPlaceholder="Search..."
         value={value}
         onFocus={() => setIsFocus(true)}
