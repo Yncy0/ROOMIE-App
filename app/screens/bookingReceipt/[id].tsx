@@ -104,7 +104,9 @@ const BookingReceipt = () => {
               <Text style={styles.header1}>Reservation Details</Text>
               <Ionicons name={"checkmark-circle-sharp"} size={74} />
               <View style={styles.container1}>
-                <Text style={styles.header2}>Your Booking Confirmed!</Text>
+                <Text style={styles.header2}>
+                  Your Booking Confirmed! Please wait form confirmation
+                </Text>
                 <Text>{`Reference No: "MR${referenceNumber}"`}</Text>
               </View>
               <Image source={{ uri: roomImage }} style={styles.image} />

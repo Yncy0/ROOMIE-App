@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { useFetchCourseName } from "@/hooks/queries/useFetchCourse";
 import { Ionicons } from "@expo/vector-icons";
 import { primaryColor } from "@/constants/Colors";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
@@ -23,6 +21,9 @@ const DropdownRooms = ({ value, onChange }: Props) => {
       const formattedData = (data ?? []).map((rooms) => ({
         label: rooms.room_name, // Adjust based on your data structure
         value: rooms.id, // Adjust based on your data structure
+        roomName: rooms.room_name,
+        roomImage: rooms.room_image,
+        roomCategory: rooms.room_type,
       }));
       setCourseData(formattedData);
     }
@@ -59,7 +60,7 @@ const DropdownRooms = ({ value, onChange }: Props) => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          onChange(item.value);
+          onChange(item);
           setIsFocus(false);
         }}
         renderLeftIcon={() => (

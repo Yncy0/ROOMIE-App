@@ -47,10 +47,8 @@ export default function BookedCard({ items }: Props) {
         style={styles.image}
       />
       <View style={styles.container1}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.text}>{items.rooms.room_name}</Text>
-          <Text style={styles.text}>{items.status}</Text>
-        </View>
+        <Text style={styles.status}>{items.status}</Text>
+        <Text style={styles.text}>{items.rooms.room_name}</Text>
         <Text style={styles.text}>{items.rooms.room_type}</Text>
         <IconText icon="albums-outline" text={items.subject_code} />
         <IconText icon="people-outline" text={items.course_and_section} />
@@ -78,13 +76,22 @@ const styles = StyleSheet.create({
     minWidth: 300,
     elevation: 10,
   },
+  status: {
+    color: primaryColor,
+    backgroundColor: "white",
+    position: "absolute",
+    top: -20,
+    zIndex: 999,
+    width: 140,
+    fontSize: 12,
+  },
   image: {
     width: 120,
     height: 120,
     borderRadius: 10,
   },
   container1: {
-    gap: 5,
+    gap: 3,
     flexDirection: "column",
   },
   text: {
