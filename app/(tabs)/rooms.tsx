@@ -8,9 +8,8 @@ import useThemeColor from "@/hooks/useThemeColor";
 import { router } from "expo-router";
 import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 import * as SplashScreen from "expo-splash-screen";
-import FilterButton from "@/components/buttons/FilterButton";
+import FilterRoomButton from "@/components/buttons/FilterRoomButton";
 import IconButton from "@/components/buttons/IconButton";
-import HeaderFilter from "@/components/HeaderFilter";
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -57,7 +56,10 @@ const Rooms = () => {
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <View style={styles.headerWrapper}>
           <Text style={themeTextStyle}>Available Rooms</Text>
-          <FilterButton filterType={filterType} setFilterType={setFilterType} />
+          <FilterRoomButton
+            filterType={filterType}
+            setFilterType={setFilterType}
+          />
         </View>
         <FlatList
           data={data}

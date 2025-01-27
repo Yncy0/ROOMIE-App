@@ -9,12 +9,12 @@ type Props = {
   setFilterType: any;
 };
 
-const FilterButton = ({ filterType, setFilterType }: Props) => {
+const FilterBookingButton = ({ filterType, setFilterType }: Props) => {
   const [isFocus, setIsFocus] = React.useState(false);
 
   const filterOptions = [
-    { label: "ascend", value: "ascend" },
-    { label: "descend", value: "descend" },
+    { label: "time ascend", value: "ascend" },
+    { label: "time descend", value: "descend" },
   ];
 
   return (
@@ -49,7 +49,7 @@ const FilterButton = ({ filterType, setFilterType }: Props) => {
   );
 };
 
-export default FilterButton;
+export default FilterBookingButton;
 
 const styles = StyleSheet.create({
   container: {
