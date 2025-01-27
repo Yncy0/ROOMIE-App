@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     color: primaryColor,
     backgroundColor: "white",
     position: "absolute",
-    top: -20,
+    top: -23,
     zIndex: 999,
     width: 140,
     fontSize: 12,
