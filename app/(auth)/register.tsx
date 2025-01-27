@@ -22,30 +22,12 @@ AppState.addEventListener("change", (state) => {
 
 export default function Auth() {
   const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { themeBackgroundStyle, themeInputStyle, themeTextStyle } =
     useThemeColor();
-
-  //   async function signInWithEmail() {
-  //     setLoading(true);
-  //     try {
-  //       const { error } = await supabase.auth.signInWithPassword({
-  //         email: email,
-  //         password: password,
-  //       });
-
-  //       if (error) {
-  //         console.error("Sign-in error:", error.message); // Log to console for better debugging
-  //         Alert.alert(error.message);
-  //       }
-  //     } catch (e) {
-  //       console.error("Unexpected error:", e);
-  //       Alert.alert("Unexpected error occurred");
-  //     }
-  //     setLoading(false);
-  //   }
 
   async function signUpWithEmail() {
     setLoading(true);
@@ -55,6 +37,7 @@ export default function Auth() {
     } = await supabase.auth.signUp({
       email: email,
       password: password,
+      phone: number,
     });
 
     if (error) Alert.alert(error.message);
@@ -82,7 +65,7 @@ export default function Auth() {
           alignItems: "center",
         }}
       >
-        <Image
+        {/* <Image
           source={require("@/assets/images/roomie-icon.png")}
           style={{
             width: 200,
@@ -90,20 +73,47 @@ export default function Auth() {
             alignSelf: "center",
             marginBottom: 20,
           }}
+        /> */}
+        <Text style={{ fontSize: 24, fontWeight: "bold", paddingBottom: 25 }}>
+          Register
+        </Text>
+        <Input
+          label="Email"
+          leftIcon={{
+            type: "font-awesome",
+            name: "envelope",
+            size: 14,
+            color: "#636c72",
+          }}
+          labelStyle={{ fontSize: 14 }}
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+          placeholder="email@address.com"
+          autoCapitalize={"none"}
+          inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
+          inputContainerStyle={{
+            width: "100%",
+            borderBottomWidth: 0,
+            backgroundColor: themeInputStyle.backgroundColor,
+            paddingHorizontal: 15,
+            borderRadius: 10,
+            gap: 10,
+          }}
         />
         <Input
           label="Email"
           leftIcon={{
             type: "font-awesome",
             name: "envelope",
-            size: 16,
+            size: 14,
             color: "#636c72",
           }}
+          labelStyle={{ fontSize: 14 }}
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={"none"}
-          inputStyle={{ fontSize: 16, color: themeTextStyle.color }}
+          inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
           inputContainerStyle={{
             width: "100%",
             borderBottomWidth: 0,
@@ -119,13 +129,15 @@ export default function Auth() {
             type: "font-awesome",
             name: "lock",
             color: "#636c72",
+            size: 20,
           }}
+          labelStyle={{ fontSize: 14 }}
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
           placeholder="Password"
           autoCapitalize={"none"}
-          inputStyle={{ fontSize: 16, color: themeTextStyle.color }}
+          inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
           inputContainerStyle={{
             width: "100%",
             borderBottomWidth: 0,
@@ -133,6 +145,7 @@ export default function Auth() {
             paddingHorizontal: 15,
             borderRadius: 10,
             gap: 10,
+            marginBottom: 50,
           }}
         />
         <Button
@@ -146,17 +159,6 @@ export default function Auth() {
             marginBottom: 20,
           }}
         />
-        {/* <Button
-          title="Sign in"
-          disabled={loading}
-          onPress={() => signInWithEmail()}
-          containerStyle={{
-            width: "90%",
-            borderRadius: 10,
-            marginHorizontal: 10,
-            marginBottom: 20,
-          }}
-        /> */}
         <Text style={{ paddingBottom: 40 }}>Do you have an account?</Text>
         <Button
           title="Login"

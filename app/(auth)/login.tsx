@@ -47,22 +47,6 @@ export default function Auth() {
     setLoading(false);
   }
 
-  // async function signUpWithEmail() {
-  //   setLoading(true);
-  //   const {
-  //     data: { session },
-  //     error,
-  //   } = await supabase.auth.signUp({
-  //     email: email,
-  //     password: password,
-  //   });
-
-  //   if (error) Alert.alert(error.message);
-  //   if (!session)
-  //     Alert.alert("Please check your inbox for email verification!");
-  //   setLoading(false);
-  // }
-
   return (
     <View
       style={{
@@ -96,14 +80,15 @@ export default function Auth() {
           leftIcon={{
             type: "font-awesome",
             name: "envelope",
-            size: 16,
+            size: 14,
             color: "#636c72",
           }}
+          labelStyle={{ fontSize: 14 }}
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={"none"}
-          inputStyle={{ fontSize: 16, color: themeTextStyle.color }}
+          inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
           inputContainerStyle={{
             width: "100%",
             borderBottomWidth: 0,
@@ -119,13 +104,15 @@ export default function Auth() {
             type: "font-awesome",
             name: "lock",
             color: "#636c72",
+            size: 20,
           }}
+          labelStyle={{ fontSize: 14 }}
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
           placeholder="Password"
           autoCapitalize={"none"}
-          inputStyle={{ fontSize: 16, color: themeTextStyle.color }}
+          inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
           inputContainerStyle={{
             width: "100%",
             borderBottomWidth: 0,
@@ -160,13 +147,6 @@ export default function Auth() {
           }}
         />
       </View>
-
-      {/* <Button
-        title="Sign up"
-        disabled={loading}
-        onPress={() => signUpWithEmail()}
-        containerStyle={{ borderRadius: 50 }}
-      /> */}
     </View>
   );
 }
