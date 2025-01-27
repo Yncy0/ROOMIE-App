@@ -22,7 +22,7 @@ AppState.addEventListener("change", (state) => {
 
 export default function Auth() {
   const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -37,7 +37,7 @@ export default function Auth() {
     } = await supabase.auth.signUp({
       email: email,
       password: password,
-      phone: number,
+      phone: phone,
     });
 
     if (error) Alert.alert(error.message);
@@ -65,15 +65,6 @@ export default function Auth() {
           alignItems: "center",
         }}
       >
-        {/* <Image
-          source={require("@/assets/images/roomie-icon.png")}
-          style={{
-            width: 200,
-            height: 200,
-            alignSelf: "center",
-            marginBottom: 20,
-          }}
-        /> */}
         <Text style={{ fontSize: 24, fontWeight: "bold", paddingBottom: 25 }}>
           Register
         </Text>
@@ -101,17 +92,17 @@ export default function Auth() {
           }}
         />
         <Input
-          label="Email"
+          label="Phone Number"
           leftIcon={{
             type: "font-awesome",
-            name: "envelope",
-            size: 14,
+            name: "phone",
+            size: 16,
             color: "#636c72",
           }}
           labelStyle={{ fontSize: 14 }}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => setPhone(text)}
           value={email}
-          placeholder="email@address.com"
+          placeholder="123-456-789"
           autoCapitalize={"none"}
           inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
           inputContainerStyle={{

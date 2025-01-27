@@ -47,7 +47,10 @@ export default function BookedCard({ items }: Props) {
         style={styles.image}
       />
       <View style={styles.container1}>
-        <Text style={styles.text}>{items.rooms.room_name}</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={styles.text}>{items.rooms.room_name}</Text>
+          <Text style={styles.text}>{items.status}</Text>
+        </View>
         <Text style={styles.text}>{items.rooms.room_type}</Text>
         <IconText icon="albums-outline" text={items.subject_code} />
         <IconText icon="people-outline" text={items.course_and_section} />
