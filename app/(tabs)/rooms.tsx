@@ -8,6 +8,8 @@ import useThemeColor from "@/hooks/useThemeColor";
 import { router } from "expo-router";
 import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 import * as SplashScreen from "expo-splash-screen";
+import IconButton from "@/components/buttons/IconButton";
+import HeaderFilter from "@/components/HeaderFilter";
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -34,7 +36,7 @@ const Rooms = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
-        <Text style={[styles.header, themeTextStyle]}>Available Rooms</Text>
+        <HeaderFilter text="Available Rooms" />
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
@@ -78,9 +80,5 @@ export default Rooms;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    paddingHorizontal: 15,
-    paddingBottom: 10,
   },
 });

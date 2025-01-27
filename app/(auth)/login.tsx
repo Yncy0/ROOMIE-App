@@ -67,16 +67,22 @@ export default function Auth() {
         backgroundColor: themeBackgroundStyle.backgroundColor,
         paddingTop: 50,
         gap: 75,
+        justifyContent: "center",
       }}
     >
       <Stack.Screen options={{ headerShown: false }} />
-      <View style={{ paddingHorizontal: 10 }}>
+      <View
+        style={{
+          paddingHorizontal: 10,
+        }}
+      >
         <Image
-          source={require("@/assets/images/login-pana1.png")}
+          source={require("@/assets/images/roomie-icon.png")}
           style={{
             width: 200,
             height: 200,
             alignSelf: "center",
+            marginBottom: 20,
           }}
         />
         <Input
@@ -95,8 +101,9 @@ export default function Auth() {
           inputContainerStyle={{
             borderBottomWidth: 0,
             backgroundColor: themeInputStyle.backgroundColor,
-            paddingHorizontal: 10,
+            paddingHorizontal: 15,
             borderRadius: 50,
+            gap: 10,
           }}
         />
         <Input
@@ -115,8 +122,9 @@ export default function Auth() {
           inputContainerStyle={{
             borderBottomWidth: 0,
             backgroundColor: themeInputStyle.backgroundColor,
-            paddingHorizontal: 10,
+            paddingHorizontal: 15,
             borderRadius: 50,
+            gap: 10,
           }}
         />
       </View>

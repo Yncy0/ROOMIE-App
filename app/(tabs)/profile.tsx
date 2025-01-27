@@ -33,7 +33,7 @@ export default function Profile() {
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={[styles.containerColumn, themeContainerStyle]}>
+          <View style={styles.containerColumn}>
             {loading ? (
               <ProfileSkeletonLoader />
             ) : (
