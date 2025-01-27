@@ -2,27 +2,41 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useFetchSubjects } from "@/hooks/useFetchSubject";
 
-const data = [
-  { label: "Item 1", value: "1" },
-  { label: "Item 2", value: "2" },
-  { label: "Item 3", value: "3" },
-  { label: "Item 4", value: "4" },
-  { label: "Item 5", value: "5" },
-  { label: "Item 6", value: "6" },
-  { label: "Item 7", value: "7" },
-  { label: "Item 8", value: "8" },
-];
+// const data = [
+//   { label: "Item 1", value: "1" },
+//   { label: "Item 2", value: "2" },
+//   { label: "Item 3", value: "3" },
+//   { label: "Item 4", value: "4" },
+//   { label: "Item 5", value: "5" },
+//   { label: "Item 6", value: "6" },
+//   { label: "Item 7", value: "7" },
+//   { label: "Item 8", value: "8" },
+// ];
 
 const DropdownSubject = () => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
+  const { data, error } = useFetchSubjects();
+  const [subjectData, setSubjectData] = useState<any>([]);
+
+  React.useEffect(() => {
+    if (data) {
+      const formattedData = (data ?? []).map((subject) => ({
+        label: subject.subject_code, // Adjust based on your data structure
+        value: subject.subject_code, // Adjust based on your data structure
+      }));
+      setSubjectData(formattedData);
+    }
+  }, [data]);
+
   const renderLabel = () => {
     if (value || isFocus) {
       return (
         <Text style={[styles.label, isFocus && { color: "blue" }]}>
-          Dropdown label
+          Subject
         </Text>
       );
     }
@@ -38,7 +52,7 @@ const DropdownSubject = () => {
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
-        data={data}
+        data={subjectData}
         search
         maxHeight={300}
         labelField="label"
@@ -86,7 +100,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "white",
     left: 22,
-    top: 8,
+    top: -10,
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
