@@ -17,6 +17,9 @@ AppState.addEventListener("change", (state) => {
   }
 });
 
+//TODO: NIST STANDARDS ON INPUT
+//TODO: Put asterisk indication on required fields
+
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

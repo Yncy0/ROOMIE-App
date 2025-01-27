@@ -86,7 +86,7 @@ const useHandleReserve = ({
                 courseAndSection,
                 localTimeIn,
                 localTimeOut,
-                "ONGOING",
+                "PENDING RESERVE",
             );
             onSuccess((await insert).id);
             console.log(localTimeIn);
