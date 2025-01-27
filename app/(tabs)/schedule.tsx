@@ -19,6 +19,7 @@ import {
   generateDatesForCurrentMonth,
 } from "@/utils/timeUtils";
 import ScheduleSkeletonLoader from "@/components/loader/ScheduleSkeletonLoader";
+import FABbooking from "@/components/buttons/FABbooking";
 
 export default function Schedule() {
   // Initialize selectedDate to the current date
@@ -101,6 +102,7 @@ export default function Schedule() {
             )}
           </View>
         </ScrollView>
+        <FABbooking />
       </SafeAreaView>
     </SafeAreaProvider>
   );

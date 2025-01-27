@@ -10,6 +10,7 @@ import {
   useFetchBookedRoomsWithUser,
 } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import HeaderFilter from "@/components/HeaderFilter";
+import FABbooking from "@/components/buttons/FABbooking";
 
 const Booking = () => {
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
@@ -32,7 +33,7 @@ const Booking = () => {
   }, [isLoading, error]);
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={themeBackgroundStyle}>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <HeaderFilter text="Your Booked Rooms" />
         <BookingsList
@@ -41,6 +42,7 @@ const Booking = () => {
           isLoading={isLoading}
         />
       </SafeAreaView>
+      <FABbooking />
     </SafeAreaProvider>
   );
 };

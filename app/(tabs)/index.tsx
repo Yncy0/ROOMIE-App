@@ -17,6 +17,7 @@ import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import useThemeColor from "@/hooks/useThemeColor";
 import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
+import FABbooking from "@/components/buttons/FABbooking";
 
 export default function Index() {
   const {
@@ -110,6 +111,7 @@ export default function Index() {
             maxToRenderPerBatch={5}
           />
         </ScrollView>
+        <FABbooking />
       </SafeAreaView>
     </SafeAreaProvider>
   );
