@@ -8,6 +8,8 @@ import useHandleReserve from "@/hooks/useHandleReserve";
 import { primaryColor } from "@/constants/Colors";
 import dayjs from "dayjs";
 import useThemeColor from "@/hooks/useThemeColor";
+import DropdownSubject from "./dropdowns/DropdownSubject";
+import DropdownCourse from "./dropdowns/DropdownCourse";
 
 type Props = {
   roomId: any;
@@ -70,18 +72,20 @@ export const BookingBottomSheet = ({
             }}
           />
         )}
-        <IconInput
+        {/* <IconInput
           icon={"book"}
           placeholder="Subject Name"
           value={subjectCode}
           onChangeText={setSubjectCode}
-        />
-        <IconInput
+        /> */}
+        <DropdownSubject />
+        {/* <IconInput
           icon={"people-alt"}
           placeholder="Course & Section"
           value={courseAndSection}
           onChangeText={setCourseAndSection}
-        />
+        /> */}
+        <DropdownCourse />
         <IconInput
           icon={"calendar-today"}
           placeholder="Date"
@@ -116,7 +120,6 @@ export const BookingBottomSheet = ({
 const styles = StyleSheet.create({
   bottomSheet: {
     flex: 1,
-    minHeight: "50%",
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 50,
