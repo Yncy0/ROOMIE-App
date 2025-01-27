@@ -9,6 +9,7 @@ import {
   useFetchBookedRooms,
   useFetchBookedRoomsWithUser,
 } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import HeaderFilter from "@/components/HeaderFilter";
 
 const Booking = () => {
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
@@ -33,7 +34,7 @@ const Booking = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
-        <Text style={[styles.header, themeTextStyle]}>Your Booked Rooms</Text>
+        <HeaderFilter text="Your Booked Rooms" />
         <BookingsList
           isHorizontal={false}
           bookedRooms={data}
