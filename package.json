@@ -64,7 +64,8 @@
     "react-native-view-shot": "~4.0.3",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
-    "expo-updates": "~0.26.13"
+    "expo-updates": "~0.26.13",
+    "@react-native-picker/picker": "2.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
