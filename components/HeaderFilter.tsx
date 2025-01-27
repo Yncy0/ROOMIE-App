@@ -4,6 +4,7 @@ import { Picker } from "@react-native-picker/picker";
 
 import IconButton from "./buttons/IconButton";
 import useThemeColor from "@/hooks/useThemeColor";
+import FilterButton from "./buttons/FilterButton";
 
 type Props = {
   text: string;
@@ -17,15 +18,7 @@ const HeaderFilter = ({ text }: Props) => {
   return (
     <View style={styles.headerWrapper}>
       <Text style={themeTextStyle}>{text}</Text>
-      <View style={styles.wrapper}>
-        <IconButton
-          name={"filter"}
-          onPress={() => {}}
-          size={16}
-          color={themeTextStyle.color}
-        />
-        <Text>Filter</Text>
-      </View>
+      <FilterButton />
     </View>
   );
 };
@@ -38,6 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingBottom: 20,
     paddingHorizontal: 15,
+    alignItems: "center",
   },
   wrapper: {
     flexDirection: "row",
