@@ -78,7 +78,7 @@ export default function Index() {
             </Pressable>
           </View>
           <FlatList
-            data={rooms}
+            data={rooms?.slice(0, 3)}
             renderItem={({ item }) =>
               roomsLoading ? (
                 <RoomSkeletonLoader />
@@ -106,7 +106,8 @@ export default function Index() {
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ gap: 20, paddingHorizontal: 20 }}
-            initialNumToRender={15}
+            initialNumToRender={5}
+            maxToRenderPerBatch={5}
           />
         </ScrollView>
       </SafeAreaView>
