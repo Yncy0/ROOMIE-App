@@ -10,6 +10,9 @@ import IconInput from "@/components/inputs/IconInput";
 import dayjs from "dayjs";
 import DropdownSubject from "@/components/dropdowns/DropdownSubject";
 import DropdownCourse from "@/components/dropdowns/DropdownCourse";
+import useDatePicker from "@/hooks/pickers/useDatePicker";
+import useTimePicker from "@/hooks/pickers/useTimePicker";
+import DropdownRooms from "../dropdowns/DropdownRooms";
 
 const FABbooking = () => {
   const [visible, setVisible] = React.useState(false);
@@ -17,6 +20,11 @@ const FABbooking = () => {
     ""
   );
   const [subjectCode, setSubjectCode] = React.useState<string | null>("");
+  const [rooms, setRooms] = React.useState<string | null>("");
+
+  const datePicker = useDatePicker();
+  const timeInPicker = useTimePicker();
+  const timeOutPicker = useTimePicker();
 
   const { themeBackgroundStyle } = useThemeColor();
 
@@ -33,68 +41,71 @@ const FABbooking = () => {
         }}
         onPress={() => setVisible(true)}
       />
-      <Modal visible={visible}>
+      <Modal visible={visible} style={{ flex: 1 }}>
         <View style={styles.container}>
-          {/* {datePicker.open && (
-              <DateTimePicker
-                mode="date"
-                value={datePicker.date}
-                display="calendar"
-                onChange={(event, selectedDate) => {
-                  datePicker.onConfirm(selectedDate || datePicker.date);
-                }}
-              />
-            )}
+          {datePicker.open && (
+            <DateTimePicker
+              mode="date"
+              value={datePicker.date}
+              display="calendar"
+              onChange={(event, selectedDate) => {
+                datePicker.onConfirm(selectedDate || datePicker.date);
+              }}
+            />
+          )}
 
-            {timeInPicker.open && (
-              <DateTimePicker
-                mode="time"
-                value={timeInPicker.time}
-                display="spinner"
-                onChange={(event, selectedTime) => {
-                  timeInPicker.onConfirm(selectedTime || timeInPicker.time);
-                }}
-              />
-            )}
+          {timeInPicker.open && (
+            <DateTimePicker
+              mode="time"
+              value={timeInPicker.time}
+              display="spinner"
+              onChange={(event, selectedTime) => {
+                timeInPicker.onConfirm(selectedTime || timeInPicker.time);
+              }}
+            />
+          )}
 
-            {timeOutPicker.open && (
-              <DateTimePicker
-                mode="time"
-                value={timeOutPicker.time}
-                display="spinner"
-                onChange={(event, selectedTime) => {
-                  timeOutPicker.onConfirm(selectedTime || timeOutPicker.time);
-                }}
-              />
-            )} */}
+          {timeOutPicker.open && (
+            <DateTimePicker
+              mode="time"
+              value={timeOutPicker.time}
+              display="spinner"
+              onChange={(event, selectedTime) => {
+                timeOutPicker.onConfirm(selectedTime || timeOutPicker.time);
+              }}
+            />
+          )}
+          <DropdownRooms value={rooms} onChange={setRooms} />
           <DropdownSubject value={subjectCode} onChange={setSubjectCode} />
           <DropdownCourse
             value={courseAndSection}
             onChange={setCourseAndSection}
           />
-          {/* <IconInput
+          <View style={{ height: 50, width: "100%" }}>
+            <IconInput
               icon={"calendar-today"}
               placeholder="Date"
               onPress={() => datePicker.setOpen(true)}
               value={dayjs(datePicker.date).format("DD MMMM YYYY")}
               onChangeText={() => {}}
             />
-            <View style={{ gap: 20, flexDirection: "row" }}>
-              <IconInput
-                icon={"schedule"}
-                placeholder="Time-in"
-                onPress={() => timeInPicker.setOpen(true)}
-                value={dayjs(timeInPicker.time).format("HH:mm: a")}
-                onChangeText={() => {}}
-              />
-              <IconInput
-                icon={"schedule"}
-                placeholder="Time-out"
-                onPress={() => timeOutPicker.setOpen(true)}
-                value={dayjs(timeOutPicker.time).format("HH:mm: a")}
-                onChangeText={() => {}}
-              />
-            </View> */}
+          </View>
+          <View style={{ gap: 20, flexDirection: "row" }}>
+            <IconInput
+              icon={"schedule"}
+              placeholder="Time-in"
+              onPress={() => timeInPicker.setOpen(true)}
+              value={dayjs(timeInPicker.time).format("HH:mm: a")}
+              onChangeText={() => {}}
+            />
+            <IconInput
+              icon={"schedule"}
+              placeholder="Time-out"
+              onPress={() => timeOutPicker.setOpen(true)}
+              value={dayjs(timeOutPicker.time).format("HH:mm: a")}
+              onChangeText={() => {}}
+            />
+          </View>
           <Pressable style={styles.pressable} onPress={() => {}}>
             <Text style={styles.text}>Reserve</Text>
           </Pressable>

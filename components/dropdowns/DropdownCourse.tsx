@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useFetchCourseName } from "@/hooks/queries/useFetchCourse";
+import { Ionicons } from "@expo/vector-icons";
+import { primaryColor } from "@/constants/Colors";
 
 type Props = {
   value: string | null;
@@ -40,7 +42,7 @@ const DropdownCourse = ({ value, onChange }: Props) => {
     <View style={styles.container}>
       {renderLabel()}
       <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+        style={[styles.dropdown, isFocus && { borderColor: primaryColor }]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
@@ -60,10 +62,10 @@ const DropdownCourse = ({ value, onChange }: Props) => {
           setIsFocus(false);
         }}
         renderLeftIcon={() => (
-          <AntDesign
+          <Ionicons
             style={styles.icon}
-            color={isFocus ? "blue" : "black"}
-            name="Safety"
+            color={isFocus ? primaryColor : "black"}
+            name="people"
             size={20}
           />
         )}

@@ -2,28 +2,29 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useFetchSubjects } from "@/hooks/useFetchSubject";
+import { useFetchCourseName } from "@/hooks/queries/useFetchCourse";
 import { Ionicons } from "@expo/vector-icons";
 import { primaryColor } from "@/constants/Colors";
+import useFetchRooms from "@/hooks/queries/useFetchRooms";
 
-type DropdownSubjectProps = {
+type Props = {
   value: string | null;
   onChange: (value: string | null) => void;
 };
 
-const DropdownSubject = ({ value, onChange }: DropdownSubjectProps) => {
+const DropdownRooms = ({ value, onChange }: Props) => {
   const [isFocus, setIsFocus] = useState(false);
 
-  const { data } = useFetchSubjects();
-  const [subjectData, setSubjectData] = useState<any>([]);
+  const { data } = useFetchRooms();
+  const [courseData, setCourseData] = useState<any>([]);
 
   React.useEffect(() => {
     if (data) {
-      const formattedData = (data ?? []).map((subject) => ({
-        label: subject.subject_code, // Adjust based on your data structure
-        value: subject.subject_code, // Adjust based on your data structure
+      const formattedData = (data ?? []).map((rooms) => ({
+        label: rooms.room_name, // Adjust based on your data structure
+        value: rooms.id, // Adjust based on your data structure
       }));
-      setSubjectData(formattedData);
+      setCourseData(formattedData);
     }
   }, [data]);
 
@@ -31,7 +32,7 @@ const DropdownSubject = ({ value, onChange }: DropdownSubjectProps) => {
     if (value || isFocus) {
       return (
         <Text style={[styles.label, isFocus && { color: "blue" }]}>
-          Subject
+          Course and Section
         </Text>
       );
     }
@@ -47,12 +48,12 @@ const DropdownSubject = ({ value, onChange }: DropdownSubjectProps) => {
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
-        data={subjectData}
+        data={courseData}
         search
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? "Subject" : "..."}
+        placeholder={!isFocus ? "Rooms" : "..."}
         searchPlaceholder="Search..."
         value={value}
         onFocus={() => setIsFocus(true)}
@@ -65,7 +66,7 @@ const DropdownSubject = ({ value, onChange }: DropdownSubjectProps) => {
           <Ionicons
             style={styles.icon}
             color={isFocus ? primaryColor : "black"}
-            name="book"
+            name="layers"
             size={20}
           />
         )}
@@ -74,7 +75,7 @@ const DropdownSubject = ({ value, onChange }: DropdownSubjectProps) => {
   );
 };
 
-export default DropdownSubject;
+export default DropdownRooms;
 
 const styles = StyleSheet.create({
   container: {
