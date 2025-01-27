@@ -163,8 +163,8 @@ const BookingPreview = () => {
                 style={[styles.pressable, themeContainerStyle]}
                 onPress={() =>
                   Alert.alert(
-                    "Title", // Title of the alert dialog
-                    "Message", // Message to be displayed
+                    "Cancelation Request", // Title of the alert dialog
+                    "Are you sure you want to cancel?", // Message to be displayed
                     [
                       {
                         text: "Cancel",

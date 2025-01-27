@@ -18,7 +18,9 @@ export default function ScheduleText({ items }: Props) {
             </Text>
             <Text style={themeTextStyle}>{items.status}</Text>
           </View>
-          <Text style={styles.subHeader}>{items.subject.subject_name}</Text>
+          <Text style={[styles.subHeader, themeTextStyle]}>
+            {items.subject.subject_name}
+          </Text>
         </View>
         <View style={styles.container1}>
           <Text style={[styles.text1, themeTextStyle]}>

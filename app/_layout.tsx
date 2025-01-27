@@ -22,10 +22,6 @@ export default function RootLayout() {
   const queryCLient = new QueryClient();
   const colorScheme = useColorScheme();
 
-  useUpdateScheduleDone();
-  useUpdateScheduleOngoing();
-  useUpdateBookedRoomStatus();
-
   React.useEffect(() => {
     async function prepare() {
       try {
@@ -33,6 +29,12 @@ export default function RootLayout() {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         console.log("top level _layout.tsx is loaded");
+
+        await useUpdateScheduleDone();
+        await useUpdateScheduleOngoing();
+        await useUpdateBookedRoomStatus();
+
+        console.log("UPDATED");
 
         // Hide splash screen after async work
         await SplashScreen.hideAsync();
