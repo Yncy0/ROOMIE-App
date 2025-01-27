@@ -50,7 +50,7 @@ export default FilterButton;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    minWidth: 150,
+    minWidth: 120,
   },
   dropdown: {
     height: 25,
