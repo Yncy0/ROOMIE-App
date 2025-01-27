@@ -78,14 +78,17 @@ export const BookingBottomSheet = ({
           value={subjectCode}
           onChangeText={setSubjectCode}
         /> */}
-        <DropdownSubject />
+        <DropdownSubject value={subjectCode} onChange={setSubjectCode} />
         {/* <IconInput
           icon={"people-alt"}
           placeholder="Course & Section"
           value={courseAndSection}
           onChangeText={setCourseAndSection}
         /> */}
-        <DropdownCourse />
+        <DropdownCourse
+          value={courseAndSection}
+          onChange={setCourseAndSection}
+        />
         <IconInput
           icon={"calendar-today"}
           placeholder="Date"

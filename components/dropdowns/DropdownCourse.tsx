@@ -15,18 +15,22 @@ import { useFetchCourseName } from "@/hooks/queries/useFetchCourse";
 //   { label: "Item 8", value: "8" },
 // ];
 
-const DropdownCourse = () => {
-  const [value, setValue] = useState(null);
+type Props = {
+  value: string | null;
+  onChange: (value: string | null) => void;
+};
+
+const DropdownCourse = ({ value, onChange }: Props) => {
   const [isFocus, setIsFocus] = useState(false);
 
-  const { data, error } = useFetchCourseName();
+  const { data } = useFetchCourseName();
   const [courseData, setCourseData] = useState<any>([]);
 
   React.useEffect(() => {
     if (data) {
-      const formattedData = (data ?? []).map((course) => ({
-        label: course.course_name, // Adjust based on your data structure
-        value: course.course_name, // Adjust based on your data structure
+      const formattedData = (data ?? []).map((item) => ({
+        label: item.course_name, // Adjust based on your data structure
+        value: item.course_name, // Adjust based on your data structure
       }));
       setCourseData(formattedData);
     }
@@ -63,7 +67,7 @@ const DropdownCourse = () => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          setValue(item.value);
+          onChange(item.value);
           setIsFocus(false);
         }}
         renderLeftIcon={() => (

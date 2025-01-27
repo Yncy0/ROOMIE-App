@@ -4,22 +4,15 @@ import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useFetchSubjects } from "@/hooks/useFetchSubject";
 
-// const data = [
-//   { label: "Item 1", value: "1" },
-//   { label: "Item 2", value: "2" },
-//   { label: "Item 3", value: "3" },
-//   { label: "Item 4", value: "4" },
-//   { label: "Item 5", value: "5" },
-//   { label: "Item 6", value: "6" },
-//   { label: "Item 7", value: "7" },
-//   { label: "Item 8", value: "8" },
-// ];
+type DropdownSubjectProps = {
+  value: string | null;
+  onChange: (value: string | null) => void;
+};
 
-const DropdownSubject = () => {
-  const [value, setValue] = useState(null);
+const DropdownSubject = ({ value, onChange }: DropdownSubjectProps) => {
   const [isFocus, setIsFocus] = useState(false);
 
-  const { data, error } = useFetchSubjects();
+  const { data } = useFetchSubjects();
   const [subjectData, setSubjectData] = useState<any>([]);
 
   React.useEffect(() => {
@@ -63,7 +56,7 @@ const DropdownSubject = () => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          setValue(item.value);
+          onChange(item.value);
           setIsFocus(false);
         }}
         renderLeftIcon={() => (
