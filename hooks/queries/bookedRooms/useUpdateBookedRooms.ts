@@ -7,6 +7,7 @@ export const useUpdateBookedRoomStatus = async () => {
     const { data, error } = await supabase
         .from("booked_rooms")
         .update({ status: "DONE" })
+        .eq("status", "ONGOING")
         .lte("time_out", timeNow)
         .select();
 
