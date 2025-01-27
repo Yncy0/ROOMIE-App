@@ -18,7 +18,7 @@ const Rooms = () => {
   const { data, isLoading, error } = useFetchRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
-  const [filteredData, setFilteredData] = React.useState<any>();
+  const [filterType, setFilterType] = React.useState<any | null>(null);
 
   React.useEffect(() => {
     if (error) {
@@ -36,12 +36,28 @@ const Rooms = () => {
     }
   }, [isLoading, error]);
 
+  console.log(filterType);
+
+  if (filterType === "ascend") {
+    data?.sort((a, b) => {
+      if (!a.room_name) return 1;
+      if (!b.room_name) return -1;
+      return a.room_name.localeCompare(b.room_name);
+    });
+  } else if (filterType === "descend") {
+    data?.sort((a, b) => {
+      if (!a.room_name) return 1;
+      if (!b.room_name) return -1;
+      return b.room_name.localeCompare(a.room_name);
+    });
+  }
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <View style={styles.headerWrapper}>
           <Text style={themeTextStyle}>Available Rooms</Text>
-          <FilterButton />
+          <FilterButton filterType={filterType} setFilterType={setFilterType} />
         </View>
         <FlatList
           data={data}

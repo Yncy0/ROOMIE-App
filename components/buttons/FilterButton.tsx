@@ -4,13 +4,17 @@ import { Dropdown } from "react-native-element-dropdown";
 import { Ionicons } from "@expo/vector-icons";
 import { primaryColor } from "@/constants/Colors";
 
-const FilterButton = () => {
-  const [filterType, setFilterType] = useState<string | null>(null);
-  const [isFocus, setIsFocus] = useState(false);
+type Props = {
+  filterType: any;
+  setFilterType: any;
+};
+
+const FilterButton = ({ filterType, setFilterType }: Props) => {
+  const [isFocus, setIsFocus] = React.useState(false);
 
   const filterOptions = [
-    { label: "Ascend", value: "ascend" },
-    { label: "Descend", value: "descend" },
+    { label: "ascend", value: "ascend" },
+    { label: "descend", value: "descend" },
   ];
 
   return (
@@ -28,7 +32,7 @@ const FilterButton = () => {
         value={filterType}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
-        onChange={(item: { value: string | null }) => {
+        onChange={(item) => {
           setFilterType(item.value);
           setIsFocus(false);
         }}
