@@ -2,27 +2,41 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useFetchCourseName } from "@/hooks/queries/useFetchCourse";
 
-const data = [
-  { label: "Item 1", value: "1" },
-  { label: "Item 2", value: "2" },
-  { label: "Item 3", value: "3" },
-  { label: "Item 4", value: "4" },
-  { label: "Item 5", value: "5" },
-  { label: "Item 6", value: "6" },
-  { label: "Item 7", value: "7" },
-  { label: "Item 8", value: "8" },
-];
+// const data = [
+//   { label: "Item 1", value: "1" },
+//   { label: "Item 2", value: "2" },
+//   { label: "Item 3", value: "3" },
+//   { label: "Item 4", value: "4" },
+//   { label: "Item 5", value: "5" },
+//   { label: "Item 6", value: "6" },
+//   { label: "Item 7", value: "7" },
+//   { label: "Item 8", value: "8" },
+// ];
 
 const DropdownCourse = () => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
+  const { data, error } = useFetchCourseName();
+  const [courseData, setCourseData] = useState<any>([]);
+
+  React.useEffect(() => {
+    if (data) {
+      const formattedData = (data ?? []).map((course) => ({
+        label: course.course_name, // Adjust based on your data structure
+        value: course.course_name, // Adjust based on your data structure
+      }));
+      setCourseData(formattedData);
+    }
+  }, [data]);
+
   const renderLabel = () => {
     if (value || isFocus) {
       return (
         <Text style={[styles.label, isFocus && { color: "blue" }]}>
-          Dropdown label
+          Course and Section
         </Text>
       );
     }
@@ -38,12 +52,12 @@ const DropdownCourse = () => {
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
-        data={data}
+        data={courseData}
         search
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? "Select item" : "..."}
+        placeholder={!isFocus ? "Course and Section" : "..."}
         searchPlaceholder="Search..."
         value={value}
         onFocus={() => setIsFocus(true)}
@@ -86,7 +100,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "white",
     left: 22,
-    top: 8,
+    top: -10,
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
