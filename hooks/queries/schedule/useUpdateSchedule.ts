@@ -1,10 +1,8 @@
 import { supabase } from "@/utils/supabase";
 import dayjs from "dayjs";
 
-const timeNow = dayjs().format("HH:mm:ss");
+const timeNow = dayjs().format("HH:mm:ssZ");
 const today = dayjs().format("dddd");
-
-console.log(today);
 
 export const useUpdateScheduleDone = async () => {
     const { data, error } = await supabase
@@ -17,6 +15,9 @@ export const useUpdateScheduleDone = async () => {
         console.error(error);
         throw error;
     }
+
+    // console.log(today);
+    // console.log(timeNow);
 
     return data;
 };
@@ -32,6 +33,8 @@ export const useUpdateScheduleOngoing = async () => {
         console.error(error);
         throw error;
     }
+
+    // console.log(today);
 
     return data;
 };
