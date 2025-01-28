@@ -3,11 +3,13 @@ import dayjs from "dayjs";
 
 export const useUpdateBookedRoomStatus = async () => {
     const timeNow = dayjs().format("YYYY-MM-DD HH:mm:ssZ");
+    const today = dayjs().format("DD MMMM YYYY");
 
     const { data, error } = await supabase
         .from("booked_rooms")
         .update({ status: "DONE" })
         .eq("status", "ONGOING")
+        .eq("date", today)
         .lte("time_out", timeNow)
         .select();
 
@@ -17,8 +19,6 @@ export const useUpdateBookedRoomStatus = async () => {
 };
 
 export const useUpdateBookedRoomPending = async (booking_id: any) => {
-    const timeNow = dayjs().format("YYYY-MM-DD HH:mm:ssZ");
-
     const { data, error } = await supabase
         .from("booked_rooms")
         .update({ status: "PENDING" })
