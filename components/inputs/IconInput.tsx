@@ -23,7 +23,7 @@ export default function IconInput({
   return (
     <View style={[styles.container, themeInputStyle]}>
       <View style={styles.wrapper}>
-        <MaterialIcons name={icon} size={24} color={themeTextStyle.color} />
+        <MaterialIcons name={icon} size={20} color={themeTextStyle.color} />
       </View>
       <TextInput
         style={[styles.text, themeTextStyle]}
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     minHeight: 50,
-    borderRadius: 50,
+    borderRadius: 10,
   },
   wrapper: {
     position: "absolute",

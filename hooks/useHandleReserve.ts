@@ -29,8 +29,10 @@ const useHandleReserve = ({
     dayjs.extend(require("dayjs/plugin/timezone"));
     dayjs.extend(require("dayjs/plugin/utc"));
 
-    const [subjectCode, setSubjectCode] = useState("");
-    const [courseAndSection, setCourseAndSection] = useState("");
+    const [subjectCode, setSubjectCode] = useState<string | null>(null);
+    const [courseAndSection, setCourseAndSection] = useState<string | null>(
+        null,
+    );
 
     const datePicker = useDatePicker();
     const timeInPicker = useTimePicker();
@@ -86,7 +88,7 @@ const useHandleReserve = ({
                 courseAndSection,
                 localTimeIn,
                 localTimeOut,
-                "ONGOING",
+                "PENDING RESERVE",
             );
             onSuccess((await insert).id);
             console.log(localTimeIn);

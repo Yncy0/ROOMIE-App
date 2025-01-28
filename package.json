@@ -20,6 +20,7 @@
     "@gorhom/bottom-sheet": "^5.0.6",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/datetimepicker": "8.2.0",
+    "@react-native-picker/picker": "2.9.0",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "@react-navigation/native": "^7.0.0",
     "@rneui/themed": "^4.0.0-rc.8",
@@ -46,6 +47,7 @@
     "expo-status-bar": "~2.0.1",
     "expo-symbols": "~0.2.1",
     "expo-system-ui": "~4.0.7",
+    "expo-updates": "~0.26.13",
     "expo-web-browser": "~14.0.2",
     "react": "18.3.1",
     "react-content-loader": "^7.0.2",
@@ -53,6 +55,7 @@
     "react-native": "0.76.6",
     "react-native-calendars": "^1.1307.0",
     "react-native-edge-to-edge": "^1.4.2",
+    "react-native-element-dropdown": "^2.12.4",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-nitro-modules": "^0.21.0",
     "react-native-reanimated": "~3.16.1",
@@ -63,8 +66,7 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-view-shot": "~4.0.3",
     "react-native-web": "~0.19.13",
-    "react-native-webview": "13.12.5",
-    "expo-updates": "~0.26.13"
+    "react-native-webview": "13.12.5"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

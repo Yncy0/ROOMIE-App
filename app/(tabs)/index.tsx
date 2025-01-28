@@ -17,6 +17,7 @@ import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import useThemeColor from "@/hooks/useThemeColor";
 import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
+import FABbooking from "@/components/buttons/FABbooking";
 
 export default function Index() {
   const {
@@ -78,7 +79,7 @@ export default function Index() {
             </Pressable>
           </View>
           <FlatList
-            data={rooms}
+            data={rooms?.slice(0, 3)}
             renderItem={({ item }) =>
               roomsLoading ? (
                 <RoomSkeletonLoader />
@@ -106,9 +107,11 @@ export default function Index() {
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ gap: 20, paddingHorizontal: 20 }}
-            initialNumToRender={15}
+            initialNumToRender={5}
+            maxToRenderPerBatch={5}
           />
         </ScrollView>
+        <FABbooking />
       </SafeAreaView>
     </SafeAreaProvider>
   );

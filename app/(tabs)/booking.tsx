@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -9,11 +9,14 @@ import {
   useFetchBookedRooms,
   useFetchBookedRoomsWithUser,
 } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
-import HeaderFilter from "@/components/HeaderFilter";
+import FABbooking from "@/components/buttons/FABbooking";
+import FilterBookingButton from "@/components/buttons/FilterBookingButton";
 
 const Booking = () => {
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
   const { data, isLoading, error } = useFetchBookedRooms();
+
+  const [filterType, setFilterType] = React.useState<any | null>(null);
 
   React.useEffect(() => {
     if (error) {
@@ -32,15 +35,22 @@ const Booking = () => {
   }, [isLoading, error]);
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={themeBackgroundStyle}>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
-        <HeaderFilter text="Your Booked Rooms" />
+        <View style={styles.headerWrapper}>
+          <Text style={themeTextStyle}>Available Rooms</Text>
+          {/* <FilterBookingButton
+            filterType={filterType}
+            setFilterType={setFilterType}
+          /> */}
+        </View>
         <BookingsList
           isHorizontal={false}
           bookedRooms={data}
           isLoading={isLoading}
         />
       </SafeAreaView>
+      <FABbooking />
     </SafeAreaProvider>
   );
 };
@@ -54,5 +64,17 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 15,
     paddingBottom: 10,
+  },
+  headerWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingBottom: 20,
+    paddingHorizontal: 15,
+    alignItems: "center",
+  },
+  wrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
   },
 });

@@ -8,14 +8,16 @@ import useThemeColor from "@/hooks/useThemeColor";
 import { router } from "expo-router";
 import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 import * as SplashScreen from "expo-splash-screen";
+import FilterRoomButton from "@/components/buttons/FilterRoomButton";
 import IconButton from "@/components/buttons/IconButton";
-import HeaderFilter from "@/components/HeaderFilter";
 
 const screenWidth = Dimensions.get("screen").width;
 
 const Rooms = () => {
   const { data, isLoading, error } = useFetchRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
+
+  const [filterType, setFilterType] = React.useState<any | null>(null);
 
   React.useEffect(() => {
     if (error) {
@@ -33,10 +35,32 @@ const Rooms = () => {
     }
   }, [isLoading, error]);
 
+  console.log(filterType);
+
+  if (filterType === "ascend") {
+    data?.sort((a, b) => {
+      if (!a.room_name) return 1;
+      if (!b.room_name) return -1;
+      return a.room_name.localeCompare(b.room_name);
+    });
+  } else if (filterType === "descend") {
+    data?.sort((a, b) => {
+      if (!a.room_name) return 1;
+      if (!b.room_name) return -1;
+      return b.room_name.localeCompare(a.room_name);
+    });
+  }
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
-        <HeaderFilter text="Available Rooms" />
+        <View style={styles.headerWrapper}>
+          <Text style={themeTextStyle}>Available Rooms</Text>
+          <FilterRoomButton
+            filterType={filterType}
+            setFilterType={setFilterType}
+          />
+        </View>
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
@@ -80,5 +104,17 @@ export default Rooms;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  headerWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingBottom: 20,
+    paddingHorizontal: 15,
+    alignItems: "center",
+  },
+  wrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
   },
 });

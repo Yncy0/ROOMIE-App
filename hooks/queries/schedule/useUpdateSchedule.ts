@@ -24,8 +24,7 @@ export const useUpdateScheduleOngoing = async () => {
         .from("schedule")
         .update({ status: "ONGOING" })
         .eq("days", today)
-        .lte("time_out", timeNow)
-        .gte("time_in", timeNow);
+        .gte("time_out", timeNow);
 
     if (error) {
         console.error(error);

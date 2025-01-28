@@ -35,12 +35,12 @@ const useCheckForOverlap = async (
         throw new Error(bookedRoomsError?.message || scheduleError?.message);
     }
 
-    const isBooked = bookedRooms.some((room) => room.status === "ONGOING");
-    const isScheduled = schedule.some((sched) => sched.status === "ONGOING");
+    // const isBooked = bookedRooms.some((room) => room.status === "ONGOING");
+    // const isScheduled = schedule.some((sched) => sched.status === "ONGOING");
 
     return {
-        bookedRooms: !isBooked,
-        schedule: isScheduled,
+        bookedRooms: bookedRooms.length === 0,
+        schedule: schedule.length == 0,
     };
 };
 
