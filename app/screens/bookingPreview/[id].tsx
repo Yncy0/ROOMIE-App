@@ -4,6 +4,7 @@ import {
   Stack,
   useFocusEffect,
   useLocalSearchParams,
+  useRouter,
 } from "expo-router";
 import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -16,10 +17,11 @@ import {
   Text,
   StyleSheet,
   BackHandler,
+  Modal,
 } from "react-native";
 
 import * as MediaLibrary from "expo-media-library";
-import ViewShot, { captureRef } from "react-native-view-shot";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import BackButton from "@/components/buttons/BackButton";
 import TextHorizontal from "@/components/TextHorizontal";
@@ -29,19 +31,17 @@ import { formatTimeMeridian } from "@/utils/timeUtils";
 import { primaryColor } from "@/constants/Colors";
 import { useUpdateBookedRoomPending } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 import useHandleEdit from "@/hooks/useHandleEdit";
+import DropdownSubject from "@/components/dropdowns/DropdownSubject";
+import DropdownRooms from "@/components/dropdowns/DropdownRooms";
+import DropdownCourse from "@/components/dropdowns/DropdownCourse";
+import { useAuth } from "@/providers/AuthProvider";
+import IconInput from "@/components/inputs/IconInput";
+import useCheckForOverlap from "@/hooks/queries/bookedRooms/useCheckOverlap";
+import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRooms";
 
-const BookingReceipt = () => {
-  const [status, requestPermission] = MediaLibrary.usePermissions();
-  const viewRef = React.useRef<View>(null);
-
+const BookingPreview = () => {
   const { themeBackgroundStyle, themeTextStyle, themeContainerStyle } =
     useThemeColor();
-
-  React.useEffect(() => {
-    if (status === null) {
-      requestPermission();
-    }
-  }, [status, requestPermission]);
 
   const {
     id,
@@ -69,27 +69,41 @@ const BookingReceipt = () => {
 
   const referenceNumber = id.substring(0, 7).toUpperCase();
 
+  const [visible, setVisible] = React.useState(false);
+  const [rooms, setRooms] = React.useState<any>([]);
+
+  // Default values
+  const [subject, setSubject] = React.useState(subjectCode || "");
+  const [course, setCourse] = React.useState(courseAndSection || "");
+
+  const dayjs = require("dayjs");
+  require("dayjs/plugin/timezone");
+  require("dayjs/plugin/utc");
+
+  // Load plugins
+  dayjs.extend(require("dayjs/plugin/timezone"));
+  dayjs.extend(require("dayjs/plugin/utc"));
+
   pressBack("/(tabs)");
 
-  const {
-    subjectCode: editSubjectCode,
-    setSubjectCode: setEditSubjectCode,
-    courseAndSection: editCourseAndSection,
-    setCourseAndSection: setEditCourseAndSection,
-    datePicker,
-    timeInPicker,
-    timeOutPicker,
-    handleEdit,
-  } = useHandleEdit({
-    bookingId: id,
-    roomId: roomId,
-    roomImage: roomImage,
-    initialDate: date,
-    initialTimeIn: timeIn,
-    initialTimeOut: timeOut,
-    initialSubjectCode: subjectCode,
-    initialCourseAndSection: courseAndSection,
-  });
+  const { datePicker, timeInPicker, timeOutPicker, handleEdit } = useHandleEdit(
+    {
+      bookingId: id,
+      roomId: roomId,
+      roomImage: roomImage,
+      initialDate: date,
+      initialTimeIn: timeIn,
+      initialTimeOut: timeOut,
+      initialSubjectCode: subjectCode,
+      initialCourseAndSection: courseAndSection,
+    }
+  );
+
+  const localTimeIn = dayjs(timeInPicker.time).tz("Asia/Manila").format();
+  const localTimeOut = dayjs(timeOutPicker.time).tz("Asia/Manila").format();
+
+  const { session } = useAuth();
+  const router = useRouter();
 
   return (
     <SafeAreaProvider>
@@ -129,7 +143,7 @@ const BookingReceipt = () => {
               <View style={styles.buttonContainer}>
                 <Pressable
                   style={[styles.pressable, { backgroundColor: primaryColor }]}
-                  onPress={handleEdit}
+                  onPress={() => setVisible(true)}
                 >
                   <Text style={styles.textEdit}>Edit</Text>
                 </Pressable>
@@ -158,13 +172,86 @@ const BookingReceipt = () => {
               </View>
             </View>
           </View>
+          <Modal visible={visible} style={{ flex: 1 }}>
+            <View style={stylesModal.container}>
+              {datePicker.open && (
+                <DateTimePicker
+                  mode="date"
+                  value={datePicker.date}
+                  display="calendar"
+                  onChange={(event, selectedDate) => {
+                    datePicker.onConfirm(selectedDate || datePicker.date);
+                  }}
+                />
+              )}
+
+              {timeInPicker.open && (
+                <DateTimePicker
+                  mode="time"
+                  value={timeInPicker.time}
+                  display="spinner"
+                  onChange={(event, selectedTime) => {
+                    timeInPicker.onConfirm(selectedTime || timeInPicker.time);
+                  }}
+                />
+              )}
+
+              {timeOutPicker.open && (
+                <DateTimePicker
+                  mode="time"
+                  value={timeOutPicker.time}
+                  display="spinner"
+                  onChange={(event, selectedTime) => {
+                    timeOutPicker.onConfirm(selectedTime || timeOutPicker.time);
+                  }}
+                />
+              )}
+              <DropdownRooms value={rooms} onChange={setRooms} />
+              <DropdownSubject value={subjectCode} onChange={setSubject} />
+              <DropdownCourse value={courseAndSection} onChange={setCourse} />
+              <View style={{ height: 50, width: "100%" }}>
+                <IconInput
+                  icon={"calendar-today"}
+                  placeholder="Date"
+                  onPress={() => datePicker.setOpen(true)}
+                  value={dayjs(datePicker.date).format("DD MMMM YYYY")}
+                  onChangeText={() => {}}
+                />
+              </View>
+              <View style={{ gap: 20, flexDirection: "row" }}>
+                <IconInput
+                  icon={"schedule"}
+                  placeholder="Time-in"
+                  onPress={() => timeInPicker.setOpen(true)}
+                  value={dayjs(timeInPicker.time).format("HH:mm: a")}
+                  onChangeText={() => {}}
+                />
+                <IconInput
+                  icon={"schedule"}
+                  placeholder="Time-out"
+                  onPress={() => timeOutPicker.setOpen(true)}
+                  value={dayjs(timeOutPicker.time).format("HH:mm: a")}
+                  onChangeText={() => {}}
+                />
+              </View>
+              <Pressable style={stylesModal.pressable} onPress={handleEdit}>
+                <Text style={stylesModal.text}>Edit</Text>
+              </Pressable>
+              <Pressable
+                style={stylesModal.pressable}
+                onPress={() => setVisible(false)}
+              >
+                <Text style={themeTextStyle}>Cancel</Text>
+              </Pressable>
+            </View>
+          </Modal>
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
   );
 };
 
-export default BookingReceipt;
+export default BookingPreview;
 
 const styles = StyleSheet.create({
   container: {
@@ -236,4 +323,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 20,
   },
+});
+
+const stylesModal = StyleSheet.create({
+  container: {
+    flex: 1,
+    minWidth: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 20,
+    flexDirection: "column",
+    paddingHorizontal: 15,
+  },
+  pressable: {
+    backgroundColor: primaryColor,
+    minWidth: "100%",
+    alignItems: "center",
+    paddingVertical: 12,
+    borderRadius: 50,
+  },
+  text: { color: "white" },
 });

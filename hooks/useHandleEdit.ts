@@ -116,6 +116,7 @@ const useHandleEdit = ({
                     timeIn: dayjs(timeInPicker.time).format("HH:mm a"),
                     timeOut: dayjs(timeOutPicker.time).format("HH:mm a"),
                     roomId: roomId,
+                    roomImage: roomImage,
                 },
             });
         } else {

@@ -20,10 +20,8 @@ import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRoo
 
 const FABbooking = () => {
   const [visible, setVisible] = React.useState(false);
-  const [courseAndSection, setCourseAndSection] = React.useState<string | null>(
-    ""
-  );
-  const [subjectCode, setSubjectCode] = React.useState<string | null>("");
+  const [courseAndSection, setCourseAndSection] = React.useState<string>("");
+  const [subjectCode, setSubjectCode] = React.useState<string>("");
   const [rooms, setRooms] = React.useState<any>([]);
 
   const datePicker = useDatePicker();

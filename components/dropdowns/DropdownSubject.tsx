@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { useFetchSubjects } from "@/hooks/useFetchSubject";
 import { Ionicons } from "@expo/vector-icons";
 import { primaryColor } from "@/constants/Colors";
 
 type DropdownSubjectProps = {
-  value: string | null;
-  onChange: (value: string | null) => void;
+  value: string;
+  onChange: (value: string) => void;
 };
 
 const DropdownSubject = ({ value, onChange }: DropdownSubjectProps) => {
