@@ -1,4 +1,10 @@
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import {
+  router,
+  Stack,
+  useFocusEffect,
+  useLocalSearchParams,
+} from "expo-router";
 import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -11,18 +17,32 @@ import {
   StyleSheet,
   BackHandler,
 } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
 
+import * as MediaLibrary from "expo-media-library";
+import ViewShot, { captureRef } from "react-native-view-shot";
+
+import BackButton from "@/components/buttons/BackButton";
+import TextHorizontal from "@/components/TextHorizontal";
 import useThemeColor from "@/hooks/useThemeColor";
-import { formatDate, formatTimeMeridian } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
+import { formatTimeMeridian } from "@/utils/timeUtils";
 import { primaryColor } from "@/constants/Colors";
-import InputHorizontal from "@/components/InputHorizontal";
-import useHandleEdit from "@/hooks/useHandleEdit";
 import { useUpdateBookedRoomPending } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
+import useHandleEdit from "@/hooks/useHandleEdit";
 
-// Added hooks for DatePicker
-const BookingPreview = () => {
+const BookingReceipt = () => {
+  const [status, requestPermission] = MediaLibrary.usePermissions();
+  const viewRef = React.useRef<View>(null);
+
+  const { themeBackgroundStyle, themeTextStyle, themeContainerStyle } =
+    useThemeColor();
+
+  React.useEffect(() => {
+    if (status === null) {
+      requestPermission();
+    }
+  }, [status, requestPermission]);
+
   const {
     id,
     subjectCode,
@@ -47,8 +67,9 @@ const BookingPreview = () => {
     timeOut: string;
   }>();
 
-  const { themeBackgroundStyle, themeTextStyle, themeContainerStyle } =
-    useThemeColor();
+  const referenceNumber = id.substring(0, 7).toUpperCase();
+
+  pressBack("/(tabs)");
 
   const {
     subjectCode: editSubjectCode,
@@ -70,117 +91,71 @@ const BookingPreview = () => {
     initialCourseAndSection: courseAndSection,
   });
 
-  pressBack("/(tabs)");
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Stack.Screen name="View" options={{ headerShown: false }} />
+          <Stack.Screen name="Receipt" options={{ headerShown: false }} />
           <View style={[styles.body, themeBackgroundStyle]}>
-            {datePicker.open && (
-              <DateTimePicker
-                mode="date"
-                value={datePicker.date}
-                display="calendar"
-                onChange={(event, selectedDate) => {
-                  datePicker.onConfirm(selectedDate || datePicker.date);
-                }}
-              />
-            )}
-
-            {timeInPicker.open && (
-              <DateTimePicker
-                mode="time"
-                value={timeInPicker.time}
-                display="spinner"
-                onChange={(event, selectedTime) => {
-                  timeInPicker.onConfirm(selectedTime || timeInPicker.time);
-                }}
-              />
-            )}
-
-            {timeOutPicker.open && (
-              <DateTimePicker
-                mode="time"
-                value={timeOutPicker.time}
-                display="spinner"
-                onChange={(event, selectedTime) => {
-                  timeOutPicker.onConfirm(selectedTime || timeOutPicker.time);
-                }}
-              />
-            )}
-            <Text style={[styles.header1, themeTextStyle]}>
-              Reservation Details
-            </Text>
-            <Text
-              style={[styles.subHeader, themeTextStyle]}
-            >{`Reference No: "MR${id}"`}</Text>
+            <View style={styles.container1}>
+              <Text style={[styles.header1, themeTextStyle]}>
+                Reservation Details
+              </Text>
+              <Text style={[styles.header2, themeTextStyle]}>
+                Your Booking Confirmed! Please wait form confirmation
+              </Text>
+              <Text
+                style={[{ textAlign: "center" }, themeTextStyle]}
+              >{`Reference No: "MR${referenceNumber}"`}</Text>
+            </View>
             <Image source={{ uri: roomImage }} style={styles.image} />
             <View style={styles.container2}>
               <Text style={[styles.header2, themeTextStyle]}>{roomName}</Text>
-              <Text style={themeTextStyle}>{roomType}</Text>
+              <Text style={[{ paddingBottom: 10 }, themeTextStyle]}>
+                {roomType}
+              </Text>
+              <Text style={[styles.text1, themeTextStyle]}>Details</Text>
             </View>
-            <Text style={[styles.text1, themeTextStyle]}>Details</Text>
             <View style={styles.container3}>
-              <InputHorizontal
-                description="Date Booked:"
-                onPress={() => datePicker.setOpen(true)}
-                value={formatDate(datePicker.date)}
-                onChangeText={() => {}}
+              <TextHorizontal description="Date Booked:" value={date} />
+              <TextHorizontal
+                description="Time:"
+                value={`${formatTimeMeridian(timeIn)} - ${formatTimeMeridian(
+                  timeOut
+                )}`}
               />
-              <InputHorizontal
-                description="Time in:"
-                onPress={() => timeInPicker.setOpen(true)}
-                value={formatTimeMeridian(timeInPicker.time)}
-                onChangeText={() => {}}
-              />
-              <InputHorizontal
-                description="Time out:"
-                onPress={() => timeOutPicker.setOpen(true)}
-                value={formatTimeMeridian(timeOutPicker.time)}
-                onChangeText={() => {}}
-              />
-              <InputHorizontal
-                description="Subject:"
-                value={editSubjectCode}
-                onChangeText={setEditSubjectCode}
-              />
-              <InputHorizontal
-                description="Section:"
-                value={editCourseAndSection}
-                onChangeText={setEditCourseAndSection}
-              />
-            </View>
-            <View style={styles.buttonContainer}>
-              <Pressable
-                style={[styles.pressable, { backgroundColor: primaryColor }]}
-                onPress={handleEdit}
-              >
-                <Text style={styles.textEdit}>Edit</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.pressable, themeContainerStyle]}
-                onPress={() =>
-                  Alert.alert(
-                    "Cancelation Request", // Title of the alert dialog
-                    "Are you sure you want to cancel?", // Message to be displayed
-                    [
-                      {
-                        text: "Cancel",
-                        onPress: () => console.log("Cancel Pressed"),
-                      },
-                      {
-                        text: "OK",
-                        onPress: () => useUpdateBookedRoomPending(id),
-                      },
-                    ],
-                    { cancelable: false } // This option makes sure the user must tap a button before the alert can be dismissed
-                  )
-                }
-              >
-                <Text style={themeTextStyle}>Cancelation</Text>
-              </Pressable>
+              <TextHorizontal description="Subject" value={subjectCode} />
+              <TextHorizontal description="Section" value={courseAndSection} />
+              <View style={styles.buttonContainer}>
+                <Pressable
+                  style={[styles.pressable, { backgroundColor: primaryColor }]}
+                  onPress={handleEdit}
+                >
+                  <Text style={styles.textEdit}>Edit</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.pressable, themeContainerStyle]}
+                  onPress={() =>
+                    Alert.alert(
+                      "Cancelation Request", // Title of the alert dialog
+                      "Are you sure you want to cancel?", // Message to be displayed
+                      [
+                        {
+                          text: "Cancel",
+                          onPress: () => console.log("Cancel Pressed"),
+                        },
+                        {
+                          text: "OK",
+                          onPress: () => useUpdateBookedRoomPending(id),
+                        },
+                      ],
+                      { cancelable: false } // This option makes sure the user must tap a button before the alert can be dismissed
+                    )
+                  }
+                >
+                  <Text style={themeTextStyle}>Cancelation</Text>
+                </Pressable>
+              </View>
             </View>
           </View>
         </ScrollView>
@@ -189,7 +164,7 @@ const BookingPreview = () => {
   );
 };
 
-export default BookingPreview;
+export default BookingReceipt;
 
 const styles = StyleSheet.create({
   container: {
@@ -198,26 +173,31 @@ const styles = StyleSheet.create({
   body: {
     flexDirection: "column",
     width: "100%",
-    height: "100%",
     flex: 1,
     alignItems: "center",
     paddingVertical: 20,
     paddingHorizontal: 15,
     gap: 20,
     backgroundColor: "white",
+    borderRadius: 10,
   },
   header1: {
     fontSize: 16,
     fontWeight: "bold",
-    alignSelf: "flex-start",
+    alignSelf: "center",
+    paddingBottom: 10,
   },
   header2: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
-  },
-  subHeader: {
     alignSelf: "center",
     textAlign: "center",
+  },
+  container1: {
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "center",
+    gap: 10,
   },
   container2: {
     alignItems: "center",
@@ -235,8 +215,7 @@ const styles = StyleSheet.create({
   },
   container3: {
     minWidth: "100%",
-    gap: 25,
-    paddingBottom: 20,
+    gap: 20,
   },
   pressable: {
     flex: 1,
@@ -245,7 +224,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 5,
     backgroundColor: primaryColor,
-    borderRadius: 50,
+    borderRadius: 10,
     padding: 12,
     justifyContent: "center",
     elevation: 10,
@@ -255,6 +234,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    gap: 5,
+    gap: 20,
   },
 });
