@@ -21,12 +21,12 @@ const BookingsList = ({ isHorizontal, bookedRooms, isLoading }: Props) => {
   React.useEffect(() => {
     const interval = setInterval(() => {
       useUpdateBookedRoomStatus();
-      useDeleteBookedRooms();
       console.log("UPDATED BOOKED ROOMS");
     }, 60000);
     return () => clearInterval(interval);
   }, [bookedRooms]);
 
+  useDeleteBookedRooms();
   return (
     <>
       {bookedRooms && bookedRooms.length > 0 ? (

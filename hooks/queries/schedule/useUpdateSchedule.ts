@@ -4,6 +4,8 @@ import dayjs from "dayjs";
 const timeNow = dayjs().format("HH:mm:ss");
 const today = dayjs().format("dddd");
 
+console.log(today);
+
 export const useUpdateScheduleDone = async () => {
     const { data, error } = await supabase
         .from("schedule")

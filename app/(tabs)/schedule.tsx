@@ -58,7 +58,6 @@ export default function Schedule() {
   //TODO: change 60000 to 1000 during presentation
   React.useEffect(() => {
     const interval = setInterval(() => {
-      useUpdateScheduleOngoing();
       useUpdateScheduleDone();
       console.log("UPDATED SCHEDULE");
     }, 60000);
