@@ -1,8 +1,20 @@
 import { useState, useEffect, useRef } from "react";
-import { Text, View, Button, Platform } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  Platform,
+  ScrollView,
+  FlatList,
+} from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
+import { useTheme } from "@react-navigation/native";
+import useThemeColor from "@/hooks/useThemeColor";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useFetchNotification } from "@/hooks/queries/useFetchNotifications";
+import NotificationText from "@/components/NotificationText";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -116,27 +128,30 @@ export default function NotificationsPage() {
     };
   }, []);
 
+  const { themeBackgroundStyle, themeContainerStyle, themeTextStyle } =
+    useThemeColor();
+
+  const { data } = useFetchNotification();
+
   return (
-    <View
-      style={{ flex: 1, alignItems: "center", justifyContent: "space-around" }}
-    >
-      <Text>Your Expo push token: {expoPushToken}</Text>
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text>
-          Title: {notification && notification.request.content.title}{" "}
-        </Text>
-        <Text>Body: {notification && notification.request.content.body}</Text>
-        <Text>
-          Data:{" "}
-          {notification && JSON.stringify(notification.request.content.data)}
-        </Text>
-      </View>
-      <Button
-        title="Press to Send Notification"
-        onPress={async () => {
-          await sendPushNotification(expoPushToken);
-        }}
-      />
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={[{ flex: 1, paddingHorizontal: 10 }, themeBackgroundStyle]}
+      >
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
+          <FlatList
+            data={data}
+            renderItem={({ item }) =>
+              item.body ? <NotificationText items={item} /> : null
+            }
+          />
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
