@@ -8,8 +8,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 console.log("Hello from Functions!");
 
 Deno.serve(async (req) => {
-  const expoPushToken =
-    "ExponentPushToken[GLSN-S8Gt4A-CZrCita-_dBkKi0iPuZ0ZkbOVV5r]";
+  const expoPushToken = "ExponentPushToken[a5_SpbJQl8Gu1WKhKZCM-_]";
 
   const res = await fetch("https://exp.host/--/api/v2/push/send", {
     method: "POST",
@@ -18,7 +17,7 @@ Deno.serve(async (req) => {
       "Authorization": `Bearer ${Deno.env.get(`EXPO_ACCESS_TOKEN`)}`,
     },
     body: JSON.stringify({
-      to: "ExponentPushToken[GLSN-S8Gt4A-CZrCita-_dBkKi0iPuZ0ZkbOVV5r]",
+      to: "ExponentPushToken[a5_SpbJQl8Gu1WKhKZCM-_]",
       sound: "default",
       body: "Hello world!",
     }),
