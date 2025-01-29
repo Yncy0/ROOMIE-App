@@ -15,6 +15,7 @@ import useThemeColor from "@/hooks/useThemeColor";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useFetchNotification } from "@/hooks/queries/useFetchNotifications";
 import NotificationText from "@/components/NotificationText";
+import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
