@@ -9,6 +9,27 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      backlogs: {
+        Row: {
+          action: string | null
+          created_at: string
+          event: string | null
+          id: string
+        }
+        Insert: {
+          action?: string | null
+          created_at?: string
+          event?: string | null
+          id?: string
+        }
+        Update: {
+          action?: string | null
+          created_at?: string
+          event?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
       booked_rooms: {
         Row: {
           course_and_section: string | null
@@ -102,28 +123,43 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          email: string | null
+          "expo-push-token": string | null
           full_name: string | null
           id: string
+          is_archived: boolean | null
           mobile_number: string | null
           updated_at: string | null
+          user_department: string | null
+          user_role: string | null
           username: string | null
           website: string | null
         }
         Insert: {
           avatar_url?: string | null
+          email?: string | null
+          "expo-push-token"?: string | null
           full_name?: string | null
           id: string
+          is_archived?: boolean | null
           mobile_number?: string | null
           updated_at?: string | null
+          user_department?: string | null
+          user_role?: string | null
           username?: string | null
           website?: string | null
         }
         Update: {
           avatar_url?: string | null
+          email?: string | null
+          "expo-push-token"?: string | null
           full_name?: string | null
           id?: string
+          is_archived?: boolean | null
           mobile_number?: string | null
           updated_at?: string | null
+          user_department?: string | null
+          user_role?: string | null
           username?: string | null
           website?: string | null
         }
@@ -134,6 +170,7 @@ export type Database = {
           building_id: string | null
           created_at: string
           id: string
+          is_archived: boolean | null
           room_capacity: number | null
           room_image: string | null
           room_name: string | null
@@ -143,6 +180,7 @@ export type Database = {
           building_id?: string | null
           created_at?: string
           id?: string
+          is_archived?: boolean | null
           room_capacity?: number | null
           room_image?: string | null
           room_name?: string | null
@@ -152,6 +190,7 @@ export type Database = {
           building_id?: string | null
           created_at?: string
           id?: string
+          is_archived?: boolean | null
           room_capacity?: number | null
           room_image?: string | null
           room_name?: string | null
