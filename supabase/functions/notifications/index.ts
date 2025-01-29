@@ -5,21 +5,49 @@
 // Setup type definitions for built-in Supabase Runtime APIs
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
+import { createClient } from "jsr:@supabase/supabase-js@2.48.1";
+
 console.log("Hello from Functions!");
 
+interface Notification {
+  id: string;
+  user_id: string;
+  body: string;
+}
+
+interface WebhookPayload {
+  type: "INSERT" | "UPDATE" | "DELETE";
+  table: string;
+  record: Notification;
+  schema: "public";
+  old_record: null | Notification;
+}
+
+const supabase = createClient(
+  Deno.env.get("SUPABASE_URL")!,
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+);
+
 Deno.serve(async (req) => {
+  const payload: WebhookPayload = await req.json();
   const expoPushToken = "ExponentPushToken[a5_SpbJQl8Gu1WKhKZCM-_]";
+
+  const { data } = await supabase
+    .from("profiles")
+    .select("expo_push_token")
+    .eq("id", payload.record.user_id)
+    .single();
 
   const res = await fetch("https://exp.host/--/api/v2/push/send", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${Deno.env.get(`EXPO_ACCESS_TOKEN`)}`,
+      Authorization: `Bearer ${Deno.env.get(`EXPO_ACCESS_TOKEN`)}`,
     },
     body: JSON.stringify({
       to: "ExponentPushToken[a5_SpbJQl8Gu1WKhKZCM-_]",
       sound: "default",
-      body: "Hello world!",
+      body: payload.record.body,
     }),
   }).then((res) => res.json());
 
