@@ -186,6 +186,7 @@ export type Database = {
           room_image: string | null
           room_name: string | null
           room_type: string | null
+          status: string | null
         }
         Insert: {
           created_at?: string
@@ -196,6 +197,7 @@ export type Database = {
           room_image?: string | null
           room_name?: string | null
           room_type?: string | null
+          status?: string | null
         }
         Update: {
           created_at?: string
@@ -206,6 +208,7 @@ export type Database = {
           room_image?: string | null
           room_name?: string | null
           room_type?: string | null
+          status?: string | null
         }
         Relationships: []
       }
