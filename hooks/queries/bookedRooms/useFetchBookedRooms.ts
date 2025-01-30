@@ -74,6 +74,30 @@ export function useFetchBookedRoomsWithRooms(id: string) {
     return bookedRoomsQuery;
 }
 
+export function useFetchBookedRoomsWithId(id: string) {
+    const bookedRoomsQuery = useQuery({
+        queryKey: ["booked_rooms", id],
+        queryFn: async () => {
+            const { data: bookedRooms, error } = await supabase
+                .from("booked_rooms")
+                .select(`*, rooms(*)`)
+                .eq("id", id)
+                .single();
+
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+
+            if (bookedRooms) console.log(bookedRooms);
+
+            return bookedRooms;
+        },
+    });
+
+    return bookedRoomsQuery;
+}
+
 export function useFetchBookedRoomsWithUser() {
     const { session } = useAuth();
 

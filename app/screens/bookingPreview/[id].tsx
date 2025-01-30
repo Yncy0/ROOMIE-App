@@ -38,34 +38,19 @@ import { useAuth } from "@/providers/AuthProvider";
 import IconInput from "@/components/inputs/IconInput";
 import useCheckForOverlap from "@/hooks/queries/bookedRooms/useCheckOverlap";
 import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRooms";
+import { useFetchBookedRoomsWithId } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 
 const BookingPreview = () => {
   const { themeBackgroundStyle, themeTextStyle, themeContainerStyle } =
     useThemeColor();
 
-  const {
-    id,
-    subjectCode,
-    courseAndSection,
-    roomId,
-    roomImage,
-    roomName,
-    roomType,
-    date,
-    timeIn,
-    timeOut,
-  } = useLocalSearchParams<{
+  const { id, roomId, roomImage } = useLocalSearchParams<{
     id: any;
     roomId: any;
     roomImage: string;
-    roomName: string;
-    roomType: string;
-    date: string;
-    subjectCode: string;
-    courseAndSection: string;
-    timeIn: string;
-    timeOut: string;
   }>();
+
+  const { data, error } = useFetchBookedRoomsWithId(id);
 
   const referenceNumber = id.substring(0, 7).toUpperCase();
 
@@ -73,8 +58,8 @@ const BookingPreview = () => {
   const [rooms, setRooms] = React.useState<any>([]);
 
   // Default values
-  const [subject, setSubject] = React.useState(subjectCode || "");
-  const [course, setCourse] = React.useState(courseAndSection || "");
+  const [subject, setSubject] = React.useState(data?.subject_code || "");
+  const [course, setCourse] = React.useState(data?.course_and_section || "");
 
   const dayjs = require("dayjs");
   require("dayjs/plugin/timezone");
@@ -91,19 +76,16 @@ const BookingPreview = () => {
       bookingId: id,
       roomId: roomId,
       roomImage: roomImage,
-      initialDate: date,
-      initialTimeIn: timeIn,
-      initialTimeOut: timeOut,
-      initialSubjectCode: subjectCode,
-      initialCourseAndSection: courseAndSection,
+      initialDate: data?.date as string,
+      initialTimeIn: data?.time_in as string,
+      initialTimeOut: data?.time_out as string,
+      initialSubjectCode: data?.subject_code as string,
+      initialCourseAndSection: data?.course_and_section as string,
     }
   );
 
   const localTimeIn = dayjs(timeInPicker.time).tz("Asia/Manila").format();
   const localTimeOut = dayjs(timeOutPicker.time).tz("Asia/Manila").format();
-
-  const { session } = useAuth();
-  const router = useRouter();
 
   return (
     <SafeAreaProvider>
@@ -124,22 +106,33 @@ const BookingPreview = () => {
             </View>
             <Image source={{ uri: roomImage }} style={styles.image} />
             <View style={styles.container2}>
-              <Text style={[styles.header2, themeTextStyle]}>{roomName}</Text>
+              <Text style={[styles.header2, themeTextStyle]}>
+                {data?.rooms?.room_name}
+              </Text>
               <Text style={[{ paddingBottom: 10 }, themeTextStyle]}>
-                {roomType}
+                {data?.rooms?.room_type}
               </Text>
               <Text style={[styles.text1, themeTextStyle]}>Details</Text>
             </View>
             <View style={styles.container3}>
-              <TextHorizontal description="Date Booked:" value={date} />
+              <TextHorizontal
+                description="Date Booked:"
+                value={data?.date as string}
+              />
               <TextHorizontal
                 description="Time:"
-                value={`${formatTimeMeridian(timeIn)} - ${formatTimeMeridian(
-                  timeOut
-                )}`}
+                value={`${formatTimeMeridian(
+                  data?.time_in
+                )} - ${formatTimeMeridian(data?.time_out)}`}
               />
-              <TextHorizontal description="Subject" value={subjectCode} />
-              <TextHorizontal description="Section" value={courseAndSection} />
+              <TextHorizontal
+                description="Subject"
+                value={data?.subject_code as string}
+              />
+              <TextHorizontal
+                description="Section"
+                value={data?.course_and_section as string}
+              />
               <View style={styles.buttonContainer}>
                 <Pressable
                   style={[styles.pressable, { backgroundColor: primaryColor }]}
@@ -207,8 +200,8 @@ const BookingPreview = () => {
                 />
               )}
               <DropdownRooms value={rooms} onChange={setRooms} />
-              <DropdownSubject value={subjectCode} onChange={setSubject} />
-              <DropdownCourse value={courseAndSection} onChange={setCourse} />
+              <DropdownSubject value={subject} onChange={setSubject} />
+              <DropdownCourse value={course} onChange={setCourse} />
               <View style={{ height: 50, width: "100%" }}>
                 <IconInput
                   icon={"calendar-today"}

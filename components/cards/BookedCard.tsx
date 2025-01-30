@@ -23,13 +23,6 @@ export default function BookedCard({ items }: Props) {
         id: items.id,
         roomId: items.room_id,
         roomImage: items.rooms.room_image,
-        roomName: items.rooms.room_name,
-        roomType: items.rooms.room_type,
-        date: items.date,
-        subjectCode: items.subject_code,
-        courseAndSection: items.course_and_section,
-        timeIn: items.time_in,
-        timeOut: items.time_out,
       },
     });
   };

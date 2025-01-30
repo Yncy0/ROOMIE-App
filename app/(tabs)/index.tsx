@@ -79,7 +79,7 @@ export default function Index() {
             </Pressable>
           </View>
           <FlatList
-            data={rooms?.slice(0, 3)}
+            data={rooms && Array.isArray(rooms) ? rooms.slice(0, 3) : []}
             renderItem={({ item }) =>
               roomsLoading ? (
                 <RoomSkeletonLoader />
