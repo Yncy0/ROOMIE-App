@@ -39,6 +39,7 @@ import {
   useUpdateRoomStatusOccupied,
   useUpdateRoomStatusVacant,
 } from "@/hooks/queries/useUpdateRooms";
+import IconButton from "@/components/buttons/IconButton";
 
 export default function RoomPreview() {
   const { id, image, customRoute } = useLocalSearchParams<{
@@ -51,17 +52,10 @@ export default function RoomPreview() {
   const { themeBackgroundStyle, themeTextStyle, themeHandler } =
     useThemeColor();
 
-  const {
-    data: schedule,
-    isLoading: scheduleLoading,
-    error: scheduleError,
-  } = useFetchScheduleWithRoom(day, id);
-  const {
-    data: bookedRooms,
-    isLoading: bookedRoomsLoading,
-    error: bookedRoomsError,
-  } = useFetchBookedRoomsWithRooms(id);
-  const { data, error } = useFetchRoomsWithId(id);
+  const { data: schedule } = useFetchScheduleWithRoom(day, id);
+  const { data: bookedRooms, isLoading: bookedRoomsLoading } =
+    useFetchBookedRoomsWithRooms(id);
+  const { data } = useFetchRoomsWithId(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
@@ -101,8 +95,6 @@ export default function RoomPreview() {
     []
   );
 
-  const defaultImage = require("@/assets/images/_dummy-img.png");
-
   pressBack(customRoute);
 
   return (
@@ -117,9 +109,17 @@ export default function RoomPreview() {
             style={styles.imageBackground}
           >
             <View style={styles.opaque}>
-              <View>
-                <Text style={styles.header1}>{data?.room_name}</Text>
-                <Text style={styles.header2}>{data?.room_type}</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View>
+                  <Text style={styles.header1}>{data?.room_name}</Text>
+                  <Text style={styles.header2}>{data?.room_type}</Text>
+                </View>
+                <IconButton
+                  name={"location-sharp"}
+                  size={32}
+                  color="white"
+                  onPress={() => {}}
+                />
               </View>
               <Pressable
                 style={styles.pressable}
