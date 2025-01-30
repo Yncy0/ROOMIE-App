@@ -25,6 +25,23 @@ export default function Auth() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  function checkPassword(str: string) {
+    let re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    return re.test(str);
+  }
+
+  const handlePasswordChange = (text: string) => {
+    setPassword(text);
+    if (checkPassword(text)) {
+      setErrorMessage("");
+    } else {
+      setErrorMessage(
+        "Password should contain: a-Z, 0-9, and at least a special character"
+      );
+    }
+  };
 
   const { themeBackgroundStyle, themeInputStyle, themeTextStyle } =
     useThemeColor();
@@ -41,8 +58,8 @@ export default function Auth() {
     });
 
     if (error) Alert.alert(error.message);
-    if (!session)
-      Alert.alert("Please check your inbox for email verification!");
+    // if (!session)
+    //   Alert.alert("Please check your inbox for email verification!");
     setLoading(false);
   }
 
@@ -92,29 +109,6 @@ export default function Auth() {
           }}
         />
         <Input
-          label="Phone Number"
-          leftIcon={{
-            type: "font-awesome",
-            name: "phone",
-            size: 16,
-            color: "#636c72",
-          }}
-          labelStyle={{ fontSize: 14 }}
-          onChangeText={(text) => setPhone(text)}
-          value={email}
-          placeholder="123-456-789"
-          autoCapitalize={"none"}
-          inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
-          inputContainerStyle={{
-            width: "100%",
-            borderBottomWidth: 0,
-            backgroundColor: themeInputStyle.backgroundColor,
-            paddingHorizontal: 15,
-            borderRadius: 10,
-            gap: 10,
-          }}
-        />
-        <Input
           label="Password"
           leftIcon={{
             type: "font-awesome",
@@ -123,11 +117,13 @@ export default function Auth() {
             size: 20,
           }}
           labelStyle={{ fontSize: 14 }}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={handlePasswordChange}
           value={password}
           secureTextEntry={true}
           placeholder="Password"
           autoCapitalize={"none"}
+          errorStyle={{ color: "red" }}
+          errorMessage="Password should contain: a-Z 0-9 and at least a special character"
           inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
           inputContainerStyle={{
             width: "100%",
@@ -136,7 +132,6 @@ export default function Auth() {
             paddingHorizontal: 15,
             borderRadius: 10,
             gap: 10,
-            marginBottom: 50,
           }}
         />
         <Button
@@ -148,6 +143,7 @@ export default function Auth() {
             borderRadius: 10,
             marginHorizontal: 10,
             marginBottom: 20,
+            marginTop: 50,
           }}
         />
         <Text style={{ paddingBottom: 40 }}>Do you have an account?</Text>
