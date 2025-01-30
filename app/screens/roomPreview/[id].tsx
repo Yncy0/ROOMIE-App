@@ -64,6 +64,10 @@ export default function RoomPreview() {
   useSubscriptionBookedRoom();
   useSubscriptionSchedule();
 
+  if (schedule && schedule?.length <= 0) {
+    console.log("VACANT");
+  }
+
   // React.useEffect(() => {
   //   if (scheduleError || bookedRoomsError) {
   //     console.error("Error fetching data:", scheduleError, bookedRoomsError);
