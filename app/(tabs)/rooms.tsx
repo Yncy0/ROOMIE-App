@@ -78,9 +78,6 @@ const Rooms = () => {
                     pathname: "/screens/roomPreview/[id]",
                     params: {
                       id: item.id,
-                      roomName: item.room_name,
-                      roomCategory: item.room_type,
-                      roomImage: item.room_image,
                       customRoute: "/(tabs)/rooms",
                     },
                   })

@@ -34,16 +34,14 @@ import useThemeColor from "@/hooks/useThemeColor";
 import { formatCompleteDate } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
 import * as SplashScreen from "expo-splash-screen";
+import { useFetchRoomsWithId } from "@/hooks/queries/useFetchRooms";
 
 export default function RoomPreview() {
-  const { id, roomName, roomCategory, roomImage, customRoute } =
-    useLocalSearchParams<{
-      id: any;
-      roomName: string;
-      roomCategory: string;
-      roomImage: string;
-      customRoute: any;
-    }>();
+  const { id, image, customRoute } = useLocalSearchParams<{
+    id: any;
+    image: any;
+    customRoute: any;
+  }>();
   const day = dayjs().format("dddd");
 
   const { themeBackgroundStyle, themeTextStyle, themeHandler } =
@@ -59,27 +57,28 @@ export default function RoomPreview() {
     isLoading: bookedRoomsLoading,
     error: bookedRoomsError,
   } = useFetchBookedRoomsWithRooms(id);
+  const { data, error } = useFetchRoomsWithId(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
   useSubscriptionBookedRoom();
   useSubscriptionSchedule();
 
-  React.useEffect(() => {
-    if (scheduleError || bookedRoomsError) {
-      console.error("Error fetching data:", scheduleError, bookedRoomsError);
-      SplashScreen.hideAsync();
-      return;
-    }
+  // React.useEffect(() => {
+  //   if (scheduleError || bookedRoomsError) {
+  //     console.error("Error fetching data:", scheduleError, bookedRoomsError);
+  //     SplashScreen.hideAsync();
+  //     return;
+  //   }
 
-    if (!scheduleLoading && !bookedRoomsLoading) {
-      console.log("roomPreview loaded");
-      SplashScreen.hideAsync();
-      console.log("hide SplashScreen roomPreview");
-    } else {
-      console.log("roomPreview still loading");
-    }
-  }, [scheduleLoading, bookedRoomsLoading, scheduleError, bookedRoomsError]);
+  //   if (!scheduleLoading && !bookedRoomsLoading) {
+  //     console.log("roomPreview loaded");
+  //     SplashScreen.hideAsync();
+  //     console.log("hide SplashScreen roomPreview");
+  //   } else {
+  //     console.log("roomPreview still loading");
+  //   }
+  // }, [scheduleLoading, bookedRoomsLoading, scheduleError, bookedRoomsError]);
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();
@@ -96,6 +95,8 @@ export default function RoomPreview() {
     []
   );
 
+  const defaultImage = require("@/assets/images/_dummy-img.png");
+
   pressBack(customRoute);
 
   return (
@@ -104,13 +105,15 @@ export default function RoomPreview() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen options={{ headerShown: false }} />
           <ImageBackground
-            source={{ uri: roomImage }}
+            source={{
+              uri: image,
+            }}
             style={styles.imageBackground}
           >
             <View style={styles.opaque}>
               <View>
-                <Text style={styles.header1}>{roomName}</Text>
-                <Text style={styles.header2}>{roomCategory}</Text>
+                <Text style={styles.header1}>{data?.room_name}</Text>
+                <Text style={styles.header2}>{data?.room_type}</Text>
               </View>
               <Pressable
                 style={styles.pressable}
@@ -158,9 +161,9 @@ export default function RoomPreview() {
         >
           <BookingBottomSheet
             roomId={id}
-            roomName={roomName}
-            roomCategory={roomCategory}
-            roomImage={roomImage}
+            roomName={data?.room_name as string}
+            roomCategory={data?.room_type as string}
+            roomImage={image}
           />
         </BottomSheetModal>
       </BottomSheetModalProvider>

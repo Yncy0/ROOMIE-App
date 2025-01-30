@@ -94,9 +94,7 @@ export default function Index() {
                       pathname: "/screens/roomPreview/[id]",
                       params: {
                         id: item.id,
-                        roomName: item.room_name,
-                        roomCategory: item.room_type,
-                        roomImage: item.room_image,
+                        image: item.room_image,
                         customRoute: "/(tabs)",
                       },
                     })
