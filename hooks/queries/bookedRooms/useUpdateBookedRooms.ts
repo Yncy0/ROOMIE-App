@@ -8,7 +8,7 @@ export const useUpdateBookedRoomStatus = async () => {
     const { data, error } = await supabase
         .from("booked_rooms")
         .update({ status: "DONE" })
-        .eq("status", "ONGOING")
+        .eq("status", "ON GOING")
         .eq("date", today)
         .lte("time_out", timeNow)
         .select();

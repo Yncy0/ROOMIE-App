@@ -32,27 +32,6 @@ export default function Index() {
   } = useFetchBookedRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
-  React.useEffect(() => {
-    if (roomsError || bookedRoomsError) {
-      console.error("Error fetching data:", roomsError, bookedRoomsError);
-      SplashScreen.hideAsync();
-      return;
-    }
-
-    if (!roomsLoading && !bookedRoomsLoading) {
-      console.log("Loading Rooms Success @index.tsx", roomsLoading);
-      console.log(
-        "Loading Booked Rooms Success @index.tsx",
-        bookedRoomsLoading
-      );
-
-      SplashScreen.hideAsync();
-      console.log("Hide SplashScreen index.tsx");
-    } else {
-      console.log("index.tsx still loading");
-    }
-  }, [roomsLoading, bookedRoomsLoading, roomsError, bookedRoomsError]);
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.backgroundContainer, themeBackgroundStyle]}>

@@ -35,6 +35,10 @@ import { formatCompleteDate } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
 import * as SplashScreen from "expo-splash-screen";
 import { useFetchRoomsWithId } from "@/hooks/queries/useFetchRooms";
+import {
+  useUpdateRoomStatusOccupied,
+  useUpdateRoomStatusVacant,
+} from "@/hooks/queries/useUpdateRooms";
 
 export default function RoomPreview() {
   const { id, image, customRoute } = useLocalSearchParams<{
@@ -64,25 +68,23 @@ export default function RoomPreview() {
   useSubscriptionBookedRoom();
   useSubscriptionSchedule();
 
-  if (schedule && schedule?.length <= 0) {
-    console.log("VACANT");
-  }
+  React.useEffect(() => {
+    const updateRoomStatus = async () => {
+      if (!schedule || schedule.length === 0) {
+        // If there's no schedule, the room is VACANT
+        await useUpdateRoomStatusVacant(id);
+        console.log("Room is VACANT");
+      } else {
+        // If there's a schedule, the room is OCCUPIED
+        await useUpdateRoomStatusOccupied(id);
+        console.log("Room is OCCUPIED");
+      }
+    };
 
-  // React.useEffect(() => {
-  //   if (scheduleError || bookedRoomsError) {
-  //     console.error("Error fetching data:", scheduleError, bookedRoomsError);
-  //     SplashScreen.hideAsync();
-  //     return;
-  //   }
-
-  //   if (!scheduleLoading && !bookedRoomsLoading) {
-  //     console.log("roomPreview loaded");
-  //     SplashScreen.hideAsync();
-  //     console.log("hide SplashScreen roomPreview");
-  //   } else {
-  //     console.log("roomPreview still loading");
-  //   }
-  // }, [scheduleLoading, bookedRoomsLoading, scheduleError, bookedRoomsError]);
+    updateRoomStatus().catch((error) => {
+      console.error("Error updating room status:", error);
+    });
+  }, [schedule, id]); // Add `id` to the dependency array
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();

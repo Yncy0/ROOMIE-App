@@ -19,22 +19,6 @@ const Rooms = () => {
 
   const [filterType, setFilterType] = React.useState<any | null>(null);
 
-  React.useEffect(() => {
-    if (error) {
-      console.error("Error fetching rooms:", error);
-      SplashScreen.hideAsync();
-      return;
-    }
-
-    if (!isLoading) {
-      console.log("rooms.tsx loaded");
-      SplashScreen.hideAsync();
-      console.log("Hide SplashScreen rooms.tsx");
-    } else {
-      console.log("rooms.tsx is still loading");
-    }
-  }, [isLoading, error]);
-
   console.log(filterType);
 
   if (filterType === "ascend") {
