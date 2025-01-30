@@ -6,11 +6,11 @@ import {
   Platform,
   ScrollView,
   FlatList,
+  StyleSheet,
 } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
-import { useTheme } from "@react-navigation/native";
 import useThemeColor from "@/hooks/useThemeColor";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useFetchNotification } from "@/hooks/queries/useFetchNotifications";
@@ -134,6 +134,8 @@ export default function NotificationsPage() {
 
   const { data } = useFetchNotification();
 
+  subscriptionNotification();
+
   return (
     <SafeAreaProvider>
       <SafeAreaView
@@ -147,6 +149,7 @@ export default function NotificationsPage() {
         >
           <FlatList
             data={data}
+            contentContainerStyle={styles.list}
             renderItem={({ item }) =>
               item.body ? <NotificationText items={item} /> : null
             }
@@ -156,3 +159,11 @@ export default function NotificationsPage() {
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  list: {
+    gap: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+});

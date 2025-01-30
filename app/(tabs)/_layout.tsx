@@ -5,6 +5,7 @@ import HeaderHome from "@/components/HeaderHome";
 import { useAuth } from "@/providers/AuthProvider";
 import { primaryColor, primaryColor1 } from "@/constants/Colors";
 import useThemeColor from "@/hooks/useThemeColor";
+import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
 
 export default function TabLayout() {
   const { isAuthenticated } = useAuth();
@@ -12,6 +13,8 @@ export default function TabLayout() {
   const { themeBackgroundStyle } = useThemeColor();
 
   if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
+
+  subscriptionNotification();
 
   return (
     <Tabs

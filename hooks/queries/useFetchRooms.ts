@@ -7,7 +7,7 @@ export default function useFetchRooms() {
     queryFn: async () => {
       const { data: rooms, error } = await supabase
         .from("rooms")
-        .select(`*, building(id, building_name)`)
+        .select(`*`)
         .order("room_name", { ascending: true });
 
       if (error) {

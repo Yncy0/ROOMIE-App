@@ -15,6 +15,7 @@ import {
   useUpdateScheduleOngoing,
 } from "@/hooks/queries/schedule/useUpdateSchedule";
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
+import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
 
 SplashScreen.preventAutoHideAsync();
 

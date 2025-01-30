@@ -10,9 +10,37 @@ export const subscriptionNotification = () => {
             .on(
                 "postgres_changes",
                 {
-                    event: "*",
+                    event: "INSERT",
                     schema: "public",
-                    table: "notification",
+                    table: "notifications",
+                },
+                (payload) => {
+                    console.log("Change received!", payload);
+                    queryClient.invalidateQueries({
+                        queryKey: ["notification"],
+                    });
+                },
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event: "UPDATE",
+                    schema: "public",
+                    table: "notifications",
+                },
+                (payload) => {
+                    console.log("Change received!", payload);
+                    queryClient.invalidateQueries({
+                        queryKey: ["notification"],
+                    });
+                },
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event: "DELETE",
+                    schema: "public",
+                    table: "notifications",
                 },
                 (payload) => {
                     console.log("Change received!", payload);
