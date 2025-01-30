@@ -162,7 +162,7 @@ export default function NotificationsPage() {
 
 const styles = StyleSheet.create({
   list: {
-    gap: 20,
+    gap: 10,
     paddingHorizontal: 10,
     paddingVertical: 10,
   },

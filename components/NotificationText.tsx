@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     borderRadius: 10,
-    elevation: 10,
+    elevation: 1,
     minWidth: "100%",
     padding: 10,
   },
@@ -50,20 +50,9 @@ const styles = StyleSheet.create({
     gap: 5,
     flexDirection: "column",
   },
-  wrapper2: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-  },
   header1: {
     fontSize: 14,
     fontWeight: "bold",
-  },
-  subHeader: {
-    fontSize: 12,
-  },
-  container1: {
-    justifyContent: "space-between",
-    flexDirection: "row",
   },
   text1: {
     fontSize: 12,
