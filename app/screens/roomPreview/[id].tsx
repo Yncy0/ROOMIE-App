@@ -41,6 +41,7 @@ import {
 } from "@/hooks/queries/useUpdateRooms";
 import IconButton from "@/components/buttons/IconButton";
 import { subscriptionRooms } from "@/hooks/queries/useSubscriptionRooms";
+import FABReport from "@/components/buttons/FABReport";
 
 export default function RoomPreview() {
   const { id, image, customRoute } = useLocalSearchParams<{
@@ -135,6 +136,7 @@ export default function RoomPreview() {
               <EmptyDisplay />
             )}
           </View>
+          <FABReport />
         </ScrollView>
         <BottomSheetModal
           ref={bottomSheetMoadlRef}
