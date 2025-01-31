@@ -40,7 +40,7 @@ export default function Schedule() {
     const interval = setInterval(() => {
       useUpdateScheduleDone();
       console.log("UPDATED SCHEDULE");
-    }, 60000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [data?.length]);
 

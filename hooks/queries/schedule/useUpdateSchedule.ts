@@ -17,9 +17,6 @@ export const useUpdateScheduleDone = async () => {
         throw error;
     }
 
-    // console.log(today);
-    // console.log(timeNow);
-
     return data;
 };
 
@@ -28,14 +25,13 @@ export const useUpdateScheduleOngoing = async () => {
         .from("schedule")
         .update({ status: "ON GOING" })
         .eq("days", today)
-        .gte("time_out", timeNow);
+        .gte("time_out", timeNow)
+        .lte("time_in", timeNow);
 
     if (error) {
         console.error(error);
         throw error;
     }
-
-    // console.log(today);
 
     return data;
 };

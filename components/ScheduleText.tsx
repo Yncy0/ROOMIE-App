@@ -14,7 +14,7 @@ export default function ScheduleText({ items }: Props) {
     const interval = setInterval(() => {
       updateSchedule();
       console.log("UPDATED SCHEDULE Status");
-    }, 10000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 

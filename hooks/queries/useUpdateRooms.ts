@@ -35,7 +35,6 @@ export const useUpdateRoomStatusOccupied = async (id: any) => {
 };
 
 export const useUpdateRoomStatus = async (id: any, status: string) => {
-    console.log("Updating room status to", status, "for ID:", id);
     const { data, error } = await supabase
         .from("rooms")
         .update({ status: status })

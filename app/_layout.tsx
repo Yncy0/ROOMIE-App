@@ -30,12 +30,8 @@ export default function RootLayout() {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         await useUpdateScheduleDone();
-        // await useUpdateScheduleOngoing();
+        await useUpdateScheduleOngoing();
         await useUpdateBookedRoomStatus();
-
-        console.log("UPDATED");
-
-        // Hide splash screen after async work
         await SplashScreen.hideAsync();
 
         console.log("Hiding SplashScreen top level _layout.tsx");

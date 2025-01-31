@@ -19,8 +19,6 @@ const Rooms = () => {
 
   const [filterType, setFilterType] = React.useState<any | null>(null);
 
-  console.log(filterType);
-
   if (filterType === "ascend") {
     data?.sort((a, b) => {
       if (!a.room_name) return 1;
