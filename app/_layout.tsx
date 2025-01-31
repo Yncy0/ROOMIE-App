@@ -29,16 +29,15 @@ export default function RootLayout() {
         // Simulate loading or perform actual loading tasks
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        console.log("top level _layout.tsx is loaded");
-
         await useUpdateScheduleDone();
-        await useUpdateScheduleOngoing();
+        // await useUpdateScheduleOngoing();
         await useUpdateBookedRoomStatus();
 
         console.log("UPDATED");
 
         // Hide splash screen after async work
         await SplashScreen.hideAsync();
+
         console.log("Hiding SplashScreen top level _layout.tsx");
       } catch (error) {
         console.error("Error during preparation:", error);

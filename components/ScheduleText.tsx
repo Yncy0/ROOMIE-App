@@ -1,5 +1,7 @@
+import { updateScheduleDate } from "@/hooks/queries/schedule/useUpdateSchedule";
 import useThemeColor from "@/hooks/useThemeColor";
 import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
 type Props = {
   items: any;
@@ -7,6 +9,29 @@ type Props = {
 
 export default function ScheduleText({ items }: Props) {
   const { themeContainerStyle, themeTextStyle } = useThemeColor();
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      updateSchedule();
+      console.log("UPDATED SCHEDULE Status");
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const updateSchedule = async () => {
+    const scheduleId = items.id;
+    const assignedWeekday = items.days; // Replace with the actual assigned weekday
+
+    try {
+      const updatedSchedule = await updateScheduleDate(
+        scheduleId,
+        assignedWeekday
+      );
+      console.log("Updated schedule:", updatedSchedule);
+    } catch (error) {
+      console.error("Failed to update schedule:", error);
+    }
+  };
 
   return (
     <View style={[styles.container, themeContainerStyle]}>

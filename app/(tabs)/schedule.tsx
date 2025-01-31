@@ -9,10 +9,7 @@ import ScheduleText from "@/components/ScheduleText";
 import { useFetchScheduleWithDay } from "@/hooks/queries/schedule/useFetchSchedule";
 import EmptyDisplay from "@/components/EmptyDisplay";
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
-import {
-  useUpdateScheduleDone,
-  useUpdateScheduleOngoing,
-} from "@/hooks/queries/schedule/useUpdateSchedule";
+import { useUpdateScheduleDone } from "@/hooks/queries/schedule/useUpdateSchedule";
 import useThemeColor from "@/hooks/useThemeColor";
 import {
   formatCompleteDate,

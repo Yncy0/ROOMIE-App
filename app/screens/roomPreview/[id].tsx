@@ -35,10 +35,12 @@ import { formatCompleteDate } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
 import { useFetchRoomsWithId } from "@/hooks/queries/useFetchRooms";
 import {
+  useUpdateRoomStatus,
   useUpdateRoomStatusOccupied,
   useUpdateRoomStatusVacant,
 } from "@/hooks/queries/useUpdateRooms";
 import IconButton from "@/components/buttons/IconButton";
+import { subscriptionRooms } from "@/hooks/queries/useSubscriptionRooms";
 
 export default function RoomPreview() {
   const { id, image, customRoute } = useLocalSearchParams<{
@@ -51,33 +53,17 @@ export default function RoomPreview() {
   const { themeBackgroundStyle, themeTextStyle, themeHandler } =
     useThemeColor();
 
-  const { data: schedule } = useFetchScheduleWithRoom(day, id);
+  const { data: schedule, isLoading: isScheduleLoading } =
+    useFetchScheduleWithRoom(day, id);
   const { data: bookedRooms, isLoading: bookedRoomsLoading } =
     useFetchBookedRoomsWithRooms(id);
   const { data } = useFetchRoomsWithId(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
+  subscriptionRooms();
   useSubscriptionBookedRoom();
   useSubscriptionSchedule();
-
-  React.useEffect(() => {
-    const updateRoomStatus = async () => {
-      if (!schedule || schedule.length === 0) {
-        // If there's no schedule, the room is VACANT
-        await useUpdateRoomStatusVacant(id);
-        console.log("Room is VACANT");
-      } else {
-        // If there's a schedule, the room is OCCUPIED
-        await useUpdateRoomStatusOccupied(id);
-        console.log("Room is OCCUPIED");
-      }
-    };
-
-    updateRoomStatus().catch((error) => {
-      console.error("Error updating room status:", error);
-    });
-  }, [schedule, id]); // Add `id` to the dependency array
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();
