@@ -33,7 +33,6 @@ import BookingsList from "@/components/lists/BookingsList";
 import useThemeColor from "@/hooks/useThemeColor";
 import { formatCompleteDate } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
-import * as SplashScreen from "expo-splash-screen";
 import { useFetchRoomsWithId } from "@/hooks/queries/useFetchRooms";
 import {
   useUpdateRoomStatusOccupied,
@@ -114,12 +113,6 @@ export default function RoomPreview() {
                   <Text style={styles.header1}>{data?.room_name}</Text>
                   <Text style={styles.header2}>{data?.room_type}</Text>
                 </View>
-                <IconButton
-                  name={"location-sharp"}
-                  size={32}
-                  color="white"
-                  onPress={() => {}}
-                />
               </View>
               <Pressable
                 style={styles.pressable}
