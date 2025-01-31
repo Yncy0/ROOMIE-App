@@ -30,9 +30,6 @@ export default function RootLayout() {
         // Simulate loading or perform actual loading tasks
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        await useUpdateSchedulePendingClass();
-        await useUpdateScheduleOngoing();
-        await useUpdateBookedRoomStatus();
         await SplashScreen.hideAsync();
 
         console.log("Hiding SplashScreen top level _layout.tsx");
@@ -42,6 +39,17 @@ export default function RootLayout() {
     }
 
     prepare();
+  }, []);
+
+  React.useEffect(() => {
+    const updatesTick = setInterval(() => {
+      useUpdateSchedulePendingClass();
+      useUpdateScheduleOngoing();
+      useUpdateScheduleDone();
+      useUpdateBookedRoomStatus();
+      console.log("TICK");
+    }, 600000);
+    return () => clearInterval(updatesTick);
   }, []);
 
   return (
