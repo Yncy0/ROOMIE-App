@@ -6,6 +6,7 @@ import { primaryColor } from "@/constants/Colors";
 import { formatTimeMeridian } from "@/utils/timeUtils";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
 import { router } from "expo-router";
+import { Badge } from "@rneui/themed";
 
 type Props = {
   items: any;
@@ -40,7 +41,7 @@ export default function BookedCard({ items }: Props) {
         style={styles.image}
       />
       <View style={styles.container1}>
-        <Text style={styles.status}>{items.status}</Text>
+        <Badge value={items.status} />
         <Text style={styles.text}>{items.rooms.room_name}</Text>
         <Text style={styles.text}>{items.rooms.room_type}</Text>
         <IconText icon="albums-outline" text={items.subject_code} />
@@ -86,6 +87,7 @@ const styles = StyleSheet.create({
   container1: {
     gap: 3,
     flexDirection: "column",
+    alignItems: "flex-start",
   },
   text: {
     color: "white",
