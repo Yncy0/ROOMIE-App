@@ -25,12 +25,28 @@ export default function Auth() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorEmail, setErrorEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   function checkPassword(str: string) {
-    let re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    let re =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
     return re.test(str);
   }
+
+  function checkEmail(str: string) {
+    let re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(str);
+  }
+
+  const handleEmail = (text: string) => {
+    setEmail(text);
+    if (checkEmail(text)) {
+      setErrorEmail("");
+    } else {
+      setErrorEmail("Not an email format, should be @example.com");
+    }
+  };
 
   const handlePasswordChange = (text: string) => {
     setPassword(text);
@@ -57,7 +73,7 @@ export default function Auth() {
       phone: phone,
     });
 
-    if (error) Alert.alert(error.message);
+    // if (error) Alert.alert(error.message);
     // if (!session)
     //   Alert.alert("Please check your inbox for email verification!");
     setLoading(false);
@@ -92,10 +108,12 @@ export default function Auth() {
             color: "#636c72",
           }}
           labelStyle={{ fontSize: 14 }}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={handleEmail}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={"none"}
+          errorStyle={{ color: "red" }}
+          errorMessage={errorEmail}
           inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
           inputContainerStyle={{
             width: "100%",
@@ -121,7 +139,7 @@ export default function Auth() {
           placeholder="Password"
           autoCapitalize={"none"}
           errorStyle={{ color: "red" }}
-          errorMessage="Password should contain: a-Z 0-9 and at least a special character"
+          errorMessage={errorMessage}
           inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
           inputContainerStyle={{
             width: "100%",
