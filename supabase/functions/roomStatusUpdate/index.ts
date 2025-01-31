@@ -13,20 +13,22 @@ const supabase = createClient(
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
 );
 
-const timeNow = dayjs().format("HH:mm:ssZ");
+// const timeNow = dayjs().format("HH:mm:ssZ");
 const today = dayjs().format("dddd");
 
 const updateScheduleDone = async () => {
   const { data, error } = await supabase
-    .from("schedule")
-    .update({ status: "DONE" })
-    .eq("days", today)
-    .lte("time_out", timeNow);
+    .from("rooms")
+    .update({ status: "STATUS TEST" })
+    .eq("status", null)
+    .select();
 
   if (error) {
     console.error(error);
     throw error;
   }
+
+  console.log(data);
 
   return data;
 };

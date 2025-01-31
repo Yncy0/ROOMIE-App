@@ -48,7 +48,7 @@ export default function RootLayout() {
       useUpdateScheduleDone();
       useUpdateSchedulePendingClass();
       useUpdateBookedRoomStatus();
-    }, 1000);
+    }, 5000);
     return () => clearInterval(updatesTick);
   }, []);
 
