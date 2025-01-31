@@ -17,6 +17,7 @@ import {
 } from "@/hooks/queries/schedule/useUpdateSchedule";
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
+import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,12 +44,11 @@ export default function RootLayout() {
 
   React.useEffect(() => {
     const updatesTick = setInterval(() => {
-      useUpdateSchedulePendingClass();
       useUpdateScheduleOngoing();
       useUpdateScheduleDone();
+      useUpdateSchedulePendingClass();
       useUpdateBookedRoomStatus();
-      console.log("TICK");
-    }, 600000);
+    }, 1000);
     return () => clearInterval(updatesTick);
   }, []);
 

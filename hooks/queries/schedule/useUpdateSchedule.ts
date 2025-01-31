@@ -41,7 +41,6 @@ export const useUpdateSchedulePendingClass = async () => {
     const { data, error } = await supabase
         .from("schedule")
         .update({ status: "PENDING CLASS" })
-        .eq("days", today)
         .gte("time_out", timeNow);
 
     if (error) {
