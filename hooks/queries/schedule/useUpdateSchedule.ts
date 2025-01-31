@@ -10,6 +10,7 @@ export const useUpdateScheduleDone = async () => {
         .from("schedule")
         .update({ status: "DONE" })
         .eq("days", today)
+        .eq("status", "ON GOING")
         .lte("time_out", timeNow);
 
     if (error) {
@@ -39,7 +40,7 @@ export const useUpdateScheduleOngoing = async () => {
 export const useUpdateSchedulePendingClass = async () => {
     const { data, error } = await supabase
         .from("schedule")
-        .update({ status: "PENDING" })
+        .update({ status: "PENDING CLASS" })
         .eq("days", today)
         .gte("time_out", timeNow);
 
@@ -47,8 +48,6 @@ export const useUpdateSchedulePendingClass = async () => {
         console.error(error);
         throw error;
     }
-
-    // console.log(today);
 
     return data;
 };

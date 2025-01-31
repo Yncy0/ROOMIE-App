@@ -13,6 +13,7 @@ import { useColorScheme } from "react-native";
 import {
   useUpdateScheduleDone,
   useUpdateScheduleOngoing,
+  useUpdateSchedulePendingClass,
 } from "@/hooks/queries/schedule/useUpdateSchedule";
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
@@ -29,7 +30,7 @@ export default function RootLayout() {
         // Simulate loading or perform actual loading tasks
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        await useUpdateScheduleDone();
+        await useUpdateSchedulePendingClass();
         await useUpdateScheduleOngoing();
         await useUpdateBookedRoomStatus();
         await SplashScreen.hideAsync();

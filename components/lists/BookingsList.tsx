@@ -18,13 +18,13 @@ type Props = {
 const BookingsList = ({ isHorizontal, bookedRooms, isLoading }: Props) => {
   useSubscriptionBookedRoom();
 
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      useUpdateBookedRoomStatus();
-      console.log("UPDATED BOOKED ROOMS");
-    }, 60000);
-    return () => clearInterval(interval);
-  }, [bookedRooms]);
+  // React.useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     useUpdateBookedRoomStatus();
+  //     console.log("UPDATED BOOKED ROOMS");
+  //   }, 60000);
+  //   return () => clearInterval(interval);
+  // }, [bookedRooms]);
 
   useDeleteBookedRooms();
   return (

@@ -36,13 +36,13 @@ export default function Schedule() {
   const { data, error, isLoading } = useFetchScheduleWithDay(selectedDate);
 
   //TODO: change 60000 to 1000 during presentation
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      useUpdateScheduleDone();
-      console.log("UPDATED SCHEDULE");
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [data?.length]);
+  // React.useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     useUpdateScheduleDone();
+  //     console.log("UPDATED SCHEDULE");
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, [data?.length]);
 
   useSubscriptionSchedule();
 
