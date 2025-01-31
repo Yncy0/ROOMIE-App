@@ -9,10 +9,11 @@ import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotific
 
 export default function TabLayout() {
   const { isAuthenticated } = useAuth();
-
   const { themeBackgroundStyle } = useThemeColor();
 
-  if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
+  if (!isAuthenticated) {
+    return <Redirect href="/(auth)/login" />;
+  }
 
   subscriptionNotification();
 

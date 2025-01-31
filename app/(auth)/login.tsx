@@ -69,12 +69,15 @@ export default function Auth() {
         <Image
           source={require("@/assets/images/roomie-icon.png")}
           style={{
-            width: 200,
-            height: 200,
+            width: 150,
+            height: 150,
             alignSelf: "center",
             marginBottom: 20,
           }}
         />
+        <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 25 }}>
+          Login
+        </Text>
         <Input
           label="Email"
           leftIcon={{
@@ -133,7 +136,6 @@ export default function Auth() {
             marginBottom: 20,
           }}
         />
-        <Text style={{ paddingBottom: 40 }}>Don't have an account?</Text>
         <Button
           title="Register"
           disabled={loading}

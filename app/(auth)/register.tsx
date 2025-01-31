@@ -146,7 +146,6 @@ export default function Auth() {
             marginTop: 50,
           }}
         />
-        <Text style={{ paddingBottom: 40 }}>Do you have an account?</Text>
         <Button
           title="Login"
           disabled={loading}
