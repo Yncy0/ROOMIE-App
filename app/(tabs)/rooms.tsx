@@ -10,6 +10,7 @@ import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 import * as SplashScreen from "expo-splash-screen";
 import FilterRoomButton from "@/components/buttons/FilterRoomButton";
 import IconButton from "@/components/buttons/IconButton";
+import FABbooking from "@/components/buttons/FABbooking";
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -74,6 +75,7 @@ const Rooms = () => {
           initialNumToRender={15}
         />
       </SafeAreaView>
+      <FABbooking />
     </SafeAreaProvider>
   );
 };

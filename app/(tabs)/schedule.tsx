@@ -48,37 +48,40 @@ export default function Schedule() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
+      <SafeAreaView style={[themeBackgroundStyle, styles.container]}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={[styles.header1, themeTextStyle]}>My Schedule</Text>
-          <FlatList
-            data={dates}
-            keyExtractor={(item, index) => item.toString()}
-            renderItem={({ item }) => (
-              <DateCard
-                date={item}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-              />
-            )}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.listContainer}
-            initialNumToRender={4}
-          />
-          <Text style={[styles.header2, themeTextStyle]}>
-            {currentDateFormat ? currentDateFormat : selectedDateFormat}
-          </Text>
-          <View style={{ paddingHorizontal: 15, gap: 20 }}>
-            {isLoading ? (
-              <ScheduleSkeletonLoader />
-            ) : error ? (
-              <Text>Error loading data</Text>
-            ) : data && data.length > 0 ? (
-              data.map((item) => <ScheduleText key={item.id} items={item} />)
-            ) : (
-              <EmptyDisplay />
-            )}
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.header1, themeTextStyle]}>My Schedule</Text>
+            <FlatList
+              data={dates}
+              keyExtractor={(item, index) => item.toString()}
+              renderItem={({ item }) => (
+                <DateCard
+                  date={item}
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                />
+              )}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.listContainer}
+              initialNumToRender={4}
+            />
+            {/**HUGE GAP */}
+            <Text style={[styles.header2, themeTextStyle]}>
+              {currentDateFormat ? currentDateFormat : selectedDateFormat}
+            </Text>
+            <View style={{ paddingHorizontal: 15, gap: 20, flex: 1 }}>
+              {isLoading ? (
+                <ScheduleSkeletonLoader />
+              ) : error ? (
+                <Text>Error loading data</Text>
+              ) : data && data.length > 0 ? (
+                data.map((item) => <ScheduleText key={item.id} items={item} />)
+              ) : (
+                <EmptyDisplay />
+              )}
+            </View>
           </View>
         </ScrollView>
         <FABbooking />
@@ -94,7 +97,6 @@ const styles = StyleSheet.create({
   header1: {
     minWidth: "100%",
     paddingHorizontal: 15,
-    paddingBottom: 20,
   },
   header2: {
     minWidth: "100%",

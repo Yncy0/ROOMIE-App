@@ -16,6 +16,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useFetchNotification } from "@/hooks/queries/useFetchNotifications";
 import NotificationText from "@/components/NotificationText";
 import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
+import FABbooking from "@/components/buttons/FABbooking";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -156,6 +157,7 @@ export default function NotificationsPage() {
           />
         </View>
       </SafeAreaView>
+      <FABbooking />
     </SafeAreaProvider>
   );
 }

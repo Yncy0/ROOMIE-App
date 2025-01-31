@@ -127,9 +127,9 @@ const FABbooking = () => {
         icon={{ name: "add", color: "white" }}
         color={primaryColor}
         style={{
-          alignSelf: "flex-end",
-          padding: 20,
-          backgroundColor: "transparent",
+          position: "absolute",
+          bottom: 20,
+          right: 20,
           zIndex: 999,
         }}
         onPress={() => setVisible(true)}
