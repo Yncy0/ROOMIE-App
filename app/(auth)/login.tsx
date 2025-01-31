@@ -53,8 +53,6 @@ export default function Auth() {
         flex: 1,
         backgroundColor: themeBackgroundStyle.backgroundColor,
         paddingTop: 50,
-        gap: 75,
-        justifyContent: "center",
         alignItems: "center",
       }}
     >

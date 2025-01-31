@@ -68,10 +68,8 @@ export default function Auth() {
       style={{
         flex: 1,
         backgroundColor: themeBackgroundStyle.backgroundColor,
-        paddingTop: 50,
+        paddingTop: 150,
         gap: 75,
-        justifyContent: "center",
-        alignItems: "center",
       }}
     >
       <Stack.Screen options={{ headerShown: false }} />
