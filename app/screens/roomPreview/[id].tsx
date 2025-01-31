@@ -65,13 +65,6 @@ export default function RoomPreview() {
   useSubscriptionBookedRoom();
   useSubscriptionSchedule();
 
-  // React.useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     useUpdateRoomStatus(id, "VACANT");
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
-
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();
   }, []);
@@ -168,7 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imageBackground: {
-    height: 275,
+    height: 300,
     justifyContent: "flex-end",
   },
   opaque: {
