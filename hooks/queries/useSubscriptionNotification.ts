@@ -17,7 +17,7 @@ export const subscriptionNotification = () => {
                 (payload) => {
                     console.log("Change received!", payload);
                     queryClient.invalidateQueries({
-                        queryKey: ["notification"],
+                        queryKey: ["notifications"],
                     });
                 },
             )
@@ -31,7 +31,7 @@ export const subscriptionNotification = () => {
                 (payload) => {
                     console.log("Change received!", payload);
                     queryClient.invalidateQueries({
-                        queryKey: ["notification"],
+                        queryKey: ["notifications"],
                     });
                 },
             )
@@ -45,7 +45,7 @@ export const subscriptionNotification = () => {
                 (payload) => {
                     console.log("Change received!", payload);
                     queryClient.invalidateQueries({
-                        queryKey: ["notification"],
+                        queryKey: ["notifications"],
                     });
                 },
             )
