@@ -7,6 +7,7 @@ import {
   Text,
   BackHandler,
   StyleSheet,
+  FlatList,
 } from "react-native";
 import {
   GestureHandlerRootView,
@@ -21,7 +22,7 @@ import {
 } from "@gorhom/bottom-sheet";
 
 import { primaryColor } from "@/constants/Colors";
-import { BookingBottomSheet } from "@/components/BookingBottomSheet";
+import BookingBottomSheet from "@/components/BookingBottomSheet";
 import BackButton from "@/components/buttons/BackButton";
 import ScheduleText from "@/components/ScheduleText";
 import EmptyDisplay from "@/components/EmptyDisplay";
@@ -42,6 +43,8 @@ import {
 import IconButton from "@/components/buttons/IconButton";
 import { subscriptionRooms } from "@/hooks/queries/useSubscriptionRooms";
 import FABReport from "@/components/buttons/FABReport";
+import BookedCard from "@/components/cards/BookedCard";
+import BookingSkeletonLoader from "@/components/loader/BookingSkeletonLoader";
 
 export default function RoomPreview() {
   const { id, image, customRoute } = useLocalSearchParams<{
@@ -114,11 +117,23 @@ export default function RoomPreview() {
               <Text style={[styles.header3, themeTextStyle]}>
                 Today's Booking
               </Text>
-              <BookingsList
-                isHorizontal={true}
-                bookedRooms={bookedRooms}
-                isLoading={bookedRoomsLoading}
-              />
+              {bookedRooms && bookedRooms.length > 0 ? (
+                <FlatList
+                  keyExtractor={(item) => item.id.toString()}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.list}
+                  data={bookedRooms}
+                  renderItem={({ item }) =>
+                    bookedRoomsLoading ? (
+                      <BookingSkeletonLoader />
+                    ) : (
+                      <BookedCard items={item} />
+                    )
+                  }
+                />
+              ) : (
+                <EmptyDisplay />
+              )}
             </View>
             <View style={styles.container3}>
               <Text style={[styles.text2, themeTextStyle]}>
@@ -212,5 +227,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  list: {
+    gap: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
 });

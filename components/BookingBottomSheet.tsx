@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -18,7 +18,7 @@ type Props = {
   roomImage: string;
 };
 
-export const BookingBottomSheet = ({
+const BookingBottomSheet = ({
   roomId,
   roomName,
   roomCategory,
@@ -119,6 +119,8 @@ export const BookingBottomSheet = ({
     </BottomSheetView>
   );
 };
+
+export default memo(BookingBottomSheet);
 
 const styles = StyleSheet.create({
   bottomSheet: {

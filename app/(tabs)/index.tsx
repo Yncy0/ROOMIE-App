@@ -22,8 +22,13 @@ import {
 import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 import FABbooking from "@/components/buttons/FABbooking";
 import { useAuth } from "@/providers/AuthProvider";
+import BookingSkeletonLoader from "@/components/loader/BookingSkeletonLoader";
+import BookedCard from "@/components/cards/BookedCard";
+import EmptyDisplay from "@/components/EmptyDisplay";
 
 export default function Index() {
+  const { session } = useAuth();
+
   const {
     data: rooms,
     isLoading: roomsLoading,
@@ -33,10 +38,8 @@ export default function Index() {
     data: bookedRooms,
     isLoading: bookedRoomsLoading,
     error: bookedRoomsError,
-  } = useFetchBookedRoomsWithUser();
+  } = useFetchBookedRoomsWithUser(session?.user.id as string);
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-
-  const { session } = useAuth();
 
   return (
     <SafeAreaProvider>
@@ -50,11 +53,24 @@ export default function Index() {
               </Link>
             </Pressable>
           </View>
-          <BookingsList
-            isHorizontal={true}
-            bookedRooms={bookedRooms}
-            isLoading={bookedRoomsLoading}
-          />
+          {bookedRooms && bookedRooms.length > 0 ? (
+            <FlatList
+              horizontal
+              keyExtractor={(item) => item.id.toString()}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.list}
+              data={bookedRooms}
+              renderItem={({ item }) =>
+                bookedRoomsLoading ? (
+                  <BookingSkeletonLoader />
+                ) : (
+                  <BookedCard items={item} />
+                )
+              }
+            />
+          ) : (
+            <EmptyDisplay />
+          )}
           <View style={styles.container2}>
             <Text style={themeTextStyle}>{"Available Rooms"}</Text>
             <Pressable>
@@ -116,6 +132,11 @@ const styles = StyleSheet.create({
     minWidth: "100%",
     justifyContent: "space-between",
     paddingHorizontal: 10,
+    paddingBottom: 20,
+  },
+  list: {
+    gap: 20,
+    paddingHorizontal: 20,
     paddingBottom: 20,
   },
 });

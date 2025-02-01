@@ -99,20 +99,15 @@ export function useFetchBookedRoomsWithId(id: string) {
     return bookedRoomsQuery;
 }
 
-export function useFetchBookedRoomsWithUser() {
-    const { session } = useAuth();
-
-    console.log(session?.user.id);
-
+export function useFetchBookedRoomsWithUser(id: string) {
     return useQuery(
         {
-            queryKey: ["booked_rooms", session?.user.id],
+            queryKey: ["booked_rooms", id],
             queryFn: async () => {
-                if (!session?.user) throw new Error("No user in this session!");
                 const { data, error } = await supabase
                     .from("booked_rooms")
                     .select("*")
-                    .eq("profile_id", session.user.id);
+                    .eq("profile_id", id);
 
                 if (error) {
                     console.error(error);
