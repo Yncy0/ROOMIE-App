@@ -30,7 +30,6 @@ import { useFetchScheduleWithRoom } from "@/hooks/queries/schedule/useFetchSched
 import { useFetchBookedRoomsWithRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
-import BookingsList from "@/components/lists/BookingsList";
 import useThemeColor from "@/hooks/useThemeColor";
 import { formatCompleteDate } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
@@ -119,6 +118,7 @@ export default function RoomPreview() {
               </Text>
               {bookedRooms && bookedRooms.length > 0 ? (
                 <FlatList
+                  horizontal
                   keyExtractor={(item) => item.id.toString()}
                   showsHorizontalScrollIndicator={false}
                   contentContainerStyle={styles.list}

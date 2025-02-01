@@ -78,12 +78,15 @@ const FABReport = () => {
         />
         <Dialog.Actions>
           <Dialog.Button
-            title="Confrim"
             onPress={() => {
               setVisible(false);
             }}
-          />
-          <Dialog.Button title="Cancel" onPress={() => setVisible(false)} />
+          >
+            Confirm
+          </Dialog.Button>
+          <Dialog.Button onPress={() => setVisible(false)}>
+            Cancel
+          </Dialog.Button>
         </Dialog.Actions>
       </Dialog>
     </>

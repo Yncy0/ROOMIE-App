@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import {
+  ActivityIndicator,
   FlatList,
   Pressable,
   ScrollView,
@@ -12,7 +13,6 @@ import { Link, router } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import RoomCard from "@/components/cards/RoomCard";
-import BookingsList from "@/components/lists/BookingsList";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import useThemeColor from "@/hooks/useThemeColor";
 import {
@@ -38,8 +38,17 @@ export default function Index() {
     data: bookedRooms,
     isLoading: bookedRoomsLoading,
     error: bookedRoomsError,
-  } = useFetchBookedRoomsWithUser(session?.user.id as string);
+  } = useFetchBookedRoomsWithUser(session?.user.id as any);
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
+
+  if (bookedRoomsError) console.error(bookedRoomsError);
+
+  console.log("fetched data", bookedRooms);
+
+  if (!session) {
+    // You might display a loading indicator or simply return null
+    return <ActivityIndicator />;
+  }
 
   return (
     <SafeAreaProvider>
@@ -60,14 +69,10 @@ export default function Index() {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.list}
               data={bookedRooms}
-              renderItem={({ item }) =>
-                bookedRoomsLoading ? (
-                  <BookingSkeletonLoader />
-                ) : (
-                  <BookedCard items={item} />
-                )
-              }
+              renderItem={({ item }) => <BookedCard items={item} />}
             />
+          ) : bookedRoomsLoading ? (
+            <ActivityIndicator />
           ) : (
             <EmptyDisplay />
           )}

@@ -4,7 +4,6 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 
 import useThemeColor from "@/hooks/useThemeColor";
-import BookingsList from "@/components/lists/BookingsList";
 import {
   useFetchBookedRooms,
   useFetchBookedRoomsWithUser,
@@ -38,9 +37,8 @@ const Booking = () => {
         </View>
         {data && data.length > 0 ? (
           <FlatList
-            horizontal
             keyExtractor={(item) => item.id.toString()}
-            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.list}
             data={data}
             renderItem={({ item }) =>
