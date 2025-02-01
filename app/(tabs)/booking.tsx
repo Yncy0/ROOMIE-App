@@ -19,9 +19,7 @@ const Booking = () => {
   const { session } = useAuth();
 
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-  const { data, isLoading, error } = useFetchBookedRoomsWithUser(
-    session?.user.id as string
-  );
+  const { data, isLoading, error } = useFetchBookedRoomsWithUser();
 
   const [filterType, setFilterType] = React.useState<any | null>(null);
 

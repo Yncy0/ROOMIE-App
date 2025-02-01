@@ -27,8 +27,6 @@ import BookedCard from "@/components/cards/BookedCard";
 import EmptyDisplay from "@/components/EmptyDisplay";
 
 export default function Index() {
-  const { session } = useAuth();
-
   const {
     data: rooms,
     isLoading: roomsLoading,
@@ -38,17 +36,8 @@ export default function Index() {
     data: bookedRooms,
     isLoading: bookedRoomsLoading,
     error: bookedRoomsError,
-  } = useFetchBookedRoomsWithUser(session?.user.id as any);
+  } = useFetchBookedRooms();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-
-  if (bookedRoomsError) console.error(bookedRoomsError);
-
-  console.log("fetched data", bookedRooms);
-
-  if (!session) {
-    // You might display a loading indicator or simply return null
-    return <ActivityIndicator />;
-  }
 
   return (
     <SafeAreaProvider>
@@ -69,10 +58,14 @@ export default function Index() {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.list}
               data={bookedRooms}
-              renderItem={({ item }) => <BookedCard items={item} />}
+              renderItem={({ item }) =>
+                bookedRoomsLoading ? (
+                  <BookingSkeletonLoader />
+                ) : (
+                  <BookedCard items={item} />
+                )
+              }
             />
-          ) : bookedRoomsLoading ? (
-            <ActivityIndicator />
           ) : (
             <EmptyDisplay />
           )}

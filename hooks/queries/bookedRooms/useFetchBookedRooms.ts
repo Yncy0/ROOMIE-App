@@ -3,9 +3,20 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Tables } from "@/database.types";
 import { supabase } from "@/utils/supabase";
 import { useAuth } from "@/providers/AuthProvider";
-import { getId } from "@/utils/getId";
 
 type BookedRooms = Tables<"booked_rooms">;
+
+const getId = async () => {
+    //GETTING ID
+    const { data: { user } } = await supabase.auth.getUser();
+    let userId: string = "";
+
+    if (user) {
+        userId = user?.id;
+    }
+
+    return userId;
+};
 
 export function useFetchBookedRooms() {
     const bookedRoomsQuery = useQuery<BookedRooms[]>({
@@ -99,15 +110,16 @@ export function useFetchBookedRoomsWithId(id: string) {
     return bookedRoomsQuery;
 }
 
-export function useFetchBookedRoomsWithUser(id: string) {
-    return useQuery(
+export function useFetchBookedRoomsWithUser() {
+    return useQuery<BookedRooms[]>(
         {
-            queryKey: ["booked_rooms", id],
+            queryKey: ["booked_rooms"],
             queryFn: async () => {
+                const userId = await getId();
                 const { data, error } = await supabase
                     .from("booked_rooms")
                     .select("*")
-                    .eq("profile_id", id);
+                    .eq("profile_id", userId);
 
                 if (error) {
                     console.error(error);

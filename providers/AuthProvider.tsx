@@ -20,10 +20,15 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const [isReady, setIsReady] = React.useState(false);
 
   React.useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setIsReady(true);
-    });
+    const fetchSession = async () => {
+      await supabase.auth.getSession().then(({ data: { session } }) => {
+        setSession(session);
+        setIsReady(true);
+        console.log(session);
+      });
+    };
+
+    fetchSession();
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
