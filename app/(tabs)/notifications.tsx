@@ -17,6 +17,7 @@ import { useFetchNotification } from "@/hooks/queries/useFetchNotifications";
 import NotificationText from "@/components/NotificationText";
 import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
 import FABbooking from "@/components/buttons/FABbooking";
+import { useUpdateExpoToken } from "@/hooks/queries/profiles/useUpdateProfile";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -107,7 +108,10 @@ export default function NotificationsPage() {
 
   useEffect(() => {
     registerForPushNotificationsAsync()
-      .then((token) => setExpoPushToken(token ?? ""))
+      .then(async (token) => {
+        setExpoPushToken(token ?? "");
+        useUpdateExpoToken(token as string);
+      })
       .catch((error: any) => setExpoPushToken(`${error}`));
 
     notificationListener.current =
