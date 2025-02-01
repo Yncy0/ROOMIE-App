@@ -6,7 +6,7 @@ import { router, Stack } from "expo-router";
 import useThemeColor from "@/hooks/useThemeColor";
 
 // Tells Supabase Auth to continuously refresh the session automatically if
-// the app is in the foreground. When this is added, you will continue to receive
+// the app is in the foreground. When this is added, you will continue to reckeive
 // `onAuthStateChange` events with the `TOKEN_REFRESHED` or `SIGNED_OUT` event
 // if the user's session is terminated. This should only be registered once.
 AppState.addEventListener("change", (state) => {
@@ -53,8 +53,6 @@ export default function Auth() {
         flex: 1,
         backgroundColor: themeBackgroundStyle.backgroundColor,
         paddingTop: 50,
-        gap: 75,
-        justifyContent: "center",
         alignItems: "center",
       }}
     >
@@ -69,12 +67,15 @@ export default function Auth() {
         <Image
           source={require("@/assets/images/roomie-icon.png")}
           style={{
-            width: 200,
-            height: 200,
+            width: 150,
+            height: 150,
             alignSelf: "center",
             marginBottom: 20,
           }}
         />
+        <Text style={{ fontSize: 20, fontWeight: "bold", paddingBottom: 25 }}>
+          Login
+        </Text>
         <Input
           label="Email"
           leftIcon={{
@@ -133,7 +134,6 @@ export default function Auth() {
             marginBottom: 20,
           }}
         />
-        <Text style={{ paddingBottom: 40 }}>Don't have an account?</Text>
         <Button
           title="Register"
           disabled={loading}

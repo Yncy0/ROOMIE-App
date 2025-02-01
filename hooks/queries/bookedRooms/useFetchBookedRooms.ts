@@ -6,6 +6,18 @@ import { useAuth } from "@/providers/AuthProvider";
 
 type BookedRooms = Tables<"booked_rooms">;
 
+const getId = async () => {
+    //GETTING ID
+    const { data: { user } } = await supabase.auth.getUser();
+    let userId: string = "";
+
+    if (user) {
+        userId = user?.id;
+    }
+
+    return userId;
+};
+
 export function useFetchBookedRooms() {
     const bookedRoomsQuery = useQuery<BookedRooms[]>({
         queryKey: ["booked_rooms"],
@@ -74,25 +86,46 @@ export function useFetchBookedRoomsWithRooms(id: string) {
     return bookedRoomsQuery;
 }
 
-export function useFetchBookedRoomsWithUser() {
-    const { session } = useAuth();
+export function useFetchBookedRoomsWithId(id: string) {
+    const bookedRoomsQuery = useQuery({
+        queryKey: ["booked_rooms", id],
+        queryFn: async () => {
+            const { data: bookedRooms, error } = await supabase
+                .from("booked_rooms")
+                .select(`*, rooms(*)`)
+                .eq("id", id)
+                .single();
 
-    return useQuery(
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+
+            if (bookedRooms) console.log(bookedRooms);
+
+            return bookedRooms;
+        },
+    });
+
+    return bookedRoomsQuery;
+}
+
+export function useFetchBookedRoomsWithUser() {
+    return useQuery<BookedRooms[]>(
         {
             queryKey: ["booked_rooms"],
             queryFn: async () => {
-                if (!session?.user) throw new Error("No user in this session!");
+                const userId = await getId();
                 const { data, error } = await supabase
                     .from("booked_rooms")
-                    .select("*")
-                    .eq("profile_id", session?.user.id);
+                    .select("*, rooms(*)")
+                    .eq("profile_id", userId);
 
                 if (error) {
                     console.error(error);
                     throw error;
                 }
-
-                if (data) console.log(data);
+                console.log("Fetched data:", data);
 
                 return data;
             },

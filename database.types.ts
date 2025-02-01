@@ -9,6 +9,27 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      backlogs: {
+        Row: {
+          action: string | null
+          created_at: string
+          event: string | null
+          id: string
+        }
+        Insert: {
+          action?: string | null
+          created_at?: string
+          event?: string | null
+          id?: string
+        }
+        Update: {
+          action?: string | null
+          created_at?: string
+          event?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
       booked_rooms: {
         Row: {
           course_and_section: string | null
@@ -63,24 +84,6 @@ export type Database = {
           },
         ]
       }
-      building: {
-        Row: {
-          building_name: string | null
-          created_at: string
-          id: string
-        }
-        Insert: {
-          building_name?: string | null
-          created_at?: string
-          id?: string
-        }
-        Update: {
-          building_name?: string | null
-          created_at?: string
-          id?: string
-        }
-        Relationships: []
-      }
       course: {
         Row: {
           course_name: string | null
@@ -99,31 +102,75 @@ export type Database = {
         }
         Relationships: []
       }
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_user_id_fkey1"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
+          email: string | null
+          expo_push_token: string | null
           full_name: string | null
           id: string
+          is_archived: boolean | null
           mobile_number: string | null
           updated_at: string | null
+          user_department: string | null
+          user_role: string | null
           username: string | null
           website: string | null
         }
         Insert: {
           avatar_url?: string | null
+          email?: string | null
+          expo_push_token?: string | null
           full_name?: string | null
           id: string
+          is_archived?: boolean | null
           mobile_number?: string | null
           updated_at?: string | null
+          user_department?: string | null
+          user_role?: string | null
           username?: string | null
           website?: string | null
         }
         Update: {
           avatar_url?: string | null
+          email?: string | null
+          expo_push_token?: string | null
           full_name?: string | null
           id?: string
+          is_archived?: boolean | null
           mobile_number?: string | null
           updated_at?: string | null
+          user_department?: string | null
+          user_role?: string | null
           username?: string | null
           website?: string | null
         }
@@ -131,46 +178,45 @@ export type Database = {
       }
       rooms: {
         Row: {
-          building_id: string | null
           created_at: string
           id: string
+          is_archived: boolean | null
+          location: string | null
           room_capacity: number | null
           room_image: string | null
           room_name: string | null
           room_type: string | null
+          status: string | null
         }
         Insert: {
-          building_id?: string | null
           created_at?: string
           id?: string
+          is_archived?: boolean | null
+          location?: string | null
           room_capacity?: number | null
           room_image?: string | null
           room_name?: string | null
           room_type?: string | null
+          status?: string | null
         }
         Update: {
-          building_id?: string | null
           created_at?: string
           id?: string
+          is_archived?: boolean | null
+          location?: string | null
           room_capacity?: number | null
           room_image?: string | null
           room_name?: string | null
           room_type?: string | null
+          status?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "rooms_building_id_fkey"
-            columns: ["building_id"]
-            isOneToOne: false
-            referencedRelation: "building"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       schedule: {
         Row: {
           course_id: string | null
           created_at: string
+          date: string | null
           days: string | null
           id: string
           profile_id: string | null
@@ -185,6 +231,7 @@ export type Database = {
         Insert: {
           course_id?: string | null
           created_at?: string
+          date?: string | null
           days?: string | null
           id?: string
           profile_id?: string | null
@@ -199,6 +246,7 @@ export type Database = {
         Update: {
           course_id?: string | null
           created_at?: string
+          date?: string | null
           days?: string | null
           id?: string
           profile_id?: string | null

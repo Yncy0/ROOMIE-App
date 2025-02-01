@@ -1,54 +1,55 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 
 import useThemeColor from "@/hooks/useThemeColor";
-import BookingsList from "@/components/lists/BookingsList";
 import {
   useFetchBookedRooms,
   useFetchBookedRoomsWithUser,
 } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import FABbooking from "@/components/buttons/FABbooking";
 import FilterBookingButton from "@/components/buttons/FilterBookingButton";
+import BookedCard from "@/components/cards/BookedCard";
+import EmptyDisplay from "@/components/EmptyDisplay";
+import BookingSkeletonLoader from "@/components/loader/BookingSkeletonLoader";
+import { useAuth } from "@/providers/AuthProvider";
 
 const Booking = () => {
+  const { session } = useAuth();
+
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-  const { data, isLoading, error } = useFetchBookedRooms();
+  const { data, isLoading, error } = useFetchBookedRoomsWithUser();
 
   const [filterType, setFilterType] = React.useState<any | null>(null);
-
-  React.useEffect(() => {
-    if (error) {
-      console.error("Error fetching booked rooms:", error);
-      SplashScreen.hideAsync();
-      return;
-    }
-
-    if (!isLoading) {
-      console.log("booking.tsx loaded successfully", isLoading);
-      SplashScreen.hideAsync();
-      console.log("Hide SplashScreen booking.tsx");
-    } else {
-      console.log("booking.tsx still loading");
-    }
-  }, [isLoading, error]);
 
   return (
     <SafeAreaProvider style={themeBackgroundStyle}>
       <SafeAreaView style={[styles.container, themeBackgroundStyle]}>
         <View style={styles.headerWrapper}>
           <Text style={themeTextStyle}>Available Rooms</Text>
-          {/* <FilterBookingButton
+          <FilterBookingButton
             filterType={filterType}
             setFilterType={setFilterType}
-          /> */}
+          />
         </View>
-        <BookingsList
-          isHorizontal={false}
-          bookedRooms={data}
-          isLoading={isLoading}
-        />
+        {data && data.length > 0 ? (
+          <FlatList
+            keyExtractor={(item) => item.id.toString()}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.list}
+            data={data}
+            renderItem={({ item }) =>
+              isLoading ? (
+                <BookingSkeletonLoader />
+              ) : (
+                <BookedCard items={item} />
+              )
+            }
+          />
+        ) : (
+          <EmptyDisplay />
+        )}
       </SafeAreaView>
       <FABbooking />
     </SafeAreaProvider>
@@ -76,5 +77,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
+  },
+  list: {
+    gap: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
 });

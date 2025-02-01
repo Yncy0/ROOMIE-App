@@ -5,13 +5,17 @@ import HeaderHome from "@/components/HeaderHome";
 import { useAuth } from "@/providers/AuthProvider";
 import { primaryColor, primaryColor1 } from "@/constants/Colors";
 import useThemeColor from "@/hooks/useThemeColor";
+import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
 
 export default function TabLayout() {
   const { isAuthenticated } = useAuth();
-
   const { themeBackgroundStyle } = useThemeColor();
 
-  if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
+  if (!isAuthenticated) {
+    return <Redirect href="/(auth)/login" />;
+  }
+
+  subscriptionNotification();
 
   return (
     <Tabs
@@ -49,11 +53,6 @@ export default function TabLayout() {
               size={24}
             />
           ),
-        }}
-        listeners={{
-          tabPress: (e) => {
-            console.log("Schedule tab pressed", e);
-          },
         }}
       />
       <Tabs.Screen

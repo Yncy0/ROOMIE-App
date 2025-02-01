@@ -7,6 +7,7 @@ import {
   Text,
   BackHandler,
   StyleSheet,
+  FlatList,
 } from "react-native";
 import {
   GestureHandlerRootView,
@@ -21,7 +22,7 @@ import {
 } from "@gorhom/bottom-sheet";
 
 import { primaryColor } from "@/constants/Colors";
-import { BookingBottomSheet } from "@/components/BookingBottomSheet";
+import BookingBottomSheet from "@/components/BookingBottomSheet";
 import BackButton from "@/components/buttons/BackButton";
 import ScheduleText from "@/components/ScheduleText";
 import EmptyDisplay from "@/components/EmptyDisplay";
@@ -29,57 +30,43 @@ import { useFetchScheduleWithRoom } from "@/hooks/queries/schedule/useFetchSched
 import { useFetchBookedRoomsWithRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 import useSubscriptionBookedRoom from "@/hooks/queries/bookedRooms/useSubscription";
-import BookingsList from "@/components/lists/BookingsList";
 import useThemeColor from "@/hooks/useThemeColor";
 import { formatCompleteDate } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
-import * as SplashScreen from "expo-splash-screen";
+import { useFetchRoomsWithId } from "@/hooks/queries/useFetchRooms";
+import {
+  useUpdateRoomStatus,
+  useUpdateRoomStatusOccupied,
+  useUpdateRoomStatusVacant,
+} from "@/hooks/queries/useUpdateRooms";
+import IconButton from "@/components/buttons/IconButton";
+import { subscriptionRooms } from "@/hooks/queries/useSubscriptionRooms";
+import FABReport from "@/components/buttons/FABReport";
+import BookedCard from "@/components/cards/BookedCard";
+import BookingSkeletonLoader from "@/components/loader/BookingSkeletonLoader";
 
 export default function RoomPreview() {
-  const { id, roomName, roomCategory, roomImage, customRoute } =
-    useLocalSearchParams<{
-      id: any;
-      roomName: string;
-      roomCategory: string;
-      roomImage: string;
-      customRoute: any;
-    }>();
+  const { id, image, customRoute } = useLocalSearchParams<{
+    id: any;
+    image: any;
+    customRoute: any;
+  }>();
   const day = dayjs().format("dddd");
 
   const { themeBackgroundStyle, themeTextStyle, themeHandler } =
     useThemeColor();
 
-  const {
-    data: schedule,
-    isLoading: scheduleLoading,
-    error: scheduleError,
-  } = useFetchScheduleWithRoom(day, id);
-  const {
-    data: bookedRooms,
-    isLoading: bookedRoomsLoading,
-    error: bookedRoomsError,
-  } = useFetchBookedRoomsWithRooms(id);
+  const { data: schedule, isLoading: isScheduleLoading } =
+    useFetchScheduleWithRoom(day, id);
+  const { data: bookedRooms, isLoading: bookedRoomsLoading } =
+    useFetchBookedRoomsWithRooms(id);
+  const { data } = useFetchRoomsWithId(id);
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
+  subscriptionRooms();
   useSubscriptionBookedRoom();
   useSubscriptionSchedule();
-
-  React.useEffect(() => {
-    if (scheduleError || bookedRoomsError) {
-      console.error("Error fetching data:", scheduleError, bookedRoomsError);
-      SplashScreen.hideAsync();
-      return;
-    }
-
-    if (!scheduleLoading && !bookedRoomsLoading) {
-      console.log("roomPreview loaded");
-      SplashScreen.hideAsync();
-      console.log("hide SplashScreen roomPreview");
-    } else {
-      console.log("roomPreview still loading");
-    }
-  }, [scheduleLoading, bookedRoomsLoading, scheduleError, bookedRoomsError]);
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();
@@ -104,13 +91,17 @@ export default function RoomPreview() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Stack.Screen options={{ headerShown: false }} />
           <ImageBackground
-            source={{ uri: roomImage }}
+            source={{
+              uri: image,
+            }}
             style={styles.imageBackground}
           >
             <View style={styles.opaque}>
-              <View>
-                <Text style={styles.header1}>{roomName}</Text>
-                <Text style={styles.header2}>{roomCategory}</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View>
+                  <Text style={styles.header1}>{data?.room_name}</Text>
+                  <Text style={styles.header2}>{data?.room_type}</Text>
+                </View>
               </View>
               <Pressable
                 style={styles.pressable}
@@ -125,11 +116,24 @@ export default function RoomPreview() {
               <Text style={[styles.header3, themeTextStyle]}>
                 Today's Booking
               </Text>
-              <BookingsList
-                isHorizontal={true}
-                bookedRooms={bookedRooms}
-                isLoading={bookedRoomsLoading}
-              />
+              {bookedRooms && bookedRooms.length > 0 ? (
+                <FlatList
+                  horizontal
+                  keyExtractor={(item) => item.id.toString()}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.list}
+                  data={bookedRooms}
+                  renderItem={({ item }) =>
+                    bookedRoomsLoading ? (
+                      <BookingSkeletonLoader />
+                    ) : (
+                      <BookedCard items={item} />
+                    )
+                  }
+                />
+              ) : (
+                <EmptyDisplay />
+              )}
             </View>
             <View style={styles.container3}>
               <Text style={[styles.text2, themeTextStyle]}>
@@ -147,6 +151,7 @@ export default function RoomPreview() {
               <EmptyDisplay />
             )}
           </View>
+          <FABReport />
         </ScrollView>
         <BottomSheetModal
           ref={bottomSheetMoadlRef}
@@ -158,9 +163,9 @@ export default function RoomPreview() {
         >
           <BookingBottomSheet
             roomId={id}
-            roomName={roomName}
-            roomCategory={roomCategory}
-            roomImage={roomImage}
+            roomName={data?.room_name as string}
+            roomCategory={data?.room_type as string}
+            roomImage={image}
           />
         </BottomSheetModal>
       </BottomSheetModalProvider>
@@ -173,7 +178,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imageBackground: {
-    height: 275,
+    height: 300,
     justifyContent: "flex-end",
   },
   opaque: {
@@ -222,5 +227,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  list: {
+    gap: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
 });

@@ -3,6 +3,18 @@ import { supabase } from "@/utils/supabase";
 import moment from "moment";
 import { Alert } from "react-native";
 
+const getId = async () => {
+    //GETTING ID
+    const { data: { user } } = await supabase.auth.getUser();
+    let userId: string = "";
+
+    if (user) {
+        userId = user?.id;
+    }
+
+    return userId;
+};
+
 export const useUpdateProfiles = () => {
     const { session } = useAuth();
 
@@ -31,4 +43,18 @@ export const useUpdateProfiles = () => {
     };
 
     return updateProfiles;
+};
+
+export const useUpdateExpoToken = async (token: string) => {
+    const userId = await getId();
+
+    const { data, error } = await supabase
+        .from("profiles")
+        .update({ expo_push_token: token })
+        .eq("id", userId)
+        .select();
+
+    if (error) throw error;
+
+    return data;
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import {
+  ActivityIndicator,
   FlatList,
   Pressable,
   ScrollView,
@@ -12,12 +13,18 @@ import { Link, router } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import RoomCard from "@/components/cards/RoomCard";
-import BookingsList from "@/components/lists/BookingsList";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import useThemeColor from "@/hooks/useThemeColor";
-import { useFetchBookedRooms } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import {
+  useFetchBookedRooms,
+  useFetchBookedRoomsWithUser,
+} from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 import FABbooking from "@/components/buttons/FABbooking";
+import { useAuth } from "@/providers/AuthProvider";
+import BookingSkeletonLoader from "@/components/loader/BookingSkeletonLoader";
+import BookedCard from "@/components/cards/BookedCard";
+import EmptyDisplay from "@/components/EmptyDisplay";
 
 export default function Index() {
   const {
@@ -29,29 +36,8 @@ export default function Index() {
     data: bookedRooms,
     isLoading: bookedRoomsLoading,
     error: bookedRoomsError,
-  } = useFetchBookedRooms();
+  } = useFetchBookedRoomsWithUser();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-
-  React.useEffect(() => {
-    if (roomsError || bookedRoomsError) {
-      console.error("Error fetching data:", roomsError, bookedRoomsError);
-      SplashScreen.hideAsync();
-      return;
-    }
-
-    if (!roomsLoading && !bookedRoomsLoading) {
-      console.log("Loading Rooms Success @index.tsx", roomsLoading);
-      console.log(
-        "Loading Booked Rooms Success @index.tsx",
-        bookedRoomsLoading
-      );
-
-      SplashScreen.hideAsync();
-      console.log("Hide SplashScreen index.tsx");
-    } else {
-      console.log("index.tsx still loading");
-    }
-  }, [roomsLoading, bookedRoomsLoading, roomsError, bookedRoomsError]);
 
   return (
     <SafeAreaProvider>
@@ -65,11 +51,24 @@ export default function Index() {
               </Link>
             </Pressable>
           </View>
-          <BookingsList
-            isHorizontal={true}
-            bookedRooms={bookedRooms}
-            isLoading={bookedRoomsLoading}
-          />
+          {bookedRooms && bookedRooms.length > 0 ? (
+            <FlatList
+              horizontal
+              keyExtractor={(item) => item.id.toString()}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.list}
+              data={bookedRooms}
+              renderItem={({ item }) =>
+                bookedRoomsLoading ? (
+                  <BookingSkeletonLoader />
+                ) : (
+                  <BookedCard items={item} />
+                )
+              }
+            />
+          ) : (
+            <EmptyDisplay />
+          )}
           <View style={styles.container2}>
             <Text style={themeTextStyle}>{"Available Rooms"}</Text>
             <Pressable>
@@ -79,7 +78,7 @@ export default function Index() {
             </Pressable>
           </View>
           <FlatList
-            data={rooms?.slice(0, 3)}
+            data={rooms && Array.isArray(rooms) ? rooms.slice(0, 3) : []}
             renderItem={({ item }) =>
               roomsLoading ? (
                 <RoomSkeletonLoader />
@@ -94,9 +93,7 @@ export default function Index() {
                       pathname: "/screens/roomPreview/[id]",
                       params: {
                         id: item.id,
-                        roomName: item.room_name,
-                        roomCategory: item.room_type,
-                        roomImage: item.room_image,
+                        image: item.room_image,
                         customRoute: "/(tabs)",
                       },
                     })
@@ -133,6 +130,11 @@ const styles = StyleSheet.create({
     minWidth: "100%",
     justifyContent: "space-between",
     paddingHorizontal: 10,
+    paddingBottom: 20,
+  },
+  list: {
+    gap: 20,
+    paddingHorizontal: 20,
     paddingBottom: 20,
   },
 });

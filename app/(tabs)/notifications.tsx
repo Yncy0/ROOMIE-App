@@ -1,8 +1,23 @@
 import { useState, useEffect, useRef } from "react";
-import { Text, View, Button, Platform } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  Platform,
+  ScrollView,
+  FlatList,
+  StyleSheet,
+} from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
+import useThemeColor from "@/hooks/useThemeColor";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useFetchNotification } from "@/hooks/queries/useFetchNotifications";
+import NotificationText from "@/components/NotificationText";
+import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
+import FABbooking from "@/components/buttons/FABbooking";
+import { useUpdateExpoToken } from "@/hooks/queries/profiles/useUpdateProfile";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -93,7 +108,10 @@ export default function NotificationsPage() {
 
   useEffect(() => {
     registerForPushNotificationsAsync()
-      .then((token) => setExpoPushToken(token ?? ""))
+      .then(async (token) => {
+        setExpoPushToken(token ?? "");
+        useUpdateExpoToken(token as string);
+      })
       .catch((error: any) => setExpoPushToken(`${error}`));
 
     notificationListener.current =
@@ -116,27 +134,42 @@ export default function NotificationsPage() {
     };
   }, []);
 
+  const { themeBackgroundStyle, themeContainerStyle, themeTextStyle } =
+    useThemeColor();
+
+  const { data } = useFetchNotification();
+
+  subscriptionNotification();
+
   return (
-    <View
-      style={{ flex: 1, alignItems: "center", justifyContent: "space-around" }}
-    >
-      <Text>Your Expo push token: {expoPushToken}</Text>
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text>
-          Title: {notification && notification.request.content.title}{" "}
-        </Text>
-        <Text>Body: {notification && notification.request.content.body}</Text>
-        <Text>
-          Data:{" "}
-          {notification && JSON.stringify(notification.request.content.data)}
-        </Text>
-      </View>
-      <Button
-        title="Press to Send Notification"
-        onPress={async () => {
-          await sendPushNotification(expoPushToken);
-        }}
-      />
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={[{ flex: 1, paddingHorizontal: 10 }, themeBackgroundStyle]}
+      >
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
+          <FlatList
+            data={data}
+            contentContainerStyle={styles.list}
+            renderItem={({ item }) =>
+              item.body ? <NotificationText items={item} /> : null
+            }
+          />
+        </View>
+      </SafeAreaView>
+      <FABbooking />
+    </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  list: {
+    gap: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+});

@@ -29,9 +29,9 @@ const useHandleReserve = ({
     dayjs.extend(require("dayjs/plugin/timezone"));
     dayjs.extend(require("dayjs/plugin/utc"));
 
-    const [subjectCode, setSubjectCode] = useState<string | null>(null);
-    const [courseAndSection, setCourseAndSection] = useState<string | null>(
-        null,
+    const [subjectCode, setSubjectCode] = useState<string>("null");
+    const [courseAndSection, setCourseAndSection] = useState<string>(
+        "",
     );
 
     const datePicker = useDatePicker();

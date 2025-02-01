@@ -13,8 +13,11 @@ import { useColorScheme } from "react-native";
 import {
   useUpdateScheduleDone,
   useUpdateScheduleOngoing,
+  useUpdateSchedulePendingClass,
 } from "@/hooks/queries/schedule/useUpdateSchedule";
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
+import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
+import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,16 +31,8 @@ export default function RootLayout() {
         // Simulate loading or perform actual loading tasks
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        console.log("top level _layout.tsx is loaded");
-
-        await useUpdateScheduleDone();
-        await useUpdateScheduleOngoing();
-        await useUpdateBookedRoomStatus();
-
-        console.log("UPDATED");
-
-        // Hide splash screen after async work
         await SplashScreen.hideAsync();
+
         console.log("Hiding SplashScreen top level _layout.tsx");
       } catch (error) {
         console.error("Error during preparation:", error);
@@ -47,17 +42,27 @@ export default function RootLayout() {
     prepare();
   }, []);
 
+  React.useEffect(() => {
+    const updatesTick = setInterval(() => {
+      useUpdateScheduleOngoing();
+      useUpdateScheduleDone();
+      useUpdateSchedulePendingClass();
+      useUpdateBookedRoomStatus();
+    }, 5000);
+    return () => clearInterval(updatesTick);
+  }, []);
+
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <QueryClientProvider client={queryCLient}>
-        <SystemBars style="auto" />
-        <AuthProvider>
+      <SystemBars style="auto" />
+      <AuthProvider>
+        <QueryClientProvider client={queryCLient}>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           </Stack>
-        </AuthProvider>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

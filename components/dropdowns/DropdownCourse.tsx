@@ -7,8 +7,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { primaryColor } from "@/constants/Colors";
 
 type Props = {
-  value: string | null;
-  onChange: (value: string | null) => void;
+  value: string;
+  onChange: (value: string) => void;
 };
 
 const DropdownCourse = ({ value, onChange }: Props) => {

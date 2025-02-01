@@ -10,6 +10,7 @@ import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 import * as SplashScreen from "expo-splash-screen";
 import FilterRoomButton from "@/components/buttons/FilterRoomButton";
 import IconButton from "@/components/buttons/IconButton";
+import FABbooking from "@/components/buttons/FABbooking";
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -18,24 +19,6 @@ const Rooms = () => {
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   const [filterType, setFilterType] = React.useState<any | null>(null);
-
-  React.useEffect(() => {
-    if (error) {
-      console.error("Error fetching rooms:", error);
-      SplashScreen.hideAsync();
-      return;
-    }
-
-    if (!isLoading) {
-      console.log("rooms.tsx loaded");
-      SplashScreen.hideAsync();
-      console.log("Hide SplashScreen rooms.tsx");
-    } else {
-      console.log("rooms.tsx is still loading");
-    }
-  }, [isLoading, error]);
-
-  console.log(filterType);
 
   if (filterType === "ascend") {
     data?.sort((a, b) => {
@@ -78,9 +61,6 @@ const Rooms = () => {
                     pathname: "/screens/roomPreview/[id]",
                     params: {
                       id: item.id,
-                      roomName: item.room_name,
-                      roomCategory: item.room_type,
-                      roomImage: item.room_image,
                       customRoute: "/(tabs)/rooms",
                     },
                   })
@@ -95,6 +75,7 @@ const Rooms = () => {
           initialNumToRender={15}
         />
       </SafeAreaView>
+      <FABbooking />
     </SafeAreaProvider>
   );
 };
