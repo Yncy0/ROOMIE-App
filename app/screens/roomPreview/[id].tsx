@@ -34,11 +34,7 @@ import useThemeColor from "@/hooks/useThemeColor";
 import { formatCompleteDate } from "@/utils/timeUtils";
 import { pressBack } from "@/utils/pressBack";
 import { useFetchRoomsWithId } from "@/hooks/queries/useFetchRooms";
-import {
-  useUpdateRoomStatus,
-  useUpdateRoomStatusOccupied,
-  useUpdateRoomStatusVacant,
-} from "@/hooks/queries/useUpdateRooms";
+import { useUpdateRoomStatus } from "@/hooks/queries/useUpdateRooms";
 import IconButton from "@/components/buttons/IconButton";
 import { subscriptionRooms } from "@/hooks/queries/useSubscriptionRooms";
 import FABReport from "@/components/buttons/FABReport";
@@ -72,6 +68,11 @@ export default function RoomPreview() {
     bottomSheetMoadlRef.current?.present();
   }, []);
 
+  // const handleStatusPress = () => {
+  //   useUpdateRoomStatus(id, "IM GAY");
+  //   console.log("im pressing");
+  // };
+
   const renderBackdrop = React.useCallback(
     (props: any) => (
       <BottomSheetBackdrop
@@ -103,12 +104,17 @@ export default function RoomPreview() {
                   <Text style={styles.header2}>{data?.room_type}</Text>
                 </View>
               </View>
-              <Pressable
-                style={styles.pressable}
-                onPress={handlePresentModalPress}
-              >
-                <Text style={styles.text1}>Book Now</Text>
-              </Pressable>
+              <View style={{ gap: 5 }}>
+                <Pressable
+                  style={styles.pressable}
+                  onPress={handlePresentModalPress}
+                >
+                  <Text style={styles.text1}>Book Now</Text>
+                </Pressable>
+                <Pressable style={styles.pressable} onPress={() => {}}>
+                  <Text style={styles.text1}>Status Test</Text>
+                </Pressable>
+              </View>
             </View>
           </ImageBackground>
           <View style={styles.container1}>
