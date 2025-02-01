@@ -36,7 +36,7 @@ export default function Index() {
     data: bookedRooms,
     isLoading: bookedRoomsLoading,
     error: bookedRoomsError,
-  } = useFetchBookedRooms();
+  } = useFetchBookedRoomsWithUser();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
   return (

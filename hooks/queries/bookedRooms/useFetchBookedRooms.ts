@@ -118,7 +118,7 @@ export function useFetchBookedRoomsWithUser() {
                 const userId = await getId();
                 const { data, error } = await supabase
                     .from("booked_rooms")
-                    .select("*")
+                    .select("*, rooms(*)")
                     .eq("profile_id", userId);
 
                 if (error) {
