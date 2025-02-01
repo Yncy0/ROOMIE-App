@@ -125,7 +125,6 @@ export function useFetchBookedRoomsWithUser() {
                     console.error(error);
                     throw error;
                 }
-                console.log("Fetched data:", data);
 
                 return data;
             },

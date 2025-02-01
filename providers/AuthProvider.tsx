@@ -23,7 +23,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setIsReady(true);
-      console.log(session);
     });
 
     supabase.auth.onAuthStateChange((_event, session) => {

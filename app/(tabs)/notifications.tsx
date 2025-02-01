@@ -52,7 +52,7 @@ function handleRegistrationError(errorMessage: string) {
   throw new Error(errorMessage);
 }
 
-async function registerForPushNotificationsAsync() {
+export async function registerForPushNotificationsAsync() {
   if (Platform.OS === "android") {
     Notifications.setNotificationChannelAsync("default", {
       name: "default",
@@ -98,7 +98,7 @@ async function registerForPushNotificationsAsync() {
   }
 }
 
-export default function NotificationsPage() {
+export const notifUtils = () => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState<
     Notifications.Notification | undefined
@@ -111,6 +111,7 @@ export default function NotificationsPage() {
       .then(async (token) => {
         setExpoPushToken(token ?? "");
         useUpdateExpoToken(token as string);
+        console.log("The token has been updated", token);
       })
       .catch((error: any) => setExpoPushToken(`${error}`));
 
@@ -133,7 +134,9 @@ export default function NotificationsPage() {
         Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+};
 
+export default function NotificationsPage() {
   const { themeBackgroundStyle, themeContainerStyle, themeTextStyle } =
     useThemeColor();
 
