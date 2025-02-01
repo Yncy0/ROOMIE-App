@@ -30,7 +30,7 @@ const supabase = createClient(
 
 Deno.serve(async (req) => {
   const payload: WebhookPayload = await req.json();
-  const expoPushToken = "ExponentPushToken[a5_SpbJQl8Gu1WKhKZCM-_]";
+  // const expoPushToken = "ExponentPushToken[a5_SpbJQl8Gu1WKhKZCM-_]";
 
   const { data } = await supabase
     .from("profiles")
@@ -45,7 +45,7 @@ Deno.serve(async (req) => {
       Authorization: `Bearer ${Deno.env.get(`EXPO_ACCESS_TOKEN`)}`,
     },
     body: JSON.stringify({
-      to: "ExponentPushToken[a5_SpbJQl8Gu1WKhKZCM-_]",
+      to: data?.expo_push_token,
       sound: "default",
       body: payload.record.body,
     }),
