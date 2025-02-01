@@ -42,8 +42,8 @@ export default function BookedCard({ items }: Props) {
       />
       <View style={styles.container1}>
         <Badge value={items.status} />
-        <Text style={styles.text}>{items.rooms.room_name}</Text>
-        <Text style={styles.text}>{items.rooms.room_type}</Text>
+        <Text style={styles.text}>{items.rooms?.room_name}</Text>
+        <Text style={styles.text}>{items.rooms?.room_type}</Text>
         <IconText icon="albums-outline" text={items.subject_code} />
         <IconText icon="people-outline" text={items.course_and_section} />
         <IconText

@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Tables } from "@/database.types";
 import { supabase } from "@/utils/supabase";
 import { useAuth } from "@/providers/AuthProvider";
+import { getId } from "@/utils/getId";
 
 type BookedRooms = Tables<"booked_rooms">;
 
@@ -101,22 +102,23 @@ export function useFetchBookedRoomsWithId(id: string) {
 export function useFetchBookedRoomsWithUser() {
     const { session } = useAuth();
 
+    console.log(session?.user.id);
+
     return useQuery(
         {
-            queryKey: ["booked_rooms"],
+            queryKey: ["booked_rooms", session?.user.id],
             queryFn: async () => {
                 if (!session?.user) throw new Error("No user in this session!");
                 const { data, error } = await supabase
                     .from("booked_rooms")
                     .select("*")
-                    .eq("profile_id", session?.user.id);
+                    .eq("profile_id", session.user.id);
 
                 if (error) {
                     console.error(error);
                     throw error;
                 }
-
-                if (data) console.log(data);
+                console.log("Fetched data:", data);
 
                 return data;
             },

@@ -14,7 +14,7 @@ import FilterBookingButton from "@/components/buttons/FilterBookingButton";
 
 const Booking = () => {
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-  const { data, isLoading, error } = useFetchBookedRooms();
+  const { data, isLoading, error } = useFetchBookedRoomsWithUser();
 
   const [filterType, setFilterType] = React.useState<any | null>(null);
 

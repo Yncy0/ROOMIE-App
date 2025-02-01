@@ -18,25 +18,15 @@ type Props = {
 const BookingsList = ({ isHorizontal, bookedRooms, isLoading }: Props) => {
   useSubscriptionBookedRoom();
 
-  // React.useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     useUpdateBookedRoomStatus();
-  //     console.log("UPDATED BOOKED ROOMS");
-  //   }, 60000);
-  //   return () => clearInterval(interval);
-  // }, [bookedRooms]);
-
   useDeleteBookedRooms();
+
   return (
     <>
       {bookedRooms && bookedRooms.length > 0 ? (
         <FlatList
           keyExtractor={(item) => item.id.toString()}
-          horizontal={isHorizontal}
           showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.list}
-          initialNumToRender={7}
           data={bookedRooms}
           renderItem={({ item }) =>
             isLoading ? <BookingSkeletonLoader /> : <BookedCard items={item} />

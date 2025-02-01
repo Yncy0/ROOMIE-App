@@ -16,18 +16,7 @@ export default function Profile() {
   const { username, setUsername, avatarUrl, setAvatarUrl, loading } =
     useFetchProfiles();
   const updateProfiles = useUpdateProfiles();
-  const { themeContainerStyle, themeBackgroundStyle } = useThemeColor();
-
-  React.useEffect(() => {
-    if (!loading) {
-      console.log("profile.tsx loaded!", loading);
-
-      SplashScreen.hideAsync();
-      console.log("hide SplashScreen profile.tsx");
-    } else {
-      console.log("profile.tsx still loading");
-    }
-  }, [loading]);
+  const { themeBackgroundStyle } = useThemeColor();
 
   return (
     <SafeAreaProvider>
