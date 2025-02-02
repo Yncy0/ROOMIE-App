@@ -110,9 +110,6 @@ export default function RoomPreview() {
                 >
                   <Text style={styles.text1}>Book Now</Text>
                 </Pressable>
-                <Pressable style={styles.pressable} onPress={() => {}}>
-                  <Text style={styles.text1}>Status Test</Text>
-                </Pressable>
               </View>
             </View>
           </ImageBackground>

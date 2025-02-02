@@ -160,7 +160,7 @@ const BookingPreview = () => {
                     )
                   }
                 >
-                  <Text style={themeTextStyle}>Cancelation</Text>
+                  <Text style={styles.textEdit}>Cancelation</Text>
                 </Pressable>
               </View>
             </View>
