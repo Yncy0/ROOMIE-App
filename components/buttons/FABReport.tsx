@@ -24,24 +24,6 @@ const FABReport = () => {
 
   const { themeTextStyle, themeInputStyle } = useThemeColor();
 
-  // const datePicker = useDatePicker();
-  // const timeInPicker = useTimePicker();
-  // const timeOutPicker = useTimePicker();
-
-  // const dayjs = require("dayjs");
-  // require("dayjs/plugin/timezone");
-  // require("dayjs/plugin/utc");
-
-  // Load plugins
-  // dayjs.extend(require("dayjs/plugin/timezone"));
-  // dayjs.extend(require("dayjs/plugin/utc"));
-
-  // const localTimeIn = dayjs(timeInPicker.time).tz("Asia/Manila").format();
-  // const localTimeOut = dayjs(timeOutPicker.time).tz("Asia/Manila").format();
-
-  // const { session } = useAuth();
-  // const router = useRouter();
-
   return (
     <>
       <FAB
@@ -49,7 +31,7 @@ const FABReport = () => {
         color={primaryColor}
         style={{
           position: "absolute",
-          bottom: -25,
+          bottom: 0,
           right: 20,
           zIndex: 999,
         }}
