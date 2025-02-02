@@ -36,10 +36,6 @@ export default function RootLayout() {
         // Simulate loading or perform actual loading tasks
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        const { expoPushToken } = usePushNotifications();
-
-        await useUpdateExpoToken(expoPushToken);
-
         await SplashScreen.hideAsync();
 
         console.log("Hiding SplashScreen top level _layout.tsx");

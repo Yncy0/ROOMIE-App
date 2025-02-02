@@ -138,8 +138,7 @@ export const usePushNotifications = () => {
 };
 
 export default function NotificationsPage() {
-  const { themeBackgroundStyle, themeContainerStyle, themeTextStyle } =
-    useThemeColor();
+  const { themeBackgroundStyle } = useThemeColor();
 
   const { data } = useFetchNotification();
 
