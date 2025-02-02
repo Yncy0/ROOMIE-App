@@ -69,8 +69,7 @@ export default function RoomPreview() {
   }, []);
 
   // const handleStatusPress = () => {
-  //   useUpdateRoomStatus(id, "IM GAY");
-  //   console.log("im pressing");
+  //   useUpdateRoomStatus(id, "AVAILABLE");
   // };
 
   const renderBackdrop = React.useCallback(
