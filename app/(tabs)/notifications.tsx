@@ -98,7 +98,7 @@ export async function registerForPushNotificationsAsync() {
   }
 }
 
-export const notifUtils = () => {
+export const usePushNotifications = () => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState<
     Notifications.Notification | undefined
@@ -108,9 +108,8 @@ export const notifUtils = () => {
 
   useEffect(() => {
     registerForPushNotificationsAsync()
-      .then(async (token) => {
+      .then((token) => {
         setExpoPushToken(token ?? "");
-        useUpdateExpoToken(token as string);
         console.log("The token has been updated", token);
       })
       .catch((error: any) => setExpoPushToken(`${error}`));
@@ -134,6 +133,8 @@ export const notifUtils = () => {
         Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+
+  return { expoPushToken, notification };
 };
 
 export default function NotificationsPage() {

@@ -18,7 +18,11 @@ import {
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
 import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
-import { registerForPushNotificationsAsync } from "./(tabs)/notifications";
+import {
+  usePushNotifications,
+  registerForPushNotificationsAsync,
+} from "./(tabs)/notifications";
+import { useUpdateExpoToken } from "@/hooks/queries/profiles/useUpdateProfile";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,7 +36,9 @@ export default function RootLayout() {
         // Simulate loading or perform actual loading tasks
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        await registerForPushNotificationsAsync();
+        const { expoPushToken } = usePushNotifications();
+
+        await useUpdateExpoToken(expoPushToken);
 
         await SplashScreen.hideAsync();
 

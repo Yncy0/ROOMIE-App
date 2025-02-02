@@ -28,8 +28,6 @@ const updateScheduleDone = async () => {
     throw error;
   }
 
-  console.log(data);
-
   return data;
 };
 
