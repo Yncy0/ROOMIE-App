@@ -50,7 +50,7 @@ export const useUpdateExpoToken = async (token: string) => {
 
     const { data, error } = await supabase
         .from("profiles")
-        .update({ expo_push_token: token })
+        .update({ expo_push_token: token, updated_at: moment().toISOString() })
         .eq("id", userId)
         .select();
 
