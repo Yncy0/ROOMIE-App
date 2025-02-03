@@ -1,6 +1,8 @@
 import { supabase } from "@/utils/supabase";
 import { getNextWeekdayDate } from "@/utils/weekdayUtils";
 import dayjs from "dayjs";
+import { useUpdateRoomStatus } from "../useUpdateRooms";
+import { Tables } from "@/database.types";
 
 const timeNow = dayjs().format("HH:mm:ssZ");
 const today = dayjs().format("dddd");
@@ -11,11 +13,18 @@ export const useUpdateScheduleDone = async () => {
         .update({ status: "DONE" })
         .eq("days", today)
         .eq("status", "ON GOING")
-        .lte("time_out", timeNow);
+        .lte("time_out", timeNow)
+        .select();
 
     if (error) {
         console.error(error);
         throw error;
+    }
+
+    if (data && data.length > 0) {
+        const roomIds = data.map((schedule: any) => schedule.room_id);
+
+        await useUpdateRoomStatus(roomIds, "AVAILABLE");
     }
 
     return data;
@@ -27,11 +36,18 @@ export const useUpdateScheduleOngoing = async () => {
         .update({ status: "ON GOING" })
         .eq("days", today)
         .gte("time_out", timeNow)
-        .lte("time_in", timeNow);
+        .lte("time_in", timeNow)
+        .select();
 
     if (error) {
         console.error(error);
         throw error;
+    }
+
+    if (data && data.length > 0) {
+        const roomIds = data.map((schedule: any) => schedule.room_id);
+
+        await useUpdateRoomStatus(roomIds, "OCCUPIED");
     }
 
     return data;

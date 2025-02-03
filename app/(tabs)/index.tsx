@@ -46,10 +46,12 @@ export default function Index() {
   React.useEffect(() => {
     const update = async () => {
       await useUpdateExpoToken(expoPushToken);
+
+      console.log("UPDATED PUSH TOKEN");
     };
 
     update();
-  }, []);
+  }, [expoPushToken]);
 
   return (
     <SafeAreaProvider>

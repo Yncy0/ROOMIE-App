@@ -31,8 +31,6 @@ export function useFetchBookedRooms() {
                 throw error;
             }
 
-            if (bookedRooms) console.log(bookedRooms);
-
             return bookedRooms;
         },
     });
@@ -53,8 +51,6 @@ export function useFetchBookedRoomSingle() {
                 console.error(error);
                 throw error;
             }
-
-            if (bookedRooms) console.log(bookedRooms);
 
             return bookedRooms;
         },
@@ -100,8 +96,6 @@ export function useFetchBookedRoomsWithId(id: string) {
                 console.error(error);
                 throw error;
             }
-
-            if (bookedRooms) console.log(bookedRooms);
 
             return bookedRooms;
         },

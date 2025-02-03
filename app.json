@@ -13,6 +13,7 @@
       "bundleIdentifier": "com.example.roomie"
     },
     "android": {
+      "googleServiceFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/roomie-icon.png",
         "backgroundColor": "#ffffff"

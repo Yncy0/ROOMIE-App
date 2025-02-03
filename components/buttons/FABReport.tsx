@@ -17,12 +17,20 @@ import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "expo-router";
 import useCheckForOverlap from "@/hooks/queries/bookedRooms/useCheckOverlap";
 import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRooms";
+import { useInsertBacklogs } from "@/hooks/queries/useInsertBacklogs";
 
 const FABReport = () => {
   const [visible, setVisible] = React.useState(false);
   const [text, setText] = React.useState("");
 
   const { themeTextStyle, themeInputStyle } = useThemeColor();
+
+  const handleConfirm = () => {
+    useInsertBacklogs("REPORT", text);
+    setVisible(false);
+
+    Alert.alert("Your report has been submitted, please wait for the action.");
+  };
 
   return (
     <>
@@ -59,13 +67,7 @@ const FABReport = () => {
           }}
         />
         <Dialog.Actions>
-          <Dialog.Button
-            onPress={() => {
-              setVisible(false);
-            }}
-          >
-            Confirm
-          </Dialog.Button>
+          <Dialog.Button onPress={handleConfirm}>Confirm</Dialog.Button>
           <Dialog.Button onPress={() => setVisible(false)}>
             Cancel
           </Dialog.Button>

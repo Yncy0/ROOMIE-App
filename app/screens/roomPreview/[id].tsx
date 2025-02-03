@@ -60,25 +60,26 @@ export default function RoomPreview() {
 
   const bottomSheetMoadlRef = React.useRef<BottomSheetModal>(null);
 
-  subscriptionRooms();
-  useSubscriptionBookedRoom();
-  useSubscriptionSchedule();
+  const snapPoints = ["60%"];
 
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetMoadlRef.current?.present();
   }, []);
 
+  subscriptionRooms();
+  useSubscriptionBookedRoom();
+  useSubscriptionSchedule();
+
   // const handleStatusPress = () => {
-  //   useUpdateRoomStatus(id, "IM GAY");
-  //   console.log("im pressing");
+  //   useUpdateRoomStatus(id, "AVAILABLE");
   // };
 
   const renderBackdrop = React.useCallback(
     (props: any) => (
       <BottomSheetBackdrop
         {...props}
-        disappearsOnIndex={1}
-        appearsOnIndex={2}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
       />
     ),
     []
@@ -110,9 +111,6 @@ export default function RoomPreview() {
                   onPress={handlePresentModalPress}
                 >
                   <Text style={styles.text1}>Book Now</Text>
-                </Pressable>
-                <Pressable style={styles.pressable} onPress={() => {}}>
-                  <Text style={styles.text1}>Status Test</Text>
                 </Pressable>
               </View>
             </View>
@@ -166,6 +164,7 @@ export default function RoomPreview() {
             backgroundColor: themeHandler.backgroundColor,
           }}
           backdropComponent={renderBackdrop}
+          snapPoints={snapPoints}
         >
           <BookingBottomSheet
             roomId={id}
