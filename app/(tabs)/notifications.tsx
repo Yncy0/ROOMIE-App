@@ -142,6 +142,8 @@ export default function NotificationsPage() {
 
   const { data } = useFetchNotification();
 
+  //  const { expoPushToken } = usePushNotifications();
+
   subscriptionNotification();
 
   return (
