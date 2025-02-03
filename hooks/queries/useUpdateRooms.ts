@@ -16,7 +16,5 @@ export const useUpdateRoomStatus = async (
         throw error;
     }
 
-    console.log("IS UPDATING");
-
     return data;
 };

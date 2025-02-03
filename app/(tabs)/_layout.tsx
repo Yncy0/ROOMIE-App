@@ -15,8 +15,6 @@ export default function TabLayout() {
     return <Redirect href="/(auth)/login" />;
   }
 
-  subscriptionNotification();
-
   return (
     <Tabs
       screenOptions={{
