@@ -25,7 +25,10 @@ import { useAuth } from "@/providers/AuthProvider";
 import BookingSkeletonLoader from "@/components/loader/BookingSkeletonLoader";
 import BookedCard from "@/components/cards/BookedCard";
 import EmptyDisplay from "@/components/EmptyDisplay";
-import { usePushNotifications } from "./notifications";
+import {
+  registerForPushNotificationsAsync,
+  usePushNotifications,
+} from "./notifications";
 import { useUpdateExpoToken } from "@/hooks/queries/profiles/useUpdateProfile";
 
 export default function Index() {
@@ -41,17 +44,18 @@ export default function Index() {
   } = useFetchBookedRoomsWithUser();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
 
-  const { expoPushToken } = usePushNotifications();
+  // const { expoPushToken } = usePushNotifications();
 
-  React.useEffect(() => {
-    const update = async () => {
-      await useUpdateExpoToken(expoPushToken);
+  // React.useEffect(() => {
+  //   const update = async () => {
+  //     await registerForPushNotificationsAsync();
+  //     await useUpdateExpoToken(expoPushToken);
 
-      console.log("UPDATED PUSH TOKEN");
-    };
+  //     console.log("UPDATED PUSH TOKEN");
+  //   };
 
-    update();
-  }, [expoPushToken]);
+  //   update();
+  // }, [expoPushToken]);
 
   return (
     <SafeAreaProvider>
