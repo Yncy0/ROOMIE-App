@@ -15,18 +15,12 @@ import * as SplashScreen from "expo-splash-screen";
 import RoomCard from "@/components/cards/RoomCard";
 import useFetchRooms from "@/hooks/queries/useFetchRooms";
 import useThemeColor from "@/hooks/useThemeColor";
-import {
-  useFetchBookedRooms,
-  useFetchBookedRoomsWithUser,
-} from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
+import { useFetchBookedRoomsWithUser } from "@/hooks/queries/bookedRooms/useFetchBookedRooms";
 import RoomSkeletonLoader from "@/components/loader/RoomsSkeletonLoader";
 import FABbooking from "@/components/buttons/FABbooking";
-import { useAuth } from "@/providers/AuthProvider";
 import BookingSkeletonLoader from "@/components/loader/BookingSkeletonLoader";
 import BookedCard from "@/components/cards/BookedCard";
 import EmptyDisplay from "@/components/EmptyDisplay";
-import { usePushNotifications } from "./notifications";
-import { useUpdateExpoToken } from "@/hooks/queries/profiles/useUpdateProfile";
 
 export default function Index() {
   const {
@@ -40,18 +34,6 @@ export default function Index() {
     error: bookedRoomsError,
   } = useFetchBookedRoomsWithUser();
   const { themeTextStyle, themeBackgroundStyle } = useThemeColor();
-
-  const { expoPushToken } = usePushNotifications();
-
-  React.useEffect(() => {
-    const update = async () => {
-      await useUpdateExpoToken(expoPushToken);
-
-      console.log("UPDATED PUSH TOKEN");
-    };
-
-    update();
-  }, [expoPushToken]);
 
   return (
     <SafeAreaProvider>

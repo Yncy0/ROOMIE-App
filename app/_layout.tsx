@@ -16,13 +16,7 @@ import {
   useUpdateSchedulePendingClass,
 } from "@/hooks/queries/schedule/useUpdateSchedule";
 import { useUpdateBookedRoomStatus } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
-import { subscriptionNotification } from "@/hooks/queries/useSubscriptionNotification";
-import useSubscriptionSchedule from "@/hooks/queries/schedule/useSubscription";
-import {
-  usePushNotifications,
-  registerForPushNotificationsAsync,
-} from "./(tabs)/notifications";
-import { useUpdateExpoToken } from "@/hooks/queries/profiles/useUpdateProfile";
+import { NotificationProvider } from "@/providers/NotificationProvider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -61,12 +55,14 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SystemBars style="auto" />
       <AuthProvider>
-        <QueryClientProvider client={queryCLient}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          </Stack>
-        </QueryClientProvider>
+        <NotificationProvider>
+          <QueryClientProvider client={queryCLient}>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            </Stack>
+          </QueryClientProvider>
+        </NotificationProvider>
       </AuthProvider>
     </ThemeProvider>
   );
