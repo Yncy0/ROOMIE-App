@@ -1,7 +1,16 @@
 import React, { memo } from "react";
-import { Pressable, View, Text, StyleSheet } from "react-native";
+import {
+  Pressable,
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Button,
+} from "react-native";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as ImagePicker from "expo-image-picker";
+import * as DocumentPicker from "expo-document-picker";
 
 import IconInput from "./inputs/IconInput";
 import useHandleReserve from "@/hooks/useHandleReserve";
@@ -10,6 +19,7 @@ import dayjs from "dayjs";
 import useThemeColor from "@/hooks/useThemeColor";
 import DropdownSubject from "./dropdowns/DropdownSubject";
 import DropdownCourse from "./dropdowns/DropdownCourse";
+import { uploadFiles } from "@/utils/tus";
 
 type Props = {
   roomId: any;
@@ -36,6 +46,57 @@ const BookingBottomSheet = ({
   } = useHandleReserve({ roomId, roomName, roomCategory, roomImage });
 
   const { themeBackgroundStyle } = useThemeColor();
+  const [uploading, setUploading] = React.useState(false);
+
+  const askPermission = async (failureMessage: any, permissionRequest: any) => {
+    const { status } = await permissionRequest();
+
+    if (status === "denied") {
+      alert(failureMessage);
+    }
+  };
+
+  const pickDoc = async () => {
+    let pickerResult = await DocumentPicker.getDocumentAsync({
+      copyToCacheDirectory: false,
+      multiple: true,
+    });
+
+    handleAssetsPicked(pickerResult);
+  };
+
+  const handleAssetsPicked = async (pickerResult: any) => {
+    try {
+      setUploading(true);
+
+      if (!pickerResult.canceled) {
+        await uploadFiles("tus", pickerResult);
+      }
+    } catch (e) {
+      console.log({ e });
+      alert("Upload failed, sorry :(");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const maybeRenderUploadingIndicator = () => {
+    if (uploading) {
+      return <ActivityIndicator animating size="large" color="#0000ee" />;
+    }
+  };
+
+  const maybeRenderControls = () => {
+    if (!uploading) {
+      return (
+        <View>
+          <View style={{ marginVertical: 8 }}>
+            <Button onPress={pickDoc} title="Pick a document" />
+          </View>
+        </View>
+      );
+    }
+  };
 
   return (
     <BottomSheetView style={[styles.bottomSheet, themeBackgroundStyle]}>
@@ -72,19 +133,9 @@ const BookingBottomSheet = ({
             }}
           />
         )}
-        {/* <IconInput
-          icon={"book"}
-          placeholder="Subject Name"
-          value={subjectCode}
-          onChangeText={setSubjectCode}
-        /> */}
+
         <DropdownSubject value={subjectCode} onChange={setSubjectCode} />
-        {/* <IconInput
-          icon={"people-alt"}
-          placeholder="Course & Section"
-          value={courseAndSection}
-          onChangeText={setCourseAndSection}
-        /> */}
+
         <DropdownCourse
           value={courseAndSection}
           onChange={setCourseAndSection}
@@ -96,6 +147,7 @@ const BookingBottomSheet = ({
           value={dayjs(datePicker.date).format("DD MMMM YYYY")}
           onChangeText={() => {}}
         />
+
         <View style={{ gap: 20, flexDirection: "row" }}>
           <IconInput
             icon={"schedule"}
@@ -104,6 +156,7 @@ const BookingBottomSheet = ({
             value={dayjs(timeInPicker.time).format("HH:mm: a")}
             onChangeText={() => {}}
           />
+
           <IconInput
             icon={"schedule"}
             placeholder="Time-out"
@@ -112,6 +165,10 @@ const BookingBottomSheet = ({
             onChangeText={() => {}}
           />
         </View>
+
+        {maybeRenderControls()}
+        {maybeRenderUploadingIndicator()}
+
         <Pressable style={styles.pressable} onPress={handleReserve}>
           <Text style={styles.text}>Reserve</Text>
         </Pressable>
