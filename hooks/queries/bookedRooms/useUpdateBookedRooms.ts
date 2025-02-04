@@ -30,6 +30,8 @@ export const useUpdateBookedRoomPending = async (booking_id: any) => {
     return data;
 };
 
+//TODO: add an update of INCOMING to ON GOING based on the time
+
 export async function useUpdateBookedRooms(
     booking_id: any, // Add the booking ID parameter to identify which booking to edit
     profile_id: any,

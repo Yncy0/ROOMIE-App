@@ -18,7 +18,7 @@ const DropdownRooms = ({ value, onChange }: Props) => {
 
   React.useEffect(() => {
     if (data) {
-      const formattedData = (data ?? []).map((rooms) => ({
+      const formattedData = data.map((rooms) => ({
         label: rooms.room_name, // Adjust based on your data structure
         value: rooms.id, // Adjust based on your data structure
         roomName: rooms.room_name,
