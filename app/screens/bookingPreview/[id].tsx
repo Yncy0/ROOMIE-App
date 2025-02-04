@@ -234,7 +234,7 @@ const BookingPreview = () => {
                 style={stylesModal.pressable}
                 onPress={() => setVisible(false)}
               >
-                <Text style={themeTextStyle}>Cancel</Text>
+                <Text style={stylesModal.text}>Cancel</Text>
               </Pressable>
             </View>
           </Modal>
