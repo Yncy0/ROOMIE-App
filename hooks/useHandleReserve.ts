@@ -73,12 +73,12 @@ const useHandleReserve = ({
                 localTimeIn,
                 localTimeOut,
             );
-            if (!bookedRooms || !schedule) {
-                Alert.alert(
-                    "The room has already ongoing schedule!",
-                );
-                return;
-            }
+            // if (!bookedRooms || !schedule) {
+            //     Alert.alert(
+            //         "The room has already ongoing schedule!",
+            //     );
+            //     return;
+            // }
 
             const insert = useInsertBookedRooms(
                 session?.user.id,
