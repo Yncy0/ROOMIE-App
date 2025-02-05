@@ -90,8 +90,10 @@ const BookingBottomSheet = ({
     if (!uploading) {
       return (
         <View>
-          <View style={{ marginVertical: 8 }}>
-            <Button onPress={pickDoc} title="Pick a document" />
+          <View style={styles.pressable}>
+            <Pressable onPress={pickDoc}>
+              <Text style={styles.text}>Pick a document</Text>
+            </Pressable>
           </View>
         </View>
       );
