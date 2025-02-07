@@ -16,26 +16,29 @@ const supabase = createClient(
 // const timeNow = dayjs().format("HH:mm:ssZ");
 const today = dayjs().format("dddd");
 
-const updateScheduleDone = async () => {
-  const { data, error } = await supabase
-    .from("rooms")
-    .update({ status: "STATUS TEST" })
-    .eq("status", null)
-    .select();
+const updateRoomsDone = async () => {
+  const { data: schedules, error: scheduleError } = await supabase
+    .from("schedule")
+    .select("room_id")
+    .eq("status", "DONE");
 
-  if (error) {
-    console.error(error);
-    throw error;
+  if (scheduleError) throw scheduleError;
+
+  for (const schedule of schedules) {
+    const { error } = await supabase
+      .from("rooms")
+      .update({ status: "AVAILABLE" })
+      .eq("id", schedule.room_id);
+
+    if (error) throw error;
   }
-
-  return data;
 };
 
 Deno.serve(async (req) => {
   const { name } = await req.json();
 
   // Call the main function
-  const updatedData = await updateScheduleDone();
+  const updatedData = await updateRoomsDone();
   const data = {
     message: `Hello ${name}!`,
     updatedData,
