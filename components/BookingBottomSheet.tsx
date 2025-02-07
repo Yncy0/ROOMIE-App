@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import * as ImagePicker from "expo-image-picker";
 import * as DocumentPicker from "expo-document-picker";
 
 import IconInput from "./inputs/IconInput";
@@ -55,6 +54,14 @@ const BookingBottomSheet = ({
       alert(failureMessage);
     }
   };
+
+  React.useEffect(() => {
+    const a = async () => {
+      await askPermission;
+    };
+
+    a();
+  }, []);
 
   const pickDoc = async () => {
     let pickerResult = await DocumentPicker.getDocumentAsync({
