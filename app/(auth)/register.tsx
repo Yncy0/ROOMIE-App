@@ -17,25 +17,28 @@ AppState.addEventListener("change", (state) => {
   }
 });
 
-//TODO: NIST STANDARDS ON INPUT
-//TODO: Put asterisk indication on required fields
-
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorEmail, setErrorEmail] = useState("");
+  const [errorPhone, setErrorPhone] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  function checkEmail(str: string) {
+    let re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(str);
+  }
+
+  function checkMobileNumber(str: string) {
+    const mobileRegex = /^\+?\d{1,3}?\d{10}$/;
+    return mobileRegex.test(str);
+  }
 
   function checkPassword(str: string) {
     let re =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
-    return re.test(str);
-  }
-
-  function checkEmail(str: string) {
-    let re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return re.test(str);
   }
 
@@ -45,6 +48,17 @@ export default function Auth() {
       setErrorEmail("");
     } else {
       setErrorEmail("Not an email format, should be @example.com");
+    }
+  };
+
+  const handleMobileNumber = (text: string) => {
+    setPhone(text);
+    if (checkMobileNumber(text)) {
+      setErrorPhone("");
+    } else {
+      setErrorPhone(
+        "Invalid mobile number format, please don't put dashes and spaces"
+      );
     }
   };
 
@@ -77,6 +91,9 @@ export default function Auth() {
     // if (!session)
     //   Alert.alert("Please check your inbox for email verification!");
     setLoading(false);
+
+    //FIXME: to otp
+    router.replace("/otp");
   }
 
   return (
@@ -133,12 +150,12 @@ export default function Auth() {
             color: "#636c72",
           }}
           labelStyle={{ fontSize: 14 }}
-          onChangeText={(text) => setPhone(text)}
+          onChangeText={handleMobileNumber}
           value={phone}
           placeholder="+639123456789"
           autoCapitalize={"none"}
           errorStyle={{ color: "red" }}
-          errorMessage={""}
+          errorMessage={errorPhone}
           inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
           inputContainerStyle={{
             width: "100%",
