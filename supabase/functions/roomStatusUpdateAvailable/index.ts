@@ -5,7 +5,6 @@
 // Setup type definitions for built-in Supabase Runtime APIs
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2.48.1";
-import dayjs from "https://cdn.skypack.dev/dayjs";
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -14,13 +13,12 @@ const supabase = createClient(
 );
 
 // const timeNow = dayjs().format("HH:mm:ssZ");
-const today = dayjs().format("dddd");
 
-const updateRoomsDone = async () => {
+const updateRoomsAvailable = async () => {
   const { data: schedules, error: scheduleError } = await supabase
     .from("schedule")
     .select("room_id")
-    .eq("status", "DONE");
+    .in("status", ["DONE", "CANCELLED"]);
 
   if (scheduleError) throw scheduleError;
 
@@ -38,7 +36,7 @@ Deno.serve(async (req) => {
   const { name } = await req.json();
 
   // Call the main function
-  const updatedData = await updateRoomsDone();
+  const updatedData = await updateRoomsAvailable();
   const data = {
     message: `Hello ${name}!`,
     updatedData,
