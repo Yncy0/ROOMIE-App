@@ -84,6 +84,33 @@ export type Database = {
           },
         ]
       }
+      building: {
+        Row: {
+          building_image: string | null
+          building_name: string | null
+          created_at: string
+          id: string
+          Num_of_floors: string | null
+          Num_of_rooms: string | null
+        }
+        Insert: {
+          building_image?: string | null
+          building_name?: string | null
+          created_at?: string
+          id?: string
+          Num_of_floors?: string | null
+          Num_of_rooms?: string | null
+        }
+        Update: {
+          building_image?: string | null
+          building_name?: string | null
+          created_at?: string
+          id?: string
+          Num_of_floors?: string | null
+          Num_of_rooms?: string | null
+        }
+        Relationships: []
+      }
       course: {
         Row: {
           course_name: string | null

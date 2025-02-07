@@ -54,7 +54,7 @@ export default function RootLayout() {
     const updatesTick = setInterval(() => {
       useUpdateScheduleOngoing();
       useUpdateScheduleDone();
-      useUpdateSchedulePendingClass();
+      // useUpdateSchedulePendingClass();
       useUpdateBookedRoomStatus();
     }, 5000);
     return () => clearInterval(updatesTick);

@@ -160,7 +160,7 @@ const BookingPreview = () => {
                     )
                   }
                 >
-                  <Text style={styles.textEdit}>Cancelation</Text>
+                  <Text style={themeTextStyle}>Cancelation</Text>
                 </Pressable>
               </View>
             </View>
@@ -231,7 +231,7 @@ const BookingPreview = () => {
                 <Text style={stylesModal.text}>Edit</Text>
               </Pressable>
               <Pressable
-                style={stylesModal.pressable}
+                style={[stylesModal.pressCancel, themeContainerStyle]}
                 onPress={() => setVisible(false)}
               >
                 <Text style={themeTextStyle}>Cancel</Text>
@@ -330,6 +330,12 @@ const stylesModal = StyleSheet.create({
   },
   pressable: {
     backgroundColor: primaryColor,
+    minWidth: "100%",
+    alignItems: "center",
+    paddingVertical: 12,
+    borderRadius: 50,
+  },
+  pressCancel: {
     minWidth: "100%",
     alignItems: "center",
     paddingVertical: 12,
