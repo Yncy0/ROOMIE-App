@@ -29,7 +29,7 @@ const useHandleReserve = ({
     dayjs.extend(require("dayjs/plugin/timezone"));
     dayjs.extend(require("dayjs/plugin/utc"));
 
-    const [subjectCode, setSubjectCode] = useState<string>("null");
+    const [subjectCode, setSubjectCode] = useState<string>("");
     const [courseAndSection, setCourseAndSection] = useState<string>(
         "",
     );

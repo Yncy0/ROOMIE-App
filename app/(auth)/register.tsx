@@ -77,23 +77,27 @@ export default function Auth() {
     useThemeColor();
 
   async function signUpWithEmail() {
-    setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      phone: phone,
-    });
+    // setLoading(true);
+    // const {
+    //   data: { session },
+    //   error,
+    // } = await supabase.auth.signUp({
+    //   email: email,
+    //   password: password,
+    //   phone: phone,
+    // });
 
     // if (error) Alert.alert(error.message);
-    // if (!session)
-    //   Alert.alert("Please check your inbox for email verification!");
-    setLoading(false);
+    if (!phone && !email && !password) {
+      Alert.alert("Please enter the necessary input");
+    } else {
+      router.replace({
+        pathname: "/(auth)/otp",
+        params: { email: email, phone: phone, password: password },
+      });
+    }
 
-    //FIXME: to otp
-    router.replace("/otp");
+    setLoading(false);
   }
 
   return (
