@@ -4,6 +4,7 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 import useThemeColor from "@/hooks/useThemeColor";
 import { Button, Input } from "@rneui/themed";
 import { supabase } from "@/utils/supabase";
+import { useAuth } from "@/providers/AuthProvider";
 
 //FIXME: Change to OTP email
 const otp = () => {
@@ -20,36 +21,27 @@ const otp = () => {
     useThemeColor();
 
   async function sendOtp() {
-    setLoading(true);
     const { data, error } = await supabase.auth.signInWithOtp({
       phone,
+      options: {
+        shouldCreateUser: false,
+      },
     });
 
     if (error) throw error;
-    console.log("im pressing");
 
-    console.log(data);
     setLoading(false);
   }
 
   async function verifyOtp() {
     setLoading(true);
+
     const { data, error: otp } = await supabase.auth.verifyOtp({
       phone,
       token: password,
       type: "sms",
     });
 
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      phone: phone,
-    });
-
-    if (error) throw error;
     if (otp) throw otp;
 
     console.log(data);
