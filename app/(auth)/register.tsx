@@ -125,6 +125,31 @@ export default function Auth() {
           }}
         />
         <Input
+          label="Mobile Number"
+          leftIcon={{
+            type: "font-awesome",
+            name: "phone",
+            size: 14,
+            color: "#636c72",
+          }}
+          labelStyle={{ fontSize: 14 }}
+          onChangeText={(text) => setPhone(text)}
+          value={phone}
+          placeholder="+639123456789"
+          autoCapitalize={"none"}
+          errorStyle={{ color: "red" }}
+          errorMessage={""}
+          inputStyle={{ fontSize: 14, color: themeTextStyle.color }}
+          inputContainerStyle={{
+            width: "100%",
+            borderBottomWidth: 0,
+            backgroundColor: themeInputStyle.backgroundColor,
+            paddingHorizontal: 15,
+            borderRadius: 10,
+            gap: 10,
+          }}
+        />
+        <Input
           label="Password"
           leftIcon={{
             type: "font-awesome",
