@@ -155,7 +155,7 @@ export default function RoomPreview() {
               <EmptyDisplay />
             )}
           </View>
-          <FABReport />
+          <FABReport id={id} />
         </ScrollView>
         <BottomSheetModal
           ref={bottomSheetMoadlRef}

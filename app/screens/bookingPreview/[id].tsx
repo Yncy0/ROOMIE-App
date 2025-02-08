@@ -29,7 +29,10 @@ import useThemeColor from "@/hooks/useThemeColor";
 import { pressBack } from "@/utils/pressBack";
 import { formatTimeMeridian } from "@/utils/timeUtils";
 import { primaryColor } from "@/constants/Colors";
-import { useUpdateBookedRoomPending } from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
+import {
+  useUpdateBookedRoomCancelReq,
+  useUpdateBookedRoomPending,
+} from "@/hooks/queries/bookedRooms/useUpdateBookedRooms";
 import useHandleEdit from "@/hooks/useHandleEdit";
 import DropdownSubject from "@/components/dropdowns/DropdownSubject";
 import DropdownRooms from "@/components/dropdowns/DropdownRooms";
@@ -149,11 +152,17 @@ const BookingPreview = () => {
                       [
                         {
                           text: "Cancel",
-                          onPress: () => console.log("Cancel Pressed"),
+                          onPress: () => console.log("CANCEL"),
                         },
                         {
                           text: "OK",
-                          onPress: () => useUpdateBookedRoomPending(id),
+                          onPress: () => {
+                            useUpdateBookedRoomCancelReq(id),
+                              Alert.alert(
+                                "Please wait for your cancellation request. Thank you!"
+                              );
+                            router.replace("/");
+                          },
                         },
                       ],
                       { cancelable: false } // This option makes sure the user must tap a button before the alert can be dismissed

@@ -23,12 +23,23 @@ const updateRoomsAvailable = async () => {
   if (scheduleError) throw scheduleError;
 
   for (const schedule of schedules) {
-    const { error } = await supabase
+    const { data: room, error: roomError } = await supabase
       .from("rooms")
-      .update({ status: "AVAILABLE" })
-      .eq("id", schedule.room_id);
+      .select("status")
+      .eq("id", schedule.room_id)
+      .single();
 
-    if (error) throw error;
+    if (roomError) throw roomError;
+
+    // Check if the room status is not "INCOMING REPAIR"
+    if (room.status !== "UNDER MAINTENANCE") {
+      const { error } = await supabase
+        .from("rooms")
+        .update({ status: "AVAILABLE" })
+        .eq("id", schedule.room_id);
+
+      if (error) throw error;
+    }
   }
 };
 

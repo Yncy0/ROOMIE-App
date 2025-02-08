@@ -50,15 +50,15 @@ export default function RootLayout() {
     prepare();
   }, []);
 
-  React.useEffect(() => {
-    const updatesTick = setInterval(() => {
-      useUpdateScheduleOngoing();
-      useUpdateScheduleDone();
-      // useUpdateSchedulePendingClass();
-      useUpdateBookedRoomStatus();
-    }, 5000);
-    return () => clearInterval(updatesTick);
-  }, []);
+  // React.useEffect(() => {
+  //   const updatesTick = setInterval(() => {
+  //     useUpdateScheduleOngoing();
+  //     useUpdateScheduleDone();
+  //     // useUpdateSchedulePendingClass();
+  //     useUpdateBookedRoomStatus();
+  //   }, 5000);
+  //   return () => clearInterval(updatesTick);
+  // }, []);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>

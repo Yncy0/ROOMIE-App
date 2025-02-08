@@ -55,14 +55,6 @@ const BookingBottomSheet = ({
     }
   };
 
-  React.useEffect(() => {
-    const a = async () => {
-      await askPermission;
-    };
-
-    a();
-  }, []);
-
   const pickDoc = async () => {
     let pickerResult = await DocumentPicker.getDocumentAsync({
       copyToCacheDirectory: false,
@@ -175,8 +167,8 @@ const BookingBottomSheet = ({
           />
         </View>
 
-        {maybeRenderControls()}
-        {maybeRenderUploadingIndicator()}
+        {/* {maybeRenderControls()}
+        {maybeRenderUploadingIndicator()} */}
 
         <Pressable style={styles.pressable} onPress={handleReserve}>
           <Text style={styles.text}>Reserve</Text>

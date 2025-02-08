@@ -18,15 +18,25 @@ import { useRouter } from "expo-router";
 import useCheckForOverlap from "@/hooks/queries/bookedRooms/useCheckOverlap";
 import useInsertBookedRooms from "@/hooks/queries/bookedRooms/useInsertBookedRooms";
 import { useInsertBacklogs } from "@/hooks/queries/useInsertBacklogs";
+import {
+  useUpdateRoomStatus,
+  useUpdateRoomStatusRepair,
+} from "@/hooks/queries/useUpdateRooms";
 
-const FABReport = () => {
+type Props = {
+  id: any;
+};
+
+const FABReport = ({ id }: Props) => {
   const [visible, setVisible] = React.useState(false);
   const [text, setText] = React.useState("");
 
   const { themeTextStyle, themeInputStyle } = useThemeColor();
 
-  const handleConfirm = () => {
-    useInsertBacklogs("REPORT", text);
+  const handleConfirm = async () => {
+    await useUpdateRoomStatusRepair(id, "UNDER MAINTENANCE");
+    await useInsertBacklogs("REPORT", text);
+
     setVisible(false);
 
     Alert.alert("Your report has been submitted, please wait for the action.");

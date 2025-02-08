@@ -1,35 +1,6 @@
 import { supabase } from "@/utils/supabase";
 import dayjs from "dayjs";
 
-export const useUpdateBookedRoomStatus = async () => {
-    const timeNow = dayjs().format("YYYY-MM-DD HH:mm:ssZ");
-    const today = dayjs().format("DD MMMM YYYY");
-
-    const { data, error } = await supabase
-        .from("booked_rooms")
-        .update({ status: "DONE" })
-        .eq("status", "ON GOING")
-        .eq("date", today)
-        .lte("time_out", timeNow)
-        .select();
-
-    if (error) throw error;
-
-    return data;
-};
-
-export const useUpdateBookedRoomPending = async (booking_id: any) => {
-    const { data, error } = await supabase
-        .from("booked_rooms")
-        .update({ status: "PENDING" })
-        .eq("id", booking_id)
-        .select();
-
-    if (error) throw error;
-
-    return data;
-};
-
 //TODO: add an update of INCOMING to ON GOING based on the time
 
 export async function useUpdateBookedRooms(
@@ -66,3 +37,44 @@ export async function useUpdateBookedRooms(
 
     return booked_rooms;
 }
+
+export const useUpdateBookedRoomStatus = async () => {
+    const timeNow = dayjs().format("YYYY-MM-DD HH:mm:ssZ");
+    const today = dayjs().format("DD MMMM YYYY");
+
+    const { data, error } = await supabase
+        .from("booked_rooms")
+        .update({ status: "DONE" })
+        .eq("status", "ON GOING")
+        .eq("date", today)
+        .lte("time_out", timeNow)
+        .select();
+
+    if (error) throw error;
+
+    return data;
+};
+
+export const useUpdateBookedRoomPending = async (booking_id: any) => {
+    const { data, error } = await supabase
+        .from("booked_rooms")
+        .update({ status: "PENDING" })
+        .eq("id", booking_id)
+        .select();
+
+    if (error) throw error;
+
+    return data;
+};
+
+export const useUpdateBookedRoomCancelReq = async (booking_id: any) => {
+    const { data, error } = await supabase
+        .from("booked_rooms")
+        .update({ status: "PENDING CANCELLATION" })
+        .eq("id", booking_id)
+        .select();
+
+    if (error) throw error;
+
+    return data;
+};

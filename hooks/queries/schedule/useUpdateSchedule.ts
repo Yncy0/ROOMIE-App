@@ -67,33 +67,33 @@ export const useUpdateSchedulePendingClass = async () => {
     return data;
 };
 
-export const updateScheduleDate = async (
-    scheduleId: string,
-    weekday: string,
-) => {
-    try {
-        // Calculate the next date for the assigned weekday
-        const nextDate = getNextWeekdayDate(weekday);
+// export const updateScheduleDate = async (
+//     scheduleId: string,
+//     weekday: string,
+// ) => {
+//     try {
+//         // Calculate the next date for the assigned weekday
+//         const nextDate = getNextWeekdayDate(weekday);
 
-        // Update the schedule in Supabase
-        const { data, error } = await supabase
-            .from("schedule")
-            .update({ date: nextDate })
-            .eq("id", scheduleId)
-            .select();
+//         // Update the schedule in Supabase
+//         const { data, error } = await supabase
+//             .from("schedule")
+//             .update({ date: nextDate })
+//             .eq("id", scheduleId)
+//             .select();
 
-        if (error) {
-            console.error(
-                `Error updating schedule date for ID ${scheduleId}:`,
-                error,
-            );
-            throw error;
-        }
+//         if (error) {
+//             console.error(
+//                 `Error updating schedule date for ID ${scheduleId}:`,
+//                 error,
+//             );
+//             throw error;
+//         }
 
-        console.log(`Schedule date updated to ${nextDate}:`, data);
-        return data;
-    } catch (error) {
-        console.error("Error in updateScheduleDate:", error);
-        throw error;
-    }
-};
+//         console.log(`Schedule date updated to ${nextDate}:`, data);
+//         return data;
+//     } catch (error) {
+//         console.error("Error in updateScheduleDate:", error);
+//         throw error;
+//     }
+// };
